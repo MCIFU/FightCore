@@ -1,0 +1,72 @@
+.plate {
+  --accent: var(--ember);
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  container-type: inline-size;
+  isolation: isolate;
+}
+.corner_a { --accent: var(--corner-a); }
+.corner_b { --accent: var(--corner-b); }
+.corner_c { --accent: var(--corner-c); }
+.corner_d { --accent: var(--corner-d); }
+
+.grid {
+  position: absolute; inset: 0; z-index: -1;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 12.5% 10%;
+  mask-image: radial-gradient(120% 90% at 30% 40%, #000 30%, transparent 85%);
+  opacity: 0.55;
+}
+.top, .bottom {
+  display: flex; justify-content: space-between; align-items: flex-end; gap: 8px;
+  padding: 10px 12px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--bone-3); text-transform: uppercase;
+}
+.initials {
+  position: relative;
+  align-self: center;
+  justify-self: start;
+  padding-left: 7cqi;
+  font-variation-settings: "wdth" 62;
+  font-weight: 800;
+  font-size: 58cqi;
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+  color: var(--bone);
+}
+.core {
+  position: absolute;
+  right: -10cqi;
+  bottom: 4cqi;
+  width: 7cqi; height: 7cqi;
+  background: var(--accent);
+}
+.belt {
+  position: absolute; top: 34px; right: 12px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; color: var(--ink-0);
+  background: var(--warning); padding: 2px 5px; font-weight: 700;
+}
+.bottom { flex-direction: column; align-items: stretch; gap: 8px; border-top: 1px solid var(--line); }
+.coords { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.barcode { display: flex; align-items: flex-end; gap: 2px; height: 22px; }
+.bar { flex: 1 1 0; max-width: 5px; background: var(--bone); }
+.bar_W { height: 100%; }
+.bar_L { height: 32%; background: var(--bone-3); }
+.bar_D { height: 62%; background: var(--bone-2); }
+.bar_NC { height: 16%; background: var(--ink-4); }
+
+.sm .top { display: none; }
+.sm .bottom { padding: 6px 8px; }
+.sm .coords { display: none; }
+.sm .barcode { height: 12px; }
+.sm .belt { top: 6px; right: 6px; }
+.lg .top, .lg .bottom { padding: 14px 16px; font-size: 11px; }
+.lg .barcode { height: 30px; }

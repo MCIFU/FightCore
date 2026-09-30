@@ -1,0 +1,38 @@
+.segWrap { display: grid; gap: 10px; }
+.seg { display: flex; gap: 2px; width: 100%; }
+.seg_md { height: 14px; }
+.seg_sm { height: 8px; }
+.segPart { display: block; min-width: 2px; }
+.segPart:first-child { border-radius: 3px 0 0 3px; }
+.segPart:last-child { border-radius: 0 3px 3px 0; }
+.t_bone { background: var(--bone); }
+.t_bone-2 { background: var(--bone-2); }
+.t_bone-3 { background: var(--bone-3); }
+.t_ink { background: var(--ink-4); }
+.t_a { background: var(--corner-a); }
+.t_b { background: var(--corner-b); }
+.t_c { background: var(--corner-c); }
+.t_d { background: var(--corner-d); }
+.segLegend { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.segLegend li { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-xs); }
+.key { width: 8px; height: 8px; display: inline-block; }
+.segLabel { color: var(--bone-2); }
+.segVal { font-variant-numeric: tabular-nums; font-weight: 600; }
+.segVal small { font-weight: 400; color: var(--bone-3); font-size: 1em; }
+
+.bullet {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label value" "track delta";
+  gap: 6px 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+@media (min-width: 720px) {
+  .bullet { grid-template-columns: minmax(160px, 1.1fr) 5rem minmax(0, 2fr) 3.6rem; grid-template-areas: "label value track delta"; }
+}
+.bLabel { grid-area: label; font-size: var(--fs-sm); display: grid; }
+.bNote { font-size: var(--fs-xs); color: var(--bone-3); }
+.bValue { grid-area: value; font-variation-settings: "wdth" 75; font-weight: 700; font-size: 1.3rem; font-variant-numeric: tabular-nums; text-align: right; }
+.bTrack { grid-area: track; position: relative; height: 8px; background: var(--ink-3); }
+.bFill { position: absolute; inset: 0 auto 0 0; background: var(--bone); border-radius: 0 3px 3px 0; transition: width var(--dur-3) var(--ease-out); }
+.bRef { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--ember); transform: translateX(-1px); box-shadow: 0 0 0 2px var(--ink-0); }
+.bDelta { grid-area: delta; font-family: var(--font-mono); font-size: 11px; text-align: right; color: var(--bone-3); font-variant-numeric: tabular-nums; }
+.good { color: var(--success); }
+.bad { color: var(--bone-2); }

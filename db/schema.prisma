@@ -1,0 +1,293 @@
+// FIGHTCORE — relational model (PostgreSQL).
+// Design artifact for phase 2: the demo provider in lib/demo implements the
+// same shapes in memory. Every fact-bearing table carries `provenance` and,
+// when imported, a `sourceId` pointing to where it came from.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Provenance { OFFICIAL IMPORTED CALCULATED EDITORIAL DEMO }
+enum Sex { M F }
+enum OrgStatus { ACTIVE DEFUNCT ABSORBED }
+enum FighterStatus { ACTIVE INACTIVE RETIRED }
+enum Stance { ORTHODOX SOUTHPAW SWITCH }
+enum Method { KO_TKO SUB U_DEC S_DEC M_DEC DRAW NC DQ }
+enum FightStatus { SCHEDULED COMPLETED CANCELLED }
+enum Corner { RED BLUE }
+enum CardSlot { MAIN CO_MAIN MAIN_CARD PRELIMS }
+
+model Source {
+  id         String   @id @default(cuid())
+  name       String
+  url        String?
+  license    String?
+  retrievedAt DateTime
+}
+
+model Country {
+  code      String     @id @db.Char(3) // ISO 3166-1 alpha-3
+  name      String
+  lat       Float
+  lon       Float
+  fighters  Fighter[]
+  venues    Venue[]
+  orgs      Organization[]
+}
+
+model Organization {
+  id          String      @id
+  slug        String      @unique
+  name        String
+  short       String
+  country     Country?    @relation(fields: [countryCode], references: [code])
+  countryCode String?     @db.Char(3)
+  region      String
+  activeFrom  Int?        // null = unknown, never guessed
+  activeTo    Int?
+  status      OrgStatus
+  provenance  Provenance
+  events      Event[]
+  rankings    Ranking[]
+  titles      Championship[]
+  history     HistoricalEvent[]
+}
+
+model Division {
+  id        String   @id
+  slug      String   @unique
+  name      String
+  sex       Sex
+  limitKg   Decimal  @db.Decimal(5, 1)
+  order     Int
+  fights    Fight[]
+  rankings  Ranking[]
+  titles    Championship[]
+}
+
+model Venue {
+  id          String   @id @default(cuid())
+  name        String
+  city        String
+  country     Country  @relation(fields: [countryCode], references: [code])
+  countryCode String   @db.Char(3)
+  events      Event[]
+}
+
+model Fighter {
+  id           String        @id
+  slug         String        @unique
+  firstName    String
+  lastName     String
+  nickname     String?
+  sex          Sex
+  birthDate    DateTime?     @db.Date
+  heightCm     Int?
+  reachCm      Int?
+  stance       Stance?
+  status       FighterStatus
+  country      Country       @relation(fields: [countryCode], references: [code])
+  countryCode  String        @db.Char(3)
+  priorWins    Int           @default(0) // record before coverage, no breakdown
+  priorLosses  Int           @default(0)
+  priorDraws   Int           @default(0)
+  provenance   Provenance
+  sourceId     String?
+  bouts        FightCorner[]
+  ratings      Rating[]
+  rankings     RankingEntry[]
+  titles       Championship[]
+  statistics   FighterStatistic[]
+}
+
+model Event {
+  id          String       @id
+  slug        String       @unique
+  name        String
+  date        DateTime     @db.Date
+  org         Organization @relation(fields: [orgId], references: [id])
+  orgId       String
+  venue       Venue?       @relation(fields: [venueId], references: [id])
+  venueId     String?
+  provenance  Provenance
+  sourceId    String?
+  fights      Fight[]
+  @@index([date])
+}
+
+model Fight {
+  id              String       @id
+  event           Event        @relation(fields: [eventId], references: [id])
+  eventId         String
+  division        Division     @relation(fields: [divisionId], references: [id])
+  divisionId      String
+  status          FightStatus
+  method          Method?
+  submission      String?
+  endRound        Int?
+  endTimeSec      Int?
+  scheduledRounds Int
+  titleFight      Boolean      @default(false)
+  slot            CardSlot
+  cardOrder       Int
+  referee         Referee?     @relation(fields: [refereeId], references: [id])
+  refereeId       String?
+  provenance      Provenance
+  sourceId        String?
+  corners         FightCorner[]
+  rounds          Round[]
+  scorecards      Scorecard[]
+}
+
+/// One row per fighter per fight: the join between Fighter and Fight.
+model FightCorner {
+  fight         Fight    @relation(fields: [fightId], references: [id])
+  fightId       String
+  fighter       Fighter  @relation(fields: [fighterId], references: [id])
+  fighterId     String
+  corner        Corner
+  won           Boolean?
+  strengthPre   Float    // results-based index before the bout (calculated)
+  sigLanded     Int?
+  sigAttempted  Int?
+  totalLanded   Int?
+  totalAttempted Int?
+  head          Int?
+  body          Int?
+  leg           Int?
+  distance      Int?
+  clinch        Int?
+  ground        Int?
+  knockdowns    Int?
+  tdLanded      Int?
+  tdAttempted   Int?
+  subAttempts   Int?
+  ctrlSec       Int?
+  @@id([fightId, fighterId])
+  @@index([fighterId])
+}
+
+model Round {
+  fight     Fight  @relation(fields: [fightId], references: [id])
+  fightId   String
+  number    Int
+  corner    Corner
+  sigLanded Int?
+  sigAttempted Int?
+  tdLanded  Int?
+  ctrlSec   Int?
+  knockdowns Int?
+  @@id([fightId, number, corner])
+}
+
+model Judge {
+  id         String      @id @default(cuid())
+  name       String
+  scorecards Scorecard[]
+}
+
+model Referee {
+  id     String  @id @default(cuid())
+  name   String
+  fights Fight[]
+}
+
+model Scorecard {
+  fight   Fight  @relation(fields: [fightId], references: [id])
+  fightId String
+  judge   Judge? @relation(fields: [judgeId], references: [id])
+  judgeId String?
+  red     Int
+  blue    Int
+  @@id([fightId, red, blue, judgeId])
+}
+
+model Championship {
+  id           String       @id @default(cuid())
+  org          Organization @relation(fields: [orgId], references: [id])
+  orgId        String
+  division     Division     @relation(fields: [divisionId], references: [id])
+  divisionId   String
+  fighter      Fighter      @relation(fields: [fighterId], references: [id])
+  fighterId    String
+  wonFightId   String
+  from         DateTime     @db.Date
+  to           DateTime?    @db.Date
+  defenses     Int          @default(0)
+}
+
+/// Rating history: one row per fighter per model version per recalculation.
+model Rating {
+  id           String   @id @default(cuid())
+  fighter      Fighter  @relation(fields: [fighterId], references: [id])
+  fighterId    String
+  modelVersion String
+  asOf         DateTime @db.Date
+  afterFightId String?
+  value        Float
+  band         Float
+  factors      Json     // { performance: 93.5, ... }
+  @@index([fighterId, modelVersion, asOf])
+}
+
+/// Official (org-published) and FIGHTCORE rankings share a shape but never mix.
+model Ranking {
+  id          String         @id @default(cuid())
+  kind        String         // "OFFICIAL" | "FIGHTCORE"
+  org         Organization?  @relation(fields: [orgId], references: [id])
+  orgId       String?
+  division    Division?      @relation(fields: [divisionId], references: [id])
+  divisionId  String?        // null = pound-for-pound
+  publishedAt DateTime       @db.Date
+  provenance  Provenance
+  entries     RankingEntry[]
+}
+
+model RankingEntry {
+  ranking   Ranking @relation(fields: [rankingId], references: [id])
+  rankingId String
+  fighter   Fighter @relation(fields: [fighterId], references: [id])
+  fighterId String
+  position  Int
+  @@id([rankingId, position])
+}
+
+/// Precomputed career aggregates (calculated), refreshed after each fight.
+model FighterStatistic {
+  fighter   Fighter  @relation(fields: [fighterId], references: [id])
+  fighterId String
+  key       String   // "slpm", "strAcc", ...
+  scope     String   // "career" | "org:ufc" | "division:M-LW" | "last5"
+  value     Float
+  sample    Int
+  asOf      DateTime @db.Date
+  @@id([fighterId, key, scope])
+}
+
+model Record {
+  id        String   @id @default(cuid())
+  category  String
+  label     String
+  value     String
+  holderId  String?
+  fightId   String?
+  scope     String   // "global" | "org:ufc" | "event:..."
+  asOf      DateTime @db.Date
+}
+
+model HistoricalEvent {
+  id         String        @id @default(cuid())
+  year       Int
+  date       DateTime?     @db.Date
+  title      String
+  body       String
+  org        Organization? @relation(fields: [orgId], references: [id])
+  orgId      String?
+  kind       String
+  provenance Provenance
+}

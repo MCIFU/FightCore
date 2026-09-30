@@ -1,0 +1,17 @@
+.rows { list-style: none; padding: 0; border-top: 1px solid var(--line-strong); }
+.row { display: grid; grid-template-columns: 5.5rem 1fr auto; grid-template-areas: "date name status" "date org status"; gap: 2px 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 900px) { .row { grid-template-columns: 6rem 6rem minmax(0, 1fr) 14rem 8rem; grid-template-areas: "date org name main status"; } }
+.row:hover { background: linear-gradient(90deg, var(--ink-1), transparent); }
+.row:hover .name { color: var(--ember); }
+.date { grid-area: date; display: flex; align-items: flex-end; gap: 8px; }
+.day { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 2.6rem; line-height: 0.8; font-variant-numeric: tabular-nums; }
+.mon { font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); line-height: 1.3; letter-spacing: 0.06em; }
+.org { grid-area: org; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--bone-2); }
+.name { grid-area: name; font-weight: 700; display: grid; transition: color var(--dur-1); }
+.city { font-weight: 400; font-size: var(--fs-xs); color: var(--bone-3); }
+.main { grid-area: main; display: none; font-size: var(--fs-xs); color: var(--bone-3); }
+.main strong { color: var(--bone); }
+@media (min-width: 900px) { .main { display: block; } }
+.status { grid-area: status; justify-self: end; }
+.year { margin-top: 32px; }
+.yearTitle { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 3rem; line-height: 1; margin-bottom: 8px; color: var(--bone-3); }

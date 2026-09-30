@@ -1,0 +1,13 @@
+.cat { margin-top: 40px; }
+.catTitle { font-family: var(--font-mono); font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bone-3); padding-bottom: 10px; border-bottom: 1px solid var(--line-strong); }
+.list { list-style: none; padding: 0; }
+.row { display: grid; grid-template-columns: 7rem 1fr; grid-template-areas: "value label" "unit holder" "unit ctx"; gap: 2px 20px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+@media (min-width: 900px) { .row { grid-template-columns: 10rem 7rem 1fr 1fr 1fr; grid-template-areas: "value unit label holder ctx"; } }
+.row:hover .value { color: var(--ember); }
+.value { grid-area: value; font-variation-settings: "wdth" 62; font-weight: 800; font-size: clamp(3rem, 2rem + 3vw, 5rem); line-height: 0.85; font-variant-numeric: tabular-nums; transition: color var(--dur-1); }
+.unit { grid-area: unit; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
+.label { grid-area: label; font-weight: 700; font-size: var(--fs-md); }
+.holder { grid-area: holder; display: grid; }
+.holder span { font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); letter-spacing: 0.06em; }
+.ctx { grid-area: ctx; font-size: var(--fs-sm); color: var(--bone-3); }
+.note { margin-top: 32px; color: var(--bone-3); font-size: var(--fs-sm); }

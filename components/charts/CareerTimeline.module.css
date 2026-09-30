@@ -1,0 +1,28 @@
+.wrap { display: grid; gap: 12px; }
+.scroller { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--ink-4) transparent; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.svg { display: block; min-width: 100%; }
+.yearLine { stroke: var(--line); stroke-dasharray: 1 4; }
+.year { fill: var(--bone-3); font-family: var(--font-mono); font-size: 10px; }
+.axis { stroke: var(--bone-3); stroke-width: 1; }
+.period { fill: var(--ink-4); }
+.periodAlt { fill: var(--bone-3); opacity: 0.55; }
+.periodLabel { fill: var(--bone-3); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; }
+.bout { cursor: pointer; outline: none; }
+.stemW { stroke: var(--bone); stroke-width: 2; }
+.stemL { stroke: var(--bone-3); stroke-width: 1.5; }
+.mark { stroke-width: 1.5; transition: transform var(--dur-1); transform-box: fill-box; transform-origin: center; }
+.m_W { fill: var(--bone); stroke: var(--bone); }
+.m_L { fill: var(--ink-0); stroke: var(--bone); }
+.m_D { fill: var(--bone-3); stroke: var(--bone); }
+.m_NC { fill: var(--ink-0); stroke: var(--bone-3); stroke-dasharray: 2 2; }
+.markActive, .bout:focus-visible .mark { fill: var(--ember); stroke: var(--ember); transform: scale(1.25); }
+.titleRing { fill: none; stroke: var(--bone-2); stroke-width: 1; }
+.titleRingWin { fill: none; stroke: var(--warning); stroke-width: 1.5; }
+.hit { fill: transparent; }
+.readout { min-height: 64px; display: grid; gap: 2px; align-content: start; }
+.readOutcome { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.r_W { color: var(--bone); }
+.r_L { color: var(--bone-3); }
+.readMain { font-weight: 700; font-size: var(--fs-md); }
+.readMeta { font-size: var(--fs-xs); color: var(--bone-3); }
+.readHint { font-size: var(--fs-xs); color: var(--bone-3); }

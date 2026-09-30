@@ -1,0 +1,25 @@
+.row {
+  display: grid; grid-template-columns: 1fr 7.5rem 1fr; grid-template-areas: "slot slot slot" "red center blue";
+  gap: 6px 12px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: center; container-type: inline-size;
+}
+.slot { grid-area: slot; display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone-3); }
+.side { display: grid; gap: 2px; min-width: 0; position: relative; }
+.red { grid-area: red; padding-left: 12px; border-left: 3px solid var(--corner-a); }
+.blue { grid-area: blue; text-align: right; padding-right: 12px; border-right: 3px solid var(--corner-b); }
+.first { font-size: var(--fs-xs); color: var(--bone-2); }
+.last { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: clamp(1.3rem, 1rem + 1.4vw, 2rem); line-height: 0.95; overflow-wrap: anywhere; transition: color var(--dur-1); }
+.main .last { font-size: clamp(1.6rem, 1rem + 2.4vw, 3rem); }
+.side:hover .last { color: var(--ember); }
+.meta { font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); letter-spacing: 0.04em; }
+.win { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; background: var(--bone); color: var(--ink-0); padding: 2px 5px; font-weight: 700; justify-self: start; margin-top: 4px; }
+.blue .win { justify-self: end; }
+.lost .last { color: var(--bone-3); }
+.center { grid-area: center; display: grid; justify-items: center; gap: 2px; padding: 8px 4px; border: 1px solid var(--line); transition: border-color var(--dur-1), background var(--dur-1); }
+.center:hover { border-color: var(--bone-2); background: var(--ink-1); }
+.div { font-family: var(--font-mono); font-size: 9px; color: var(--bone-3); letter-spacing: 0.1em; }
+.method { font-family: var(--font-mono); font-size: 12px; font-weight: 700; }
+.time { font-family: var(--font-mono); font-size: 10px; color: var(--bone-2); }
+.vs { font-variation-settings: "wdth" 62; font-weight: 800; color: var(--bone-3); font-size: 1.1rem; }
+.open { font-size: 10px; color: var(--bone-3); }
+.center:hover .open { color: var(--ember); }
+@media (max-width: 560px) { .row { grid-template-columns: 1fr 5.5rem 1fr; } }

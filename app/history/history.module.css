@@ -1,0 +1,30 @@
+.page { padding: var(--s-8) 0 var(--s-9); margin-bottom: calc(-1 * var(--s-9)); }
+.head { display: grid; gap: 18px; padding-bottom: var(--s-7); border-bottom: 2px solid var(--paper-ink); }
+.title { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: var(--fs-3xl); line-height: 0.92; max-width: 15ch; }
+.lede { font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem); line-height: 1.4; color: var(--paper-ink-2); max-width: 46ch; }
+.h2 { font-variation-settings: "wdth" 72; font-weight: 750; text-transform: uppercase; font-size: var(--fs-xl); }
+.note { font-size: var(--fs-sm); color: var(--paper-ink-2); margin: 8px 0 20px; max-width: 70ch; }
+.spanBlock { padding: var(--s-7) 0; border-bottom: 1px solid var(--paper-line); }
+.spanChart { position: relative; padding-top: 24px; }
+.spanAxis { position: absolute; top: 0; left: 6rem; right: 0; height: 100%; pointer-events: none; font-family: var(--font-mono); font-size: 10px; color: var(--paper-ink-2); }
+.spanAxis span { position: absolute; top: 0; transform: translateX(-50%); }
+.spanAxis span::after { content: ""; position: absolute; top: 18px; left: 50%; height: 2000px; border-left: 1px dashed var(--paper-line); }
+.spanRow { display: grid; grid-template-columns: 6rem 1fr; align-items: center; height: 26px; }
+.spanName { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; }
+.spanName a:hover { color: var(--ember-ink); }
+.spanTrack { position: relative; height: 100%; overflow: hidden; }
+.spanBar { position: absolute; top: 9px; height: 8px; background: var(--paper-ink); }
+.ended { background: repeating-linear-gradient(135deg, var(--paper-ink) 0 3px, transparent 3px 6px); border: 1px solid var(--paper-ink); }
+.decade { display: grid; gap: 12px; padding-top: var(--s-7); }
+@media (min-width: 900px) { .decade { grid-template-columns: 220px 1fr; } }
+.decadeTitle { font-variation-settings: "wdth" 62; font-weight: 800; font-size: clamp(4rem, 3rem + 4vw, 8rem); line-height: 0.8; }
+@media (min-width: 900px) { .decadeTitle { position: sticky; top: calc(var(--header-h) + 20px); align-self: start; } }
+.items { list-style: none; padding: 0; border-top: 2px solid var(--paper-ink); }
+.item { display: grid; grid-template-columns: 5rem 1fr; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--paper-line); scroll-margin-top: 100px; }
+.item:target { background: var(--paper-2); }
+.year { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 2.4rem; line-height: 0.9; font-variant-numeric: tabular-nums; }
+.itemBody { display: grid; gap: 6px; }
+.kind { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper-ink-2); }
+.itemTitle { font-size: var(--fs-lg); font-weight: 700; line-height: 1.15; }
+.itemBody p { font-size: 1.1rem; line-height: 1.5; color: var(--paper-ink-2); max-width: 60ch; }
+.src { margin-top: 40px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: var(--fs-xs); color: var(--paper-ink-2); }

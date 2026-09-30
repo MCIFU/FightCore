@@ -1,0 +1,53 @@
+.page { padding-bottom: var(--s-8); }
+.head { padding: var(--s-8) var(--gutter) var(--s-8); display: grid; gap: 18px; }
+.title { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: var(--fs-3xl); line-height: 0.92; max-width: 14ch; }
+.lede { font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem); color: var(--bone-2); max-width: 46ch; line-height: 1.4; }
+.section { padding-top: clamp(64px, 8vw, 120px); }
+.h3 { font-size: var(--fs-sm); font-weight: 700; margin: 28px 0 10px; }
+
+.logoGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.tile { margin: 0; min-height: 200px; display: grid; place-items: center; align-content: center; gap: 22px; background: var(--ink-0); padding: 28px; position: relative; }
+.tile figcaption { position: absolute; left: 14px; bottom: 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
+.tileHero { grid-column: span 2; grid-row: span 2; min-height: 420px; }
+@media (max-width: 560px) { .tileHero { grid-column: span 1; min-height: 300px; } }
+.tileEmber { background: var(--corner-a); color: var(--ink-0); }
+.tileEmber figcaption { color: var(--ink-0); }
+.appIcon { width: 112px; height: 112px; border-radius: 26px; background: var(--ink-2); display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--line-strong), 0 20px 40px -10px rgb(0 0 0 / 0.6); }
+.favicons { display: flex; align-items: flex-end; gap: 18px; }
+.construction { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; margin-top: 28px; }
+.constructionNote { font-family: var(--font-mono); font-size: 11px; color: var(--bone-3); max-width: 38ch; letter-spacing: 0.04em; }
+
+.family { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); border-top: 1px solid var(--line-strong); }
+.family li { display: grid; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.famFc { font-variation-settings: "wdth" 125; font-weight: 800; font-size: 11px; letter-spacing: 0.08em; color: var(--bone-3); }
+.famName { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 2.6rem; text-transform: uppercase; line-height: 0.95; }
+
+.typeGrid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (min-width: 900px) { .typeGrid { grid-template-columns: 1fr 1fr; } }
+.spec { background: var(--ink-0); padding: 24px; display: grid; gap: 14px; align-content: start; }
+.specDisplay { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: clamp(3rem, 2rem + 4vw, 6rem); line-height: 0.92; }
+.specNum { line-height: 1; }
+.specHeading { font-weight: 700; font-size: 2rem; letter-spacing: -0.02em; line-height: 1.05; }
+.specSerif { font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.45; color: var(--bone-2); }
+.specUi { font-size: 1rem; }
+
+.swatches { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.swatch { display: grid; gap: 4px; font-size: var(--fs-xs); color: var(--bone-3); }
+.swatch strong { color: var(--bone); font-size: var(--fs-sm); }
+.swatch code { font-family: var(--font-mono); color: var(--bone-2); }
+.chip { display: grid; place-items: end start; height: 84px; border: 1px solid var(--line); padding: 8px; margin-bottom: 6px; }
+.chip b { font-family: var(--font-mono); color: var(--ink-0); font-size: 13px; }
+
+.rules { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); border-top: 1px solid var(--line-strong); }
+.rules li { display: grid; gap: 6px; padding: 20px 20px 20px 0; border-bottom: 1px solid var(--line); }
+.ruleNo { font-family: var(--font-mono); font-size: 11px; color: var(--ember); }
+.rules strong { font-size: var(--fs-md); }
+.rules span:last-child { font-size: var(--fs-sm); color: var(--bone-2); }
+
+.ds { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.demo { background: var(--ink-0); padding: 22px; display: grid; gap: 16px; align-content: start; min-width: 0; }
+.demoWide { grid-column: 1 / -1; }
+.demoBody { display: grid; gap: 16px; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.tilePaper { background: var(--paper); color: var(--paper-ink); }
+.tilePaper figcaption { color: var(--paper-ink-2); }

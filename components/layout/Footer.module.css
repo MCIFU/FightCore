@@ -1,0 +1,18 @@
+.footer { border-top: 1px solid var(--line); padding: var(--s-8) 0 calc(var(--s-6) + 72px); margin-top: var(--s-9); overflow: hidden; }
+@media (min-width: 760px) { .footer { padding-bottom: var(--s-6); } }
+.top { display: grid; gap: var(--s-7); }
+@media (min-width: 900px) { .top { grid-template-columns: 1fr 2fr; } }
+.brandCol { display: grid; gap: var(--s-5); align-content: start; color: var(--bone); }
+.manifesto { font-size: var(--fs-lg); line-height: 1.35; max-width: 26ch; color: var(--bone-2); }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--s-6); }
+.cols ul { list-style: none; padding: 0; margin-top: var(--s-3); display: grid; gap: 2px; }
+.cols a { display: inline-block; padding: 6px 0; color: var(--bone-2); font-size: var(--fs-sm); }
+.cols a:hover { color: var(--bone); }
+.giant {
+  margin: var(--s-8) 0 var(--s-5);
+  font-variation-settings: "wdth" 125; font-weight: 800; letter-spacing: -0.02em; line-height: 0.8;
+  font-size: clamp(3rem, 13.6vw, 13.5rem); color: var(--ink-3); white-space: nowrap; user-select: none;
+}
+.giant::before { content: attr(data-word); }
+.legal { display: grid; gap: var(--s-3); font-size: var(--fs-xs); color: var(--bone-3); max-width: 90ch; }
+.legal strong { color: var(--warning); font-weight: 600; }

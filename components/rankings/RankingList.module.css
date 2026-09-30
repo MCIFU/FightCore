@@ -1,0 +1,39 @@
+.list { list-style: none; padding: 0; border-top: 1px solid var(--line-strong); }
+.row {
+  display: grid;
+  grid-template-columns: 2.4rem 2.6rem minmax(0, 1fr) auto;
+  grid-template-areas: "rank mv who rating";
+  align-items: center; gap: 0 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+  transition: background var(--dur-1);
+}
+.row:hover { background: linear-gradient(90deg, transparent, var(--ink-1) 20%, var(--ink-1) 80%, transparent); }
+@media (min-width: 900px) {
+  .row { grid-template-columns: 2.6rem 2.8rem minmax(0, 1fr) 6rem 6.5rem minmax(80px, 140px) 6.5rem; grid-template-areas: "rank mv who record form band rating"; }
+}
+.rank { grid-area: rank; font-variation-settings: "wdth" 75; font-weight: 700; font-size: 1.25rem; font-variant-numeric: tabular-nums; color: var(--bone-3); }
+.first .rank { color: var(--ember); }
+.mv { grid-area: mv; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; }
+.mvUp { color: var(--success); }
+.mvDown { color: var(--bone-3); }
+.mvSame { color: var(--bone-3); }
+.mvNew { color: var(--ink-0); background: var(--warning); padding: 1px 4px; font-weight: 700; justify-self: start; }
+.who { grid-area: who; display: grid; gap: 3px; min-width: 0; }
+.name { font-weight: 650; font-size: 1.02rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-flex; align-items: center; gap: 8px; }
+.name:hover { color: var(--ember); }
+.champ { flex: none; display: inline-grid; place-items: center; width: 16px; height: 16px; background: var(--warning); color: var(--ink-0); font-family: var(--font-mono); font-size: 9px; font-weight: 700; }
+.meta { display: flex; gap: 10px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--bone-3); text-transform: uppercase; }
+.record, .form, .band { display: none; }
+@media (min-width: 900px) {
+  .record { display: block; grid-area: record; }
+  .form { display: block; grid-area: form; }
+  .band { display: block; grid-area: band; }
+}
+.band { position: relative; height: 12px; }
+.band::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
+.bandRange { position: absolute; top: 3px; bottom: 3px; background: var(--ink-4); }
+.bandPoint { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--bone); transform: translateX(-1px); }
+.first .bandPoint { background: var(--ember); }
+.rating { grid-area: rating; justify-self: end; }
+.compact .row { padding: 8px 0; }
+.compact .name { font-size: 0.95rem; }
