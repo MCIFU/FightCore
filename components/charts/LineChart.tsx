@@ -115,7 +115,7 @@ export function LineChart({ series, height = 280, yDomain, yLabel, formatX, form
           {markers?.map((m) => (
             <g key={`${m.x}-${m.label}`}>
               <line x1={sx(m.x)} x2={sx(m.x)} y1={pad.t} y2={H - pad.b} className={s.marker} />
-              <text x={sx(m.x) + 4} y={pad.t + 8} className={s.markerText}>{m.label}</text>
+              {!narrow && <text x={sx(m.x) + 4} y={pad.t + 8} className={s.markerText}>{m.label}</text>}
             </g>
           ))}
           {band && band.length > 1 && (

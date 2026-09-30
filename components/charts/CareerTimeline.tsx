@@ -29,7 +29,7 @@ export function CareerTimeline({ bouts, titleWins }: { bouts: TimelineBout[]; ti
   const [active, setActive] = useState<number | null>(null);
   const [boxRef, boxW] = useWidth<HTMLDivElement>(900);
   if (!bouts.length) return null;
-  const W = Math.max(boxW, bouts.length * 34);
+  const W = Math.max(boxW, bouts.length * (boxW < 600 ? 44 : 34));
   const H = 290;
   const axis = 142;
   const t0 = Date.parse(bouts[0].date) - 120 * 86400000;
