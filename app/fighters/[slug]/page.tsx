@@ -8,7 +8,7 @@ import { Evolution } from "@/components/fighter/Evolution";
 import { FighterPlate } from "@/components/fighter/FighterPlate";
 import { Opponents } from "@/components/fighter/Opponents";
 import { Performance } from "@/components/fighter/Performance";
-import { SectionNav } from "@/components/fighter/SectionNav";
+import { ProfilePanels } from "@/components/fighter/ProfilePanels";
 import { ButtonLink, CountryTag, FormStrip, OutcomeMark, RecordValue, SectionHead, Source, Tag, Unavailable } from "@/components/ui/primitives";
 import { Tabs } from "@/components/ui/Tabs";
 import { ChampionBadge } from "@/components/ui/ChampionBadge";
@@ -43,17 +43,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-const SECTIONS = [
-  { id: "lectura", label: "Lectura rápida" },
-  { id: "rating", label: "Rating" },
-  { id: "record", label: "Récord" },
-  { id: "estilo", label: "Estilo" },
-  { id: "rendimiento", label: "Rendimiento" },
-  { id: "forma", label: "Forma" },
-  { id: "carrera", label: "Carrera" },
-  { id: "evolucion", label: "Evolución" },
-  { id: "rivales", label: "Rivales" },
-];
 
 export default async function FighterPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -175,12 +164,12 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
         </div>
       </header>
 
-      <SectionNav items={SECTIONS} label="Secciones del expediente" />
-
-      <div className="wrap">
+      <ProfilePanels label="Apartados del expediente" panels={[
+        { id: "resumen", label: "Resumen", hint: "Lectura y forma", aliases: ["lectura", "forma"], content: (
+          <>
         {/* ───────── 01 LECTURA RÁPIDA ───────── */}
-        <section id="lectura" className={s.section} aria-labelledby="h-lectura">
-          <SectionHead id="h-lectura" round="01" kicker="FIGHTCORE Scout" title="Qué dicen los datos"
+        <section id="s-lectura" className={s.section} aria-labelledby="h-lectura">
+          <SectionHead id="h-lectura" kicker="FIGHTCORE Scout" title="Qué dicen los datos"
             lede="Observaciones generadas por reglas explícitas. Cada una muestra su evidencia y solo aparece si hay muestra suficiente." />
           {p.insights.length ? (
             <ul className={s.insights}>
@@ -197,10 +186,42 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             <p className={s.emptyNote}>Aún no hay muestra suficiente para extraer observaciones fiables.</p>
           )}
         </section>
-
+        {/* ───────── 06 FORMA ───────── */}
+        <section id="s-forma" className={s.section} aria-labelledby="h-forma">
+          <SectionHead id="h-forma" kicker="Forma" title="Cómo llega" lede="Últimos cinco combates, del más reciente al más antiguo, con su efecto en el rating." />
+          <ol className={s.form}>
+            {last5.map((b) => {
+              const delta = b.ratingAfter !== null && b.ratingBefore !== null ? b.ratingAfter - b.ratingBefore : null;
+              return (
+                <li key={b.fightId} className={s.formCard}>
+                  <Link href={`/fights/${b.fightId}`} className={s.formLink}>
+                    <OutcomeMark o={b.outcome} size="lg" />
+                    <span className={s.formOpp}>vs {b.opponent.name}</span>
+                    <span className={s.formMethod}>{b.method ? METHOD_LABEL[b.method] : "—"}{b.round ? ` · R${b.round} ${fmtClock(b.time)}` : ""}</span>
+                    <span className={s.formEvent}>{b.event.name} · {fmtDate(b.date)}</span>
+                    <span className={s.formStats}>
+                      <span><b className="num">{b.sigFor ?? "—"}</b>–<span className="num">{b.sigAgainst ?? "—"}</span> golpes sig.</span>
+                      <span><b className="num">{b.tdFor ?? "—"}</b> derribos</span>
+                    </span>
+                    <span className={s.formRating}>
+                      <span className="label">FCR</span>
+                      <span className="num">{b.ratingBefore?.toFixed(1) ?? "—"} → {b.ratingAfter?.toFixed(1) ?? "—"}</span>
+                      {delta !== null && <span className={`${s.formDelta} ${delta >= 0 ? s.up : s.down}`}>{delta >= 0 ? "+" : ""}{delta.toFixed(1)}</span>}
+                    </span>
+                    {b.title && <Tag tone="solid">Título</Tag>}
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+          </>
+        ) },
+        { id: "rating", label: "Rating", hint: "FCR y evolución", aliases: ["evolucion"], content: (
+          <>
         {/* ───────── 02 RATING ───────── */}
-        <section id="rating" className={s.section} aria-labelledby="h-rating">
-          <SectionHead id="h-rating" round="02" kicker={`FIGHTCORE Rating · v${FCR_VERSION}`} title="Cómo se compone su rating"
+        <section id="s-rating" className={s.section} aria-labelledby="h-rating">
+          <SectionHead id="h-rating" kicker={`FIGHTCORE Rating · v${FCR_VERSION}`} title="Cómo se compone su rating"
             lede={<>Ocho factores con peso fijo. La barra suma exactamente {rating.value.toFixed(1)} puntos. <Link href="/methodology" className={s.inlineLink}>Metodología completa</Link>.</>} />
           <div className={s.stackWrap}>
             <div className={s.stack} role="img" aria-label={`Contribución por factor: ${FACTORS.map((x) => `${x.label} ${rating.contributions[x.key].toFixed(1)}`).join(", ")}. Total ${factorTotal.toFixed(1)} de 100.`}>
@@ -258,10 +279,22 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             </div>
           )}
         </section>
-
+        {/* ───────── 08 EVOLUCIÓN ───────── */}
+        <section id="s-evolucion" className={s.section} aria-labelledby="h-evo">
+          <SectionHead id="h-evo" kicker="Evolución" title="Cómo ha cambiado" lede="El rating se recalcula tras cada combate. La banda gris es su margen de incertidumbre." />
+          <Evolution
+            points={p.evolution}
+            bands={p.ratingHistory.map((h) => ({ date: h.date, lo: h.value - h.band, hi: h.value + h.band }))}
+            titleDates={p.titleHistory.map((t) => ({ date: t.from, label: `TÍTULO ${t.org}` }))}
+          />
+        </section>
+          </>
+        ) },
+        { id: "record", label: "Récord", hint: "Métodos y carrera", aliases: ["carrera"], content: (
+          <>
         {/* ───────── 03 RÉCORD ───────── */}
-        <section id="record" className={s.section} aria-labelledby="h-record">
-          <SectionHead id="h-record" round="03" kicker="FIGHTCORE Records" title="Cómo gana. Cómo pierde." />
+        <section id="s-record" className={s.section} aria-labelledby="h-record">
+          <SectionHead id="h-record" kicker="FIGHTCORE Records" title="Cómo gana. Cómo pierde." />
           <Tabs
             label="Tipo de récord"
             tabs={[
@@ -328,10 +361,25 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
         </section>
-
+        {/* ───────── 07 CARRERA ───────── */}
+        <section id="s-carrera" className={s.section} aria-labelledby="h-carrera">
+          <SectionHead id="h-carrera" kicker="FIGHTCORE History" title="Carrera"
+            lede={p.titleHistory.length ? `${p.titleHistory.length} ${p.titleHistory.length === 1 ? "reinado" : "reinados"} como campeón: ${p.titleHistory.map((t) => `${t.org} desde ${fmtDate(t.from)}${t.to ? ` hasta ${fmtDate(t.to)}` : " (vigente)"}, ${t.defenses} ${t.defenses === 1 ? "defensa" : "defensas"}`).join("; ")}.` : "Cada combate registrado, con la organización en la que se disputó."} />
+          <CareerTimeline
+            titleWins={titleWinIds}
+            bouts={p.bouts.map((b) => ({
+              fightId: b.fightId, date: b.date, outcome: b.outcome, opponent: b.opponent.name, method: b.method,
+              round: b.round, org: b.event.org, event: b.event.name, title: b.title, oppStrength: b.oppStrength, ratingAfter: b.ratingAfter,
+            }))}
+          />
+        </section>
+          </>
+        ) },
+        { id: "estilo", label: "Estilo", hint: "Cómo pelea y stats", aliases: ["rendimiento"], content: (
+          <>
         {/* ───────── 04 ESTILO ───────── */}
-        <section id="estilo" className={s.section} aria-labelledby="h-estilo">
-          <SectionHead id="h-estilo" round="04" kicker="Análisis de estilo" title="Cómo pelea"
+        <section id="s-estilo" className={s.section} aria-labelledby="h-estilo">
+          <SectionHead id="h-estilo" kicker="Análisis de estilo" title="Cómo pelea"
             lede="Dónde y a qué golpea, y cómo se reparte su trabajo. Percentiles frente al conjunto de luchadores con al menos tres combates." />
           <div className={s.styleGrid}>
             <div className={s.styleZones}>
@@ -394,10 +442,9 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             )}
           </div>
         </section>
-
         {/* ───────── 05 RENDIMIENTO ───────── */}
-        <section id="rendimiento" className={s.section} aria-labelledby="h-rend">
-          <SectionHead id="h-rend" round="05" kicker="FIGHTCORE Stats" title="Rendimiento con contexto"
+        <section id="s-rendimiento" className={s.section} aria-labelledby="h-rend">
+          <SectionHead id="h-rend" kicker="FIGHTCORE Stats" title="Rendimiento con contexto"
             lede="Ningún número aparece solo: la barra es su media de carrera; la marca naranja, la referencia que elijas." />
           <Performance
             career={{ slpm: st.slpm, sapm: st.sapm, strAcc: st.strAcc, strDef: st.strDef, tdAvg: st.tdAvg, tdAcc: st.tdAcc, tdDef: st.tdDef, subAvg: st.subAvg, kdAvg: st.kdAvg, ctrlShare: st.ctrlShare }}
@@ -408,63 +455,13 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             }}
           />
         </section>
-
-        {/* ───────── 06 FORMA ───────── */}
-        <section id="forma" className={s.section} aria-labelledby="h-forma">
-          <SectionHead id="h-forma" round="06" kicker="Forma" title="Cómo llega" lede="Últimos cinco combates, del más reciente al más antiguo, con su efecto en el rating." />
-          <ol className={s.form}>
-            {last5.map((b) => {
-              const delta = b.ratingAfter !== null && b.ratingBefore !== null ? b.ratingAfter - b.ratingBefore : null;
-              return (
-                <li key={b.fightId} className={s.formCard}>
-                  <Link href={`/fights/${b.fightId}`} className={s.formLink}>
-                    <OutcomeMark o={b.outcome} size="lg" />
-                    <span className={s.formOpp}>vs {b.opponent.name}</span>
-                    <span className={s.formMethod}>{b.method ? METHOD_LABEL[b.method] : "—"}{b.round ? ` · R${b.round} ${fmtClock(b.time)}` : ""}</span>
-                    <span className={s.formEvent}>{b.event.name} · {fmtDate(b.date)}</span>
-                    <span className={s.formStats}>
-                      <span><b className="num">{b.sigFor ?? "—"}</b>–<span className="num">{b.sigAgainst ?? "—"}</span> golpes sig.</span>
-                      <span><b className="num">{b.tdFor ?? "—"}</b> derribos</span>
-                    </span>
-                    <span className={s.formRating}>
-                      <span className="label">FCR</span>
-                      <span className="num">{b.ratingBefore?.toFixed(1) ?? "—"} → {b.ratingAfter?.toFixed(1) ?? "—"}</span>
-                      {delta !== null && <span className={`${s.formDelta} ${delta >= 0 ? s.up : s.down}`}>{delta >= 0 ? "+" : ""}{delta.toFixed(1)}</span>}
-                    </span>
-                    {b.title && <Tag tone="solid">Título</Tag>}
-                  </Link>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
-
-        {/* ───────── 07 CARRERA ───────── */}
-        <section id="carrera" className={s.section} aria-labelledby="h-carrera">
-          <SectionHead id="h-carrera" round="07" kicker="FIGHTCORE History" title="Carrera"
-            lede={p.titleHistory.length ? `${p.titleHistory.length} ${p.titleHistory.length === 1 ? "reinado" : "reinados"} como campeón: ${p.titleHistory.map((t) => `${t.org} desde ${fmtDate(t.from)}${t.to ? ` hasta ${fmtDate(t.to)}` : " (vigente)"}, ${t.defenses} ${t.defenses === 1 ? "defensa" : "defensas"}`).join("; ")}.` : "Cada combate registrado, con la organización en la que se disputó."} />
-          <CareerTimeline
-            titleWins={titleWinIds}
-            bouts={p.bouts.map((b) => ({
-              fightId: b.fightId, date: b.date, outcome: b.outcome, opponent: b.opponent.name, method: b.method,
-              round: b.round, org: b.event.org, event: b.event.name, title: b.title, oppStrength: b.oppStrength, ratingAfter: b.ratingAfter,
-            }))}
-          />
-        </section>
-
-        {/* ───────── 08 EVOLUCIÓN ───────── */}
-        <section id="evolucion" className={s.section} aria-labelledby="h-evo">
-          <SectionHead id="h-evo" round="08" kicker="Evolución" title="Cómo ha cambiado" lede="El rating se recalcula tras cada combate. La banda gris es su margen de incertidumbre." />
-          <Evolution
-            points={p.evolution}
-            bands={p.ratingHistory.map((h) => ({ date: h.date, lo: h.value - h.band, hi: h.value + h.band }))}
-            titleDates={p.titleHistory.map((t) => ({ date: t.from, label: `TÍTULO ${t.org}` }))}
-          />
-        </section>
-
+          </>
+        ) },
+        { id: "rivales", label: "Rivales", hint: "Historial y comparar", aliases: [], content: (
+          <>
         {/* ───────── 09 RIVALES ───────── */}
-        <section id="rivales" className={s.section} aria-labelledby="h-riv">
-          <SectionHead id="h-riv" round="09" kicker="Rivales" title="Contra quién" lede="La fuerza del rival se mide en el momento del combate (0–100), no con lo que hizo después." />
+        <section id="s-rivales" className={s.section} aria-labelledby="h-riv">
+          <SectionHead id="h-riv" kicker="Rivales" title="Contra quién" lede="La fuerza del rival se mide en el momento del combate (0–100), no con lo que hizo después." />
           <Opponents rows={p.bouts.map((b) => ({
             fightId: b.fightId, date: b.date, outcome: b.outcome,
             opponent: { slug: b.opponent.slug, name: b.opponent.name, country: b.opponent.country, rating: b.opponent.rating },
@@ -472,7 +469,6 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             eventSlug: b.event.slug, division: b.division, title: b.title, oppStrength: b.oppStrength,
           }))} />
         </section>
-
         {/* ───────── COMPARE ───────── */}
         <section className={`${s.section} ${s.compareCta}`} aria-labelledby="h-cmp">
           <div>
@@ -491,7 +487,11 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
           </ul>
           <ButtonLink href={`/compare?f=${f.slug}`} variant="ghost">Elegir rivales</ButtonLink>
         </section>
+          </>
+        ) },
+      ]} />
 
+      <div className="wrap">
         <p className={s.provenance}>
           <Source kind={SRC} /> <Source kind="calculated" /> {IS_DEMO
             ? <>Luchador ficticio. Estadísticas simuladas; rating, atributos y observaciones calculados por FIGHTCORE a {fmtDate(TODAY)}.</>

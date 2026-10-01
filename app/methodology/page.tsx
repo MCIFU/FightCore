@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionHead, Source } from "@/components/ui/primitives";
 import { ATTRIBUTES } from "@/lib/analytics/attributes";
-import { FACTORS, FCR_VERSION } from "@/lib/rating/model";
+import { FACTORS, FCR_VERSION, VALIDATION } from "@/lib/rating/model";
 import s from "./methodology.module.css";
 import { IS_DEMO, SRC } from "@/lib/data/repository";
 
@@ -30,6 +30,7 @@ export default function MethodologyPage() {
               <li><a href="#que-es">Qué es</a></li>
               <li><a href="#calculo">Cómo se calcula</a></li>
               <li><a href="#factores">Los ocho factores</a></li>
+              <li><a href="#validacion">¿Funciona?</a></li>
               <li><a href="#margen">El margen de incertidumbre</a></li>
               <li><a href="#atributos">Atributos y firma de estilo</a></li>
               <li><a href="#fuentes">Fuentes y procedencia</a></li>
@@ -52,7 +53,20 @@ export default function MethodologyPage() {
                 FCR = Σ ( factor<sub>i</sub> × peso<sub>i</sub> )     Σ peso = 1
               </pre>
               <p className="serif">Los pesos son fijos y públicos. Cambiar un peso cambia la versión del modelo. En la ficha de cada luchador se muestra cuántos puntos aporta cada factor, y siempre suman exactamente el rating publicado.</p>
-              <p className="serif">La <em>fuerza del rival</em> que usan varios factores procede de un índice de resultados tipo Elo: cada victoria transfiere puntos según lo esperable del resultado. Se toma en el momento del combate, no con lo que el rival hizo después.</p>
+              <p className="serif">La <em>fuerza del rival</em> que usan varios factores procede de un índice tipo Elo: cada combate transfiere puntos según lo esperable del resultado. En las decisiones cuenta también cuánto dominó cada uno (golpes, derribos, control); las divididas pesan la mitad, los combates por el título un tercio más, y tras más de 18 meses sin pelear el índice vuelve poco a poco a la media. Se toma en el momento del combate, no con lo que el rival hizo después.</p>
+              <p className="serif">Los combates pierden peso con el tiempo: uno de hace 2,5 años cuenta la mitad que uno de hoy. Con pocos combates, cada factor se acerca a un valor neutro en lugar de dispararse por una o dos peleas.</p>
+            </section>
+
+            <section id="validacion" aria-labelledby="h2bs">
+              <SectionHead tone="paper" id="h2bs" as="h2" kicker="Comprobación" title="¿Funciona?" />
+              <p className="serif">Un rating que mide rendimiento debería explicar los resultados. Lo comprobamos con {VALIDATION.fights.toLocaleString("es-ES")} combates de UFC desde 2012 entre luchadores con al menos tres combates previos, usando el rating que cada uno tenía el día antes:</p>
+              <dl className={s.sources}>
+                <div><dt><strong>{VALIDATION.accuracy.toLocaleString("es-ES")} %</strong></dt><dd>de las veces ganó el de rating más alto (v0.1: {VALIDATION.previous.toLocaleString("es-ES")} %).</dd></div>
+                <div><dt><strong>{VALIDATION.accuracyBigGap.toLocaleString("es-ES")} %</strong></dt><dd>cuando la diferencia era de {VALIDATION.bigGap} puntos o más.</dd></div>
+                <div><dt><strong>{VALIDATION.strength.toLocaleString("es-ES")} %</strong></dt><dd>con el índice de fuerza solo (antes {VALIDATION.strengthPrevious.toLocaleString("es-ES")} %).</dd></div>
+                <div><dt><strong>{VALIDATION.baseline.toLocaleString("es-ES")} %</strong></dt><dd>referencia sin modelo (gana el que la fuente lista primero).</dd></div>
+              </dl>
+              <p className="serif">No es una herramienta de predicción: el MMA tiene mucha varianza y un rating hecho de resultados pasados no ve lesiones, cortes de peso ni estilos. La comprobación sirve para decidir qué cambios del modelo son mejoras reales; los pesos de v0.2 salen de ella.</p>
             </section>
 
             <section id="factores" aria-labelledby="h3s">
@@ -110,7 +124,7 @@ export default function MethodologyPage() {
                 <li>Las estadísticas de caja no distinguen la calidad de un golpe: un jab y un cruzado limpio cuentan igual.</li>
                 <li>El récord previo a la cobertura de FIGHTCORE se suma al récord profesional, pero no alimenta el rating porque no tiene desglose.</li>
                 <li>Los luchadores de circuitos regionales pueden quedar infravalorados hasta que se enfrentan a rivales mejor medidos.</li>
-                <li>Los pesos del modelo son una decisión editorial razonada, no un resultado óptimo demostrado.</li>
+                <li>Los pesos se eligieron con la comprobación de resultados, pero redondeados y con «Títulos» y «Finalización» mantenidos como contexto: es un rating de rendimiento, no un modelo de apuestas.</li>
                 {!IS_DEMO && <li>La cobertura es UFC (1993–hoy). Los combates en otras organizaciones solo cuentan en el récord profesional cuando una fuente lo da; no alimentan el rating. Por eso un recién llegado con carrera larga fuera de UFC empieza con rating provisional.</li>}
                 {!IS_DEMO && <li>Los combates más antiguos de UFC no tienen estadísticas de golpeo registradas; esos combates cuentan para resultados, no para métricas de rendimiento.</li>}
               </ul>

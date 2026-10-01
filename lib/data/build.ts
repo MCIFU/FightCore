@@ -4,6 +4,7 @@
  */
 import type { Championship, Event, Fight, Fighter, FighterBout, Outcome } from "../domain/types";
 import { computeRating, strength01, type RatingResult } from "../rating/model";
+import { computeStrength } from "../rating/strength";
 import { careerStats, roundProfile, type CareerStats } from "../analytics/career";
 import { computeAttributes, type AttributeKey } from "../analytics/attributes";
 
@@ -56,6 +57,8 @@ function outcomeFor(f: Fight, id: string): Outcome | null {
 
 function build(u: Universe): Store {
   const TODAY = u.dataset.asOf;
+  // The strength index is part of the model, not of the data source: recompute it.
+  computeStrength(u.fights);
   const fighterById = new Map(u.fighters.map((f) => [f.id, f]));
   const fighterBySlug = new Map(u.fighters.map((f) => [f.slug, f]));
   const fightById = new Map(u.fights.map((f) => [f.id, f]));

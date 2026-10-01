@@ -1,0 +1,32 @@
+.root { scroll-margin-top: var(--header-h); }
+.bar {
+  position: sticky; top: var(--header-h); z-index: 40;
+  background: rgb(11 12 14 / 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.tabs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  position: relative; display: flex; align-items: center; gap: 10px; min-width: 0; padding: 14px 16px 14px 0;
+  background: none; border: 0; color: var(--bone-3); text-align: left; cursor: pointer; transition: color var(--dur-1);
+}
+.tab:hover { color: var(--bone); }
+.tab[aria-selected="true"] { color: var(--bone); }
+.tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 16px; bottom: -1px; height: 2px; background: var(--ember); }
+.tab:focus-visible { outline: 2px solid var(--ember); outline-offset: -2px; }
+.idx { font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); }
+.tab[aria-selected="true"] .idx { color: var(--ember); }
+.text { display: grid; gap: 2px; min-width: 0; }
+.label { font-weight: 600; font-size: var(--fs-sm); white-space: nowrap; }
+.hint { font-size: 11px; color: var(--bone-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 899px) {
+  .tabs { grid-auto-columns: max-content; gap: 4px; }
+  .hint { display: none; }
+  .tab { padding: 14px 12px 14px 0; }
+}
+/* Inside a panel the first section needs less air: the tab bar already separates it. */
+.panel > section:first-child { padding-top: clamp(32px, 4vw, 56px); }
+.panel { padding-bottom: clamp(32px, 4vw, 56px); }
+/* Headings inside a panel: a section title, not a page title. */
+.panel :global(h2) { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem); }
+.panel header + * { margin-top: 0; }
