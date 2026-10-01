@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionHead, Source, Unavailable } from "@/components/ui/primitives";
-import { organizationsOverview } from "@/lib/data/repository";
+import { IS_DEMO, organizationsOverview, SRC } from "@/lib/data/repository";
 import s from "./orgs.module.css";
 
 export const metadata: Metadata = {
@@ -38,14 +38,14 @@ export default function OrganizationsPage() {
                     <span>{o.activeFrom ? `${o.activeFrom}–${o.activeTo ?? "hoy"}` : <Unavailable reason="años sin confirmar" />}</span>
                     <span>{STATUS[o.status]}</span>
                   </span>
-                  <span className={s.counts}>{o.events ? `${o.events} eventos demo · ${o.fighters} luchadores` : "Sin datos de eventos"}</span>
+                  <span className={s.counts}>{o.events ? `${o.events} eventos${IS_DEMO ? " demo" : ""} · ${o.fighters} luchadores` : "Fuera de la cobertura actual"}</span>
                 </Link>
               </li>
             ))}
           </ul>
         </section>
       ))}
-      <p className={s.src}><Source kind="editorial" /> Metadatos de organización. <Source kind="demo" /> Eventos y luchadores.</p>
+      <p className={s.src}><Source kind="editorial" /> Metadatos de organización. <Source kind={SRC} /> Eventos y luchadores.</p>
     </div>
   );
 }

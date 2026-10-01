@@ -18,5 +18,6 @@ export const MORE_NAV: NavItem[] = [
   { href: "/history", label: "Historia", product: "History", phase: 2 },
   { href: "/organizations", label: "Organizaciones", product: "Database", phase: 2 },
   { href: "/methodology", label: "Metodología FCR", product: "Rating", phase: 2 },
+  { href: "/credits", label: "Fuentes y créditos", phase: 2 },
   { href: "/brand", label: "Sistema de marca", phase: 1 },
 ];

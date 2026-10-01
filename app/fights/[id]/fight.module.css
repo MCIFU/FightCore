@@ -57,3 +57,9 @@
 .debut { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-3); margin-right: 6px; }
 .portrait { width: min(220px, 60%); height: auto; aspect-ratio: 1; background: radial-gradient(70% 60% at 50% 45%, var(--ink-3), transparent 70%); border-bottom: 3px solid var(--corner-a); }
 .blue .portrait { border-bottom-color: var(--corner-b); }
+.portraitNone {
+  display: grid; place-items: center; width: min(220px, 60%); aspect-ratio: 1;
+  font-weight: 800; font-variation-settings: "wdth" 62; font-size: clamp(48px, 9vw, 96px); letter-spacing: -0.02em; color: var(--bone-3);
+  background: radial-gradient(70% 60% at 50% 45%, var(--ink-3), transparent 70%); border-bottom: 3px solid var(--corner-a);
+}
+.blue .portraitNone { border-bottom-color: var(--corner-b); }

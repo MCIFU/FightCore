@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS fighters (
   first_name    text NOT NULL,
   last_name     text NOT NULL,
   nickname      text,
-  country       char(3) NOT NULL REFERENCES countries(code),
+  country       char(3) REFERENCES countries(code),   -- NULL = no source states it
   sex           char(1) NOT NULL CHECK (sex IN ('M', 'F')),
   birth_date    date,
   height_cm     int,
@@ -56,13 +56,18 @@ CREATE TABLE IF NOT EXISTS fighters (
   division_id   text NOT NULL REFERENCES divisions(id),
   org_id        text NOT NULL REFERENCES organizations(id),
   status        text NOT NULL CHECK (status IN ('active', 'inactive', 'retired')),
-  prior_w       int NOT NULL DEFAULT 0,
-  prior_l       int NOT NULL DEFAULT 0,
-  prior_d       int NOT NULL DEFAULT 0,
+  prior_w       int,                              -- record outside coverage; NULL = unknown
+  prior_l       int,
+  prior_d       int,
+  wikidata      text,
   photo_src     text,
-  photo_kind    text CHECK (photo_kind IN ('illustration', 'licensed')),
+  photo_kind    text CHECK (photo_kind IN ('illustration', 'licensed', 'none')),
   photo_credit  text,
   photo_updated date,
+  photo_author  text,
+  photo_license text,
+  photo_license_url text,
+  photo_source_url  text,
   provenance    provenance NOT NULL
 );
 
@@ -73,7 +78,7 @@ CREATE TABLE IF NOT EXISTS events (
   org_id      text NOT NULL REFERENCES organizations(id),
   date        date NOT NULL,
   city        text NOT NULL,
-  country     char(3) NOT NULL REFERENCES countries(code),
+  country     char(3) REFERENCES countries(code),
   venue       text,
   status      text NOT NULL CHECK (status IN ('completed', 'upcoming')),
   provenance  provenance NOT NULL
@@ -90,12 +95,14 @@ CREATE TABLE IF NOT EXISTS fights (
   blue_id           text NOT NULL REFERENCES fighters(id),
   status            text NOT NULL CHECK (status IN ('completed', 'scheduled')),
   winner_id         text REFERENCES fighters(id),
-  method            text CHECK (method IN ('KO/TKO', 'SUB', 'U-DEC', 'S-DEC', 'M-DEC', 'DRAW', 'NC')),
+  method            text CHECK (method IN ('KO/TKO', 'SUB', 'U-DEC', 'S-DEC', 'M-DEC', 'DQ', 'DRAW', 'NC')),
   submission        text,
   end_round         int,
   end_time_sec      int,
-  scheduled_rounds  int NOT NULL CHECK (scheduled_rounds IN (3, 5)),
+  scheduled_rounds  int NOT NULL CHECK (scheduled_rounds BETWEEN 1 AND 5),
   title_fight       boolean NOT NULL DEFAULT false,
+  interim           boolean NOT NULL DEFAULT false,
+  referee           text,
   slot              text NOT NULL,
   card_order        int NOT NULL,
   scorecards        text[],
@@ -137,7 +144,8 @@ CREATE TABLE IF NOT EXISTS championships (
   won_fight_id  text NOT NULL REFERENCES fights(id),
   date_from     date NOT NULL,
   date_to       date,
-  defenses      int NOT NULL DEFAULT 0
+  defenses      int NOT NULL DEFAULT 0,
+  interim       boolean NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS historical_events (

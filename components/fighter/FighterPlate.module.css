@@ -58,6 +58,9 @@
 .bar_D { height: 62%; background: var(--bone-2); }
 .bar_NC { height: 16%; background: var(--ink-4); }
 .credit { font-size: 9px; letter-spacing: 0.08em; color: var(--bone-3); }
+.license { font-size: 9px; line-height: 1.35; letter-spacing: 0.04em; text-transform: none; color: var(--bone-3); }
+.license a { color: var(--bone-2); text-decoration: underline; text-underline-offset: 2px; }
+.license a:hover { color: var(--bone); }
 
 .sm .top { padding: 6px 8px; font-size: 9px; }
 .sm .top > span:first-child { display: none; }

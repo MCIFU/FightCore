@@ -4,7 +4,7 @@ import { FCR_VERSION } from "@/lib/rating/model";
 import { MORE_NAV, PRIMARY_NAV } from "./nav";
 import s from "./Footer.module.css";
 
-export function Footer() {
+export function Footer({ demo, asOf }: { demo: boolean; asOf: string }) {
   return (
     <footer className={s.footer}>
       <div className="wrap">
@@ -39,9 +39,15 @@ export function Footer() {
           <p>
             FIGHTCORE es un proyecto independiente. No está afiliado, patrocinado ni respaldado por UFC, PFL, ONE Championship, RIZIN ni por ninguna otra organización mencionada; sus nombres se usan solo para identificarlas.
           </p>
-          <p>
-            Esta versión funciona con un <strong>dataset de demostración</strong>: luchadores, combates y eventos son ficticios y están generados por simulación. FCR v{FCR_VERSION}.
-          </p>
+          {demo ? (
+            <p>
+              Esta versión funciona con un <strong>dataset de demostración</strong>: luchadores, combates y eventos son ficticios y están generados por simulación. FCR v{FCR_VERSION}.
+            </p>
+          ) : (
+            <p>
+              Datos a {asOf}: resultados y estadísticas de UFC de <a href="http://ufcstats.com/">UFCStats</a> (vía <a href="https://github.com/Greco1899/scrape_ufc_stats">scrape_ufc_stats</a>); nacionalidades de <a href="https://www.wikidata.org/">Wikidata</a> (CC0); plantilla, campeones actuales y carteleras de <a href="https://en.wikipedia.org/wiki/List_of_current_UFC_fighters">Wikipedia</a> (CC BY-SA 4.0). Fotografías de Wikimedia Commons con licencia libre: <Link href="/credits">créditos</Link>. Rating, atributos y récords calculados por FIGHTCORE · FCR v{FCR_VERSION}.
+            </p>
+          )}
         </div>
       </div>
     </footer>

@@ -114,9 +114,17 @@ export function FormStrip({ form, size = "sm" }: { form: Outcome[]; size?: "sm" 
 }
 
 /* ── Country tag (no emoji flags: they don't render everywhere) ── */
-export function CountryTag({ code, name }: { code: string; name?: string }) {
+export function CountryTag({ code, name }: { code: string | null; name?: string | null }) {
+  if (!code) {
+    return (
+      <span className={`${s.country} ${s.countryUnknown}`} title="Nacionalidad no disponible">
+        <span aria-hidden>—</span>
+        <span className="visually-hidden">Nacionalidad no disponible</span>
+      </span>
+    );
+  }
   return (
-    <span className={s.country} title={name}>
+    <span className={s.country} title={name ?? undefined}>
       <span aria-hidden className={s.countryTick} />
       <span aria-hidden>{code}</span>
       {name && <span className="visually-hidden">{name}</span>}

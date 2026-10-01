@@ -3,10 +3,12 @@
 import { openSearch } from "./searchBus";
 import s from "./SearchLauncher.module.css";
 
-const EXAMPLES = ["Lachance", "UFC Demo", "Peso wélter", "PRIDE", "Tokio"];
+const DEMO_EXAMPLES = ["Lachance", "UFC Demo", "Peso wélter", "PRIDE", "Tokio"];
+const REAL_EXAMPLES = ["Topuria", "Shevchenko", "UFC 300", "Peso wélter", "Las Vegas"];
 
 /** Hero-size search entry point. Opens the global dialog. */
-export function SearchLauncher() {
+export function SearchLauncher({ demo = false }: { demo?: boolean }) {
+  const EXAMPLES = demo ? DEMO_EXAMPLES : REAL_EXAMPLES;
   return (
     <div className={s.wrap}>
       <button type="button" className={s.launcher} onClick={() => openSearch()}>

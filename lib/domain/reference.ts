@@ -1,4 +1,5 @@
 import type { Country, Division, HistoricalEvent, Organization } from "./types";
+import countries from "./countries.json";
 
 /**
  * Reference data. Organizations are real entities, described only with
@@ -17,6 +18,13 @@ export const DIVISIONS: Division[] = [
   { id: "W-SW", slug: "paja-femenino", name: "Peso paja femenino", short: "W-SW", sex: "F", limitLb: 115, limitKg: 52.2, order: 9 },
   { id: "W-FLY", slug: "mosca-femenino", name: "Peso mosca femenino", short: "W-FLY", sex: "F", limitLb: 125, limitKg: 56.7, order: 10 },
   { id: "W-BW", slug: "gallo-femenino", name: "Peso gallo femenino", short: "W-BW", sex: "F", limitLb: 135, limitKg: 61.2, order: 11 },
+  { id: "W-FW", slug: "pluma-femenino", name: "Peso pluma femenino", short: "W-FW", sex: "F", limitLb: 145, limitKg: 65.8, order: 12 },
+];
+
+/** Bout weights that are not divisions: no rankings, no belts. */
+export const BOUT_WEIGHTS: Division[] = [
+  { id: "CATCH", slug: "peso-pactado", name: "Peso pactado", short: "CW", sex: "M", limitLb: 0, limitKg: 0, order: 90 },
+  { id: "OPEN", slug: "peso-libre", name: "Peso libre (sin límite)", short: "OW", sex: "M", limitLb: 0, limitKg: 0, order: 91 },
 ];
 
 export const ORGANIZATIONS: Organization[] = [
@@ -46,42 +54,7 @@ export const ORGANIZATIONS: Organization[] = [
   { id: "deep", slug: "deep", name: "DEEP", short: "DEEP", country: "JPN", region: "Asia", activeFrom: 2001, activeTo: null, status: "active", group: "historical", note: null, provenance: "editorial" },
 ];
 
-export const COUNTRIES: Country[] = [
-  { code: "ESP", name: "España", lat: 40.4, lon: -3.7 },
-  { code: "BRA", name: "Brasil", lat: -15.8, lon: -47.9 },
-  { code: "USA", name: "Estados Unidos", lat: 38.9, lon: -77.0 },
-  { code: "RUS", name: "Rusia", lat: 55.8, lon: 37.6 },
-  { code: "GEO", name: "Georgia", lat: 41.7, lon: 44.8 },
-  { code: "POL", name: "Polonia", lat: 52.2, lon: 21.0 },
-  { code: "CZE", name: "Chequia", lat: 50.1, lon: 14.4 },
-  { code: "IRL", name: "Irlanda", lat: 53.3, lon: -6.3 },
-  { code: "GBR", name: "Reino Unido", lat: 51.5, lon: -0.1 },
-  { code: "FRA", name: "Francia", lat: 48.9, lon: 2.4 },
-  { code: "MEX", name: "México", lat: 19.4, lon: -99.1 },
-  { code: "JPN", name: "Japón", lat: 35.7, lon: 139.7 },
-  { code: "KOR", name: "Corea del Sur", lat: 37.6, lon: 127.0 },
-  { code: "CHN", name: "China", lat: 39.9, lon: 116.4 },
-  { code: "NZL", name: "Nueva Zelanda", lat: -41.3, lon: 174.8 },
-  { code: "AUS", name: "Australia", lat: -35.3, lon: 149.1 },
-  { code: "NGA", name: "Nigeria", lat: 9.1, lon: 7.5 },
-  { code: "CMR", name: "Camerún", lat: 3.9, lon: 11.5 },
-  { code: "SWE", name: "Suecia", lat: 59.3, lon: 18.1 },
-  { code: "NLD", name: "Países Bajos", lat: 52.4, lon: 4.9 },
-  { code: "KAZ", name: "Kazajistán", lat: 51.2, lon: 71.4 },
-  { code: "UZB", name: "Uzbekistán", lat: 41.3, lon: 69.2 },
-  { code: "PHL", name: "Filipinas", lat: 14.6, lon: 121.0 },
-  { code: "THA", name: "Tailandia", lat: 13.8, lon: 100.5 },
-  { code: "ARG", name: "Argentina", lat: -34.6, lon: -58.4 },
-  { code: "CAN", name: "Canadá", lat: 45.4, lon: -75.7 },
-  { code: "ITA", name: "Italia", lat: 41.9, lon: 12.5 },
-  { code: "PRT", name: "Portugal", lat: 38.7, lon: -9.1 },
-  { code: "SGP", name: "Singapur", lat: 1.35, lon: 103.8 },
-  { code: "ARE", name: "Emiratos Árabes Unidos", lat: 24.5, lon: 54.4 },
-  { code: "SAU", name: "Arabia Saudí", lat: 24.7, lon: 46.7 },
-  { code: "BHR", name: "Baréin", lat: 26.2, lon: 50.6 },
-  { code: "CHE", name: "Suiza", lat: 46.9, lon: 7.4 },
-  { code: "DEU", name: "Alemania", lat: 52.5, lon: 13.4 },
-];
+export const COUNTRIES: Country[] = countries as Country[];
 
 /**
  * Editorial milestones. Only widely documented facts; kept short and written
@@ -101,6 +74,6 @@ export const HISTORY: HistoricalEvent[] = [
   { year: 2023, date: null, title: "PFL adquiere Bellator", body: "La consolidación redibuja el mapa de las grandes organizaciones.", orgId: "pfl", kind: "business", provenance: "editorial" },
 ];
 
-export const divisionById = new Map(DIVISIONS.map((d) => [d.id, d]));
+export const divisionById = new Map([...DIVISIONS, ...BOUT_WEIGHTS].map((d) => [d.id, d]));
 export const orgById = new Map(ORGANIZATIONS.map((o) => [o.id, o]));
 export const countryByCode = new Map(COUNTRIES.map((c) => [c.code, c]));

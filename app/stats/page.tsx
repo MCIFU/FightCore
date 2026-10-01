@@ -4,7 +4,7 @@ import { YearTrend } from "@/components/charts/YearTrend";
 import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { SectionHead, Source } from "@/components/ui/primitives";
 import { Tabs } from "@/components/ui/Tabs";
-import { STAT_METRICS, STAT_MIN_BOUTS, STAT_MIN_MINUTES, statsOverview } from "@/lib/data/repository";
+import { SRC, STAT_METRICS, STAT_MIN_BOUTS, STAT_MIN_MINUTES, statsOverview } from "@/lib/data/repository";
 import s from "./stats.module.css";
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function StatsPage() {
   return (
     <div className="wrap" style={{ paddingTop: "var(--s-7)", paddingBottom: "var(--s-8)" }}>
       <SectionHead as="h1" kicker="FIGHTCORE Stats" title="Stats"
-        lede={<>Explora el dataset. Los líderes exigen al menos {STAT_MIN_BOUTS} combates y {STAT_MIN_MINUTES} minutos para que una pelea suelta no gane un ranking. <Source kind="demo" /> <Source kind="calculated" /></>} />
+        lede={<>Explora el dataset. Los líderes exigen al menos {STAT_MIN_BOUTS} combates y {STAT_MIN_MINUTES} minutos para que una pelea suelta no gane un ranking. <Source kind={SRC} /> <Source kind="calculated" /></>} />
 
       <section aria-labelledby="lead" className={s.block}>
         <h2 id="lead" className={s.h2}>Líderes por métrica <span>{o.pool} luchadores cumplen la muestra mínima</span></h2>
@@ -33,7 +33,7 @@ export default function StatsPage() {
               {o.leaders[m.key].map((l, i) => (
                 <li key={l.fighter.id} className={s.leader}>
                   <span className={s.pos}>{String(i + 1).padStart(2, "0")}</span>
-                  <FighterAvatar src={l.fighter.photo.src} size={40} champion={l.fighter.champion} />
+                  <FighterAvatar src={l.fighter.photo.src} name={l.fighter.name} size={40} champion={l.fighter.champion} />
                   <span className={s.who}><Link href={`/fighters/${l.fighter.slug}`}>{l.fighter.name}</Link><span>{l.fighter.divisionShort} · {l.fighter.org} · n = {l.sample}</span></span>
                   <span className={s.bar} aria-hidden><span style={{ width: `${(l.value / o.leaders[m.key][0].value) * 100}%` }} /></span>
                   <span className={s.val}>{fmt(m.fmt, l.value)}</span>

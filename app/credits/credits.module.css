@@ -1,0 +1,16 @@
+.block { margin-top: var(--s-7); max-width: 1000px; }
+.h2 { display: flex; align-items: baseline; gap: 12px; font-variation-settings: "wdth" 75; font-weight: 800; text-transform: uppercase; font-size: var(--fs-xl, 1.6rem); margin-bottom: 14px; }
+.count { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--bone-3); letter-spacing: 0.08em; }
+.p { max-width: 68ch; color: var(--bone-2); line-height: 1.6; margin-bottom: 14px; }
+.p a, .table a { color: var(--bone); text-decoration: underline; text-underline-offset: 2px; }
+.p a:hover, .table a:hover { color: var(--ember); }
+.sources { list-style: none; padding: 0; margin: 0 0 18px; border-top: 1px solid var(--line); }
+.sources li { padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--bone-2); font-size: var(--fs-sm); }
+.sources strong { color: var(--bone); }
+.sources p { margin-top: 4px; color: var(--bone-3); }
+.tableWrap { overflow-x: auto; border-top: 1px solid var(--line); }
+.table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.table th, .table td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); color: var(--bone-2); vertical-align: middle; }
+.table thead th { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); font-weight: 400; }
+.table tbody th { font-weight: 600; color: var(--bone); white-space: nowrap; }
+.who { display: inline-flex; align-items: center; gap: 10px; }

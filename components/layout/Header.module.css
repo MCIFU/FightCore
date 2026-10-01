@@ -7,6 +7,8 @@
 @media (min-width: 900px) { .mastMid { display: inline; } }
 .demo { display: inline-flex; align-items: center; gap: 6px; color: var(--warning); }
 .demoDot { width: 6px; height: 6px; background: var(--warning); }
+.live { display: inline-flex; align-items: center; gap: 6px; color: var(--bone-2); }
+.liveDot { width: 6px; height: 6px; background: var(--success); }
 
 .header {
   position: sticky; top: 0; z-index: 50;

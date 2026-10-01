@@ -48,3 +48,8 @@
 .empty { padding: 48px 24px; border: 1px dashed var(--line-strong); display: grid; gap: 8px; color: var(--bone-2); }
 .emptyTitle { font-weight: 700; font-size: var(--fs-lg); color: var(--bone); }
 .nameCell { display: flex; align-items: center; gap: 12px; }
+
+.more { display: flex; justify-content: center; padding-top: var(--s-6); }
+.moreBtn { display: inline-flex; gap: 8px; align-items: center; padding: 12px 20px; border: 1px solid var(--line-strong); background: var(--ink-1); color: var(--bone); font-weight: 600; cursor: pointer; transition: border-color var(--dur-1), background var(--dur-1); }
+.moreBtn:hover { border-color: var(--bone-3); background: var(--ink-2); }
+.moreBtn .num { color: var(--bone-3); font-weight: 400; }

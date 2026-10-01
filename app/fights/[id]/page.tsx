@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 import { TaleOfTape } from "@/components/charts/TaleOfTape";
 import Image from "next/image";
 import { ChampionBadge } from "@/components/ui/ChampionBadge";
-import { ButtonLink, CountryTag, RecordValue, Source, Tag } from "@/components/ui/primitives";
-import { fightDetail } from "@/lib/data/repository";
-import { fmtClock, fmtDateLong, METHOD_LABEL } from "@/lib/format";
+import { ButtonLink, CountryTag, EmptyState, RecordValue, Source, Tag } from "@/components/ui/primitives";
+import { fightDetail, IS_DEMO, SRC } from "@/lib/data/repository";
+import { fmtClock, fmtDateLong, initials, METHOD_LABEL } from "@/lib/format";
 import s from "./fight.module.css";
 
 // ~1,200 bouts: render on demand and cache, instead of pre-building every page.
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const res = d.fight.status === "completed" && d.fight.method ? ` Resultado: ${METHOD_LABEL[d.fight.method]}${d.fight.round ? `, R${d.fight.round}` : ""}.` : " Combate programado.";
   return {
     title: `${d.red.name} vs ${d.blue.name}`,
-    description: `${d.red.name} vs ${d.blue.name} · ${d.event.name}, ${fmtDateLong(d.fight.date)}.${res} Desglose estadístico completo. Datos de demostración.`,
+    description: `${d.red.name} vs ${d.blue.name} · ${d.event.name}, ${fmtDateLong(d.fight.date)}.${res} Desglose estadístico completo.${IS_DEMO ? " Datos de demostración." : ""}`,
     alternates: { canonical: `/fights/${id}` },
   };
 }
@@ -43,7 +43,9 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
     const won = f.winnerId === x.id;
     return (
       <div className={`${s.corner} ${side === "red" ? s.red : s.blue} ${done && !won && winner ? s.lost : ""}`}>
-        <Image src={x.photo.src} alt={`Retrato de ${x.name} (ilustración)`} width={512} height={512} sizes="240px" className={s.portrait} priority />
+        {x.photo.src
+          ? <Image src={x.photo.src} alt={x.photo.kind === "illustration" ? `Retrato ilustrado de ${x.name}` : `Fotografía de ${x.name}`} width={512} height={512} sizes="240px" className={s.portrait} priority />
+          : <span className={s.portraitNone} aria-hidden>{initials(x.firstName, x.lastName)}</span>}
         <span className={s.cornerTag}>{side === "red" ? "Esquina roja · A" : "Esquina azul · B"}</span>
         {x.title && <ChampionBadge title={x.title} variant="full" />}
         <Link href={`/fighters/${x.slug}`} className={s.name}>
@@ -66,14 +68,14 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
   return (
     <article className="wrap" style={{ paddingTop: "var(--s-6)", paddingBottom: "var(--s-8)" }} aria-labelledby="fight-title">
       <nav aria-label="Ruta" className={s.crumbs}>
-        <Link href="/events">Eventos</Link> / <Link href={`/events/${d.event.slug}`}>{d.event.name}</Link> / <span>Combate {f.order}</span>
+        <Link href="/events">Eventos</Link> / <Link href={`/events/${d.event.slug}`}>{d.event.name}</Link> / <span>{f.slot === "main" ? "Main event" : f.slot === "co-main" ? "Co-main" : `Combate ${f.order + 1}`}</span>
       </nav>
       <h1 id="fight-title" className="visually-hidden">{d.red.name} contra {d.blue.name}</h1>
       <p className={s.context}>
         <span>{d.eventOrg}</span><span>{d.division.name}</span><span>{fmtDateLong(f.date)}</span><span>{d.event.city}</span>
         <span>{f.scheduledRounds} × 5 min</span>
-        {f.titleFight && <Tag tone="solid">Combate por el título</Tag>}
-        <Source kind="demo" />
+        {f.titleFight && <Tag tone="solid">{f.interim ? "Título interino" : "Combate por el título"}</Tag>}
+        <Source kind={SRC} />
       </p>
 
       <header className={s.versus}>
@@ -93,6 +95,7 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
             <div><dt>Round</dt><dd>{f.round} de {f.scheduledRounds}</dd></div>
             <div><dt>Tiempo</dt><dd>{mmss(f.time!)}</dd></div>
             {f.scorecards && <div><dt>Tarjetas (A–B)</dt><dd>{f.scorecards.join(" · ")}</dd></div>}
+            {f.referee && <div><dt>Árbitro</dt><dd>{f.referee}</dd></div>}
           </dl>
         </div>
       ) : (
@@ -103,7 +106,12 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
         </div>
       )}
 
-      {done ? (
+      {done && !(f.red && f.blue) && (
+        <section className={s.block}>
+          <EmptyState title="Sin estadísticas de este combate" body="La fuente no registra golpes ni derribos para este combate (habitual en los primeros eventos de UFC). El resultado sí es oficial." />
+        </section>
+      )}
+      {done && f.red && f.blue ? (
         <>
           <section className={s.block} aria-labelledby="bd">
             <h2 id="bd" className={s.h2}>Fight breakdown</h2>
@@ -112,19 +120,19 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
                 nameA={d.red.name}
                 nameB={d.blue.name}
                 rows={[
-                  { label: "Golpes sig.", a: f.red!.sigLanded, b: f.blue!.sigLanded, fa: `${f.red!.sigLanded}/${f.red!.sigAttempted}`, fb: `${f.blue!.sigLanded}/${f.blue!.sigAttempted}` },
-                  { label: "Precisión sig.", a: f.red!.sigLanded / Math.max(1, f.red!.sigAttempted), b: f.blue!.sigLanded / Math.max(1, f.blue!.sigAttempted), fa: pct(f.red!.sigLanded, f.red!.sigAttempted), fb: pct(f.blue!.sigLanded, f.blue!.sigAttempted), max: 1 },
-                  { label: "Golpes totales", a: f.red!.totalLanded, b: f.blue!.totalLanded, fa: `${f.red!.totalLanded}/${f.red!.totalAttempted}`, fb: `${f.blue!.totalLanded}/${f.blue!.totalAttempted}` },
-                  { label: "Cabeza", a: f.red!.head, b: f.blue!.head },
-                  { label: "Cuerpo", a: f.red!.body, b: f.blue!.body },
-                  { label: "Pierna", a: f.red!.leg, b: f.blue!.leg },
-                  { label: "Distancia", a: f.red!.distance, b: f.blue!.distance },
-                  { label: "Clinch", a: f.red!.clinch, b: f.blue!.clinch },
-                  { label: "Suelo", a: f.red!.ground, b: f.blue!.ground },
-                  { label: "Derribos", a: f.red!.tdLanded, b: f.blue!.tdLanded, fa: `${f.red!.tdLanded}/${f.red!.tdAttempted}`, fb: `${f.blue!.tdLanded}/${f.blue!.tdAttempted}` },
-                  { label: "Int. sumisión", a: f.red!.subAttempts, b: f.blue!.subAttempts },
-                  { label: "Control", a: f.red!.ctrlSec, b: f.blue!.ctrlSec, fa: mmss(f.red!.ctrlSec), fb: mmss(f.blue!.ctrlSec) },
-                  { label: "Knockdowns", a: f.red!.kd, b: f.blue!.kd },
+                  { label: "Golpes sig.", a: f.red.sigLanded, b: f.blue.sigLanded, fa: `${f.red.sigLanded}/${f.red.sigAttempted}`, fb: `${f.blue.sigLanded}/${f.blue.sigAttempted}` },
+                  { label: "Precisión sig.", a: f.red.sigLanded / Math.max(1, f.red.sigAttempted), b: f.blue.sigLanded / Math.max(1, f.blue.sigAttempted), fa: pct(f.red.sigLanded, f.red.sigAttempted), fb: pct(f.blue.sigLanded, f.blue.sigAttempted), max: 1 },
+                  { label: "Golpes totales", a: f.red.totalLanded, b: f.blue.totalLanded, fa: `${f.red.totalLanded}/${f.red.totalAttempted}`, fb: `${f.blue.totalLanded}/${f.blue.totalAttempted}` },
+                  { label: "Cabeza", a: f.red.head, b: f.blue.head },
+                  { label: "Cuerpo", a: f.red.body, b: f.blue.body },
+                  { label: "Pierna", a: f.red.leg, b: f.blue.leg },
+                  { label: "Distancia", a: f.red.distance, b: f.blue.distance },
+                  { label: "Clinch", a: f.red.clinch, b: f.blue.clinch },
+                  { label: "Suelo", a: f.red.ground, b: f.blue.ground },
+                  { label: "Derribos", a: f.red.tdLanded, b: f.blue.tdLanded, fa: `${f.red.tdLanded}/${f.red.tdAttempted}`, fb: `${f.blue.tdLanded}/${f.blue.tdAttempted}` },
+                  { label: "Int. sumisión", a: f.red.subAttempts, b: f.blue.subAttempts },
+                  { label: "Control", a: f.red.ctrlSec, b: f.blue.ctrlSec, fa: mmss(f.red.ctrlSec), fb: mmss(f.blue.ctrlSec) },
+                  { label: "Knockdowns", a: f.red.kd, b: f.blue.kd },
                 ]}
               />
             </div>
@@ -156,7 +164,7 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
           </section>
         </>
       ) : (
-        d.redAttr && d.blueAttr && (
+        !done && d.redAttr && d.blueAttr && (
           <section className={s.block} aria-labelledby="pv">
             <h2 id="pv" className={s.h2}>Tale of the tape</h2>
             <div className={s.tapeWrap}>

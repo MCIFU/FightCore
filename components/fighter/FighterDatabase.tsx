@@ -19,7 +19,9 @@ const norm = (x: string) => x.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
  * Filter state lives in the URL, so every view is shareable and the back
  * button works. Density is a per-viewer preference.
  */
-export function FighterDatabase({ fighters, divisions }: { fighters: FighterSummary[]; divisions: { id: string; name: string; short: string }[] }) {
+export type FighterRow = Pick<FighterSummary, "id" | "slug" | "name" | "firstName" | "lastName" | "nickname" | "country" | "countryName" | "divisionId" | "divisionShort" | "org" | "status" | "age" | "record" | "rating" | "provisional" | "rank" | "title" | "form" | "career" | "photo" | "lastFight">;
+
+export function FighterDatabase({ fighters, divisions }: { fighters: FighterRow[]; divisions: { id: string; name: string; short: string }[] }) {
   const router = useRouter();
   const path = usePathname();
   const params = useSearchParams();
@@ -45,7 +47,7 @@ export function FighterDatabase({ fighters, divisions }: { fighters: FighterSumm
   const minRating = Number(get("min", "0"));
 
   const orgs = useMemo(() => [...new Set(fighters.map((f) => f.org))].sort(), [fighters]);
-  const countries = useMemo(() => [...new Map(fighters.map((f) => [f.country, f.countryName])).entries()].sort((a, b) => a[1].localeCompare(b[1])), [fighters]);
+  const countries = useMemo(() => [...new Map(fighters.flatMap((f) => (f.country ? [[f.country, f.countryName ?? f.country] as [string, string]] : []))).entries()].sort((a, b) => a[1].localeCompare(b[1], "es")), [fighters]);
 
   const list = useMemo(() => {
     const nq = norm(q.trim());
@@ -59,10 +61,17 @@ export function FighterDatabase({ fighters, divisions }: { fighters: FighterSumm
       .sort((a, b) =>
         sort === "name" ? a.lastName.localeCompare(b.lastName)
           : sort === "wins" ? b.record.w - a.record.w
-            : sort === "age" ? a.age - b.age
+            : sort === "age" ? (a.age ?? 99) - (b.age ?? 99)
               : sort === "recent" ? (b.lastFight ?? "").localeCompare(a.lastFight ?? "")
                 : b.rating - a.rating);
   }, [fighters, q, division, org, country, status, sort, minRating]);
+
+  // Render in pages: the real dataset has thousands of fighters.
+  const PAGE = 60;
+  const [shown, setShown] = useState(PAGE);
+  const filterKey = `${q}|${division}|${org}|${country}|${status}|${sort}|${minRating}`;
+  useEffect(() => { setShown(PAGE); }, [filterKey]);
+  const page = list.slice(0, shown);
 
   const activeFilters = [division, org, country].filter((x) => x !== "all").length + (status !== "active" ? 1 : 0) + (minRating ? 1 : 0);
 
@@ -103,10 +112,10 @@ export function FighterDatabase({ fighters, divisions }: { fighters: FighterSumm
         </div>
       ) : view === "grid" ? (
         <ul className={s.grid}>
-          {list.map((f) => (
+          {page.map((f) => (
             <li key={f.id}>
               <Link href={`/fighters/${f.slug}`} className={s.card}>
-                <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={f.divisionShort} career={f.career} photo={f.photo} title={f.title} size="sm" />
+                <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={f.divisionShort} career={f.career} photo={f.photo} title={f.title} size="sm" linkCredit={false} />
                 <span className={s.cardName}><span>{f.firstName}</span><strong>{f.lastName}</strong></span>
                 <span className={s.cardRow}><RatingValue value={f.rating} size="sm" provisional={f.provisional} /><RecordValue r={f.record} size="sm" /></span>
                 <span className={s.cardMeta}>{f.divisionShort} · {f.org}{f.rank ? ` · #${f.rank}` : ""}</span>
@@ -130,11 +139,11 @@ export function FighterDatabase({ fighters, divisions }: { fighters: FighterSumm
             </tr>
           </thead>
           <tbody>
-            {list.map((f) => (
+            {page.map((f) => (
               <tr key={f.id}>
                 <td>
                   <span className={s.nameCell}>
-                    <FighterAvatar src={f.photo.src} size={view === "compact" ? 28 : 40} />
+                    <FighterAvatar src={f.photo.src} name={f.name} size={view === "compact" ? 28 : 40} />
                     <span>
                       <Link href={`/fighters/${f.slug}`} className={s.name}>
                         {f.name}
@@ -147,7 +156,7 @@ export function FighterDatabase({ fighters, divisions }: { fighters: FighterSumm
                 <td className={s.hideSm}><CountryTag code={f.country} name={f.countryName} /></td>
                 <td className={`${s.hideSm} ${s.mono}`}>{f.divisionShort}{f.rank ? <span className={s.rank}> #{f.rank}</span> : null}</td>
                 <td className={`${s.hideMd} ${s.mono}`}>{f.org}</td>
-                <td className={`${s.hideMd} num`}>{f.age}</td>
+                <td className={`${s.hideMd} num`}>{f.age ?? "—"}</td>
                 <td><RecordValue r={f.record} size="sm" /></td>
                 {view === "list" && <td className={s.hideMd}><FormStrip form={f.form} /></td>}
                 <td className={s.r}><RatingValue value={f.rating} size={view === "compact" ? "xs" : "sm"} provisional={f.provisional} /></td>
@@ -155,6 +164,13 @@ export function FighterDatabase({ fighters, divisions }: { fighters: FighterSumm
             ))}
           </tbody>
         </table>
+      )}
+      {list.length > shown && (
+        <div className={s.more}>
+          <button type="button" className={s.moreBtn} onClick={() => setShown((n) => n + PAGE * 2)}>
+            Mostrar más <span className="num">({Math.min(list.length - shown, PAGE * 2)} de {list.length - shown} restantes)</span>
+          </button>
+        </div>
       )}
     </div>
   );

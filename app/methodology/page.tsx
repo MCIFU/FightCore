@@ -4,6 +4,7 @@ import { SectionHead, Source } from "@/components/ui/primitives";
 import { ATTRIBUTES } from "@/lib/analytics/attributes";
 import { FACTORS, FCR_VERSION } from "@/lib/rating/model";
 import s from "./methodology.module.css";
+import { IS_DEMO, SRC } from "@/lib/data/repository";
 
 export const metadata: Metadata = {
   title: "Metodología del FIGHTCORE Rating",
@@ -97,7 +98,7 @@ export default function MethodologyPage() {
                 <div><dt><Source kind="imported" /></dt><dd>Obtenido de un proveedor externo, con referencia a la fuente.</dd></div>
                 <div><dt><Source kind="calculated" /></dt><dd>Derivado por FIGHTCORE (rating, atributos, observaciones, récords).</dd></div>
                 <div><dt><Source kind="editorial" /></dt><dd>Contexto redactado por FIGHTCORE (historia, notas).</dd></div>
-                <div><dt><Source kind="demo" /></dt><dd>Dato de demostración generado por simulación. <strong>Todo el dataset actual lo es.</strong></dd></div>
+                <div><dt><Source kind="demo" /></dt><dd>Dato de demostración generado por simulación. {IS_DEMO ? <strong>Todo el dataset activo lo es.</strong> : "Solo se usa en el modo de desarrollo; no aparece con datos reales."}</dd></div>
               </dl>
               <p className="serif">Si un dato no existe se muestra como <em>sin datos</em>, <em>pendiente</em> o <em>desconocido</em>. Nunca se rellena con estimaciones.</p>
             </section>
@@ -109,7 +110,9 @@ export default function MethodologyPage() {
                 <li>Las estadísticas de caja no distinguen la calidad de un golpe: un jab y un cruzado limpio cuentan igual.</li>
                 <li>El récord previo a la cobertura de FIGHTCORE se suma al récord profesional, pero no alimenta el rating porque no tiene desglose.</li>
                 <li>Los luchadores de circuitos regionales pueden quedar infravalorados hasta que se enfrentan a rivales mejor medidos.</li>
-                <li>Los pesos del modelo son una decisión editorial razonada, no un resultado óptimo demostrado. Se revisarán contra datos reales.</li>
+                <li>Los pesos del modelo son una decisión editorial razonada, no un resultado óptimo demostrado.</li>
+                {!IS_DEMO && <li>La cobertura es UFC (1993–hoy). Los combates en otras organizaciones solo cuentan en el récord profesional cuando una fuente lo da; no alimentan el rating. Por eso un recién llegado con carrera larga fuera de UFC empieza con rating provisional.</li>}
+                {!IS_DEMO && <li>Los combates más antiguos de UFC no tienen estadísticas de golpeo registradas; esos combates cuentan para resultados, no para métricas de rendimiento.</li>}
               </ul>
             </section>
 

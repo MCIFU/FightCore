@@ -2,7 +2,7 @@
   "name": "fightcore",
   "version": "0.1.0",
   "private": true,
-  "description": "FIGHTCORE — The core of MMA. Plataforma de datos, historia y scouting de MMA.",
+  "description": "FIGHTCORE \u2014 The core of MMA. Plataforma de datos, historia y scouting de MMA.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,7 +11,11 @@
     "test": "tsx --test lib/*.test.ts lib/**/*.test.ts",
     "portraits": "tsx scripts/render-portraits.mts",
     "geo": "tsx scripts/build-world.mts",
-    "db:seed": "tsx scripts/db-seed.mts"
+    "db:seed": "tsx scripts/db-seed.mts",
+    "import:ufc": "tsx scripts/import-ufc.mts",
+    "photos:fetch": "tsx scripts/fetch-photos.mts",
+    "photos:process": "python3 scripts/process-photos.py",
+    "photos:find": "tsx scripts/find-commons-photos.mts"
   },
   "dependencies": {
     "next": "16.3.7",
@@ -28,6 +32,7 @@
     "@types/react-dom": "^19",
     "@types/topojson-client": "^3.1.5",
     "d3-geo": "^3.1.1",
+    "i18n-iso-countries": "^7.14.0",
     "sharp": "^0.35.5",
     "topojson-client": "^3.1.0",
     "tsx": "^4.23.15",

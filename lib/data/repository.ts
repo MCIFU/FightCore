@@ -12,9 +12,14 @@ import { careerStats, roundProfile, type CareerStats, recordOf } from "../analyt
 import { ATTRIBUTES } from "../analytics/attributes";
 import { finishRounds, roundLines, styleOf, vsStyles, zoneEdges, STYLE_LABEL } from "../analytics/scout";
 import { interactions } from "../analytics/matchup";
-import { store, TODAY } from "./store";
+import { DATASET, store, TODAY } from "./store";
 
-export { TODAY };
+export { DATASET, TODAY };
+
+/** Provenance tag for facts in the active dataset, and how the UI names it. */
+export const IS_DEMO = DATASET.kind === "demo";
+export const SRC: "demo" | "imported" = IS_DEMO ? "demo" : "imported";
+export const DATA_LABEL = IS_DEMO ? "Datos de demostración" : "Datos reales de UFC";
 
 export interface FighterSummary {
   id: string;
@@ -23,16 +28,18 @@ export interface FighterSummary {
   firstName: string;
   lastName: string;
   nickname: string | null;
-  country: string;
-  countryName: string;
+  country: string | null;
+  countryName: string | null;
   divisionId: string;
   division: string;
   divisionShort: string;
   org: string;
   orgName: string;
   status: Fighter["status"];
-  age: number;
+  age: number | null;
+  /** Professional record when the total is known; otherwise the covered (UFC) record. */
   record: { w: number; l: number; d: number; nc: number };
+  recordScope: "pro" | "covered";
   rating: number;
   band: number;
   provisional: boolean;
@@ -48,14 +55,15 @@ export interface FighterSummary {
   bouts: number;
 }
 
-const ageOn = (birth: string, on: string) => {
+const ageOn = (birth: string | null, on: string) => {
+  if (!birth) return null;
   const b = new Date(birth), d = new Date(on);
   let a = d.getUTCFullYear() - b.getUTCFullYear();
   if (d.getUTCMonth() < b.getUTCMonth() || (d.getUTCMonth() === b.getUTCMonth() && d.getUTCDate() < b.getUTCDate())) a--;
   return a;
 };
 
-export const fullName = (f: Pick<Fighter, "firstName" | "lastName">) => `${f.firstName} ${f.lastName}`;
+export const fullName = (f: Pick<Fighter, "firstName" | "lastName">) => `${f.firstName} ${f.lastName}`.trim();
 
 const DAY = 86_400_000;
 const daysBefore = (date: string, days: number) => new Date(Date.parse(date) - days * DAY).toISOString().slice(0, 10);
@@ -70,7 +78,7 @@ function eligible(f: Fighter, asOf: string) {
   if (b.length < 3) return false;
   const last = b[b.length - 1].fight.date;
   if (Date.parse(asOf) - Date.parse(last) > 540 * DAY) return false;
-  if (asOf === TODAY && f.status === "retired") return false;
+  if (asOf === TODAY && f.status !== "active") return false;
   return true;
 }
 
@@ -103,15 +111,16 @@ export function summary(id: string): FighterSummary {
   const b = completed(id);
   return {
     id, slug: f.slug, name: fullName(f), firstName: f.firstName, lastName: f.lastName, nickname: f.nickname,
-    country: f.country, countryName: countryByCode.get(f.country)?.name ?? f.country,
+    country: f.country, countryName: f.country ? countryByCode.get(f.country)?.name ?? f.country : null,
     divisionId: div.id, division: div.name, divisionShort: div.short, org: org.short, orgName: org.name,
     status: f.status, age: ageOn(f.birthDate, TODAY),
     record: {
-      w: st.record.w + f.priorRecord.w,
-      l: st.record.l + f.priorRecord.l,
-      d: st.record.d + f.priorRecord.d,
+      w: st.record.w + (f.priorRecord?.w ?? 0),
+      l: st.record.l + (f.priorRecord?.l ?? 0),
+      d: st.record.d + (f.priorRecord?.d ?? 0),
       nc: st.record.nc,
     },
+    recordScope: f.priorRecord ? "pro" : "covered",
     rating: r.value, band: r.band, provisional: r.provisional,
     rank: rankOf(id, f.divisionId),
     champion: s.champions.has(id),
@@ -135,6 +144,13 @@ export function getFighterBySlug(slug: string) {
 
 export function allFighterSlugs() {
   return store().fighters.map((f) => f.slug);
+}
+
+/** Profiles rendered at build time: active fighters and anyone who held a belt. The rest render on first request. */
+export function prerenderFighterSlugs() {
+  const s = store();
+  const belt = new Set(s.championships.map((c) => c.fighterId));
+  return s.fighters.filter((f) => f.status === "active" || belt.has(f.id)).map((f) => f.slug);
 }
 
 /* ─────────────────────────── Fights & events ─────────────────────────── */
@@ -610,21 +626,27 @@ export function trending(limit = 5) {
     .map((f) => {
       const h = s.ratingHistory.get(f.id)!;
       const recent = h.filter((p) => Date.parse(TODAY) - Date.parse(p.date) <= 200 * DAY);
-      if (!recent.length) return null;
-      const before = h[h.length - recent.length - 1]?.value ?? h[0].value;
+      // Needs an established rating before the window: debut jumps aren't a trend.
+      if (!recent.length || h.length - recent.length < 3) return null;
+      const before = h[h.length - recent.length - 1].value;
       return { fighter: summary(f.id), delta: Math.round((h[h.length - 1].value - before) * 10) / 10 };
     })
-    .filter((x): x is { fighter: FighterSummary; delta: number } => x !== null && x.fighter.status !== "retired")
+    .filter((x): x is { fighter: FighterSummary; delta: number } => x !== null && x.fighter.status === "active")
     .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta))
     .slice(0, limit);
+}
+
+/** Divisions that currently have a FIGHTCORE ranking (a retired division has no eligible fighters). */
+export function rankedDivisions() {
+  return DIVISIONS.filter((d) => (divisionRankings(TODAY).get(d.id) ?? []).length > 0);
 }
 
 export function spotlight(): FighterSummary[] {
   // One champion, one rising prospect, one veteran — a deliberate spread.
   const all = listFighters().filter((f) => f.status === "active" && !f.provisional);
   const champ = [...all].filter((f) => f.champion).sort((a, b) => b.rating - a.rating)[0];
-  const prospect = [...all].filter((f) => f.age <= 27 && !f.champion).sort((a, b) => b.rating - a.rating)[0];
-  const vet = [...all].filter((f) => f.age >= 33 && !f.champion && f.id !== prospect?.id).sort((a, b) => b.rating - a.rating)[0];
+  const prospect = [...all].filter((f) => f.age !== null && f.age <= 27 && !f.champion).sort((a, b) => b.rating - a.rating)[0];
+  const vet = [...all].filter((f) => f.age !== null && f.age >= 33 && !f.champion && f.id !== prospect?.id).sort((a, b) => b.rating - a.rating)[0];
   return [champ, prospect, vet].filter(Boolean);
 }
 
@@ -637,8 +659,10 @@ export function universeCounts() {
     events: s.events.length,
     organizations: ORGANIZATIONS.length,
     divisions: DIVISIONS.length,
+    divisionsM: DIVISIONS.filter((d) => d.sex === "M").length,
+    divisionsF: DIVISIONS.filter((d) => d.sex === "F").length,
     rounds: s.fights.reduce((a, f) => a + f.rounds.length, 0),
-    countries: new Set(s.fighters.map((f) => f.country)).size,
+    countries: new Set(s.fighters.flatMap((f) => (f.country ? [f.country] : []))).size,
   };
 }
 
@@ -915,13 +939,13 @@ export const statsOverview = cache(() => {
     .sort((a, b) => b.value - a.value).slice(0, 10)])) as Record<StatKey, { fighter: FighterSummary; value: number; sample: number }[]>;
 
   const done = s.fights.filter((f) => f.status === "completed" && f.method !== "NC");
-  const rate = (list: typeof done) => ({
-    n: list.length,
-    ko: list.filter((f) => f.method === "KO/TKO").length / Math.max(1, list.length),
-    sub: list.filter((f) => f.method === "SUB").length / Math.max(1, list.length),
-    dec: list.filter((f) => f.method?.endsWith("DEC")).length / Math.max(1, list.length),
+  const rate = (all: typeof done) => { const list = all.filter((f) => f.red && f.blue && f.round && f.time !== null); return {
+    n: all.length,
+    ko: all.filter((f) => f.method === "KO/TKO").length / Math.max(1, all.length),
+    sub: all.filter((f) => f.method === "SUB").length / Math.max(1, all.length),
+    dec: all.filter((f) => f.method?.endsWith("DEC")).length / Math.max(1, all.length),
     sigPerMin: list.reduce((a, f) => a + (f.red!.sigLanded + f.blue!.sigLanded), 0) / Math.max(1, list.reduce((a, f) => a + ((f.round! - 1) * 300 + f.time!) / 60, 0)),
-  });
+  }; };
   const byDivision = DIVISIONS.map((d) => ({ division: d, ...rate(done.filter((f) => f.divisionId === d.id)) }));
   const years = [...new Set(done.map((f) => f.date.slice(0, 4)))].sort();
   const byYear = years.map((y) => ({ year: Number(y), ...rate(done.filter((f) => f.date.startsWith(y))) }));
@@ -940,6 +964,7 @@ export function mapData() {
     return rows.get(code)!;
   };
   for (const f of s.fighters) {
+    if (!f.country) continue;
     const r = row(f.country);
     r.fighters++;
     if (f.status === "active") r.active++;
@@ -949,4 +974,14 @@ export function mapData() {
   }
   for (const e of s.events) { const r = row(e.country); r.events++; r.fights += e.fightIds.length; }
   return [...rows.values()].sort((a, b) => b.fighters - a.fighters || b.events - a.events);
+}
+
+/* ─────────────────────────── Credits ─────────────────────────── */
+
+/** Every licensed photograph in use, with what its licence requires us to show. */
+export function photoCredits() {
+  return store().fighters
+    .filter((f) => f.photo.kind === "licensed")
+    .map((f) => ({ slug: f.slug, name: fullName(f), src: f.photo.src, author: f.photo.author ?? "", license: f.photo.license ?? "", licenseUrl: f.photo.licenseUrl ?? null, sourceUrl: f.photo.sourceUrl ?? "" }))
+    .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }

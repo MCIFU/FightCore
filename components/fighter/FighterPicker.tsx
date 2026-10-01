@@ -29,7 +29,7 @@ export function FighterPicker({ roster, param, label, current, exclude = [] }: {
     <div className={`${s.picker} ${pending ? s.pending : ""}`}>
       <label htmlFor={`${id}-in`} className="label">{label}</label>
       <div className={s.box}>
-        {cur && <img src={cur.photo} alt="" width={36} height={36} className={s.face} />}
+        {cur && (cur.photo ? <img src={cur.photo} alt="" width={36} height={36} className={s.face} /> : <span className={s.face} aria-hidden />)}
         <input
           id={`${id}-in`}
           className={s.input}
@@ -56,7 +56,7 @@ export function FighterPicker({ roster, param, label, current, exclude = [] }: {
         <ul id={`${id}-list`} role="listbox" className={s.list}>
           {options.map((o, i) => (
             <li key={o.slug} id={`${id}-o-${i}`} role="option" aria-selected={i === active} className={s.opt} onMouseDown={(e) => { e.preventDefault(); choose(o.slug); }} onMouseMove={() => setActive(i)}>
-              <img src={o.photo} alt="" width={32} height={32} className={s.optFace} loading="lazy" />
+              {o.photo ? <img src={o.photo} alt="" width={32} height={32} className={s.optFace} loading="lazy" /> : <span className={s.optFace} aria-hidden />}
               <span>{o.name}</span>
               <span className={s.meta}>{o.division} · {o.org} · {o.rating.toFixed(1)}</span>
             </li>

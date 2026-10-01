@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { SegmentBar } from "@/components/charts/Bars";
@@ -9,6 +8,7 @@ import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { ButtonLink, RatingValue, RecordValue, SectionHead, Source, Unavailable } from "@/components/ui/primitives";
 import { listFighters, poundForPound, scoutReport } from "@/lib/data/repository";
 import s from "./scout.module.css";
+import { Portrait } from "@/components/fighter/Portrait";
 
 export const metadata: Metadata = {
   title: "Scout",
@@ -55,7 +55,7 @@ export default async function ScoutPage({ searchParams }: { searchParams: Promis
       ) : (
         <>
           <header className={s.subject}>
-            <Image src={r.summary.photo.src} alt={`Retrato de ${r.summary.name} (ilustración)`} width={512} height={512} sizes="160px" className={s.face} priority />
+            <Portrait src={r.summary.photo.src} name={r.summary.name} kind={r.summary.photo.kind} sizes="160px" className={s.face} priority />
             <div className={s.subjectInfo}>
               <p className="label">Informe · {r.summary.division} · {r.summary.org}</p>
               <h2 className={s.name}><Link href={`/fighters/${r.summary.slug}`}>{r.summary.name}</Link></h2>

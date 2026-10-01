@@ -18,7 +18,7 @@ export function FightRow({ v }: { v: FightView }) {
     <li className={`${s.row} ${f.slot === "main" ? s.main : ""}`}>
       <span className={s.slot}>{SLOT[f.slot]}{f.titleFight && <Tag tone="solid">Título</Tag>}</span>
       <Link href={`/fighters/${v.red.slug}`} className={`${s.side} ${s.red} ${done && !redWon ? s.lost : ""}`}>
-        <span className={s.face}><FighterAvatar src={v.red.photo.src} size={f.slot === "main" ? 72 : 52} corner="a" /></span>
+        <span className={s.face}><FighterAvatar src={v.red.photo.src} name={v.red.name} size={f.slot === "main" ? 72 : 52} corner="a" /></span>
         {v.red.title && <ChampionBadge title={v.red.title} variant="icon" />}
         <span className={s.first}>{v.red.firstName}</span>
         <span className={s.last}>{v.red.lastName}</span>
@@ -36,7 +36,7 @@ export function FightRow({ v }: { v: FightView }) {
         <span className={s.open} aria-hidden>Abrir →</span>
       </Link>
       <Link href={`/fighters/${v.blue.slug}`} className={`${s.side} ${s.blue} ${done && !blueWon ? s.lost : ""}`}>
-        <span className={s.face}><FighterAvatar src={v.blue.photo.src} size={f.slot === "main" ? 72 : 52} corner="b" /></span>
+        <span className={s.face}><FighterAvatar src={v.blue.photo.src} name={v.blue.name} size={f.slot === "main" ? 72 : 52} corner="b" /></span>
         {v.blue.title && <ChampionBadge title={v.blue.title} variant="icon" />}
         <span className={s.first}>{v.blue.firstName}</span>
         <span className={s.last}>{v.blue.lastName}</span>

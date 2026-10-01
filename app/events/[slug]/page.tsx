@@ -3,13 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FightRow } from "@/components/fight/FightRow";
 import { Source, Tag, Unavailable } from "@/components/ui/primitives";
-import { countryByCode } from "@/lib/domain/reference";
-import { getEventBySlug, listEvents } from "@/lib/data/repository";
+import { getEventBySlug, IS_DEMO, listEvents, SRC, TODAY } from "@/lib/data/repository";
 import { fmtDateLong, METHOD_SHORT } from "@/lib/format";
 import s from "./event.module.css";
 
 export function generateStaticParams() {
-  return listEvents().map((e) => ({ slug: e.slug }));
+  // Upcoming cards and the last two years at build time; older events render on first request.
+  const cut = new Date(Date.parse(TODAY) - 730 * 86_400_000).toISOString().slice(0, 10);
+  return listEvents().filter((e) => e.date >= cut).map((e) => ({ slug: e.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const main = v.fights[0];
   return {
     title: `${v.event.name} · ${v.event.city}`,
-    description: `${v.event.name} (${v.org.name}), ${fmtDateLong(v.event.date)} en ${v.event.city}.${main ? ` Main event: ${main.red.name} vs ${main.blue.name}.` : ""} Datos de demostración.`,
+    description: `${v.event.name} (${v.org.name}), ${fmtDateLong(v.event.date)} en ${v.event.city}.${main ? ` Main event: ${main.red.name} vs ${main.blue.name}.` : ""}${IS_DEMO ? " Datos de demostración." : ""}`,
     alternates: { canonical: `/events/${slug}` },
   };
 }
@@ -29,19 +30,19 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   const v = getEventBySlug(slug);
   if (!v) notFound();
   const e = v.event;
-  const c = countryByCode.get(e.country);
   const done = v.fights.filter((f) => f.fight.status === "completed");
   const finishes = done.filter((f) => f.fight.method === "KO/TKO" || f.fight.method === "SUB");
   const totalSig = done.reduce((a, f) => a + (f.fight.red?.sigLanded ?? 0) + (f.fight.blue?.sigLanded ?? 0), 0);
   const fastest = [...finishes].sort((a, b) => ((a.fight.round! - 1) * 300 + a.fight.time!) - ((b.fight.round! - 1) * 300 + b.fight.time!))[0];
-  const bestSig = [...done].sort((a, b) => Math.max(b.fight.red!.sigLanded, b.fight.blue!.sigLanded) - Math.max(a.fight.red!.sigLanded, a.fight.blue!.sigLanded))[0];
+  const peak = (f: (typeof done)[number]) => Math.max(f.fight.red?.sigLanded ?? 0, f.fight.blue?.sigLanded ?? 0);
+  const bestSig = [...done].filter((f) => f.fight.red && f.fight.blue).sort((a, b) => peak(b) - peak(a))[0];
 
   const jsonLd = {
     "@context": "https://schema.org", "@type": "SportsEvent", name: e.name, startDate: e.date, sport: "Mixed Martial Arts",
-    location: { "@type": "Place", name: e.city, address: { "@type": "PostalAddress", addressLocality: e.city, addressCountry: e.country } },
+    location: { "@type": "Place", name: e.venue ?? e.city, address: { "@type": "PostalAddress", addressLocality: e.city, addressCountry: e.country || undefined } },
     organizer: { "@type": "Organization", name: v.org.name },
     eventStatus: "https://schema.org/EventScheduled",
-    description: "Evento ficticio del dataset de demostración de FIGHTCORE.",
+    description: IS_DEMO ? "Evento ficticio del dataset de demostración de FIGHTCORE." : `${e.name}: cartelera, resultados y estadísticas por combate.`,
   };
 
   return (
@@ -50,14 +51,14 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
       <nav aria-label="Ruta" className={s.crumbs}><Link href="/events">Eventos</Link> / <span>{v.org.short}</span></nav>
       <header className={s.head}>
         <div className={s.headMain}>
-          <p className={s.org}>{v.org.name} <Tag tone={e.status === "upcoming" ? "accent" : "default"}>{e.status === "upcoming" ? "Programado" : "Completado"}</Tag> <Source kind="demo" /></p>
+          <p className={s.org}>{v.org.name} <Tag tone={e.status === "upcoming" ? "accent" : "default"}>{e.status === "upcoming" ? "Programado" : "Completado"}</Tag> <Source kind={SRC} /></p>
           <h1 id="ev-title" className={s.title}>{e.name}</h1>
         </div>
         <dl className={s.facts}>
           <div><dt>Fecha</dt><dd>{fmtDateLong(e.date)}</dd></div>
           <div><dt>Ciudad</dt><dd>{e.city}, {v.countryName}</dd></div>
-          <div><dt>Coordenadas</dt><dd className="num">{c ? `${Math.abs(c.lat).toFixed(1)}°${c.lat >= 0 ? "N" : "S"} ${Math.abs(c.lon).toFixed(1)}°${c.lon >= 0 ? "E" : "O"}` : "—"}</dd></div>
-          <div><dt>Recinto</dt><dd><Unavailable reason="sin datos" /></dd></div>
+          <div><dt>Recinto</dt><dd>{e.venue ?? <Unavailable reason="sin datos" />}</dd></div>
+          <div><dt>Combates</dt><dd className="num">{v.fights.length}</dd></div>
         </dl>
       </header>
 

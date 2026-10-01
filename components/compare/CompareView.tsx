@@ -5,14 +5,14 @@ import { useRouter } from "next/navigation";
 import { useId, useMemo, useState, useTransition } from "react";
 import { LineChart } from "@/components/charts/LineChart";
 import { TaleOfTape } from "@/components/charts/TaleOfTape";
-import Image from "next/image";
 import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { CountryTag, FormStrip, OutcomeMark, RecordValue } from "@/components/ui/primitives";
 import type { AttributeKey } from "@/lib/analytics/attributes";
 import type { CompareEntry } from "@/lib/data/repository";
-import { fmtDate } from "@/lib/format";
+import { fmtCm, fmtDate, fmtStance } from "@/lib/format";
 import s from "./Compare.module.css";
+import { Portrait } from "@/components/fighter/Portrait";
 
 const CORNERS = ["a", "b", "c", "d"] as const;
 const CORNER_VAR = ["var(--corner-a)", "var(--corner-b)", "var(--corner-c)", "var(--corner-d)"];
@@ -26,7 +26,7 @@ const ATTRS: { key: AttributeKey; label: string }[] = [
 
 interface RosterItem { slug: string; name: string; division: string; org: string; rating: number; status: string }
 
-export function CompareView({ entries, roster }: { entries: CompareEntry[]; roster: RosterItem[] }) {
+export function CompareView({ entries, roster, demo = false }: { entries: CompareEntry[]; roster: RosterItem[]; demo?: boolean }) {
   const router = useRouter();
   const [pending, start] = useTransition();
   const [query, setQuery] = useState("");
@@ -91,7 +91,7 @@ export function CompareView({ entries, roster }: { entries: CompareEntry[]; rost
             {entries.map((e, i) => (
               <li key={e.summary.slug} className={`${s.chip} ${s[`c_${CORNERS[i]}`]}`}>
                 <span className={s.chipLetter} aria-hidden>{LETTER[i]}</span>
-                <FighterAvatar src={e.summary.photo.src} size={32} />
+                <FighterAvatar src={e.summary.photo.src} name={e.summary.name} size={32} />
                 <Link href={`/fighters/${e.summary.slug}`} className={s.chipName}>{e.summary.name}</Link>
                 <button type="button" className={s.chipX} onClick={() => remove(e.summary.slug)} aria-label={`Quitar a ${e.summary.name}`}>×</button>
               </li>
@@ -139,7 +139,7 @@ export function CompareView({ entries, roster }: { entries: CompareEntry[]; rost
             {entries.map((e, i) => (
               <article key={e.summary.slug} className={`${s.corner} ${s[`c_${CORNERS[i]}`]}`}>
                 <span className={s.cornerBar} aria-hidden />
-                <Image src={e.summary.photo.src} alt="" width={512} height={512} sizes="180px" className={s.cFace} />
+                <Portrait src={e.summary.photo.src} name={e.summary.name} alt="" sizes="180px" className={s.cFace} />
                 <span className={s.cornerLetter} aria-hidden>{LETTER[i]}</span>
                 {e.summary.title && <ChampionBadge title={e.summary.title} variant="tag" />}
                 <Link href={`/fighters/${e.summary.slug}`} className={s.cName}>
@@ -305,10 +305,10 @@ export function CompareView({ entries, roster }: { entries: CompareEntry[]; rost
                 <caption className="visually-hidden">Físico y perfil</caption>
                 <thead><tr><th scope="col">Dato</th>{entries.map((e, i) => <th key={e.summary.slug} scope="col" className={s[`c_${CORNERS[i]}`]}><i aria-hidden />{LETTER[i]} · {e.summary.lastName}</th>)}</tr></thead>
                 <tbody>
-                  <tr><th scope="row">Edad</th>{entries.map((e) => <td key={e.summary.slug}>{e.summary.age}</td>)}</tr>
-                  <tr><th scope="row">Altura</th>{entries.map((e) => <td key={e.summary.slug}>{e.heightCm} cm</td>)}</tr>
-                  <tr><th scope="row">Alcance</th>{entries.map((e) => <td key={e.summary.slug}>{e.reachCm} cm</td>)}</tr>
-                  <tr><th scope="row">Guardia</th>{entries.map((e) => <td key={e.summary.slug}>{e.stance === "Orthodox" ? "Ortodoxa" : e.stance === "Southpaw" ? "Zurda" : "Cambiante"}</td>)}</tr>
+                  <tr><th scope="row">Edad</th>{entries.map((e) => <td key={e.summary.slug}>{e.summary.age ?? "—"}</td>)}</tr>
+                  <tr><th scope="row">Altura</th>{entries.map((e) => <td key={e.summary.slug}>{fmtCm(e.heightCm)}</td>)}</tr>
+                  <tr><th scope="row">Alcance</th>{entries.map((e) => <td key={e.summary.slug}>{fmtCm(e.reachCm)}</td>)}</tr>
+                  <tr><th scope="row">Guardia</th>{entries.map((e) => <td key={e.summary.slug}>{fmtStance(e.stance)}</td>)}</tr>
                   <tr><th scope="row">Títulos (V-D)</th>{entries.map((e) => <td key={e.summary.slug}>{e.stats.titleRecord.w}-{e.stats.titleRecord.l}</td>)}</tr>
                   <tr><th scope="row">Mejor racha</th>{entries.map((e) => <td key={e.summary.slug}>{e.stats.longestWinStreak}</td>)}</tr>
                   <tr><th scope="row">Minutos en jaula</th>{entries.map((e) => <td key={e.summary.slug}>{Math.round(e.stats.minutes)}</td>)}</tr>
@@ -343,7 +343,7 @@ export function CompareView({ entries, roster }: { entries: CompareEntry[]; rost
             ) : <p className={s.emptyInline}>No tienen rivales en común en los combates registrados.</p>}
           </section>
 
-          <p className={s.foot}>Datos de demostración. FCR calculado por FIGHTCORE. Una comparación no es una predicción.</p>
+          <p className={s.foot}>{demo ? "Datos de demostración. " : "Combates y estadísticas de UFC. "}FCR calculado por FIGHTCORE. Una comparación no es una predicción.</p>
         </div>
       )}
     </div>

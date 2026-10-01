@@ -94,7 +94,7 @@
 .tapeNames span { display: inline-flex; align-items: center; gap: 8px; }
 .tapeNames i, .matrix th i, .methodName i { display: inline-block; width: 12px; height: 3px; background: var(--c); }
 
-.matrixWrap { overflow-x: auto; }
+.matrixWrap { overflow-x: auto; min-width: 0; max-width: 100%; }
 .matrix { width: 100%; min-width: 520px; font-variant-numeric: tabular-nums; }
 .matrix th, .matrix td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line); text-align: right; }
 .matrix th:first-child { text-align: left; font-weight: 500; color: var(--bone-2); }

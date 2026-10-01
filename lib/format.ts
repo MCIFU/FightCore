@@ -46,11 +46,12 @@ export const METHOD_LABEL: Record<string, string> = {
   "U-DEC": "Decisión unánime",
   "S-DEC": "Decisión dividida",
   "M-DEC": "Decisión mayoritaria",
+  DQ: "Descalificación",
   DRAW: "Empate",
   NC: "Sin resultado",
 };
 export const METHOD_SHORT: Record<string, string> = {
-  "KO/TKO": "KO/TKO", SUB: "SUB", "U-DEC": "DEC-U", "S-DEC": "DEC-D", "M-DEC": "DEC-M", DRAW: "EMP", NC: "NC",
+  "KO/TKO": "KO/TKO", SUB: "SUB", "U-DEC": "DEC-U", "S-DEC": "DEC-D", "M-DEC": "DEC-M", DQ: "DQ", DRAW: "EMP", NC: "NC",
 };
 
 export const OUTCOME_LABEL: Record<string, string> = { W: "Victoria", L: "Derrota", D: "Empate", NC: "Sin resultado" };
@@ -63,3 +64,8 @@ export const cmToFtIn = (cm: number) => {
   const inches = Math.round(cm / 2.54);
   return `${Math.floor(inches / 12)}′${inches % 12}″`;
 };
+
+export const fmtCm = (cm: number | null | undefined) => (cm == null ? "—" : `${cm} cm`);
+export const STANCE_LABEL: Record<string, string> = { Orthodox: "Ortodoxa", Southpaw: "Zurda", Switch: "Cambiante" };
+export const fmtStance = (st: string | null | undefined) => (st ? STANCE_LABEL[st] ?? st : "—");
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fightcore.app";

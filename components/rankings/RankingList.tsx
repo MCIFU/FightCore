@@ -28,7 +28,7 @@ export function RankingList({ rows, density = "regular", showDivision, caption }
         <li key={r.fighter.id} className={`${s.row} ${r.rank === 1 ? s.first : ""}`}>
           <span className={s.rank} aria-label={`Puesto ${r.rank}`}>{String(r.rank).padStart(2, "0")}</span>
           <Movement row={r} />
-          <FighterAvatar src={r.fighter.photo.src} size={density === "compact" ? 32 : 44} />
+          <FighterAvatar src={r.fighter.photo.src} name={r.fighter.name} size={density === "compact" ? 32 : 44} />
           <span className={s.who}>
             <Link href={`/fighters/${r.fighter.slug}`} className={s.name}>
               {r.fighter.name}

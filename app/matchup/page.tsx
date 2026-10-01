@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { TaleOfTape } from "@/components/charts/TaleOfTape";
 import { FighterPicker } from "@/components/fighter/FighterPicker";
 import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { ButtonLink, OutcomeMark, RatingValue, RecordValue, SectionHead, Source } from "@/components/ui/primitives";
-import { featuredFight, listFighters, matchupData } from "@/lib/data/repository";
+import { featuredFight, IS_DEMO, listFighters, matchupData } from "@/lib/data/repository";
 import s from "./matchup.module.css";
+import { Portrait } from "@/components/fighter/Portrait";
 
 export const metadata: Metadata = {
   title: "Style Matchup",
@@ -47,7 +47,7 @@ export default async function MatchupPage({ searchParams }: { searchParams: Prom
           <section className={s.corners} aria-label="Luchadores">
             {([["a", m.a, m.styleA], ["b", m.b, m.styleB]] as const).map(([k, f, st]) => (
               <article key={k} className={`${s.corner} ${s[k]}`}>
-                <Image src={f.photo.src} alt="" width={512} height={512} sizes="160px" className={s.face} />
+                <Portrait src={f.photo.src} name={f.name} alt="" sizes="160px" className={s.face} />
                 <div className={s.cInfo}>
                   <span className="label">Esquina {k.toUpperCase()} · {st.label}</span>
                   <Link href={`/fighters/${f.slug}`} className={s.cName}>{f.name}</Link>
@@ -155,7 +155,7 @@ export default async function MatchupPage({ searchParams }: { searchParams: Prom
             <ButtonLink href={`/scout?f=${m.a.slug}`} variant="ghost">Scout de {m.a.lastName}</ButtonLink>
             <ButtonLink href={`/scout?f=${m.b.slug}`} variant="ghost">Scout de {m.b.lastName}</ButtonLink>
           </div>
-          <p className={s.note}>Análisis descriptivo con datos de demostración. No se debe usar como pronóstico ni para apuestas.</p>
+          <p className={s.note}>Análisis descriptivo{IS_DEMO ? " con datos de demostración" : " de lo que cada uno ha hecho en UFC"}. No es un pronóstico y no debe usarse para apuestas.</p>
         </>
       )}
     </div>

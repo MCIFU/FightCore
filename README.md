@@ -2,7 +2,7 @@
 
 Plataforma de datos, historia y scouting de MMA. Rating propio transparente (FCR), rankings separados de los oficiales, expedientes de luchador, comparación visual y búsqueda global.
 
-> **Dataset de demostración.** Luchadores, combates y eventos son ficticios y proceden de una simulación determinista por rounds (`lib/demo`). Las organizaciones son entidades reales descritas solo con metadatos verificables; los datos desconocidos se muestran como tal. FIGHTCORE no está afiliado a ninguna organización.
+> **Datos reales de UFC (1993–hoy).** Resultados y estadísticas por asalto de [UFCStats](http://ufcstats.com/) vía el espejo [scrape_ufc_stats](https://github.com/Greco1899/scrape_ufc_stats); nacionalidad y foto de Wikidata (CC0); plantilla actual, campeones actuales, récord profesional total y carteleras programadas de Wikipedia (CC BY-SA 4.0). Lo que ninguna fuente dice queda como «sin datos». FIGHTCORE no está afiliado a UFC ni a ninguna organización. El universo simulado sigue disponible para desarrollo con `DATA_PROVIDER=demo`.
 
 ## Arrancar
 
@@ -12,7 +12,10 @@ npm run dev        # http://localhost:3000
 npm test           # modelo FCR, integridad del dataset, búsqueda (+ paridad PostgreSQL si hay DATABASE_URL)
 npm run typecheck
 npm run build
-npm run portraits  # regenera los retratos PNG (public/portraits)
+npm run import:ufc       # descarga y normaliza el snapshot real → data/snapshot/ufc.json.gz
+npm run photos:fetch     # fotos de Wikimedia Commons con licencia libre (≈1 petición/s)
+npm run photos:process   # recorte de cara + fondo transparente → public/photos/*.webp
+npm run portraits        # retratos ilustrados del modo demo (public/portraits)
 npm run geo        # regenera la geometría del mapa (lib/geo/world.json)
 ```
 
@@ -24,7 +27,17 @@ DATABASE_URL=postgres://usuario:clave@localhost/fightcore npm run db:seed   # es
 DATA_PROVIDER=postgres DATABASE_URL=postgres://… npm run build              # la app lee de PostgreSQL
 ```
 
-`db/schema.sql` es el esquema canónico (12 tablas: hechos con procedencia + ratings calculados). Sin `DATA_PROVIDER=postgres` la app usa el universo demo en memoria. Un test verifica que ambos proveedores producen exactamente los mismos ratings.
+`db/schema.sql` es el esquema canónico (12 tablas: hechos con procedencia + ratings calculados). El seed carga el snapshot real (`SEED_SOURCE=demo` para el universo simulado). Un test verifica que PostgreSQL y el proveedor en memoria producen exactamente los mismos ratings.
+
+### Proveedores de datos
+
+| `DATA_PROVIDER` | Origen |
+|---|---|
+| *(vacío)* | Snapshot real de UFC en `data/snapshot` (por defecto) |
+| `demo` | Universo simulado determinista (`lib/demo`) |
+| `postgres` | Base de datos (`DATABASE_URL`) |
+
+El importador cruza las fuentes así: los combates de UFCStats definen luchadores, eventos y estadísticas; Wikidata se enlaza por nombre y fecha de nacimiento; la plantilla de Wikipedia marca quién está en activo y aporta el récord profesional total (lo previo a UFC = total − UFC). El linaje de cinturones se reconstruye con los combates por título y se coteja con los campeones actuales de Wikipedia (vacantes y ascensos de interinos no pasan por un combate). Los eventos programados salen de la página de cada evento en Wikipedia.
 
 ## Estructura
 
@@ -37,20 +50,25 @@ DATA_PROVIDER=postgres DATABASE_URL=postgres://… npm run build              # 
 | `lib/analytics` | Agregados de carrera, atributos por percentil, observaciones de scouting con evidencia |
 | `lib/data` | Store y repositorio: la única API que usa la UI. Sustituir el proveedor no toca la UI |
 | `db/schema.sql` | Esquema PostgreSQL canónico |
-| `lib/data/providers` | Proveedor PostgreSQL (el demo vive en `lib/demo`) |
+| `lib/data/providers` | Proveedores snapshot (datos reales) y PostgreSQL; el demo vive en `lib/demo` |
+| `data/snapshot` | Snapshot real comprimido + metadatos de fotos (autor, licencia, origen) |
 | `lib/portraits` | Generador de retratos ilustrados |
 | `lib/geo` | Geometría mundial proyectada para el mapa |
-| `scripts` | Seed de base de datos, retratos, geometría |
+| `scripts` | Importador UFC, pipeline de fotos, seed de base de datos, retratos demo, geometría |
 | `components` | Design system: primitivas, gráficos SVG propios, búsqueda, layout |
 | `app` | Rutas (App Router) |
 
 ## Rutas
 
-`/` · `/fighters` · `/fighters/[slug]` · `/compare?f=a,b,c,d` · `/rankings` · `/champions` · `/events` · `/events/[slug]` · `/fights/[id]` · `/records?scope=…` · `/history` · `/map` · `/organizations` · `/organizations/[slug]` · `/scout?f=` · `/matchup?a=&b=` · `/stats` · `/methodology` · `/brand` · `/offline`.
+`/` · `/fighters` · `/fighters/[slug]` · `/compare?f=a,b,c,d` · `/rankings` · `/champions` · `/events` · `/events/[slug]` · `/fights/[id]` · `/records?scope=…` · `/history` · `/map` · `/organizations` · `/organizations/[slug]` · `/scout?f=` · `/matchup?a=&b=` · `/stats` · `/methodology` · `/credits` · `/brand` · `/offline`.
 
-## Retratos
+## Fotografías
 
-Los luchadores del dataset son ficticios, así que no existen fotografías suyas. Cada uno tiene un retrato ilustrado generado de forma determinista a partir de su perfil (país, sexo, edad, peso, estilo), exportado como PNG transparente de 512×512 y marcado en la interfaz como «Ilustración · no es una fotografía». El campo `photo` (`kind: "illustration" | "licensed"`, crédito y fecha) permite sustituirlo por fotografía con licencia cuando se conecten datos reales.
+Solo fotografías de **Wikimedia Commons con licencia libre** (CC BY, CC BY-SA, CC0, dominio público), elegidas a través de la imagen que Wikidata asocia a cada luchador. `photos:fetch` lee la página de cada archivo y descarta cualquiera sin licencia libre; guarda autor, licencia y enlace. `photos:process` detecta la cara (MediaPipe), recorta cabeza y hombros, elimina el fondo y exporta WebP 400×400 con transparencia; si no encuentra una cara clara, descarta la foto. Cada ficha muestra autor, licencia y origen, y `/credits` lista todas. Quien no tiene foto libre muestra sus iniciales: no se usan fotos oficiales de UFC ni de agencias, que tienen derechos reservados.
+
+Requisitos del procesado: `pip install opencv-python-headless mediapipe==0.10.14`.
+
+En modo demo, los luchadores ficticios usan retratos ilustrados (`npm run portraits`) marcados como «Ilustración · no es una fotografía».
 
 ## PWA
 

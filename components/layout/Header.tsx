@@ -8,7 +8,7 @@ import { openSearch } from "@/components/search/searchBus";
 import { MORE_NAV, PRIMARY_NAV } from "./nav";
 import s from "./Header.module.css";
 
-export function Header({ stamp }: { stamp: string }) {
+export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
   const path = usePathname();
   const [moreOpen, setMoreOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,7 +41,9 @@ export function Header({ stamp }: { stamp: string }) {
         <div className={`wrap ${s.mastInner}`}>
           <span>Edición {stamp}</span>
           <span className={s.mastMid}>Performance intelligence · MMA</span>
-          <span className={s.demo}><span aria-hidden className={s.demoDot} />Dataset de demostración</span>
+          {demo
+            ? <span className={s.demo}><span aria-hidden className={s.demoDot} />Dataset de demostración</span>
+            : <span className={s.live}><span aria-hidden className={s.liveDot} />Datos reales · UFC</span>}
         </div>
       </div>
       <header className={s.header}>

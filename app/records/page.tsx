@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { EmptyState, SectionHead, Source } from "@/components/ui/primitives";
-import { parseRecordScope, recordsFor } from "@/lib/data/repository";
+import { parseRecordScope, recordsFor, SRC } from "@/lib/data/repository";
 import { DIVISIONS, divisionById, orgById, ORGANIZATIONS } from "@/lib/domain/reference";
 import s from "./records.module.css";
 
@@ -26,7 +26,7 @@ export default async function RecordsPage({ searchParams }: { searchParams: Prom
   return (
     <div className="wrap" style={{ paddingTop: "var(--s-7)", paddingBottom: "var(--s-8)" }}>
       <SectionHead as="h1" kicker="FIGHTCORE Records" title="Récords"
-        lede={<>Cada récord se calcula a partir de los combates registrados y enlaza a su evidencia. <Source kind="demo" /> <Source kind="calculated" /></>} />
+        lede={<>Cada récord se calcula a partir de los combates registrados y enlaza a su evidencia. <Source kind={SRC} /> <Source kind="calculated" /></>} />
 
       <form method="get" className={s.scope} aria-label="Ámbito de los récords">
         <Link href="/records" className={s.chip} aria-current={scope.kind === "global" ? "page" : undefined}>Global</Link>
@@ -61,7 +61,7 @@ export default async function RecordsPage({ searchParams }: { searchParams: Prom
                   <span className={s.unit}>{r.unit}</span>
                   <span className={s.label}>{r.label}</span>
                   <span className={s.holder}>
-                    <FighterAvatar src={r.holder.photo.src} size={36} champion={r.holder.champion} />
+                    <FighterAvatar src={r.holder.photo.src} name={r.holder.name} size={36} champion={r.holder.champion} />
                     <span>{r.holder.name}<small>{r.holder.divisionShort} · {r.holder.org}</small></span>
                   </span>
                   <span className={s.ctx}>{r.context}</span>

@@ -8,7 +8,7 @@ import s from "./Profile.module.css";
 
 export interface OppRow {
   fightId: string; date: string; outcome: "W" | "L" | "D" | "NC" | null;
-  opponent: { slug: string; name: string; country: string; rating: number };
+  opponent: { slug: string; name: string; country: string | null; rating: number };
   method: string | null; submission: string | null; round: number | null; time: number | null;
   org: string; event: string; eventSlug: string; division: string; title: boolean; oppStrength: number;
 }

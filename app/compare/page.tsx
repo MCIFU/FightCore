@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CompareView } from "@/components/compare/CompareView";
-import { compareData, defaultCompareSlugs, listFighters } from "@/lib/data/repository";
+import { compareData, defaultCompareSlugs, IS_DEMO, listFighters } from "@/lib/data/repository";
 
 export const metadata: Metadata = {
   title: "Comparar luchadores",
@@ -17,5 +17,5 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
     .filter((x) => x.bouts >= 3)
     .map((x) => ({ slug: x.slug, name: x.name, division: x.divisionShort, org: x.org, rating: x.rating, status: x.status }))
     .sort((a, b) => b.rating - a.rating);
-  return <CompareView key={slugs.join(",")} entries={entries} roster={roster} />;
+  return <CompareView key={slugs.join(",")} entries={entries} roster={roster} demo={IS_DEMO} />;
 }

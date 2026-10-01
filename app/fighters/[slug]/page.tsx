@@ -13,13 +13,13 @@ import { ButtonLink, CountryTag, FormStrip, OutcomeMark, RecordValue, SectionHea
 import { Tabs } from "@/components/ui/Tabs";
 import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { ATTRIBUTES } from "@/lib/analytics/attributes";
-import { allFighterSlugs, fighterProfile, STYLE_DIMS, TODAY } from "@/lib/data/repository";
-import { fmtClock, fmtDate, fmtDateLong, METHOD_LABEL, METHOD_SHORT } from "@/lib/format";
+import { DATASET, fighterProfile, IS_DEMO, prerenderFighterSlugs, SRC, STYLE_DIMS, TODAY } from "@/lib/data/repository";
+import { fmtClock, fmtCm, fmtDate, fmtDateLong, fmtStance, METHOD_LABEL, METHOD_SHORT, SITE_URL } from "@/lib/format";
 import { FACTORS, FCR_VERSION } from "@/lib/rating/model";
 import s from "@/components/fighter/Profile.module.css";
 
 export function generateStaticParams() {
-  return allFighterSlugs().map((slug) => ({ slug }));
+  return prerenderFighterSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const p = fighterProfile(slug);
   if (!p) return { title: "Luchador no encontrado" };
   const r = p.summary.record;
-  const desc = `${p.summary.name}: ${r.w}-${r.l}-${r.d}, ${p.summary.division}. FIGHTCORE Rating ${p.rating.value.toFixed(1)} ±${p.rating.band}. Récord, estilo, rendimiento, rivales y evolución. Datos de demostración.`;
+  const desc = `${p.summary.name}: ${r.w}-${r.l}-${r.d}, ${p.summary.division}. FIGHTCORE Rating ${p.rating.value.toFixed(1)} ±${p.rating.band}. Récord, estilo, rendimiento, rivales y evolución.${IS_DEMO ? " Datos de demostración." : ""}`;
   return {
     title: `${p.summary.name} — Expediente`,
     description: desc,
@@ -63,9 +63,13 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
     "@type": "Person",
     name: me.name,
     alternateName: f.nickname ?? undefined,
-    nationality: me.countryName,
-    height: { "@type": "QuantitativeValue", value: f.heightCm, unitCode: "CMT" },
-    description: "Perfil de un luchador ficticio del dataset de demostración de FIGHTCORE.",
+    nationality: me.countryName ?? undefined,
+    birthDate: DATASET.kind === "ufc" ? f.birthDate ?? undefined : undefined,
+    height: f.heightCm ? { "@type": "QuantitativeValue", value: f.heightCm, unitCode: "CMT" } : undefined,
+    image: f.photo.kind === "licensed" ? `${SITE_URL}${f.photo.src}` : undefined,
+    description: DATASET.kind === "ufc"
+      ? `Perfil analítico de ${me.name} en FIGHTCORE: récord, estadísticas por asalto y FIGHTCORE Rating.`
+      : "Perfil de un luchador ficticio del dataset de demostración de FIGHTCORE.",
   };
 
   return (
@@ -92,8 +96,8 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             <div className={s.tags}>
               {me.title && <ChampionBadge title={me.title} variant="full" />}
               {rankText && <Tag tone="accent">{rankText} · FC Rankings</Tag>}
-              <Tag>{f.status === "active" ? "En activo" : f.status === "inactive" ? "Inactivo" : "Retirado"}</Tag>
-              <Source kind="demo" />
+              <Tag>{f.status === "active" ? "En activo" : f.status === "inactive" ? (IS_DEMO ? "Inactivo" : "Fuera de la plantilla UFC") : "Retirado"}</Tag>
+              <Source kind={SRC} />
             </div>
             <h1 id="fighter-name" className={s.name}>
               <span className={s.first}>{f.firstName}</span>
@@ -143,10 +147,10 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
           </div>
 
           <dl className={s.facts}>
-            <div><dt>Edad</dt><dd>{me.age}</dd></div>
-            <div><dt>Altura</dt><dd>{f.heightCm} cm</dd></div>
-            <div><dt>Alcance</dt><dd>{f.reachCm} cm</dd></div>
-            <div><dt>Guardia</dt><dd>{f.stance === "Orthodox" ? "Ortodoxa" : f.stance === "Southpaw" ? "Zurda" : "Cambiante"}</dd></div>
+            <div><dt>Edad</dt><dd>{me.age ?? "—"}</dd></div>
+            <div><dt>Altura</dt><dd>{fmtCm(f.heightCm)}</dd></div>
+            <div><dt>Alcance</dt><dd>{fmtCm(f.reachCm)}</dd></div>
+            <div><dt>Guardia</dt><dd>{fmtStance(f.stance)}</dd></div>
             <div><dt>Equipo</dt><dd><Unavailable reason="sin datos" /></dd></div>
             <div><dt>Último combate</dt><dd>{me.lastFight ? fmtDate(me.lastFight) : "—"}</dd></div>
             <div><dt>Tiempo en jaula</dt><dd>{Math.round(st.minutes)} min</dd></div>
@@ -259,7 +263,9 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
                     <div className={s.recBig}>
                       <RecordValue r={p.records.career} size="lg" />
                       <p className={s.recNote}>
-                        Incluye {p.records.prior.w}-{p.records.prior.l}-{p.records.prior.d} previo a la cobertura de FIGHTCORE, sin desglose por método.
+                        {p.records.prior
+                          ? <>Récord profesional. Incluye {p.records.prior.w}-{p.records.prior.l}-{p.records.prior.d} fuera de la cobertura de FIGHTCORE, sin desglose por método.</>
+                          : <>Solo combates en cobertura{DATASET.kind === "ufc" ? " (UFC)" : ""}: el récord profesional completo no está disponible en las fuentes.</>}
                       </p>
                     </div>
                     <dl className={s.recStats}>
@@ -479,7 +485,9 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
         </section>
 
         <p className={s.provenance}>
-          <Source kind="demo" /> <Source kind="calculated" /> Luchador ficticio. Estadísticas simuladas; rating, atributos y observaciones calculados por FIGHTCORE a {fmtDate(TODAY)}.
+          <Source kind={SRC} /> <Source kind="calculated" /> {IS_DEMO
+            ? <>Luchador ficticio. Estadísticas simuladas; rating, atributos y observaciones calculados por FIGHTCORE a {fmtDate(TODAY)}.</>
+            : <>Combates y estadísticas de UFC (UFCStats); nacionalidad y récord profesional de Wikidata y Wikipedia cuando lo indican. Rating, atributos y observaciones calculados por FIGHTCORE a {fmtDate(TODAY)}. <Link href="/methodology">Metodología</Link>.</>}
         </p>
       </div>
     </article>

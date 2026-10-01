@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { SectionHead, Source } from "@/components/ui/primitives";
-import { championsTable, type ChampionCell } from "@/lib/data/repository";
+import { championsTable, IS_DEMO, SRC, type ChampionCell } from "@/lib/data/repository";
 import { fmtDate } from "@/lib/format";
 import s from "./champions.module.css";
 
@@ -17,7 +17,7 @@ function Cell({ c, org }: { c: ChampionCell; org: string }) {
   if (c.state === "champion" && c.fighter) {
     return (
       <Link href={`/fighters/${c.fighter.slug}`} className={s.champ}>
-        <FighterAvatar src={c.fighter.photo.src} size={48} champion />
+        <FighterAvatar src={c.fighter.photo.src} name={c.fighter.name} size={48} champion />
         <span className={s.champText}>
           <span className={s.champName}>{c.fighter.name}</span>
           <span className={s.champMeta}>
@@ -55,7 +55,7 @@ export default function ChampionsPage() {
     <div className="wrap" style={{ paddingTop: "var(--s-7)", paddingBottom: "var(--s-8)" }}>
       <SectionHead
         as="h1" kicker="FIGHTCORE Rankings · Títulos" title="Campeones"
-        lede={<>{count} cinturones vigentes en {allOrgs.length} organizaciones. La última columna no es un título: es el número 1 del FIGHTCORE Rating en la división, como referencia independiente. <Source kind="demo" /></>}
+        lede={<>{count} cinturones vigentes{allOrgs.length === 1 ? ` de ${allOrgs[0].short}` : ` en ${allOrgs.length} organizaciones`}. La última columna no es un título: es el número 1 del FIGHTCORE Rating en la división, como referencia independiente. <Source kind={SRC} /></>}
       />
       <p className={s.legend}>
         <ChampionBadge title={{ org: "ORG", division: "División" }} variant="icon" /> Campeón vigente · <strong>Vacante</strong> = el título existió pero hoy no tiene dueño · — = la organización no ha registrado ese título.
@@ -119,7 +119,7 @@ export default function ChampionsPage() {
           </div>
         </section>
       )}
-      <p className={s.foot}>Títulos del dataset de demostración. Los rankings y cinturones oficiales reales se mostrarán solo con un proveedor con licencia. <Link href="/rankings">Ver rankings</Link></p>
+      <p className={s.foot}>{IS_DEMO ? "Títulos del dataset de demostración." : "Cobertura: UFC. Linaje reconstruido a partir de los combates por título (UFCStats) y campeones actuales cotejados con Wikipedia; un cinturón que se deja vacante sin combate figura desde la fecha que indica Wikipedia."} <Link href="/rankings">Ver rankings</Link></p>
     </div>
   );
 }

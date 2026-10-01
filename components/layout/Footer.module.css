@@ -16,3 +16,4 @@
 .giant::before { content: attr(data-word); }
 .legal { display: grid; gap: var(--s-3); font-size: var(--fs-xs); color: var(--bone-3); max-width: 90ch; }
 .legal strong { color: var(--warning); font-weight: 600; }
+.legal a { color: var(--bone-2); text-decoration: underline; text-underline-offset: 2px; }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { EmptyState, RatingValue, SectionHead, Source, Unavailable } from "@/components/ui/primitives";
-import { organizationDetail } from "@/lib/data/repository";
+import { IS_DEMO, organizationDetail, SRC } from "@/lib/data/repository";
 import { ORGANIZATIONS } from "@/lib/domain/reference";
 import { fmtDate } from "@/lib/format";
 import s from "./org.module.css";
@@ -49,7 +49,7 @@ export default async function OrgPage({ params }: { params: Promise<{ slug: stri
 
       {!hasData ? (
         <div style={{ marginTop: 40 }}>
-          <EmptyState title="Sin eventos en el dataset" body={`El dataset de demostración no incluye eventos de ${o.short}. La estructura de la página es la misma para cualquier organización: cuando se conecte un proveedor aparecerán aquí eventos, campeones, luchadores y récords.`} action={{ href: "/organizations", label: "Ver otras organizaciones" }} />
+          <EmptyState title="Fuera de la cobertura actual" body={IS_DEMO ? `El dataset de demostración no incluye eventos de ${o.short}. La estructura de la página es la misma para cualquier organización: cuando se conecte un proveedor aparecerán aquí eventos, campeones, luchadores y récords.` : `FIGHTCORE cubre hoy UFC, con estadísticas por asalto desde 1993. ${o.short} entrará cuando haya una fuente de resultados verificable y con permiso de uso; hasta entonces no se muestra ningún dato inventado.`} action={{ href: "/organizations", label: "Ver otras organizaciones" }} />
         </div>
       ) : (
         <>
@@ -58,7 +58,7 @@ export default async function OrgPage({ params }: { params: Promise<{ slug: stri
             <div><span className="label">Combates</span><strong>{d.stats.fights}</strong></div>
             <div><span className="label">Finalizaciones</span><strong>{Math.round(d.stats.finishRate * 100)}%</strong></div>
             <div><span className="label">Campeones vigentes</span><strong>{d.champions.length}</strong></div>
-            <div className={s.statSrc}><Source kind="demo" /></div>
+            <div className={s.statSrc}><Source kind={SRC} /></div>
           </section>
 
           <div className={s.cols}>
@@ -67,7 +67,7 @@ export default async function OrgPage({ params }: { params: Promise<{ slug: stri
               {d.champions.length ? (
                 <ul className={s.list}>
                   {d.champions.map((c) => (
-                    <li key={c.divisionId}><Link href={`/fighters/${c.fighter.slug}`} className={s.row}><span className={s.rowLabel}>{c.division.name}</span><strong className={s.withBelt}><FighterAvatar src={c.fighter.photo.src} size={32} champion />{c.fighter.name}</strong><span className={s.rowMeta}>desde {fmtDate(c.from)} · {c.defenses} def.</span></Link></li>
+                    <li key={c.divisionId}><Link href={`/fighters/${c.fighter.slug}`} className={s.row}><span className={s.rowLabel}>{c.division.name}</span><strong className={s.withBelt}><FighterAvatar src={c.fighter.photo.src} name={c.fighter.name} size={32} champion />{c.fighter.name}</strong><span className={s.rowMeta}>desde {fmtDate(c.from)} · {c.defenses} def.</span></Link></li>
                   ))}
                 </ul>
               ) : <p className={s.empty}>Sin campeones vigentes en el dataset.</p>}

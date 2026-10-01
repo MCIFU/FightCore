@@ -5,7 +5,7 @@
  */
 import pg from "pg";
 import type { Championship, Event, Fight, Fighter, RoundStats, StrikeStats } from "../../domain/types";
-import type { Universe } from "../build";
+import type { DatasetInfo, Universe } from "../build";
 
 // Keep DATE columns as ISO strings (the domain uses YYYY-MM-DD everywhere).
 pg.types.setTypeParser(1082, (v) => v);
@@ -34,14 +34,20 @@ export async function loadUniverseFromPostgres(connectionString: string): Promis
       q("SELECT * FROM rounds ORDER BY fight_id, round"),
       q("SELECT * FROM championships ORDER BY id"),
     ]);
+    const meta = new Map((await q("SELECT key, value FROM dataset_meta")).map((r) => [String(r.key), String(r.value)]));
+    const s = (v: unknown) => (v === null || v === undefined ? null : String(v));
 
     const fighters: Fighter[] = fr.map((r) => ({
       id: String(r.id), slug: String(r.slug), firstName: String(r.first_name), lastName: String(r.last_name),
-      nickname: (r.nickname as string) ?? null, country: String(r.country), sex: r.sex as Fighter["sex"],
-      birthDate: String(r.birth_date), heightCm: Number(r.height_cm), reachCm: Number(r.reach_cm), stance: r.stance as Fighter["stance"],
+      nickname: s(r.nickname), country: s(r.country), sex: r.sex as Fighter["sex"],
+      birthDate: s(r.birth_date), heightCm: n(r.height_cm), reachCm: n(r.reach_cm), stance: s(r.stance) as Fighter["stance"],
       divisionId: String(r.division_id), orgId: String(r.org_id), status: r.status as Fighter["status"],
-      priorRecord: { w: Number(r.prior_w), l: Number(r.prior_l), d: Number(r.prior_d) },
-      photo: { src: String(r.photo_src ?? `/portraits/${r.slug}.png`), kind: (r.photo_kind as "illustration" | "licensed") ?? "illustration", credit: String(r.photo_credit ?? ""), updated: String(r.photo_updated ?? "") },
+      priorRecord: r.prior_w === null ? null : { w: Number(r.prior_w), l: Number(r.prior_l), d: Number(r.prior_d) },
+      wikidata: s(r.wikidata),
+      photo: {
+        src: String(r.photo_src ?? ""), kind: (r.photo_kind as Fighter["photo"]["kind"]) ?? "none", credit: String(r.photo_credit ?? ""), updated: String(r.photo_updated ?? ""),
+        ...(r.photo_author ? { author: String(r.photo_author), license: String(r.photo_license), licenseUrl: s(r.photo_license_url), sourceUrl: String(r.photo_source_url) } : {}),
+      },
       provenance: r.provenance as Fighter["provenance"],
     }));
 
@@ -66,8 +72,8 @@ export async function loadUniverseFromPostgres(connectionString: string): Promis
         id: String(r.id), eventId: String(r.event_id), date: String(r.date), orgId: String(r.org_id), divisionId: String(r.division_id),
         redId: String(r.red_id), blueId: String(r.blue_id), status: r.status as Fight["status"],
         winnerId: (r.winner_id as string) ?? null, method: (r.method as Fight["method"]) ?? null, submission: (r.submission as string) ?? null,
-        round: n(r.end_round), time: n(r.end_time_sec), scheduledRounds: Number(r.scheduled_rounds) as 3 | 5,
-        titleFight: Boolean(r.title_fight), slot: r.slot as Fight["slot"], order: Number(r.card_order),
+        round: n(r.end_round), time: n(r.end_time_sec), scheduledRounds: Number(r.scheduled_rounds),
+        titleFight: Boolean(r.title_fight), interim: Boolean(r.interim), referee: s(r.referee), slot: r.slot as Fight["slot"], order: Number(r.card_order),
         red: st?.red ?? null, blue: st?.blue ?? null, rounds: (roundsBy.get(String(r.id)) ?? []).sort((a, b) => a.round - b.round),
         scorecards: (r.scorecards as string[]) ?? null,
         redStrengthPre: Number(r.red_strength_pre), blueStrengthPre: Number(r.blue_strength_pre), provenance: r.provenance as Fight["provenance"],
@@ -78,16 +84,22 @@ export async function loadUniverseFromPostgres(connectionString: string): Promis
     for (const f of fights) { const l = card.get(f.eventId) ?? []; l.push(f); card.set(f.eventId, l); }
     const events: Event[] = er.map((r) => ({
       id: String(r.id), slug: String(r.slug), name: String(r.name), orgId: String(r.org_id), date: String(r.date),
-      city: String(r.city), country: String(r.country), venue: (r.venue as string) ?? null, status: r.status as Event["status"],
+      city: String(r.city), country: String(r.country ?? ""), venue: (r.venue as string) ?? null, status: r.status as Event["status"],
       fightIds: (card.get(String(r.id)) ?? []).sort((a, b) => a.order - b.order).map((f) => f.id), provenance: r.provenance as Event["provenance"],
     }));
 
     const championships: Championship[] = cr.map((r) => ({
       orgId: String(r.org_id), divisionId: String(r.division_id), fighterId: String(r.fighter_id), wonFightId: String(r.won_fight_id),
-      from: String(r.date_from), to: (r.date_to as string) ?? null, defenses: Number(r.defenses),
+      from: String(r.date_from), to: (r.date_to as string) ?? null, defenses: Number(r.defenses), interim: Boolean(r.interim) || undefined,
     }));
 
-    return { fighters, fights, events, championships };
+    const dataset: DatasetInfo = {
+      kind: meta.get("dataset") === "demo" ? "demo" : "ufc",
+      asOf: meta.get("as_of") ?? new Date().toISOString().slice(0, 10),
+      lastEvent: meta.get("last_event") || undefined,
+      sources: JSON.parse(meta.get("sources") ?? "[]"),
+    };
+    return { fighters, fights, events, championships, dataset };
   } finally {
     await client.end();
   }

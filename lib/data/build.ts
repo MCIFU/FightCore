@@ -1,19 +1,26 @@
 /**
- * In-memory store built from the active data provider. Today the provider is
- * the deterministic demo universe; swapping it for PostgreSQL means replacing
- * `loadProvider()` — every derived structure below is provider-agnostic.
+ * In-memory store built from the active data provider (UFC snapshot, demo
+ * universe or PostgreSQL). Every derived structure below is provider-agnostic.
  */
-import { DEMO_TODAY } from "../demo/simulate";
 import type { Championship, Event, Fight, Fighter, FighterBout, Outcome } from "../domain/types";
 import { computeRating, strength01, type RatingResult } from "../rating/model";
 import { careerStats, roundProfile, type CareerStats } from "../analytics/career";
 import { computeAttributes, type AttributeKey } from "../analytics/attributes";
 
-export const TODAY = DEMO_TODAY;
-
 export interface RatingPoint { date: string; value: number; band: number; fightId: string; outcome: Outcome | null }
 
+export interface DatasetInfo {
+  /** "ufc": real UFC data; "demo": fictional universe for development. */
+  kind: "ufc" | "demo";
+  /** Date the data describes ("today" for ratings, ages and rankings). */
+  asOf: string;
+  lastEvent?: string;
+  sources: { name: string; via?: string; license?: string; covers: string }[];
+}
+
 export interface Store {
+  dataset: DatasetInfo;
+  today: string;
   fighters: Fighter[];
   fights: Fight[];
   events: Event[];
@@ -37,6 +44,7 @@ export interface Universe {
   fights: Fight[];
   events: Event[];
   championships: Championship[];
+  dataset: DatasetInfo;
 }
 
 function outcomeFor(f: Fight, id: string): Outcome | null {
@@ -47,6 +55,7 @@ function outcomeFor(f: Fight, id: string): Outcome | null {
 }
 
 function build(u: Universe): Store {
+  const TODAY = u.dataset.asOf;
   const fighterById = new Map(u.fighters.map((f) => [f.id, f]));
   const fighterBySlug = new Map(u.fighters.map((f) => [f.slug, f]));
   const fightById = new Map(u.fights.map((f) => [f.id, f]));
@@ -113,6 +122,7 @@ function build(u: Universe): Store {
   const attributes = computeAttributes(pop);
 
   return {
+    dataset: u.dataset, today: TODAY,
     fighters: u.fighters, fights: u.fights, events: u.events, championships: u.championships,
     fighterById, fighterBySlug, fightById, eventById, eventBySlug, bouts,
     rating, ratingHistory, stats, attributes, champions,

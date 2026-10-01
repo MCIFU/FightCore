@@ -5,8 +5,8 @@ import { Header } from "@/components/layout/Header";
 import { Reveal } from "@/components/layout/Reveal";
 import { ServiceWorker } from "@/components/layout/ServiceWorker";
 import { SearchDialog } from "@/components/search/SearchDialog";
-import { TODAY } from "@/lib/data/repository";
-import { fmtStamp } from "@/lib/format";
+import { IS_DEMO, TODAY } from "@/lib/data/repository";
+import { fmtDate, fmtStamp } from "@/lib/format";
 import "./globals.css";
 
 const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo", display: "swap" });
@@ -39,10 +39,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" className={`${archivo.variable} ${newsreader.variable} ${jetbrains.variable}`}>
       <body>
         <a href="#main" className="skip-link">Saltar al contenido</a>
-        <Header stamp={fmtStamp(TODAY)} />
+        <Header stamp={fmtStamp(TODAY)} demo={IS_DEMO} />
         <main id="main" tabIndex={-1}>{children}</main>
-        <Footer />
-        <SearchDialog />
+        <Footer demo={IS_DEMO} asOf={fmtDate(TODAY)} />
+        <SearchDialog demo={IS_DEMO} />
         <Reveal />
         <ServiceWorker />
       </body>

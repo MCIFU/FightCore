@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { CornerMark } from "@/components/brand/Logo";
 import { TaleOfTape } from "@/components/charts/TaleOfTape";
-import Image from "next/image";
 import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { FighterPlate } from "@/components/fighter/FighterPlate";
 import { ChampionBadge } from "@/components/ui/ChampionBadge";
@@ -9,13 +8,10 @@ import { RankingList } from "@/components/rankings/RankingList";
 import { SearchLauncher } from "@/components/search/SearchLauncher";
 import { ButtonLink, CountryTag, FormStrip, RatingValue, RecordValue, SectionHead, Source, Tag } from "@/components/ui/primitives";
 import { Tabs } from "@/components/ui/Tabs";
-import { DIVISIONS } from "@/lib/domain/reference";
-import {
-  currentChampions, divisionRanking, featuredFight, fighterProfile, history, poundForPound, recentResults, records, spotlight,
-  trending, universeCounts, upcomingEvents,
-} from "@/lib/data/repository";
+import { currentChampions, divisionRanking, featuredFight, fighterProfile, history, IS_DEMO, poundForPound, rankedDivisions, recentResults, records, spotlight, SRC, TODAY, trending, universeCounts, upcomingEvents } from "@/lib/data/repository";
 import { fmtClock, fmtDate, fmtDayMonth, fmtWeekday, METHOD_SHORT } from "@/lib/format";
 import s from "./home.module.css";
+import { Portrait } from "@/components/fighter/Portrait";
 
 export default function Home() {
   const featured = featuredFight();
@@ -48,14 +44,16 @@ export default function Home() {
             <p className={`serif ${s.heroLede}`}>
               Estadísticas, historia y scouting en un mismo sitio. Con un rating propio que enseña sus cuentas: cada punto tiene origen, peso y margen de error.
             </p>
-            <SearchLauncher />
+            <SearchLauncher demo={IS_DEMO} />
             <dl className={s.counts}>
               <div><dt>Luchadores</dt><dd className="num">{counts.fighters}</dd></div>
               <div><dt>Combates</dt><dd className="num">{counts.fights.toLocaleString("es-ES")}</dd></div>
               <div><dt>Rounds</dt><dd className="num">{counts.rounds.toLocaleString("es-ES")}</dd></div>
-              <div><dt>Organizaciones</dt><dd className="num">{counts.organizations}</dd></div>
+              {IS_DEMO
+                ? <div><dt>Organizaciones</dt><dd className="num">{counts.organizations}</dd></div>
+                : <div><dt>Eventos</dt><dd className="num">{counts.events.toLocaleString("es-ES")}</dd></div>}
             </dl>
-            <p className={s.countsSrc}><Source kind="demo" /> Universo simulado: luchadores, combates y eventos ficticios.</p>
+            <p className={s.countsSrc}><Source kind={SRC} /> {IS_DEMO ? "Universo simulado: luchadores, combates y eventos ficticios." : `Historia completa de UFC, de 1993 al ${fmtDate(TODAY)}. Fuentes: UFCStats, Wikidata, Wikipedia.`}</p>
           </div>
 
           {featured && fa && fb && (
@@ -67,7 +65,7 @@ export default function Home() {
               <h2 id="featured-title" className="visually-hidden">Combate destacado: {featured.red.name} contra {featured.blue.name}</h2>
               <div className={s.featVs}>
                 <div className={s.featSide}>
-                  <Image src={featured.red.photo.src} alt="" width={512} height={512} sizes="160px" className={s.featFace} priority />
+                  <Portrait src={featured.red.photo.src} name={featured.red.name} alt="" sizes="160px" className={s.featFace} priority />
                   <span className={s.cornerA} aria-hidden />
                   <Link href={`/fighters/${featured.red.slug}`} className={s.featName}>
                     <span className={s.featFirst}>{featured.red.firstName}</span>
@@ -82,7 +80,7 @@ export default function Home() {
                   <span className={s.featRounds}>{featured.fight.scheduledRounds}×5</span>
                 </div>
                 <div className={`${s.featSide} ${s.featSideB}`}>
-                  <Image src={featured.blue.photo.src} alt="" width={512} height={512} sizes="160px" className={s.featFace} priority />
+                  <Portrait src={featured.blue.photo.src} name={featured.blue.name} alt="" sizes="160px" className={s.featFace} priority />
                   <span className={s.cornerB} aria-hidden />
                   <Link href={`/fighters/${featured.blue.slug}`} className={s.featName}>
                     <span className={s.featFirst}>{featured.blue.firstName}</span>
@@ -103,7 +101,7 @@ export default function Home() {
                     { label: "Grappling", a: fa.attributes.grappling, b: fb.attributes.grappling, max: 100 },
                     { label: "Defensa", a: fa.attributes.defense, b: fb.attributes.defense, max: 100 },
                     { label: "Ritmo", a: fa.attributes.pace, b: fb.attributes.pace, max: 100 },
-                    { label: "Alcance", a: fa.fighter.reachCm, b: fb.fighter.reachCm, fa: `${fa.fighter.reachCm} cm`, fb: `${fb.fighter.reachCm} cm`, max: 210 },
+                    ...(fa.fighter.reachCm && fb.fighter.reachCm ? [{ label: "Alcance", a: fa.fighter.reachCm, b: fb.fighter.reachCm, fa: `${fa.fighter.reachCm} cm`, fb: `${fb.fighter.reachCm} cm`, max: 210 }] : []),
                   ]}
                 />
               )}
@@ -191,7 +189,7 @@ export default function Home() {
             {trend.map((t) => (
               <li key={t.fighter.id}>
                 <Link href={`/fighters/${t.fighter.slug}`} className={s.trendRow}>
-                  <FighterAvatar src={t.fighter.photo.src} size={36} champion={t.fighter.champion} />
+                  <FighterAvatar src={t.fighter.photo.src} name={t.fighter.name} size={36} champion={t.fighter.champion} />
                   <span className={s.trendName}>{t.fighter.name}<span className={s.trendMeta}>{t.fighter.divisionShort} · {t.fighter.org}</span></span>
                   <span className={`${s.trendDelta} ${t.delta >= 0 ? s.up : s.down}`}>
                     <span aria-hidden>{t.delta >= 0 ? "▲" : "▼"}</span>
@@ -219,7 +217,7 @@ export default function Home() {
           tabs={[
             { id: "p4p", label: "P4P masculino", content: <RankingList rows={p4p} showDivision caption="Pound for pound masculino" /> },
             { id: "p4pw", label: "P4P femenino", content: <RankingList rows={p4pW} showDivision caption="Pound for pound femenino" /> },
-            ...DIVISIONS.map((d) => ({ id: d.id, label: d.short, hint: d.name, content: <RankingList rows={divisionRanking(d.id, 10)} caption={d.name} /> })),
+            ...rankedDivisions().map((d) => ({ id: d.id, label: d.short, hint: d.name, content: <RankingList rows={divisionRanking(d.id, 10)} caption={d.name} /> })),
           ]}
         />
       </section>
@@ -231,7 +229,7 @@ export default function Home() {
           {belts.map((c) => (
             <li key={`${c.orgId}-${c.divisionId}`}>
               <Link href={`/fighters/${c.fighter.slug}`} className={s.beltCard}>
-                <Image src={c.fighter.photo.src} alt="" width={512} height={512} sizes="120px" className={s.beltFace} />
+                <Portrait src={c.fighter.photo.src} name={c.fighter.name} alt="" sizes="120px" className={s.beltFace} />
                 <ChampionBadge title={{ org: c.org, division: c.division.name }} variant="tag" />
                 <span className={s.beltName}>{c.fighter.name}</span>
                 <span className={s.beltMeta}>{c.division.name} · {c.defenses} {c.defenses === 1 ? "defensa" : "defensas"}</span>
@@ -252,7 +250,7 @@ export default function Home() {
             return (
               <article key={f.id} className={`${s.spotCard} ${i === 0 ? s.spotLead : ""}`}>
                 <Link href={`/fighters/${f.slug}`} className={s.spotLink} aria-label={`Abrir expediente de ${f.name}`}>
-                  <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={f.divisionShort} career={f.career} photo={f.photo} title={f.title} size={i === 0 ? "lg" : "md"} />
+                  <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={f.divisionShort} career={f.career} photo={f.photo} title={f.title} size={i === 0 ? "lg" : "md"} linkCredit={false} />
                 </Link>
                 <div className={s.spotBody}>
                   <span className="label">{String(i + 1).padStart(2, "0")} · {tagline}</span>
@@ -296,7 +294,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <p className={s.recordsSrc}><Source kind="demo" /> Récords del dataset de demostración, calculados por FIGHTCORE.</p>
+        <p className={s.recordsSrc}><Source kind={SRC} /> <Source kind="calculated" /> {IS_DEMO ? "Récords del dataset de demostración, calculados por FIGHTCORE." : "Récords de UFC calculados por FIGHTCORE a partir de los combates registrados."}</p>
       </section>
 
       {/* ───────────── HISTORY (paper) ───────────── */}
@@ -327,7 +325,7 @@ export default function Home() {
           {[
             { href: "/fighters", label: "Luchadores", n: counts.fighters, note: `${counts.active} en activo · ${counts.countries} países` },
             { href: "/events", label: "Eventos", n: counts.events, note: "Pasados y programados" },
-            { href: "/rankings", label: "Divisiones", n: counts.divisions, note: "8 masculinas · 3 femeninas" },
+            { href: "/rankings", label: "Divisiones", n: counts.divisions, note: `${counts.divisionsM} masculinas · ${counts.divisionsF} femeninas` },
             { href: "/organizations", label: "Organizaciones", n: counts.organizations, note: "Actuales e históricas" },
             { href: "/champions", label: "Campeones", n: currentChampions().length, note: "Cinturones vigentes por división" },
             { href: "/records", label: "Récords", n: records().length, note: "Global, por organización y por división" },

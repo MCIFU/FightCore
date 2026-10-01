@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { SectionHead, Source } from "@/components/ui/primitives";
-import { mapData } from "@/lib/data/repository";
+import { mapData, SRC } from "@/lib/data/repository";
 import world from "@/lib/geo/world.json";
 import s from "./map.module.css";
 
@@ -20,14 +20,16 @@ export default function MapPage() {
   const by = new Map(data.map((d) => [d.code, d]));
   const maxF = Math.max(...data.map((d) => d.fighters));
   const maxE = Math.max(...data.map((d) => d.events));
-  const bucket = (n: number) => (n <= 0 ? -1 : Math.min(4, Math.floor((n / maxF) * 5 - 0.0001)));
+  // Logarithmic steps: one country (USA) has ten times more fighters than most others.
+  const lg = (n: number) => Math.log(n) / Math.log(Math.max(2, maxF));
+  const bucket = (n: number) => (n <= 0 ? -1 : Math.min(4, Math.floor(lg(n) * 5 - 0.0001)));
   const pts = world.points as unknown as Record<string, [number, number]>;
-  const steps = [1, 0.2, 0.4, 0.6, 0.8].map((k, i) => (i === 0 ? 1 : Math.ceil(maxF * k)));
+  const steps = [0, 0.2, 0.4, 0.6, 0.8].map((k, i) => (i === 0 ? 1 : Math.ceil(Math.max(2, maxF) ** k)));
 
   return (
     <div className="wrap" style={{ paddingTop: "var(--s-7)", paddingBottom: "var(--s-8)" }}>
       <SectionHead as="h1" kicker="FIGHTCORE History · Mapa" title="Mapa del MMA"
-        lede={<>De dónde salen los luchadores, dónde se pelea y de dónde son los campeones. <Source kind="demo" /></>} />
+        lede={<>De dónde salen los luchadores, dónde se pelea y de dónde son los campeones. <Source kind={SRC} /></>} />
 
       <div className={s.mapBlock}>
         <fieldset className={s.layers}>
@@ -91,7 +93,7 @@ export default function MapPage() {
                 <td className={s.r}>{d.active}</td>
                 <td className={s.r}>{d.champions || "—"}</td>
                 <td className={s.r}>{d.events || "—"}</td>
-                <td>{d.top ? <Link href={`/fighters/${d.top.slug}`} className={s.top}><FighterAvatar src={d.top.photo.src} size={28} champion={d.top.champion} />{d.top.name} <span className={s.code}>{d.top.rating.toFixed(1)}</span></Link> : "—"}</td>
+                <td>{d.top ? <Link href={`/fighters/${d.top.slug}`} className={s.top}><FighterAvatar src={d.top.photo.src} name={d.top.name} size={28} champion={d.top.champion} />{d.top.name} <span className={s.code}>{d.top.rating.toFixed(1)}</span></Link> : "—"}</td>
               </tr>
             ))}
           </tbody>

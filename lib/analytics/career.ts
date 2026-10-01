@@ -66,12 +66,15 @@ export function careerStats(all: FighterBout[]): CareerStats {
   const totals = zero();
   const oppTotals = zero();
   let seconds = 0;
+  // Per-minute rates only use bouts that have box scores (early UFC events don't).
+  let statSeconds = 0;
   const winsBy: MethodSplit = { ko: 0, sub: 0, dec: 0 };
   const lossesBy: MethodSplit = { ko: 0, sub: 0, dec: 0 };
   let longest = 0, run = 0;
   for (const b of bouts) {
     seconds += boutSeconds(b);
     if (b.own && b.opp) {
+      statSeconds += boutSeconds(b);
       (Object.keys(totals) as (keyof StrikeStats)[]).forEach((k) => {
         totals[k] += b.own![k];
         oppTotals[k] += b.opp![k];
@@ -83,6 +86,7 @@ export function careerStats(all: FighterBout[]): CareerStats {
     if (b.outcome === "W") { run++; longest = Math.max(longest, run); } else if (b.outcome !== "NC") run = 0;
   }
   const minutes = seconds / 60;
+  const statMinutes = statSeconds / 60;
   const record = recordOf(bouts);
   const wins = record.w;
   let cur: CareerStats["currentStreak"] = { kind: null, n: 0 };
@@ -100,17 +104,17 @@ export function careerStats(all: FighterBout[]): CareerStats {
     record,
     winsBy,
     lossesBy,
-    slpm: ratio(totals.sigLanded, minutes),
-    sapm: ratio(oppTotals.sigLanded, minutes),
+    slpm: ratio(totals.sigLanded, statMinutes),
+    sapm: ratio(oppTotals.sigLanded, statMinutes),
     strAcc: ratio(totals.sigLanded, totals.sigAttempted),
     strDef: 1 - ratio(oppTotals.sigLanded, oppTotals.sigAttempted, 0.45),
-    tdAvg: ratio(totals.tdLanded, minutes) * 15,
+    tdAvg: ratio(totals.tdLanded, statMinutes) * 15,
     tdAcc: ratio(totals.tdLanded, totals.tdAttempted),
     tdDef: 1 - ratio(oppTotals.tdLanded, oppTotals.tdAttempted, 0.3),
-    subAvg: ratio(totals.subAttempts, minutes) * 15,
-    kdAvg: ratio(totals.kd, minutes) * 15,
-    ctrlShare: ratio(totals.ctrlSec, seconds),
-    sigAttPerMin: ratio(totals.sigAttempted, minutes),
+    subAvg: ratio(totals.subAttempts, statMinutes) * 15,
+    kdAvg: ratio(totals.kd, statMinutes) * 15,
+    ctrlShare: ratio(totals.ctrlSec, statSeconds),
+    sigAttPerMin: ratio(totals.sigAttempted, statMinutes),
     position: { distance: totals.distance / sig, clinch: totals.clinch / sig, ground: totals.ground / sig },
     target: { head: totals.head / sig, body: totals.body / sig, leg: totals.leg / sig },
     totals,

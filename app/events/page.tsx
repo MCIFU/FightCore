@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionHead, Source, Tag } from "@/components/ui/primitives";
 import { Tabs } from "@/components/ui/Tabs";
-import { listEvents, TODAY } from "@/lib/data/repository";
+import { listEvents, SRC, TODAY } from "@/lib/data/repository";
 import { fmtDayMonth, fmtWeekday } from "@/lib/format";
 import s from "./events.module.css";
 
@@ -39,6 +39,7 @@ function EventRows({ events }: { events: Ev[] }) {
 
 export default function EventsPage() {
   const all = listEvents();
+  const orgCount = new Set(all.map((e) => e.orgId)).size;
   const upcoming = all.filter((e) => e.status === "upcoming");
   const done = all.filter((e) => e.status === "completed").reverse();
   const cut = new Date(Date.parse(TODAY) - 365 * 86400000).toISOString().slice(0, 10);
@@ -48,7 +49,7 @@ export default function EventsPage() {
 
   return (
     <div className="wrap" style={{ paddingTop: "var(--s-7)", paddingBottom: "var(--s-8)" }}>
-      <SectionHead as="h1" kicker="FIGHTCORE Events" title="Eventos" lede={<>{all.length} eventos en {new Set(all.map((e) => e.orgId)).size} organizaciones. <Source kind="demo" /></>} />
+      <SectionHead as="h1" kicker="FIGHTCORE Events" title="Eventos" lede={<>{all.length} eventos{orgCount === 1 ? ` de ${all[0]?.orgShort ?? ""}` : ` en ${orgCount} organizaciones`}. <Source kind={SRC} /></>} />
       <Tabs
         label="Periodo"
         tabs={[

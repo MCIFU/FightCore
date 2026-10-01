@@ -150,3 +150,5 @@
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--bone-3); border-bottom: 1px dotted var(--bone-3); cursor: help;
 }
+
+.countryUnknown { color: var(--fg-3); }

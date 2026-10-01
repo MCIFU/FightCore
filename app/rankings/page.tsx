@@ -5,7 +5,7 @@ import { RankingList } from "@/components/rankings/RankingList";
 import { EmptyState, SectionHead, Source } from "@/components/ui/primitives";
 import { Tabs } from "@/components/ui/Tabs";
 import { DIVISIONS } from "@/lib/domain/reference";
-import { currentChampions, divisionRanking, poundForPound, RANKING_LOOKBACK_DAYS, TODAY } from "@/lib/data/repository";
+import { currentChampions, divisionRanking, IS_DEMO, poundForPound, rankedDivisions, RANKING_LOOKBACK_DAYS, SRC, TODAY } from "@/lib/data/repository";
 import { fmtDate } from "@/lib/format";
 import s from "./rankings.module.css";
 
@@ -39,7 +39,7 @@ export default function RankingsPage() {
             {champs.map((c) => (
               <li key={`${c.orgId}-${c.divisionId}`}>
                 <Link href={`/fighters/${c.fighter.slug}`} className={s.champRow}>
-                  <FighterAvatar src={c.fighter.photo.src} size={40} champion />
+                  <FighterAvatar src={c.fighter.photo.src} name={c.fighter.name} size={40} champion />
                   <span className={s.champOrg}>{c.org}</span>
                   <span className={s.champDiv}>{c.division.name}</span>
                   <span className={s.champName}>{c.fighter.name}</span>
@@ -48,7 +48,7 @@ export default function RankingsPage() {
               </li>
             ))}
           </ul>
-          <p className={s.src}><Source kind="demo" /> Títulos de la simulación, no reales.</p>
+          <p className={s.src}><Source kind={SRC} /> {IS_DEMO ? "Títulos de la simulación, no reales." : "Linaje reconstruido a partir de los combates por título; campeones actuales cotejados con Wikipedia."}</p>
         </section>
 
         <section aria-labelledby="fcr" className={s.fc}>
@@ -65,7 +65,7 @@ export default function RankingsPage() {
             tabs={[
               { id: "p4p", label: "P4P ♂", hint: "Pound for pound masculino", content: <RankingList rows={poundForPound("M", 20)} showDivision caption="Pound for pound masculino" /> },
               { id: "p4pw", label: "P4P ♀", hint: "Pound for pound femenino", content: <RankingList rows={poundForPound("F", 15)} showDivision caption="Pound for pound femenino" /> },
-              ...DIVISIONS.map((d) => ({ id: d.id, label: d.short, hint: `${d.name} · ${d.limitKg} kg`, content: <DivisionBlock id={d.id} /> })),
+              ...rankedDivisions().map((d) => ({ id: d.id, label: d.short, hint: `${d.name} · ${d.limitKg} kg`, content: <DivisionBlock id={d.id} /> })),
             ]}
           />
         </section>

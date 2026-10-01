@@ -158,7 +158,7 @@ Para texto sobre fondo oscuro se usa un paso más claro de Ember (`--ember: #FF7
 5. **Microtipografía técnica.** Etiquetas mono con índice (`03 / RATING`), fuentes de datos (`SRC · DEMO`), coordenadas de ciudad en eventos.
 6. **Procedencia visible.** Cada bloque de datos declara su origen: `OFFICIAL`, `IMPORTED`, `CALCULATED`, `EDITORIAL` o `DEMO`.
 7. **Papel = contexto.** Las secciones de historia y metodología se invierten a papel y cambian a voz serif.
-8. **Sin fotografía sin licencia.** Los luchadores demo tienen un retrato ilustrado propio (PNG transparente) dentro de la "placa de expediente": rejilla, país, coordenadas y carrera en código de barras. Siempre se etiqueta como ilustración.
+8. **Sin fotografía sin licencia.** Solo fotos de Wikimedia Commons con licencia libre, recortadas a cabeza y hombros con fondo transparente dentro de la "placa de expediente" (rejilla, país, coordenadas y carrera en código de barras), siempre con autor, licencia y enlace al original. Sin foto libre, la placa muestra las iniciales. Los luchadores ficticios del modo demo usan un retrato ilustrado etiquetado como ilustración.
 11. **Oro solo para títulos.** `--gold` y el icono de cinturón se reservan a los campeones vigentes; nunca se usan para otra cosa.
 9. **Movimiento con función.** Count-up del rating, interpolación de gráficos, transición de ranking. Todo desactivado con `prefers-reduced-motion`.
 10. **Nada de degradados decorativos, glassmorphism ni neones.**
@@ -232,9 +232,18 @@ Navegación interna fija con anclas. En móvil: pestañas horizontales con scrol
 
 ---
 
+## Datos reales
+
+Desde octubre de 2026 el proveedor por defecto es un **snapshot real de UFC** (1993–hoy): resultados y estadísticas por asalto de UFCStats, nacionalidad y foto vía Wikidata, plantilla, campeones actuales, récord profesional total y carteleras programadas de Wikipedia. Cada fuente se nombra en `/credits`. Decisiones:
+
+- **Cobertura UFC, no "todo el MMA".** Es la única organización con estadísticas por asalto públicas y verificables. Las demás organizaciones siguen como entidades editoriales y declaran "fuera de la cobertura actual" en vez de mostrar datos inventados.
+- **Fotos oficiales descartadas.** Las de UFC, agencias o webs como Tapology tienen derechos reservados; el brief prohíbe usar fotos sin licencia. Se usan solo fotos libres de Commons.
+- **Sin dato, sin número.** Altura, alcance, país o fecha de nacimiento que ninguna fuente da quedan como "—"; el récord previo a UFC solo se suma cuando Wikipedia da el total profesional.
+- **Linaje de cinturones.** Se reconstruye con los combates por título y se coteja con los campeones actuales de Wikipedia, porque vacantes y ascensos de interinos no pasan por un combate.
+
 ## Datos de demostración
 
-Hasta conectar proveedores reales, FIGHTCORE funciona con un **universo simulado determinista**: ~140 luchadores ficticios que compiten entre 2013 y 2026 bajo un motor de simulación por rounds. Todo el dataset lleva procedencia `DEMO` y la interfaz lo indica permanentemente.
+Para desarrollo sigue disponible (`DATA_PROVIDER=demo`) un **universo simulado determinista**: ~140 luchadores ficticios que compiten entre 2013 y 2026 bajo un motor de simulación por rounds. Todo el dataset lleva procedencia `DEMO` y la interfaz lo indica permanentemente.
 
 - **Luchadores, combates y eventos: ficticios.** No se usan nombres de luchadores reales para no atribuir estadísticas inventadas a personas reales.
 - **Organizaciones: reales como entidades**, solo con metadatos editoriales verificables (país, años de actividad). Los eventos demo usan nomenclatura explícita (`UFC Demo 14`) para no confundirse con eventos reales.
@@ -245,4 +254,4 @@ Hasta conectar proveedores reales, FIGHTCORE funciona con un **universo simulado
 - Next.js (App Router) + React + TypeScript.
 - CSS Modules + custom properties (sin framework CSS: evita el aspecto de plantilla y peso innecesario).
 - Gráficos SVG propios (sin librería): menos de 10 KB, accesibles, con identidad propia. Revisar si aparecen necesidades que justifiquen una librería.
-- Capa de datos detrás de un repositorio (`lib/data`). Proveedores intercambiables: demo en memoria o PostgreSQL (`DATA_PROVIDER=postgres`), con esquema SQL canónico en `db/schema.sql` y sin ORM (acceso de solo lectura, volumen pequeño).
+- Capa de datos detrás de un repositorio (`lib/data`). Proveedores intercambiables: snapshot real (por defecto), demo en memoria o PostgreSQL (`DATA_PROVIDER=postgres`), con esquema SQL canónico en `db/schema.sql` y sin ORM (acceso de solo lectura, volumen pequeño).

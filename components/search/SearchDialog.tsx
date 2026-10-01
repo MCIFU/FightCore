@@ -7,6 +7,7 @@ import { fmtDate } from "@/lib/format";
 import { score } from "./match";
 import { onOpenSearch } from "./searchBus";
 import s from "./SearchDialog.module.css";
+import { unpack, type PackedIndex } from "@/lib/search-pack";
 
 interface Index { docs: SearchDoc[]; fights: SearchFight[]; names: Record<string, string> }
 interface Hit { key: string; group: string; title: string; sub: string; href: string; meta?: string; photo?: string }
@@ -23,7 +24,7 @@ function pushRecent(q: string) {
   try { localStorage.setItem(RECENT_KEY, JSON.stringify([q, ...readRecent().filter((x) => x !== q)].slice(0, 5))); } catch { /* storage unavailable */ }
 }
 
-export function SearchDialog() {
+export function SearchDialog({ demo = false }: { demo?: boolean }) {
   const ref = useRef<HTMLDialogElement>(null);
   const input = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -37,7 +38,7 @@ export function SearchDialog() {
   const load = useCallback(() => {
     if (idx) return;
     setError(false);
-    fetch("/api/search").then((r) => (r.ok ? r.json() : Promise.reject())).then(setIdx).catch(() => setError(true));
+    fetch("/api/search").then((r) => (r.ok ? r.json() : Promise.reject())).then((p: PackedIndex) => setIdx(unpack(p))).catch(() => setError(true));
   }, [idx]);
 
   const open = useCallback((query = "") => {
@@ -209,7 +210,7 @@ export function SearchDialog() {
           <span><kbd>↑</kbd><kbd>↓</kbd> navegar</span>
           <span><kbd>↵</kbd> abrir</span>
           <span><kbd>esc</kbd> cerrar</span>
-          <span className={s.footSrc}>Índice · datos demo</span>
+          <span className={s.footSrc}>Índice · {demo ? "datos demo" : "UFC 1993–hoy"}</span>
         </div>
       </div>
     </dialog>

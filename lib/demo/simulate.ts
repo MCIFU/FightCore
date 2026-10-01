@@ -6,6 +6,7 @@
  * can be exercised against internally consistent data. Everything produced
  * here carries provenance "demo" and must never be presented as real.
  */
+import type { DatasetInfo } from "../data/build";
 import { CITIES, NAME_POOLS, NICKNAMES, SUBMISSIONS } from "./names";
 import { Rng } from "./rng";
 import { DIVISIONS } from "../domain/reference";
@@ -246,6 +247,7 @@ export interface DemoUniverse {
   fights: Fight[];
   events: Event[];
   championships: Championship[];
+  dataset: DatasetInfo;
   /** Hidden style label, exposed only for QA/tests — never shown in UI. */
   archetypes: Map<string, Archetype>;
 }
@@ -447,7 +449,7 @@ export function buildDemoUniverse(): DemoUniverse {
         } else if (s.tier === 1 && last4.length >= 4 && last4.filter((r) => r === "L").length >= 3) {
           vacateIfChampion(s, ev.date);
           s.tier = 2;
-          s.f.orgId = regionalOrg(s.f.country, s.f.sex, rng);
+          s.f.orgId = regionalOrg(s.f.country!, s.f.sex, rng);
         }
         const age = ageAt(s, evMonth);
         const recentLosses = s.results.slice(-3).filter((r) => r === "L").length;
@@ -595,5 +597,5 @@ export function buildDemoUniverse(): DemoUniverse {
     if (last && s.tier === 1) s.f.orgId = last.orgId;
   }
 
-  return { fighters: sims.map((s) => s.f), fights, events, championships, archetypes };
+  return { fighters: sims.map((s) => s.f), fights, events, championships, archetypes, dataset: { kind: "demo", asOf: DEMO_TODAY, sources: [] } };
 }
