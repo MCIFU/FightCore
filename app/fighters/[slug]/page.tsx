@@ -18,6 +18,13 @@ import { fmtClock, fmtCm, fmtDate, fmtDateLong, fmtStance, METHOD_LABEL, METHOD_
 import { FACTORS, FCR_VERSION } from "@/lib/rating/model";
 import s from "@/components/fighter/Profile.module.css";
 
+/** ESPN's fighting-style labels in Spanish. */
+const STYLE_ES: Record<string, string> = {
+  "Brazilian Jiu-Jitsu": "Jiu-jitsu brasileño", Wrestling: "Lucha libre", Boxing: "Boxeo", Kickboxing: "Kickboxing", "Muay Thai": "Muay thai",
+  Karate: "Kárate", Judo: "Judo", Sambo: "Sambo", Taekwondo: "Taekwondo", "Mixed Martial Arts": "MMA", Striker: "Golpeador", Grappler: "Grappler",
+  "Freestyle Wrestling": "Lucha libre olímpica", "Greco-Roman Wrestling": "Lucha grecorromana", "Kung Fu": "Kung fu", "Combat Sambo": "Sambo de combate",
+};
+
 export function generateStaticParams() {
   return prerenderFighterSlugs().map((slug) => ({ slug }));
 }
@@ -151,7 +158,8 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             <div><dt>Altura</dt><dd>{fmtCm(f.heightCm)}</dd></div>
             <div><dt>Alcance</dt><dd>{fmtCm(f.reachCm)}</dd></div>
             <div><dt>Guardia</dt><dd>{fmtStance(f.stance)}</dd></div>
-            <div><dt>Equipo</dt><dd><Unavailable reason="sin datos" /></dd></div>
+            <div><dt>Equipo</dt><dd>{f.team ?? <Unavailable reason="sin datos" />}</dd></div>
+            {f.style && <div><dt>Estilo base</dt><dd>{STYLE_ES[f.style] ?? f.style}</dd></div>}
             <div><dt>Último combate</dt><dd>{me.lastFight ? fmtDate(me.lastFight) : "—"}</dd></div>
             <div><dt>Tiempo en jaula</dt><dd>{Math.round(st.minutes)} min</dd></div>
           </dl>

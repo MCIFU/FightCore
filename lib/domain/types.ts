@@ -68,6 +68,9 @@ export interface Fighter {
   status: FighterStatus;
   /** Professional record outside FIGHTCORE coverage; null when unknown. */
   priorRecord: { w: number; l: number; d: number } | null;
+  /** Gym / team and base fighting style, when a source states them. */
+  team?: string | null;
+  style?: string | null;
   /** Wikidata entity (Q-id) when the fighter was matched to it. */
   wikidata?: string | null;
   photo: FighterPhoto;

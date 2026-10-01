@@ -65,11 +65,11 @@ El importador cruza las fuentes así: los combates de UFCStats definen luchadore
 
 ## Fotografías
 
-Solo fotografías de **Wikimedia Commons con licencia libre** (CC BY, CC BY-SA, CC0, dominio público), elegidas a través de la imagen que Wikidata asocia a cada luchador o, si no hay, buscando su nombre en Commons; una foto encontrada por búsqueda solo se acepta si su página o la categoría del luchador hablan de MMA (los homónimos son frecuentes), y un mismo archivo asignado a dos luchadores se descarta. `photos:fetch` lee la página de cada archivo y descarta cualquiera sin licencia libre; guarda autor, licencia y enlace. `photos:process` detecta la cara (MediaPipe), recorta un primer plano de la cabeza, elimina el fondo y exporta PNG 320×320 transparente (paleta optimizada con pngquant); si no encuentra una cara clara, descarta la foto. Cada ficha muestra autor, licencia y origen, y `/credits` lista todas. Quien no tiene foto libre muestra sus iniciales: no se usan fotos oficiales de UFC ni de agencias, que tienen derechos reservados.
+**Por defecto: retratos oficiales de estudio de UFC** (© UFC), obtenidos de las fichas de atleta de ESPN. `npm run photos:espn` busca a cada luchador por nombre, descarta homónimos comparando la fecha de nacimiento, descarga el retrato (PNG transparente) y guarda también equipo y estilo base; `npm run photos:process` lo recorta a un busto cuadrado de 400×400 que termina en el borde inferior del original. Quien no tiene retrato oficial muestra sus iniciales.
 
-Requisitos del procesado: `pip install opencv-python-headless mediapipe==0.10.14`.
+⚠ Estos retratos tienen copyright de UFC. Sirven para uso privado y para enseñar el proyecto; para publicar la web o la app hace falta permiso. `PHOTO_SOURCE=free` cambia a las fotos con licencia libre de Wikimedia Commons (`photos:find`, `photos:fetch`, `photos:process`), con autor y licencia en `/credits`.
 
-En modo demo, los luchadores ficticios usan retratos ilustrados (`npm run portraits`) marcados como «Ilustración · no es una fotografía».
+Requisitos del procesado: `pip install opencv-python-headless mediapipe==0.10.14` y, opcional, `pngquant`.
 
 ## PWA
 

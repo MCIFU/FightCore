@@ -43,7 +43,9 @@ export default function CreditsPage() {
       <section aria-labelledby="c-photos" className={s.block}>
         <h2 id="c-photos" className={s.h2}>Fotografías <span className={s.count}>{photos.length}</span></h2>
         <p className={s.p}>
-          Solo se usan fotografías de Wikimedia Commons con licencia libre. FIGHTCORE las recorta a un primer plano de la cabeza y elimina el fondo; las que tienen licencia CC BY-SA se distribuyen modificadas bajo esa misma licencia. Los luchadores sin foto libre muestran sus iniciales: no se usan fotos oficiales ni de agencias.
+          {photos.some((p) => p.license === "© UFC")
+            ? "Retratos oficiales de estudio de UFC (© UFC), obtenidos a través de las fichas de atleta de ESPN y recortados a busto. FIGHTCORE es un proyecto independiente sin acuerdo con UFC: estos retratos se usan con fines de demostración. Quien no tiene retrato oficial muestra sus iniciales."
+            : "Fotografías de Wikimedia Commons con licencia libre, recortadas a un primer plano de la cabeza y sin fondo; las que tienen licencia CC BY-SA se distribuyen modificadas bajo esa misma licencia. Quien no tiene foto libre muestra sus iniciales."}
         </p>
         {photos.length > 0 && (
           <div className={s.tableWrap} tabIndex={0} role="region" aria-label="Créditos fotográficos">

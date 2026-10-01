@@ -27,6 +27,9 @@ QUEUE = "data/snapshot/photo-queue.json"
 SRC = "data/.cache/photos"
 OUT = "public/photos"
 SIZE = 320
+# Official studio busts: side = BUST × face height (head and shoulders), output size.
+BUST = 2.6
+OFF_SIZE = 400
 os.makedirs(OUT, exist_ok=True)
 
 meta = json.load(open(META))
@@ -156,17 +159,17 @@ if not only:
         if (f.endswith(".webp") or f.endswith(".png")) and f not in keep_files:
             os.remove(f"{OUT}/{f}")
 
-# ── Official UFC photos (scripts/fetch-official-photos.mts) ──────────────────
-# They already come as transparent PNG cut-outs: crop head and shoulders and
-# keep the original alpha (no segmentation).
-OFFICIAL = "data/snapshot/photo-official.json"
-if os.path.exists(OFFICIAL):
+# ── Official UFC studio portraits (scripts/fetch-espn-photos.mts) ───────────
+# Already transparent cut-outs: crop a square bust around the face (head and
+# shoulders, like the studio shot) and keep the original alpha.
+ESPN = "data/snapshot/espn.json"
+if os.path.exists(ESPN):
     OUT_OFF = f"{OUT}/official"
     os.makedirs(OUT_OFF, exist_ok=True)
     official_done = {}
-    for fid, o in json.load(open(OFFICIAL)).items():
+    for fid, o in json.load(open(ESPN)).items():
         slug = o["slug"]
-        src = cv2.imread(f"data/.cache/official/{slug}.png", cv2.IMREAD_UNCHANGED)
+        src = cv2.imread(f"data/.cache/espn/{slug}.png", cv2.IMREAD_UNCHANGED)
         if src is None:
             continue
         if src.dtype != np.uint8:
@@ -177,27 +180,32 @@ if os.path.exists(OFFICIAL):
             src = np.dstack([src, np.full(src.shape[:2], 255, np.uint8)])
         h, w = src.shape[:2]
         a = src[:, :, 3:4] / 255.0
-        flat = (src[:, :, :3] * a + 255 * (1 - a)).astype(np.uint8)
-        res = face_det.process(cv2.cvtColor(flat, cv2.COLOR_BGR2RGB))
-        if not res.detections:
-            res = face_near.process(cv2.cvtColor(flat, cv2.COLOR_BGR2RGB))
-        if res.detections:
-            bb = max(res.detections, key=lambda d: d.location_data.relative_bounding_box.height).location_data.relative_bounding_box
-            fh = bb.height * h
-            side = int(fh * 2.9)
-            cx, cy = (bb.xmin + bb.width / 2) * w, (bb.ymin + bb.height / 2) * h
-            x0, y0 = int(cx - side / 2), int(cy - side * 0.40)
-        else:
-            # No face found: top square of the cut-out (headshots are framed that way).
-            side = min(w, h)
-            x0, y0 = (w - side) // 2, 0
+        flat = cv2.cvtColor((src[:, :, :3] * a + 255 * (1 - a)).astype(np.uint8), cv2.COLOR_BGR2RGB)
+        res = face_near.process(flat) or None
+        dets = res.detections if res and res.detections else (face_det.process(flat).detections or [])
+        if not dets:
+            continue
+        bb = max(dets, key=lambda d: d.location_data.relative_bounding_box.height).location_data.relative_bounding_box
+        fh = bb.height * h
+        side = int(fh * BUST)
+        cx, cy = (bb.xmin + bb.width / 2) * w, (bb.ymin + bb.height / 2) * h
+        # The studio shot ends straight across the chest: align the crop's bottom
+        # with it so there is no empty band, unless that would cut the head.
+        rows = np.where(src[:, :, 3].max(axis=1) > 16)[0]
+        bottom = int(rows[-1]) + 1 if len(rows) else h
+        x0 = int(cx - side / 2)
+        y0 = min(bottom - side, int(cy - fh * 0.95))
         pad = side
         big = cv2.copyMakeBorder(src, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=(0, 0, 0, 0))
         crop = big[y0 + pad:y0 + pad + side, x0 + pad:x0 + pad + side]
         if crop.shape[0] != side or crop.shape[1] != side:
             continue
-        crop = cv2.resize(crop, (SIZE, SIZE), interpolation=cv2.INTER_AREA)
-        cv2.imwrite(f"{OUT_OFF}/{slug}.webp", crop, [cv2.IMWRITE_WEBP_QUALITY, 85])
-        official_done[fid] = {"slug": slug, "page": o["page"]}
+        crop = cv2.resize(crop, (OFF_SIZE, OFF_SIZE), interpolation=cv2.INTER_AREA)
+        cv2.imwrite(f"{OUT_OFF}/{slug}.png", crop, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+        official_done[fid] = {"slug": slug, "page": o["page"], "team": o.get("team"), "style": o.get("style")}
     json.dump(official_done, open("data/snapshot/photo-official-processed.json", "w"), indent=1)
+    if shutil.which("pngquant"):
+        files = [f"{OUT_OFF}/{d['slug']}.png" for d in official_done.values()]
+        for i in range(0, len(files), 50):
+            subprocess.run(["pngquant", "--quality=70-92", "--speed", "1", "--force", "--ext", ".png", "--skip-if-larger", *files[i:i + 50]])
     print(f"official {len(official_done)}")

@@ -25,12 +25,22 @@ export function loadUniverseFromSnapshot(): Universe {
   const snap = JSON.parse(gunzipSync(readFileSync(join(dir, "ufc.json.gz"))).toString("utf8")) as Snapshot;
   const meta = readJson<Record<string, PhotoMeta>>("photo-meta.json", {});
   const processed = readJson<Record<string, { slug: string }>>("photo-processed.json", {});
-  // Official UFC photos are © UFC: preferred unless PHOTO_SOURCE=free (needed to publish without a licence).
-  const official = process.env.PHOTO_SOURCE === "free" ? {} : readJson<Record<string, { slug: string; page: string }>>("photo-official-processed.json", {});
+  // Official UFC studio portraits (via ESPN) are © UFC; Wikimedia Commons photos are
+  // only used with PHOTO_SOURCE=free (the option for publishing without a licence).
+  const free = process.env.PHOTO_SOURCE === "free";
+  const official = readJson<Record<string, { slug: string; page: string; team: string | null; style: string | null }>>("photo-official-processed.json", {});
   for (const f of snap.fighters) {
     const o = official[f.id];
     if (o) {
-      f.photo = { src: `/photos/official/${o.slug}.webp`, kind: "official", updated: snap.meta.asOf, author: "UFC", license: "© UFC", licenseUrl: null, sourceUrl: o.page, credit: "Foto oficial © UFC" };
+      f.team = o.team;
+      f.style = o.style;
+    }
+    if (o && !free) {
+      f.photo = { src: `/photos/official/${o.slug}.png`, kind: "official", updated: snap.meta.asOf, author: "UFC", license: "© UFC", licenseUrl: null, sourceUrl: o.page, credit: "Foto oficial © UFC" };
+      continue;
+    }
+    if (!free) {
+      f.photo = { src: "", kind: "none", credit: "Sin foto oficial", updated: snap.meta.asOf };
       continue;
     }
     const p = processed[f.id] ? meta[f.id] : undefined;
