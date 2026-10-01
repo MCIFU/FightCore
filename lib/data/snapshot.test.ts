@@ -37,7 +37,7 @@ test("snapshot: one current undisputed champion per active division at most", ()
 
 test("snapshot: licensed photos carry author, licence and an existing file", () => {
   for (const f of u.fighters) {
-    if (f.photo.kind !== "licensed") continue;
+    if (f.photo.kind !== "licensed" && f.photo.kind !== "official") continue;
     assert.ok(f.photo.author && f.photo.license && f.photo.sourceUrl, `${f.slug} photo lacks attribution`);
     assert.ok(existsSync(join(process.cwd(), "public", f.photo.src)), `${f.photo.src} missing`);
   }

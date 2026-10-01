@@ -539,12 +539,15 @@ for (const f of fights) for (const id of [f.redId, f.blueId]) boutsOf.set(id, [.
 const usedSlugs = new Set<string>();
 let matchedWd = 0, withPhoto = 0;
 const fighters: Fighter[] = [];
+/** Wikipedia article of each roster fighter, for scripts/enrich-wikipedia.mts. */
+const rosterArticles: Record<string, string> = {};
 for (const r of [...raws, ...stubFighters]) {
   const fs = (boutsOf.get(r.id) ?? []).sort((a, b) => a.date.localeCompare(b.date));
   if (!fs.length) continue; // listed by UFCStats but never fought (cancelled debuts)
   const done = fs.filter((f) => f.status === "completed");
   const k = nameKey(r.name);
   const ros = roster.get(k);
+  if (ros) rosterArticles[r.id] = ros.article;
   // Wikidata match: same name; birth date must agree when both sides have it.
   const cands = wdByName.get(k) ?? [];
   const byDob = r.dob ? cands.filter((c) => c.dob === r.dob) : [];
@@ -622,6 +625,7 @@ const photoQueue = fighters.flatMap((f) => {
   delete (f as Fighter & { _img?: string })._img;
   return img ? [{ id: f.id, slug: f.slug, file: img }] : [];
 });
+writeFileSync("data/snapshot/roster-articles.json", JSON.stringify(rosterArticles));
 writeFileSync("data/snapshot/photo-queue.json", JSON.stringify(photoQueue, null, 0));
 
 const snapshot = {

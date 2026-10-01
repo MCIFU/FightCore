@@ -981,7 +981,7 @@ export function mapData() {
 /** Every licensed photograph in use, with what its licence requires us to show. */
 export function photoCredits() {
   return store().fighters
-    .filter((f) => f.photo.kind === "licensed")
+    .filter((f) => f.photo.kind === "licensed" || f.photo.kind === "official")
     .map((f) => ({ slug: f.slug, name: fullName(f), src: f.photo.src, author: f.photo.author ?? "", license: f.photo.license ?? "", licenseUrl: f.photo.licenseUrl ?? null, sourceUrl: f.photo.sourceUrl ?? "" }))
     .sort((a, b) => a.name.localeCompare(b.name, "es"));
 }

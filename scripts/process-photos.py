@@ -9,7 +9,7 @@ background for every licensed photo fetched by scripts/fetch-photos.mts.
 · Crop: square around the face (face centred at 40 % height, side = 2.9× face height).
 · Background: MediaPipe selfie segmentation; only the region connected to the
   detected face is kept, so other people in the frame disappear.
-· Output: public/photos/<slug>.webp (400×400, alpha) + data/snapshot/photo-processed.json
+· Output: public/photos/<slug>.png (320×320 head close-up, alpha) + data/snapshot/photo-processed.json
 
 Cropping and background removal are modifications: the UI says so next to the
 credit, and ShareAlike photos stay under their original licence.
@@ -26,7 +26,7 @@ META = "data/snapshot/photo-meta.json"
 QUEUE = "data/snapshot/photo-queue.json"
 SRC = "data/.cache/photos"
 OUT = "public/photos"
-SIZE = 400
+SIZE = 320
 os.makedirs(OUT, exist_ok=True)
 
 meta = json.load(open(META))
@@ -57,8 +57,8 @@ for fid, m in meta.items():
         continue
     if slug in EXCLUDE:
         dropped[slug] = "excluded after review"
-        if os.path.exists(f"{OUT}/{slug}.webp"):
-            os.remove(f"{OUT}/{slug}.webp")
+        if os.path.exists(f"{OUT}/{slug}.png"):
+            os.remove(f"{OUT}/{slug}.png")
         continue
     ext = "jpg" if m["ext"] in ("tif", "tiff") else m["ext"]
     path = f"{SRC}/{slug}.{ext}"
@@ -88,17 +88,18 @@ for fid, m in meta.items():
     # Two faces of similar size: we can't tell which one is the fighter, so no photo.
     if len(dets) > 1 and area(dets[1]) > 0.45 * area(det):
         dropped[slug] = "several similar faces"
-        if os.path.exists(f"{OUT}/{slug}.webp"):
-            os.remove(f"{OUT}/{slug}.webp")
+        if os.path.exists(f"{OUT}/{slug}.png"):
+            os.remove(f"{OUT}/{slug}.png")
         continue
     bb = det.location_data.relative_bounding_box
     fx, fy, fw, fh = bb.xmin * w, bb.ymin * h, bb.width * w, bb.height * h
     if fh < 48:
         dropped[slug] = f"face too small ({fh:.0f}px)"
         continue
-    side = int(fh * 2.9)
+    # Head close-up: face fills most of the frame, a little room for hair and chin.
+    side = int(fh * 1.75)
     cx, cy = fx + fw / 2, fy + fh / 2
-    x0, y0 = int(cx - side / 2), int(cy - side * 0.40)
+    x0, y0 = int(cx - side / 2), int(cy - side * 0.46)
     # Pad so the crop can extend past the frame; padding becomes transparent.
     pad = side
     big = cv2.copyMakeBorder(img, pad, pad, pad, pad, cv2.BORDER_REPLICATE)
@@ -116,7 +117,7 @@ for fid, m in meta.items():
     # Keep the blob that contains the face; drop everyone else.
     binary = (seg > 0.5).astype(np.uint8)
     n, labels = cv2.connectedComponents(binary)
-    fc = (int(SIZE / 2), int(SIZE * 0.40))
+    fc = (int(SIZE / 2), int(SIZE * 0.46))
     lab = labels[fc[1], fc[0]]
     if lab == 0:
         dropped[slug] = "segmentation missed the face"
@@ -126,14 +127,14 @@ for fid, m in meta.items():
     # which removes people standing next to the subject.
     fw_px = fw / side * SIZE
     xs = np.abs(np.arange(SIZE) - SIZE / 2)
-    window = np.clip((1.75 * fw_px - xs) / (0.25 * fw_px), 0, 1)[None, :]
+    window = np.clip((0.95 * fw_px - xs) / (0.2 * fw_px), 0, 1)[None, :]
     alpha = np.clip((seg - 0.25) / 0.5, 0, 1) * keep * (vmask / 255.0) * window
     coverage = float(alpha.mean())
-    if coverage < 0.12:
+    if coverage < 0.2:
         dropped[slug] = f"subject too small ({coverage:.2f})"
         continue
     out = np.dstack([crop, (alpha * 255).astype(np.uint8)])
-    cv2.imwrite(f"{OUT}/{slug}.webp", out, [cv2.IMWRITE_WEBP_QUALITY, 82])
+    cv2.imwrite(f"{OUT}/{slug}.png", out, [cv2.IMWRITE_PNG_COMPRESSION, 9])
     done[fid] = {"slug": slug, "score": round(float(det.score[0]), 3), "coverage": round(coverage, 3)}
 
 json.dump(done, open("data/snapshot/photo-processed.json", "w"), indent=1)
@@ -141,9 +142,62 @@ print(f"processed {len(done)} · dropped {len(dropped)}")
 for k, v in list(dropped.items())[:40]:
     print("  ✗", k, v)
 
+# Palette PNGs keep the transparency at a quarter of the size (needs pngquant).
+import shutil, subprocess
+if shutil.which("pngquant"):
+    files = [f"{OUT}/{d['slug']}.png" for d in done.values()]
+    for i in range(0, len(files), 50):
+        subprocess.run(["pngquant", "--quality=65-90", "--speed", "1", "--force", "--ext", ".png", "--skip-if-larger", *files[i:i + 50]])
+
 # Full runs also remove crops that no longer qualify.
 if not only:
-    keep_files = {f"{d['slug']}.webp" for d in done.values()}
+    keep_files = {f"{d['slug']}.png" for d in done.values()}
     for f in os.listdir(OUT):
-        if f.endswith(".webp") and f not in keep_files:
+        if (f.endswith(".webp") or f.endswith(".png")) and f not in keep_files:
             os.remove(f"{OUT}/{f}")
+
+# ── Official UFC photos (scripts/fetch-official-photos.mts) ──────────────────
+# They already come as transparent PNG cut-outs: crop head and shoulders and
+# keep the original alpha (no segmentation).
+OFFICIAL = "data/snapshot/photo-official.json"
+if os.path.exists(OFFICIAL):
+    OUT_OFF = f"{OUT}/official"
+    os.makedirs(OUT_OFF, exist_ok=True)
+    official_done = {}
+    for fid, o in json.load(open(OFFICIAL)).items():
+        slug = o["slug"]
+        src = cv2.imread(f"data/.cache/official/{slug}.png", cv2.IMREAD_UNCHANGED)
+        if src is None:
+            continue
+        if src.dtype != np.uint8:
+            src = (src / 257).astype(np.uint8)
+        if src.ndim == 2:
+            src = cv2.cvtColor(src, cv2.COLOR_GRAY2BGRA)
+        if src.shape[2] == 3:
+            src = np.dstack([src, np.full(src.shape[:2], 255, np.uint8)])
+        h, w = src.shape[:2]
+        a = src[:, :, 3:4] / 255.0
+        flat = (src[:, :, :3] * a + 255 * (1 - a)).astype(np.uint8)
+        res = face_det.process(cv2.cvtColor(flat, cv2.COLOR_BGR2RGB))
+        if not res.detections:
+            res = face_near.process(cv2.cvtColor(flat, cv2.COLOR_BGR2RGB))
+        if res.detections:
+            bb = max(res.detections, key=lambda d: d.location_data.relative_bounding_box.height).location_data.relative_bounding_box
+            fh = bb.height * h
+            side = int(fh * 2.9)
+            cx, cy = (bb.xmin + bb.width / 2) * w, (bb.ymin + bb.height / 2) * h
+            x0, y0 = int(cx - side / 2), int(cy - side * 0.40)
+        else:
+            # No face found: top square of the cut-out (headshots are framed that way).
+            side = min(w, h)
+            x0, y0 = (w - side) // 2, 0
+        pad = side
+        big = cv2.copyMakeBorder(src, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=(0, 0, 0, 0))
+        crop = big[y0 + pad:y0 + pad + side, x0 + pad:x0 + pad + side]
+        if crop.shape[0] != side or crop.shape[1] != side:
+            continue
+        crop = cv2.resize(crop, (SIZE, SIZE), interpolation=cv2.INTER_AREA)
+        cv2.imwrite(f"{OUT_OFF}/{slug}.webp", crop, [cv2.IMWRITE_WEBP_QUALITY, 85])
+        official_done[fid] = {"slug": slug, "page": o["page"]}
+    json.dump(official_done, open("data/snapshot/photo-official-processed.json", "w"), indent=1)
+    print(f"official {len(official_done)}")

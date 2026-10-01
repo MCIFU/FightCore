@@ -15,7 +15,8 @@
     "import:ufc": "tsx scripts/import-ufc.mts",
     "photos:fetch": "tsx scripts/fetch-photos.mts",
     "photos:process": "python3 scripts/process-photos.py",
-    "photos:find": "tsx scripts/find-commons-photos.mts"
+    "photos:find": "tsx scripts/find-commons-photos.mts",
+    "photos:official": "tsx scripts/fetch-official-photos.mts"
   },
   "dependencies": {
     "next": "16.3.7",

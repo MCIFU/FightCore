@@ -15,7 +15,7 @@ export function Portrait({ src, name, kind, className, sizes, priority, alt }: {
   return (
     <Image
       src={src}
-      alt={alt ?? (kind === "illustration" ? `Retrato ilustrado de ${name}` : kind === "licensed" ? `Fotografía de ${name}` : "")}
+      alt={alt ?? (kind === "illustration" ? `Retrato ilustrado de ${name}` : kind === "licensed" || kind === "official" ? `Fotografía de ${name}` : "")}
       width={400} height={400} sizes={sizes} className={className} priority={priority}
     />
   );

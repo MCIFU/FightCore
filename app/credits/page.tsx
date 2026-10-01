@@ -43,7 +43,7 @@ export default function CreditsPage() {
       <section aria-labelledby="c-photos" className={s.block}>
         <h2 id="c-photos" className={s.h2}>Fotografías <span className={s.count}>{photos.length}</span></h2>
         <p className={s.p}>
-          Solo se usan fotografías de Wikimedia Commons con licencia libre. FIGHTCORE las recorta a cabeza y hombros y elimina el fondo; las que tienen licencia CC BY-SA se distribuyen modificadas bajo esa misma licencia. Los luchadores sin foto libre muestran sus iniciales: no se usan fotos oficiales ni de agencias.
+          Solo se usan fotografías de Wikimedia Commons con licencia libre. FIGHTCORE las recorta a un primer plano de la cabeza y elimina el fondo; las que tienen licencia CC BY-SA se distribuyen modificadas bajo esa misma licencia. Los luchadores sin foto libre muestran sus iniciales: no se usan fotos oficiales ni de agencias.
         </p>
         {photos.length > 0 && (
           <div className={s.tableWrap} tabIndex={0} role="region" aria-label="Créditos fotográficos">

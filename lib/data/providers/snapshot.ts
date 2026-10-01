@@ -25,11 +25,18 @@ export function loadUniverseFromSnapshot(): Universe {
   const snap = JSON.parse(gunzipSync(readFileSync(join(dir, "ufc.json.gz"))).toString("utf8")) as Snapshot;
   const meta = readJson<Record<string, PhotoMeta>>("photo-meta.json", {});
   const processed = readJson<Record<string, { slug: string }>>("photo-processed.json", {});
+  // Official UFC photos are © UFC: preferred unless PHOTO_SOURCE=free (needed to publish without a licence).
+  const official = process.env.PHOTO_SOURCE === "free" ? {} : readJson<Record<string, { slug: string; page: string }>>("photo-official-processed.json", {});
   for (const f of snap.fighters) {
+    const o = official[f.id];
+    if (o) {
+      f.photo = { src: `/photos/official/${o.slug}.webp`, kind: "official", updated: snap.meta.asOf, author: "UFC", license: "© UFC", licenseUrl: null, sourceUrl: o.page, credit: "Foto oficial © UFC" };
+      continue;
+    }
     const p = processed[f.id] ? meta[f.id] : undefined;
     f.photo = p
       ? {
-          src: `/photos/${processed[f.id].slug}.webp`, kind: "licensed", updated: snap.meta.asOf,
+          src: `/photos/${processed[f.id].slug}.png`, kind: "licensed", updated: snap.meta.asOf,
           author: p.author, license: p.license, licenseUrl: p.licenseUrl, sourceUrl: p.sourceUrl,
           credit: `Foto: ${p.author} · ${p.license} · Wikimedia Commons · recortada y sin fondo`,
         }

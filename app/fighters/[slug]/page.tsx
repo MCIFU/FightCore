@@ -66,7 +66,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
     nationality: me.countryName ?? undefined,
     birthDate: DATASET.kind === "ufc" ? f.birthDate ?? undefined : undefined,
     height: f.heightCm ? { "@type": "QuantitativeValue", value: f.heightCm, unitCode: "CMT" } : undefined,
-    image: f.photo.kind === "licensed" ? `${SITE_URL}${f.photo.src}` : undefined,
+    image: f.photo.kind === "licensed" || f.photo.kind === "official" ? `${SITE_URL}${f.photo.src}` : undefined,
     description: DATASET.kind === "ufc"
       ? `Perfil analítico de ${me.name} en FIGHTCORE: récord, estadísticas por asalto y FIGHTCORE Rating.`
       : "Perfil de un luchador ficticio del dataset de demostración de FIGHTCORE.",

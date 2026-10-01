@@ -158,7 +158,7 @@ Para texto sobre fondo oscuro se usa un paso más claro de Ember (`--ember: #FF7
 5. **Microtipografía técnica.** Etiquetas mono con índice (`03 / RATING`), fuentes de datos (`SRC · DEMO`), coordenadas de ciudad en eventos.
 6. **Procedencia visible.** Cada bloque de datos declara su origen: `OFFICIAL`, `IMPORTED`, `CALCULATED`, `EDITORIAL` o `DEMO`.
 7. **Papel = contexto.** Las secciones de historia y metodología se invierten a papel y cambian a voz serif.
-8. **Sin fotografía sin licencia.** Solo fotos de Wikimedia Commons con licencia libre, recortadas a cabeza y hombros con fondo transparente dentro de la "placa de expediente" (rejilla, país, coordenadas y carrera en código de barras), siempre con autor, licencia y enlace al original. Sin foto libre, la placa muestra las iniciales. Los luchadores ficticios del modo demo usan un retrato ilustrado etiquetado como ilustración.
+8. **Sin fotografía sin licencia.** Solo fotos de Wikimedia Commons con licencia libre, recortadas a primer plano de la cabeza con fondo transparente dentro de la "placa de expediente" (rejilla, país, coordenadas y carrera en código de barras), siempre con autor, licencia y enlace al original. Sin foto libre, la placa muestra las iniciales. Los luchadores ficticios del modo demo usan un retrato ilustrado etiquetado como ilustración.
 11. **Oro solo para títulos.** `--gold` y el icono de cinturón se reservan a los campeones vigentes; nunca se usan para otra cosa.
 9. **Movimiento con función.** Count-up del rating, interpolación de gráficos, transición de ranking. Todo desactivado con `prefers-reduced-motion`.
 10. **Nada de degradados decorativos, glassmorphism ni neones.**

@@ -65,6 +65,11 @@ export function FighterPlate({ id, firstName, lastName, country, division, caree
           ))}
         </span>
         {photo?.kind === "illustration" && size !== "sm" && <span className={s.credit}>Ilustración · no es una fotografía</span>}
+        {photo?.kind === "official" && size !== "sm" && (
+          <span className={s.license}>
+            Foto oficial © UFC{linkCredit && photo.sourceUrl ? <> · <a href={photo.sourceUrl} rel="noopener" target="_blank">ufc.com</a></> : null}
+          </span>
+        )}
         {photo?.kind === "licensed" && size !== "sm" && (
           <span className={s.license}>
             Foto: {photo.author} ·{" "}
