@@ -158,7 +158,8 @@ Para texto sobre fondo oscuro se usa un paso más claro de Ember (`--ember: #FF7
 5. **Microtipografía técnica.** Etiquetas mono con índice (`03 / RATING`), fuentes de datos (`SRC · DEMO`), coordenadas de ciudad en eventos.
 6. **Procedencia visible.** Cada bloque de datos declara su origen: `OFFICIAL`, `IMPORTED`, `CALCULATED`, `EDITORIAL` o `DEMO`.
 7. **Papel = contexto.** Las secciones de historia y metodología se invierten a papel y cambian a voz serif.
-8. **Sin fotografía sin licencia.** Hasta tener licencias, el retrato es una "placa de expediente": iniciales, rejilla, país, división. Es parte de la identidad, no un placeholder triste.
+8. **Sin fotografía sin licencia.** Los luchadores demo tienen un retrato ilustrado propio (PNG transparente) dentro de la "placa de expediente": rejilla, país, coordenadas y carrera en código de barras. Siempre se etiqueta como ilustración.
+11. **Oro solo para títulos.** `--gold` y el icono de cinturón se reservan a los campeones vigentes; nunca se usan para otra cosa.
 9. **Movimiento con función.** Count-up del rating, interpolación de gráficos, transición de ranking. Todo desactivado con `prefers-reduced-motion`.
 10. **Nada de degradados decorativos, glassmorphism ni neones.**
 
@@ -244,4 +245,4 @@ Hasta conectar proveedores reales, FIGHTCORE funciona con un **universo simulado
 - Next.js (App Router) + React + TypeScript.
 - CSS Modules + custom properties (sin framework CSS: evita el aspecto de plantilla y peso innecesario).
 - Gráficos SVG propios (sin librería): menos de 10 KB, accesibles, con identidad propia. Revisar si aparecen necesidades que justifiquen una librería.
-- Capa de datos detrás de un repositorio (`lib/data`) para sustituir el proveedor demo por PostgreSQL sin tocar la UI. Esquema relacional en `db/schema.prisma`.
+- Capa de datos detrás de un repositorio (`lib/data`). Proveedores intercambiables: demo en memoria o PostgreSQL (`DATA_PROVIDER=postgres`), con esquema SQL canónico en `db/schema.sql` y sin ORM (acceso de solo lectura, volumen pequeño).

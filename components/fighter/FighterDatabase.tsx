@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { FighterPlate } from "@/components/fighter/FighterPlate";
+import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { CountryTag, FormStrip, RatingValue, RecordValue } from "@/components/ui/primitives";
 import type { FighterSummary } from "@/lib/data/repository";
 import s from "./FighterDatabase.module.css";
@@ -104,7 +106,7 @@ export function FighterDatabase({ fighters, divisions }: { fighters: FighterSumm
           {list.map((f) => (
             <li key={f.id}>
               <Link href={`/fighters/${f.slug}`} className={s.card}>
-                <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={f.divisionShort} career={f.career} size="sm" champion={f.champion} />
+                <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={f.divisionShort} career={f.career} photo={f.photo} title={f.title} size="sm" />
                 <span className={s.cardName}><span>{f.firstName}</span><strong>{f.lastName}</strong></span>
                 <span className={s.cardRow}><RatingValue value={f.rating} size="sm" provisional={f.provisional} /><RecordValue r={f.record} size="sm" /></span>
                 <span className={s.cardMeta}>{f.divisionShort} · {f.org}{f.rank ? ` · #${f.rank}` : ""}</span>
@@ -131,11 +133,16 @@ export function FighterDatabase({ fighters, divisions }: { fighters: FighterSumm
             {list.map((f) => (
               <tr key={f.id}>
                 <td>
-                  <Link href={`/fighters/${f.slug}`} className={s.name}>
-                    {f.name}
-                    {f.champion && <span className={s.champ} title="Campeón vigente">C</span>}
-                  </Link>
-                  {view === "list" && f.nickname && <span className={s.nick}>“{f.nickname}”</span>}
+                  <span className={s.nameCell}>
+                    <FighterAvatar src={f.photo.src} size={view === "compact" ? 28 : 40} />
+                    <span>
+                      <Link href={`/fighters/${f.slug}`} className={s.name}>
+                        {f.name}
+                        {f.title && <ChampionBadge title={f.title} variant="icon" />}
+                      </Link>
+                      {view === "list" && f.nickname && <span className={s.nick}>“{f.nickname}”</span>}
+                    </span>
+                  </span>
                 </td>
                 <td className={s.hideSm}><CountryTag code={f.country} name={f.countryName} /></td>
                 <td className={`${s.hideSm} ${s.mono}`}>{f.divisionShort}{f.rank ? <span className={s.rank}> #{f.rank}</span> : null}</td>

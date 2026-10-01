@@ -30,6 +30,10 @@
   --ember-ink: #a33b0b; /* Ember on paper */
   --cobalt-text: #8fabf2;
 
+  /* Championship gold — only for titles, always with the belt icon. */
+  --gold: #e3c16f;
+  --gold-deep: #8a6a1f;
+
   /* Status — reserved, always paired with icon/label. */
   --success: #5ccb8f;
   --warning: #f2b84b;

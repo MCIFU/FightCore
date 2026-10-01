@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { TaleOfTape } from "@/components/charts/TaleOfTape";
+import Image from "next/image";
+import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { ButtonLink, CountryTag, RecordValue, Source, Tag } from "@/components/ui/primitives";
 import { fightDetail } from "@/lib/data/repository";
 import { fmtClock, fmtDateLong, METHOD_LABEL } from "@/lib/format";
@@ -41,7 +43,9 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
     const won = f.winnerId === x.id;
     return (
       <div className={`${s.corner} ${side === "red" ? s.red : s.blue} ${done && !won && winner ? s.lost : ""}`}>
+        <Image src={x.photo.src} alt={`Retrato de ${x.name} (ilustración)`} width={512} height={512} sizes="240px" className={s.portrait} priority />
         <span className={s.cornerTag}>{side === "red" ? "Esquina roja · A" : "Esquina azul · B"}</span>
+        {x.title && <ChampionBadge title={x.title} variant="full" />}
         <Link href={`/fighters/${x.slug}`} className={s.name}>
           <span className={s.first}>{x.firstName}</span>
           <span className={s.last}>{x.lastName}</span>

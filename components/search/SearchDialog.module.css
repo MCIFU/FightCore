@@ -33,6 +33,10 @@
 }
 .item[aria-selected="true"] { background: var(--ink-2); border-left-color: var(--ember); }
 .itemTitle { font-weight: 600; }
+.face { grid-row: 1 / span 2; width: 36px; height: 36px; background: var(--ink-3); object-fit: cover; }
+.item:has(.face) { grid-template-columns: 36px 1fr auto; }
+.item:has(.face) .itemSub { grid-column: 2; }
+.item:has(.face) .itemMeta { grid-column: 3; color: var(--gold); }
 .itemSub { grid-column: 1; font-size: var(--fs-xs); color: var(--bone-3); }
 .itemMeta { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--bone-2); text-transform: uppercase; }
 .note { padding: 18px; color: var(--bone-2); }

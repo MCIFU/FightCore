@@ -118,3 +118,6 @@
 .methodNums { display: flex; gap: 14px; font-family: var(--font-mono); font-size: 11px; color: var(--bone-2); grid-column: 2; }
 @media (min-width: 800px) { .methodNums { grid-column: auto; justify-content: flex-end; } }
 .foot { margin-top: var(--s-7); font-size: var(--fs-xs); color: var(--bone-3); }
+.cFace { width: min(150px, 60%); height: auto; aspect-ratio: 1; border-bottom: 3px solid var(--c); background: radial-gradient(70% 60% at 50% 45%, var(--ink-3), transparent 70%); }
+.chip > [aria-hidden]:nth-child(2) { border: 0; }
+.corner > span[class*="badge"] { justify-self: start; }

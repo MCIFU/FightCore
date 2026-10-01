@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { EmptyState, RatingValue, SectionHead, Source, Unavailable } from "@/components/ui/primitives";
 import { organizationDetail } from "@/lib/data/repository";
 import { ORGANIZATIONS } from "@/lib/domain/reference";
@@ -66,7 +67,7 @@ export default async function OrgPage({ params }: { params: Promise<{ slug: stri
               {d.champions.length ? (
                 <ul className={s.list}>
                   {d.champions.map((c) => (
-                    <li key={c.divisionId}><Link href={`/fighters/${c.fighter.slug}`} className={s.row}><span className={s.rowLabel}>{c.division.name}</span><strong>{c.fighter.name}</strong><span className={s.rowMeta}>desde {fmtDate(c.from)} · {c.defenses} def.</span></Link></li>
+                    <li key={c.divisionId}><Link href={`/fighters/${c.fighter.slug}`} className={s.row}><span className={s.rowLabel}>{c.division.name}</span><strong className={s.withBelt}><FighterAvatar src={c.fighter.photo.src} size={32} champion />{c.fighter.name}</strong><span className={s.rowMeta}>desde {fmtDate(c.from)} · {c.defenses} def.</span></Link></li>
                   ))}
                 </ul>
               ) : <p className={s.empty}>Sin campeones vigentes en el dataset.</p>}

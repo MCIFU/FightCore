@@ -11,6 +11,7 @@ import { Performance } from "@/components/fighter/Performance";
 import { SectionNav } from "@/components/fighter/SectionNav";
 import { ButtonLink, CountryTag, FormStrip, OutcomeMark, RecordValue, SectionHead, Source, Tag, Unavailable } from "@/components/ui/primitives";
 import { Tabs } from "@/components/ui/Tabs";
+import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { ATTRIBUTES } from "@/lib/analytics/attributes";
 import { allFighterSlugs, fighterProfile, STYLE_DIMS, TODAY } from "@/lib/data/repository";
 import { fmtClock, fmtDate, fmtDateLong, METHOD_LABEL, METHOD_SHORT } from "@/lib/format";
@@ -84,12 +85,12 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
           </nav>
 
           <div className={s.plateCol}>
-            <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={me.divisionShort} career={me.career} size="lg" champion={me.champion} />
+            <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={me.divisionShort} career={me.career} photo={me.photo} title={me.title} size="lg" priority />
           </div>
 
           <div className={s.idCol}>
             <div className={s.tags}>
-              {me.champion && <Tag tone="solid">Campeón {me.org}</Tag>}
+              {me.title && <ChampionBadge title={me.title} variant="full" />}
               {rankText && <Tag tone="accent">{rankText} · FC Rankings</Tag>}
               <Tag>{f.status === "active" ? "En activo" : f.status === "inactive" ? "Inactivo" : "Retirado"}</Tag>
               <Source kind="demo" />

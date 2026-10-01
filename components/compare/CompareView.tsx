@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { useId, useMemo, useState, useTransition } from "react";
 import { LineChart } from "@/components/charts/LineChart";
 import { TaleOfTape } from "@/components/charts/TaleOfTape";
+import Image from "next/image";
+import { FighterAvatar } from "@/components/fighter/FighterAvatar";
+import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { CountryTag, FormStrip, OutcomeMark, RecordValue } from "@/components/ui/primitives";
 import type { AttributeKey } from "@/lib/analytics/attributes";
 import type { CompareEntry } from "@/lib/data/repository";
@@ -88,6 +91,7 @@ export function CompareView({ entries, roster }: { entries: CompareEntry[]; rost
             {entries.map((e, i) => (
               <li key={e.summary.slug} className={`${s.chip} ${s[`c_${CORNERS[i]}`]}`}>
                 <span className={s.chipLetter} aria-hidden>{LETTER[i]}</span>
+                <FighterAvatar src={e.summary.photo.src} size={32} />
                 <Link href={`/fighters/${e.summary.slug}`} className={s.chipName}>{e.summary.name}</Link>
                 <button type="button" className={s.chipX} onClick={() => remove(e.summary.slug)} aria-label={`Quitar a ${e.summary.name}`}>×</button>
               </li>
@@ -135,7 +139,9 @@ export function CompareView({ entries, roster }: { entries: CompareEntry[]; rost
             {entries.map((e, i) => (
               <article key={e.summary.slug} className={`${s.corner} ${s[`c_${CORNERS[i]}`]}`}>
                 <span className={s.cornerBar} aria-hidden />
+                <Image src={e.summary.photo.src} alt="" width={512} height={512} sizes="180px" className={s.cFace} />
                 <span className={s.cornerLetter} aria-hidden>{LETTER[i]}</span>
+                {e.summary.title && <ChampionBadge title={e.summary.title} variant="tag" />}
                 <Link href={`/fighters/${e.summary.slug}`} className={s.cName}>
                   <span className={s.cFirst}>{e.summary.firstName}</span>
                   <span className={s.cLast}>{e.summary.lastName}</span>

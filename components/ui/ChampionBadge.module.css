@@ -1,0 +1,12 @@
+.badge {
+  display: inline-flex; align-items: center; gap: 6px; flex: none;
+  background: var(--gold); color: #1c1506; padding: 3px 7px 3px 5px;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.2;
+  clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 50%, calc(100% - 4px) 100%, 4px 100%, 0 50%);
+  padding-inline: 9px;
+}
+.icon { display: block; color: #1c1506; }
+.iconOnly { padding: 3px 7px; }
+.full { padding: 7px 14px 7px 12px; font-size: 11px; gap: 10px; }
+.text { display: inline-flex; flex-direction: column; }
+.div { font-weight: 400; letter-spacing: 0.06em; font-size: 10px; opacity: 0.8; }

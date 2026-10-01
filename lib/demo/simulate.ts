@@ -272,7 +272,10 @@ export function buildDemoUniverse(): DemoUniverse {
         last = rng.pick(pool.last);
         tries++;
       } while (usedNames.has(`${first} ${last}`) && tries < 40);
-      if (usedNames.has(`${first} ${last}`)) last = `${last}-${rng.pick(pool.last)}`;
+      if (usedNames.has(`${first} ${last}`)) {
+        const second = rng.pick(pool.last.filter((l) => l !== last));
+        last = `${last}-${second}`;
+      }
       usedNames.add(`${first} ${last}`);
 
       const arch = rng.pick(Object.keys(ARCHETYPES) as Archetype[]);
@@ -315,6 +318,7 @@ export function buildDemoUniverse(): DemoUniverse {
       const f: Fighter = {
         id, slug, firstName: first, lastName: last, nickname, country, sex: div.sex, birthDate,
         heightCm, reachCm, stance, divisionId: div.id, orgId, status: "active", priorRecord: prior, provenance: "demo",
+        photo: { src: `/portraits/${slug}.png`, kind: "illustration", credit: "Retrato ilustrado por FIGHTCORE", updated: DEMO_TODAY },
       };
       archetypes.set(id, arch);
       sims.push({ f, hidden, debut, birthMonth, elo: 1500 + prior.w * 6 - prior.l * 10 + (tier === 1 ? 40 : 0), nextAvailable: debut, tier, lastOpp: null, results: [], orgWins: 0, fights: 0, retired: false, koLosses: 0 });
@@ -434,9 +438,11 @@ export function buildDemoUniverse(): DemoUniverse {
       for (const s of [red, blue]) {
         const last4 = s.results.slice(-4);
         const streak = (() => { let n = 0; for (let i = s.results.length - 1; i >= 0 && s.results[i] === "W"; i--) n++; return n; })();
-        if (s.tier === 2 && (streak >= 3 || (s.fights >= 4 && streak >= 2 && s.elo > 1560))) {
+        const holdsRegionalBelt = [...champions.values()].some((c) => c.fighterId === s.f.id && c.champ.defenses < 1);
+        if (s.tier === 2 && !holdsRegionalBelt && (streak >= 3 || (s.fights >= 4 && streak >= 2 && s.elo > 1560))) {
+          vacateIfChampion(s, ev.date); // a regional belt is left behind on promotion
           s.tier = 1;
-          s.f.orgId = s.f.sex === "F" ? rng.weighted([["ufc", 0.7], ["pfl", 0.15], ["one", 0.15]]) : rng.weighted(TIER1_WEIGHTS);
+          s.f.orgId = pickTier1(s);
           s.orgWins = 0;
         } else if (s.tier === 1 && last4.length >= 4 && last4.filter((r) => r === "L").length >= 3) {
           vacateIfChampion(s, ev.date);
@@ -465,13 +471,27 @@ export function buildDemoUniverse(): DemoUniverse {
     }
   };
 
-  // Tier-1 fighters who sit idle too long in a thin org sign elsewhere.
+  /** Signing: majors compete for talent, so thin rosters are more likely to sign. */
+  function pickTier1(s: SimFighter): string {
+    const weights: [string, number][] = TIER1.map((o) => {
+      const roster = sims.filter((x) => !x.retired && x.tier === 1 && x.f.orgId === o && x.f.divisionId === s.f.divisionId).length;
+      const base = o === "ufc" ? 1.5 : 1;
+      return [o, base / (1 + roster * 0.9)];
+    });
+    return rng.weighted(weights);
+  }
+
+  // Tier-1 fighters who sit idle too long in a thin roster sign where the division is deepest.
   const rebalance = (month: number) => {
     for (const s of sims) {
       if (s.retired || s.tier !== 1 || month < s.debut) continue;
-      if (month - s.nextAvailable > 12 && s.f.orgId !== "ufc") {
+      if (month - s.nextAvailable > 12 && ![...champions.values()].some((c) => c.fighterId === s.f.id)) {
+        const mates = (o: string) => sims.filter((x) => x !== s && !x.retired && x.tier === 1 && x.f.orgId === o && x.f.divisionId === s.f.divisionId).length;
+        if (mates(s.f.orgId) >= 2) continue;
+        const target = [...TIER1].sort((a, b) => mates(b) - mates(a))[0];
+        if (target === s.f.orgId) continue;
         vacateIfChampion(s, `${monthToYM(month).y}-${pad(monthToYM(month).mo)}-01`);
-        s.f.orgId = "ufc";
+        s.f.orgId = target;
       }
     }
   };
@@ -490,11 +510,32 @@ export function buildDemoUniverse(): DemoUniverse {
       }
       for (const [poolKey, pool] of pools) {
         const taken = new Set<string>();
+        // Regional belts: title fights between fighters of the same regional promotion.
+        if (poolKey === "regional" && month >= 18) {
+          const byOrg = new Map<string, SimFighter[]>();
+          for (const s of pool) { if (!byOrg.has(s.f.orgId)) byOrg.set(s.f.orgId, []); byOrg.get(s.f.orgId)!.push(s); }
+          for (const [orgId, members] of byOrg) {
+            const key = `${orgId}:${div.id}`;
+            const cur = champions.get(key);
+            const contenders = members.filter((s) => s.fights >= 2 && s.results.at(-1) === "W" && !taken.has(s.f.id)).sort((x, y) => y.elo - x.elo);
+            if (cur) {
+              const champ = members.find((s) => s.f.id === cur.fighterId);
+              const challenger = contenders.find((c) => c.f.id !== cur.fighterId && c.f.id !== champ?.lastOpp);
+              if (champ && challenger && month - cur.lastDefense >= 5 && rng.chance(0.7)) {
+                makeFight(champ, challenger, month, orgId, true);
+                taken.add(champ.f.id); taken.add(challenger.f.id);
+              }
+            } else if (contenders.length >= 2 && rng.chance(0.45)) {
+              makeFight(contenders[0], contenders[1], month, orgId, true);
+              taken.add(contenders[0].f.id); taken.add(contenders[1].f.id);
+            }
+          }
+        }
         // Title fights first.
         if (poolKey !== "regional" && month >= 12) {
           const key = `${poolKey}:${div.id}`;
           const cur = champions.get(key);
-          const contenders = pool.filter((s) => s.orgWins >= 2 && s.results.at(-1) === "W").sort((x, y) => y.elo - x.elo);
+          const contenders = pool.filter((s) => s.orgWins >= 1 && s.results.at(-1) === "W").sort((x, y) => y.elo - x.elo);
           if (cur) {
             const champ = pool.find((s) => s.f.id === cur.fighterId);
             const challenger = contenders.find((c) => c.f.id !== cur.fighterId && c.f.id !== champ?.lastOpp);
@@ -502,7 +543,7 @@ export function buildDemoUniverse(): DemoUniverse {
               makeFight(champ, challenger, month, poolKey, true);
               taken.add(champ.f.id); taken.add(challenger.f.id);
             }
-          } else if (contenders.length >= 2 && rng.chance(0.6)) {
+          } else if (contenders.length >= 2 && rng.chance(0.8)) {
             makeFight(contenders[0], contenders[1], month, poolKey, true);
             taken.add(contenders[0].f.id); taken.add(contenders[1].f.id);
           }

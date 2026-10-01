@@ -3,6 +3,7 @@ import { Archivo, JetBrains_Mono, Newsreader } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Reveal } from "@/components/layout/Reveal";
+import { ServiceWorker } from "@/components/layout/ServiceWorker";
 import { SearchDialog } from "@/components/search/SearchDialog";
 import { TODAY } from "@/lib/data/repository";
 import { fmtStamp } from "@/lib/format";
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <SearchDialog />
         <Reveal />
+        <ServiceWorker />
       </body>
     </html>
   );

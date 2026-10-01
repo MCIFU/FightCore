@@ -33,3 +33,4 @@
 .lineage a { font-weight: 650; }
 .lineage a:hover { color: var(--ember); }
 @media (max-width: 700px) { .lineage li { grid-template-columns: 1fr 1fr; } }
+.withBelt { display: inline-flex; align-items: center; gap: 12px; }

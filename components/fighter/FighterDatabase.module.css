@@ -47,3 +47,4 @@
 @media (min-width: 960px) { .hideMd { display: table-cell; } }
 .empty { padding: 48px 24px; border: 1px dashed var(--line-strong); display: grid; gap: 8px; color: var(--bone-2); }
 .emptyTitle { font-weight: 700; font-size: var(--fs-lg); color: var(--bone); }
+.nameCell { display: flex; align-items: center; gap: 12px; }

@@ -9,7 +9,7 @@ import { onOpenSearch } from "./searchBus";
 import s from "./SearchDialog.module.css";
 
 interface Index { docs: SearchDoc[]; fights: SearchFight[]; names: Record<string, string> }
-interface Hit { key: string; group: string; title: string; sub: string; href: string; meta?: string }
+interface Hit { key: string; group: string; title: string; sub: string; href: string; meta?: string; photo?: string }
 
 const GROUPS: [SearchDoc["t"] | "fight", string][] = [
   ["fighter", "Luchadores"], ["fight", "Combates"], ["event", "Eventos"], ["org", "Organizaciones"], ["history", "Historia"], ["page", "Secciones"],
@@ -73,7 +73,7 @@ export function SearchDialog() {
     const out: Hit[] = [];
     const take = (t: SearchDoc["t"], n: number) =>
       scored.filter((x) => x.d.t === t).slice(0, n).forEach(({ d }) =>
-        out.push({ key: d.id, group: t, title: d.title, sub: d.sub, href: d.href }));
+        out.push({ key: d.id, group: t, title: d.title, sub: d.sub, href: d.href, photo: d.p, meta: d.c }));
     take("fighter", 5);
     // Related fights: bouts involving the best-matching fighters.
     const topFighters = scored.filter((x) => x.d.t === "fighter").slice(0, 2).map((x) => x.d.id);
@@ -105,7 +105,7 @@ export function SearchDialog() {
   const suggestions = useMemo<Hit[]>(() => {
     if (!idx) return [];
     return idx.docs.filter((d) => d.t === "fighter").sort((a, b) => (b.r ?? 0) - (a.r ?? 0)).slice(0, 5)
-      .map((d) => ({ key: d.id, group: "fighter", title: d.title, sub: d.sub, href: d.href }))
+      .map((d): Hit => ({ key: d.id, group: "fighter", title: d.title, sub: d.sub, href: d.href, photo: d.p, meta: d.c }))
       .concat(idx.docs.filter((d) => d.t === "page").slice(0, 4).map((d) => ({ key: d.id, group: "page", title: d.title, sub: d.sub, href: d.href })));
   }, [idx]);
 
@@ -192,6 +192,7 @@ export function SearchDialog() {
                           onMouseMove={() => setActive(i)}
                           onClick={() => go(h)}
                         >
+                          {h.photo && <img src={h.photo} alt="" width={36} height={36} className={s.face} loading="lazy" />}
                           <span className={s.itemTitle}>{h.title}</span>
                           <span className={s.itemSub}>{h.sub}</span>
                           {h.meta && <span className={s.itemMeta}>{h.meta}</span>}

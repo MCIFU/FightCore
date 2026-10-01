@@ -5,11 +5,13 @@ import "server-only";
  */
 import { cache } from "react";
 import { countryByCode, divisionById, DIVISIONS, HISTORY, orgById, ORGANIZATIONS } from "../domain/reference";
-import type { Division, Event, Fight, Fighter, FighterBout, Outcome } from "../domain/types";
+import type { Division, Event, Fight, Fighter, FighterBout, Outcome, StrikeStats } from "../domain/types";
 import { computeRating, strength01, type RatingResult } from "../rating/model";
 import { buildInsights } from "../analytics/insights";
 import { careerStats, roundProfile, type CareerStats, recordOf } from "../analytics/career";
 import { ATTRIBUTES } from "../analytics/attributes";
+import { finishRounds, roundLines, styleOf, vsStyles, zoneEdges, STYLE_LABEL } from "../analytics/scout";
+import { interactions } from "../analytics/matchup";
 import { store, TODAY } from "./store";
 
 export { TODAY };
@@ -36,7 +38,10 @@ export interface FighterSummary {
   provisional: boolean;
   rank: number | null;
   champion: boolean;
+  /** Current title, when champion. */
+  title: { org: string; division: string; since: string; defenses: number } | null;
   form: Outcome[];
+  photo: Fighter["photo"];
   /** Every covered outcome, oldest first (feeds the dossier barcode). */
   career: Outcome[];
   lastFight: string | null;
@@ -110,8 +115,13 @@ export function summary(id: string): FighterSummary {
     rating: r.value, band: r.band, provisional: r.provisional,
     rank: rankOf(id, f.divisionId),
     champion: s.champions.has(id),
+    title: (() => {
+      const c = s.champions.get(id);
+      return c ? { org: orgById.get(c.orgId)!.short, division: divisionById.get(c.divisionId)!.name, since: c.from, defenses: c.defenses } : null;
+    })(),
     form: b.slice(-5).map((x) => x.outcome!).filter(Boolean),
     career: b.map((x) => x.outcome!).filter(Boolean),
+    photo: f.photo,
     lastFight: b.at(-1)?.fight.date ?? null,
     bouts: st.bouts,
   };
@@ -513,35 +523,83 @@ export interface RecordItem {
 
 const fmtTime = (sec: number) => `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
 
-export const records = cache((): RecordItem[] => {
+export type RecordScope = { kind: "global" } | { kind: "org"; id: string } | { kind: "division"; id: string };
+
+export function parseRecordScope(raw: string | undefined): RecordScope {
+  if (raw?.startsWith("org:") && orgById.has(raw.slice(4))) return { kind: "org", id: raw.slice(4) };
+  if (raw?.startsWith("division:") && divisionById.has(raw.slice(9))) return { kind: "division", id: raw.slice(9) };
+  return { kind: "global" };
+}
+
+/** Records computed over the fights in a scope. Each record links to its evidence. */
+export const recordsFor = cache((key: string): RecordItem[] => {
+  const scope = parseRecordScope(key);
   const s = store();
-  const done = s.fights.filter((f) => f.status === "completed");
+  const inScope = (f: Fight) => scope.kind === "global" || (scope.kind === "org" ? f.orgId === scope.id : f.divisionId === scope.id);
+  const done = s.fights.filter((f) => f.status === "completed" && inScope(f));
+  if (!done.length) return [];
   const items: RecordItem[] = [];
-  const finishes = done.filter((f) => (f.method === "KO/TKO" || f.method === "SUB") && f.round === 1 && f.winnerId);
-  const fastest = [...finishes].sort((a, b) => (a.time ?? 999) - (b.time ?? 999))[0];
-  if (fastest) {
-    const ev = s.eventById.get(fastest.eventId)!;
-    items.push({ id: "fastest", category: "Tiempo", label: "Finalización más rápida", value: fmtTime(fastest.time!), unit: "R1", holder: summary(fastest.winnerId!), context: `${fastest.method} · ${ev.name}`, href: `/fights/${fastest.id}` });
+  const ev = (f: Fight) => s.eventById.get(f.eventId)!;
+  const secs = (f: Fight) => (f.round! - 1) * 300 + f.time!;
+
+  const fastestOf = (method: string, id: string, label: string) => {
+    const f = done.filter((x) => x.method === method && x.winnerId).sort((a, b) => secs(a) - secs(b))[0];
+    if (f) items.push({ id, category: "Tiempo", label, value: fmtTime(secs(f)), unit: `R${f.round}`, holder: summary(f.winnerId!), context: `${f.submission ?? f.method} · ${ev(f).name}`, href: `/fights/${f.id}` });
+  };
+  fastestOf("KO/TKO", "fastest-ko", "KO/TKO más rápido");
+  fastestOf("SUB", "fastest-sub", "Sumisión más rápida");
+
+  // Per-fighter tallies within scope.
+  const tally = new Map<string, { w: number; fin: number; ko: number; sub: number; titleW: number; streak: number; best: number }>();
+  for (const f of [...done].sort((a, b) => a.date.localeCompare(b.date))) {
+    for (const id of [f.redId, f.blueId]) {
+      const t = tally.get(id) ?? { w: 0, fin: 0, ko: 0, sub: 0, titleW: 0, streak: 0, best: 0 };
+      if (f.method === "NC") { tally.set(id, t); continue; }
+      if (f.winnerId === id) {
+        t.w++; t.streak++; t.best = Math.max(t.best, t.streak);
+        if (f.method === "KO/TKO") { t.ko++; t.fin++; }
+        if (f.method === "SUB") { t.sub++; t.fin++; }
+        if (f.titleFight) t.titleW++;
+      } else t.streak = 0;
+      tally.set(id, t);
+    }
   }
-  const mostWins = [...s.fighters].sort((a, b) => s.stats.get(b.id)!.record.w - s.stats.get(a.id)!.record.w)[0];
-  items.push({ id: "wins", category: "Carrera", label: "Más victorias en cobertura", value: String(s.stats.get(mostWins.id)!.record.w), unit: "victorias", holder: summary(mostWins.id), context: "Combates registrados por FIGHTCORE", href: `/fighters/${mostWins.slug}` });
-  const streak = [...s.fighters].sort((a, b) => s.stats.get(b.id)!.longestWinStreak - s.stats.get(a.id)!.longestWinStreak)[0];
-  items.push({ id: "streak", category: "Carrera", label: "Racha de victorias más larga", value: String(s.stats.get(streak.id)!.longestWinStreak), unit: "seguidas", holder: summary(streak.id), context: "Victorias consecutivas sin derrota ni empate", href: `/fighters/${streak.slug}` });
-  let bestSig = { v: 0, f: done[0], id: "" };
-  for (const f of done) {
-    if (f.red && f.red.sigLanded > bestSig.v) bestSig = { v: f.red.sigLanded, f, id: f.redId };
-    if (f.blue && f.blue.sigLanded > bestSig.v) bestSig = { v: f.blue.sigLanded, f, id: f.blueId };
-  }
-  items.push({ id: "sig", category: "Golpeo", label: "Golpes significativos en un combate", value: String(bestSig.v), unit: "conectados", holder: summary(bestSig.id), context: `${s.eventById.get(bestSig.f.eventId)!.name} · ${bestSig.f.scheduledRounds} rounds`, href: `/fights/${bestSig.f.id}` });
-  let bestTd = { v: 0, f: done[0], id: "" };
-  for (const f of done) {
-    if (f.red && f.red.tdLanded > bestTd.v) bestTd = { v: f.red.tdLanded, f, id: f.redId };
-    if (f.blue && f.blue.tdLanded > bestTd.v) bestTd = { v: f.blue.tdLanded, f, id: f.blueId };
-  }
-  items.push({ id: "td", category: "Grappling", label: "Derribos en un combate", value: String(bestTd.v), unit: "derribos", holder: summary(bestTd.id), context: s.eventById.get(bestTd.f.eventId)!.name, href: `/fights/${bestTd.f.id}` });
-  const defenses = [...s.championships].sort((a, b) => b.defenses - a.defenses)[0];
-  if (defenses) items.push({ id: "defenses", category: "Títulos", label: "Defensas de título en un reinado", value: String(defenses.defenses), unit: "defensas", holder: summary(defenses.fighterId), context: `${orgById.get(defenses.orgId)!.short} · ${divisionById.get(defenses.divisionId)!.name}`, href: `/fighters/${s.fighterById.get(defenses.fighterId)!.slug}` });
+  const top = (k: "w" | "fin" | "ko" | "sub" | "titleW" | "best") => [...tally.entries()].sort((a, b) => b[1][k] - a[1][k])[0];
+  const push = (k: "w" | "fin" | "ko" | "sub" | "titleW" | "best", id: string, category: string, label: string, unit: string, context: string) => {
+    const t = top(k);
+    if (t && t[1][k] > 0) items.push({ id, category, label, value: String(t[1][k]), unit, holder: summary(t[0]), context, href: `/fighters/${s.fighterById.get(t[0])!.slug}` });
+  };
+  push("w", "wins", "Carrera", "Más victorias", "victorias", "Combates registrados en este ámbito");
+  push("fin", "finishes", "Carrera", "Más finalizaciones", "finalizaciones", "KO/TKO + sumisión");
+  push("best", "streak", "Carrera", "Racha de victorias más larga", "seguidas", "Sin derrota ni empate entre medias");
+  push("titleW", "titles", "Títulos", "Más victorias por el título", "victorias", "Combates por el título ganados");
+  push("ko", "kos", "Golpeo", "Más victorias por KO/TKO", "KO/TKO", "Victorias antes del límite por golpes");
+  push("sub", "subs", "Grappling", "Más victorias por sumisión", "sumisiones", "Victorias por sumisión");
+
+  const best = (get: (st: StrikeStats) => number, id: string, category: string, label: string, unit: string, fmt = (v: number) => String(v)) => {
+    let rec = { v: -1, f: done[0], who: "" };
+    for (const f of done) {
+      if (f.red && get(f.red) > rec.v) rec = { v: get(f.red), f, who: f.redId };
+      if (f.blue && get(f.blue) > rec.v) rec = { v: get(f.blue), f, who: f.blueId };
+    }
+    if (rec.v > 0) items.push({ id, category, label, value: fmt(rec.v), unit, holder: summary(rec.who), context: `${ev(rec.f).name} · ${rec.f.scheduledRounds} rounds`, href: `/fights/${rec.f.id}` });
+  };
+  best((x) => x.sigLanded, "sig", "Golpeo", "Golpes significativos en un combate", "conectados");
+  best((x) => x.kd, "kd", "Golpeo", "Knockdowns en un combate", "knockdowns");
+  best((x) => x.tdLanded, "td", "Grappling", "Derribos en un combate", "derribos");
+  best((x) => x.subAttempts, "subatt", "Grappling", "Intentos de sumisión en un combate", "intentos");
+  best((x) => x.ctrlSec, "ctrl", "Grappling", "Tiempo de control en un combate", "control", (v) => fmtTime(v));
+
+  const reigns = s.championships.filter((c) => scope.kind === "global" || (scope.kind === "org" ? c.orgId === scope.id : c.divisionId === scope.id)).sort((a, b) => b.defenses - a.defenses)[0];
+  if (reigns && reigns.defenses > 0) items.push({ id: "defenses", category: "Títulos", label: "Defensas de título en un reinado", value: String(reigns.defenses), unit: "defensas", holder: summary(reigns.fighterId), context: `${orgById.get(reigns.orgId)!.short} · ${divisionById.get(reigns.divisionId)!.name}`, href: `/fighters/${s.fighterById.get(reigns.fighterId)!.slug}` });
   return items;
+});
+
+/** Headline records used on the home page (global scope). */
+export const records = cache((): RecordItem[] => {
+  const all = recordsFor("global");
+  const pick = ["fastest-ko", "wins", "streak", "sig"];
+  return pick.map((id) => all.find((r) => r.id === id)).filter((r): r is RecordItem => Boolean(r)).concat(all.filter((r) => !pick.includes(r.id)));
 });
 
 /* ─────────────────────────── Home helpers ─────────────────────────── */
@@ -601,6 +659,10 @@ export interface SearchDoc {
   /** Fighter ids involved, used to surface related fights/events. */
   rel?: string[];
   r?: number;
+  /** Portrait (fighters only). */
+  p?: string;
+  /** Current title label (fighters only). */
+  c?: string;
 }
 
 export interface SearchFight { id: string; a: string; b: string; e: string; d: string; m: string; w: string | null }
@@ -610,7 +672,7 @@ export const searchIndex = cache(() => {
   const docs: SearchDoc[] = [];
   for (const f of s.fighters) {
     const sm = summary(f.id);
-    docs.push({ t: "fighter", id: f.id, title: sm.name, sub: `${sm.divisionShort} · ${sm.org} · ${sm.record.w}-${sm.record.l}-${sm.record.d}`, href: `/fighters/${f.slug}`, k: [f.nickname, sm.countryName, sm.org, sm.division].filter(Boolean).join(" "), r: sm.rating });
+    docs.push({ t: "fighter", id: f.id, title: sm.name, sub: `${sm.divisionShort} · ${sm.org} · ${sm.record.w}-${sm.record.l}-${sm.record.d}`, href: `/fighters/${f.slug}`, k: [f.nickname, sm.countryName, sm.org, sm.division, sm.title ? "campeon campeón champion" : ""].filter(Boolean).join(" "), r: sm.rating, p: sm.photo.src, c: sm.title ? `Campeón ${sm.title.org}` : undefined });
   }
   for (const e of s.events) {
     const org = orgById.get(e.orgId)!;
@@ -630,6 +692,11 @@ export const searchIndex = cache(() => {
     ["Base de datos de luchadores", "/fighters", "fighters luchadores base de datos"],
     ["Eventos", "/events", "eventos cartelera events"],
     ["Sistema de marca", "/brand", "brand marca logo tipografía color design system"],
+    ["Campeones por división", "/champions", "campeones cinturones títulos belts champions tabla"],
+    ["Scout", "/scout", "scout scouting informe análisis cómo gana pierde"],
+    ["Style Matchup", "/matchup", "matchup estilos cruce versus análisis"],
+    ["Stats", "/stats", "estadísticas líderes stats métricas"],
+    ["Mapa del MMA", "/map", "mapa países geografía map"],
   ];
   for (const [title, href, k] of pages) docs.push({ t: "page", id: href, title, sub: "Sección", href, k });
 
@@ -717,4 +784,169 @@ export function organizationDetail(slug: string) {
     titleHistory,
     milestones: HISTORY.filter((h) => h.orgId === o.id),
   };
+}
+
+/* ─────────────────────────── Champions table ─────────────────────────── */
+
+export interface ChampionCell {
+  state: "champion" | "vacant" | "none";
+  fighter: FighterSummary | null;
+  since: string | null;
+  defenses: number;
+  reigns: number;
+  lastChampion: string | null;
+}
+
+/** Division × organization grid of current titles, plus the FCR #1 as a separate reference. */
+export const championsTable = cache(() => {
+  const s = store();
+  const orgIds = [...new Set(s.championships.map((c) => c.orgId))].sort((a, b) => (a === "ufc" ? -1 : b === "ufc" ? 1 : a.localeCompare(b)));
+  const orgs = orgIds.map((id) => ({ id, short: orgById.get(id)!.short, name: orgById.get(id)!.name, slug: orgById.get(id)!.slug }));
+  const rows = DIVISIONS.map((d) => {
+    const cells: Record<string, ChampionCell> = {};
+    for (const o of orgIds) {
+      const reigns = s.championships.filter((c) => c.orgId === o && c.divisionId === d.id).sort((a, b) => a.from.localeCompare(b.from));
+      const cur = reigns.find((c) => !c.to);
+      const last = reigns.at(-1);
+      cells[o] = {
+        state: cur ? "champion" : reigns.length ? "vacant" : "none",
+        fighter: cur ? summary(cur.fighterId) : null,
+        since: cur?.from ?? null,
+        defenses: cur?.defenses ?? 0,
+        reigns: reigns.length,
+        lastChampion: !cur && last ? fullName(s.fighterById.get(last.fighterId)!) : null,
+      };
+    }
+    const top = (divisionRankings(TODAY).get(d.id) ?? [])[0];
+    return { division: d, cells, fcrTop: top ? summary(top.id) : null };
+  });
+  const count = rows.reduce((a, r) => a + Object.values(r.cells).filter((c) => c.state === "champion").length, 0);
+  return { orgs, rows, count };
+});
+
+/* ─────────────────────────── Scout ─────────────────────────── */
+
+
+export function scoutReport(slug: string) {
+  const s = store();
+  const f = s.fighterBySlug.get(slug);
+  if (!f) return null;
+  const bouts = completed(f.id);
+  const st = s.stats.get(f.id)!;
+  const oppStyle = (id: string) => styleOf(s.attributes.get(id));
+  const rounds = roundLines(bouts);
+  const r1 = rounds.find((r) => r.round === 1);
+  return {
+    summary: summary(f.id),
+    style: styleOf(s.attributes.get(f.id)),
+    stats: st,
+    insights: buildInsights(bouts),
+    winRounds: finishRounds(bouts, "W"),
+    lossRounds: finishRounds(bouts, "L"),
+    zones: zoneEdges(bouts),
+    rounds,
+    paceDrop: r1 ? rounds.map((r) => ({ round: r.round, n: r.n, rel: r.att / Math.max(1, r1.att) })) : [],
+    vsStyles: vsStyles(bouts, oppStyle),
+    submissions: bouts.filter((b) => b.outcome === "W" && b.fight.submission).reduce<Record<string, number>>((a, b) => { a[b.fight.submission!] = (a[b.fight.submission!] ?? 0) + 1; return a; }, {}),
+    sample: bouts.length,
+  };
+}
+
+export type ScoutReport = NonNullable<ReturnType<typeof scoutReport>>;
+
+export function matchupData(a: string, b: string) {
+  const s = store();
+  const fa = s.fighterBySlug.get(a), fb = s.fighterBySlug.get(b);
+  if (!fa || !fb || fa.id === fb.id) return null;
+  const A = { name: fa.lastName, stats: s.stats.get(fa.id)!, attr: s.attributes.get(fa.id) };
+  const B = { name: fb.lastName, stats: s.stats.get(fb.id)!, attr: s.attributes.get(fb.id) };
+  if (!A.attr || !B.attr) return { a: summary(fa.id), b: summary(fb.id), insufficient: true as const };
+  const styleA = styleOf(A.attr)!, styleB = styleOf(B.attr)!;
+  const oppStyle = (id: string) => styleOf(s.attributes.get(id));
+  const aVs = vsStyles(completed(fa.id), oppStyle).find((x) => x.style === styleB) ?? null;
+  const bVs = vsStyles(completed(fb.id), oppStyle).find((x) => x.style === styleA) ?? null;
+  const rank = (attr: Record<string, number>) => ATTRIBUTES.map((x) => ({ key: x.key, label: x.label, v: attr[x.key] })).filter((x) => x.key !== "adaptation").sort((p, q) => q.v - p.v);
+  const aOpp = new Set(completed(fa.id).map((x) => x.opponentId));
+  const common = completed(fb.id).filter((x) => aOpp.has(x.opponentId)).map((x) => x.opponentId);
+  return {
+    a: summary(fa.id), b: summary(fb.id), insufficient: false as const,
+    attrA: A.attr, attrB: B.attr,
+    styleA: { type: styleA, label: STYLE_LABEL[styleA] }, styleB: { type: styleB, label: STYLE_LABEL[styleB] },
+    strengthsA: rank(A.attr).slice(0, 3), weaknessesA: rank(A.attr).slice(-3).reverse(),
+    strengthsB: rank(B.attr).slice(0, 3), weaknessesB: rank(B.attr).slice(-3).reverse(),
+    interactions: interactions(A as never, B as never),
+    history: { aVsStyleB: aVs, bVsStyleA: bVs },
+    roundsA: roundLines(completed(fa.id)), roundsB: roundLines(completed(fb.id)),
+    common: [...new Set(common)].map((id) => {
+      const ra = completed(fa.id).filter((x) => x.opponentId === id).map((x) => x.outcome);
+      const rb = completed(fb.id).filter((x) => x.opponentId === id).map((x) => x.outcome);
+      return { opponent: summary(id), a: ra, b: rb };
+    }),
+  };
+}
+
+/* ─────────────────────────── Stats ─────────────────────────── */
+
+export const STAT_METRICS = [
+  { key: "slpm", label: "Golpes sig. por minuto", fmt: "dec2" },
+  { key: "strAcc", label: "Precisión de golpeo", fmt: "pct" },
+  { key: "strDef", label: "Defensa de golpeo", fmt: "pct" },
+  { key: "tdAvg", label: "Derribos por 15 min", fmt: "dec2" },
+  { key: "tdAcc", label: "Precisión de derribo", fmt: "pct" },
+  { key: "tdDef", label: "Defensa de derribo", fmt: "pct" },
+  { key: "subAvg", label: "Sumisiones por 15 min", fmt: "dec2" },
+  { key: "kdAvg", label: "Knockdowns por 15 min", fmt: "dec2" },
+  { key: "ctrlShare", label: "Tiempo de control", fmt: "pct" },
+  { key: "finishRate", label: "Tasa de finalización", fmt: "pct" },
+] as const;
+export type StatKey = (typeof STAT_METRICS)[number]["key"];
+
+export const STAT_MIN_BOUTS = 5;
+export const STAT_MIN_MINUTES = 45;
+
+export const statsOverview = cache(() => {
+  const s = store();
+  const pool = s.fighters.filter((f) => {
+    const st = s.stats.get(f.id)!;
+    return st.bouts >= STAT_MIN_BOUTS && st.minutes >= STAT_MIN_MINUTES;
+  });
+  const leaders = Object.fromEntries(STAT_METRICS.map((m) => [m.key, pool
+    .map((f) => ({ fighter: summary(f.id), value: s.stats.get(f.id)![m.key] as number, sample: s.stats.get(f.id)!.bouts }))
+    .sort((a, b) => b.value - a.value).slice(0, 10)])) as Record<StatKey, { fighter: FighterSummary; value: number; sample: number }[]>;
+
+  const done = s.fights.filter((f) => f.status === "completed" && f.method !== "NC");
+  const rate = (list: typeof done) => ({
+    n: list.length,
+    ko: list.filter((f) => f.method === "KO/TKO").length / Math.max(1, list.length),
+    sub: list.filter((f) => f.method === "SUB").length / Math.max(1, list.length),
+    dec: list.filter((f) => f.method?.endsWith("DEC")).length / Math.max(1, list.length),
+    sigPerMin: list.reduce((a, f) => a + (f.red!.sigLanded + f.blue!.sigLanded), 0) / Math.max(1, list.reduce((a, f) => a + ((f.round! - 1) * 300 + f.time!) / 60, 0)),
+  });
+  const byDivision = DIVISIONS.map((d) => ({ division: d, ...rate(done.filter((f) => f.divisionId === d.id)) }));
+  const years = [...new Set(done.map((f) => f.date.slice(0, 4)))].sort();
+  const byYear = years.map((y) => ({ year: Number(y), ...rate(done.filter((f) => f.date.startsWith(y))) }));
+  const orgIds = [...new Set(done.map((f) => f.orgId))];
+  const byOrg = orgIds.map((o) => ({ org: orgById.get(o)!.short, slug: orgById.get(o)!.slug, ...rate(done.filter((f) => f.orgId === o)) })).filter((x) => x.n >= 20).sort((a, b) => (b.ko + b.sub) - (a.ko + a.sub));
+  return { leaders, byDivision, byYear, byOrg, pool: pool.length, total: rate(done) };
+});
+
+/* ─────────────────────────── MMA map ─────────────────────────── */
+
+export function mapData() {
+  const s = store();
+  const rows = new Map<string, { code: string; name: string; fighters: number; active: number; champions: number; events: number; fights: number; top: FighterSummary | null }>();
+  const row = (code: string) => {
+    if (!rows.has(code)) rows.set(code, { code, name: countryByCode.get(code)?.name ?? code, fighters: 0, active: 0, champions: 0, events: 0, fights: 0, top: null });
+    return rows.get(code)!;
+  };
+  for (const f of s.fighters) {
+    const r = row(f.country);
+    r.fighters++;
+    if (f.status === "active") r.active++;
+    if (s.champions.has(f.id)) r.champions++;
+    const sm = summary(f.id);
+    if (!r.top || sm.rating > r.top.rating) r.top = sm;
+  }
+  for (const e of s.events) { const r = row(e.country); r.events++; r.fights += e.fightIds.length; }
+  return [...rows.values()].sort((a, b) => b.fighters - a.fighters || b.events - a.events);
 }

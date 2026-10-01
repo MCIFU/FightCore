@@ -1,13 +1,26 @@
-.cat { margin-top: 40px; }
+.scope { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.chip { display: inline-flex; align-items: center; min-height: 40px; padding: 0 12px; border: 1px solid var(--line-strong); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--bone-2); }
+.chip:hover { border-color: var(--bone); color: var(--bone); }
+.chip[aria-current="page"] { background: var(--bone); color: var(--ink-0); border-color: var(--bone); }
+.select { display: grid; gap: 6px; }
+.select select { min-height: 40px; min-width: 220px; padding: 0 12px; background: var(--ink-1); border: 1px solid var(--line-strong); }
+.go { min-height: 40px; padding: 0 16px; background: var(--bone); color: var(--ink-0); font-weight: 600; }
+.go:hover { background: var(--ember); }
+.or { font-size: var(--fs-xs); color: var(--bone-3); padding-bottom: 12px; }
+.divs { display: flex; flex-wrap: wrap; gap: 4px; }
+.scopeTitle { margin-top: 20px; font-size: var(--fs-sm); color: var(--bone-3); }
+.scopeTitle strong { color: var(--bone); }
+.cat { margin-top: 32px; }
 .catTitle { font-family: var(--font-mono); font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bone-3); padding-bottom: 10px; border-bottom: 1px solid var(--line-strong); }
 .list { list-style: none; padding: 0; }
-.row { display: grid; grid-template-columns: 7rem 1fr; grid-template-areas: "value label" "unit holder" "unit ctx"; gap: 2px 20px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
-@media (min-width: 900px) { .row { grid-template-columns: 10rem 7rem 1fr 1fr 1fr; grid-template-areas: "value unit label holder ctx"; } }
+.row { display: grid; grid-template-columns: 7rem 1fr; grid-template-areas: "value label" "unit holder" "unit ctx"; gap: 4px 20px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: center; }
+@media (min-width: 1000px) { .row { grid-template-columns: 9rem 7rem minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "value unit label holder ctx"; } }
 .row:hover .value { color: var(--ember); }
-.value { grid-area: value; font-variation-settings: "wdth" 62; font-weight: 800; font-size: clamp(3rem, 2rem + 3vw, 5rem); line-height: 0.85; font-variant-numeric: tabular-nums; transition: color var(--dur-1); }
-.unit { grid-area: unit; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
+.value { grid-area: value; font-variation-settings: "wdth" 62; font-weight: 800; font-size: clamp(2.6rem, 2rem + 2.4vw, 4.4rem); line-height: 0.85; font-variant-numeric: tabular-nums; transition: color var(--dur-1); }
+.unit { grid-area: unit; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); align-self: start; }
 .label { grid-area: label; font-weight: 700; font-size: var(--fs-md); }
-.holder { grid-area: holder; display: grid; }
-.holder span { font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); letter-spacing: 0.06em; }
+.holder { grid-area: holder; display: flex; align-items: center; gap: 10px; }
+.holder > span:last-child { display: grid; }
+.holder small { font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); letter-spacing: 0.06em; }
 .ctx { grid-area: ctx; font-size: var(--fs-sm); color: var(--bone-3); }
-.note { margin-top: 32px; color: var(--bone-3); font-size: var(--fs-sm); }
+.note { margin-top: 28px; color: var(--bone-3); font-size: var(--fs-sm); }

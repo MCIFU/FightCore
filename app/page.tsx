@@ -1,14 +1,17 @@
 import Link from "next/link";
 import { CornerMark } from "@/components/brand/Logo";
 import { TaleOfTape } from "@/components/charts/TaleOfTape";
+import Image from "next/image";
+import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { FighterPlate } from "@/components/fighter/FighterPlate";
+import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { RankingList } from "@/components/rankings/RankingList";
 import { SearchLauncher } from "@/components/search/SearchLauncher";
 import { ButtonLink, CountryTag, FormStrip, RatingValue, RecordValue, SectionHead, Source, Tag } from "@/components/ui/primitives";
 import { Tabs } from "@/components/ui/Tabs";
 import { DIVISIONS } from "@/lib/domain/reference";
 import {
-  divisionRanking, featuredFight, fighterProfile, history, poundForPound, recentResults, records, spotlight,
+  currentChampions, divisionRanking, featuredFight, fighterProfile, history, poundForPound, recentResults, records, spotlight,
   trending, universeCounts, upcomingEvents,
 } from "@/lib/data/repository";
 import { fmtClock, fmtDate, fmtDayMonth, fmtWeekday, METHOD_SHORT } from "@/lib/format";
@@ -25,6 +28,7 @@ export default function Home() {
   const recs = records().slice(0, 4);
   const trend = trending(6);
   const hist = history();
+  const belts = currentChampions().filter((c) => ["UFC", "PFL", "ONE"].includes(c.org));
 
   const fa = featured ? fighterProfile(featured.red.slug) : null;
   const fb = featured ? fighterProfile(featured.blue.slug) : null;
@@ -63,12 +67,13 @@ export default function Home() {
               <h2 id="featured-title" className="visually-hidden">Combate destacado: {featured.red.name} contra {featured.blue.name}</h2>
               <div className={s.featVs}>
                 <div className={s.featSide}>
+                  <Image src={featured.red.photo.src} alt="" width={512} height={512} sizes="160px" className={s.featFace} priority />
                   <span className={s.cornerA} aria-hidden />
                   <Link href={`/fighters/${featured.red.slug}`} className={s.featName}>
                     <span className={s.featFirst}>{featured.red.firstName}</span>
                     <span className={s.featLast}>{featured.red.lastName}</span>
                   </Link>
-                  <span className={s.featMeta}><CountryTag code={featured.red.country} name={featured.red.countryName} /> <RecordValue r={featured.red.record} size="sm" /></span>
+                  <span className={s.featMeta}><CountryTag code={featured.red.country} name={featured.red.countryName} /> <RecordValue r={featured.red.record} size="sm" />{featured.red.title && <ChampionBadge title={featured.red.title} variant="icon" />}</span>
                   <RatingValue value={featured.red.rating} band={featured.red.band} size="md" />
                 </div>
                 <div className={s.featMid} aria-hidden>
@@ -77,12 +82,13 @@ export default function Home() {
                   <span className={s.featRounds}>{featured.fight.scheduledRounds}×5</span>
                 </div>
                 <div className={`${s.featSide} ${s.featSideB}`}>
+                  <Image src={featured.blue.photo.src} alt="" width={512} height={512} sizes="160px" className={s.featFace} priority />
                   <span className={s.cornerB} aria-hidden />
                   <Link href={`/fighters/${featured.blue.slug}`} className={s.featName}>
                     <span className={s.featFirst}>{featured.blue.firstName}</span>
                     <span className={s.featLast}>{featured.blue.lastName}</span>
                   </Link>
-                  <span className={s.featMeta}><RecordValue r={featured.blue.record} size="sm" /> <CountryTag code={featured.blue.country} name={featured.blue.countryName} /></span>
+                  <span className={s.featMeta}>{featured.blue.title && <ChampionBadge title={featured.blue.title} variant="icon" />}<RecordValue r={featured.blue.record} size="sm" /> <CountryTag code={featured.blue.country} name={featured.blue.countryName} /></span>
                   <RatingValue value={featured.blue.rating} band={featured.blue.band} size="md" />
                 </div>
               </div>
@@ -185,6 +191,7 @@ export default function Home() {
             {trend.map((t) => (
               <li key={t.fighter.id}>
                 <Link href={`/fighters/${t.fighter.slug}`} className={s.trendRow}>
+                  <FighterAvatar src={t.fighter.photo.src} size={36} champion={t.fighter.champion} />
                   <span className={s.trendName}>{t.fighter.name}<span className={s.trendMeta}>{t.fighter.divisionShort} · {t.fighter.org}</span></span>
                   <span className={`${s.trendDelta} ${t.delta >= 0 ? s.up : s.down}`}>
                     <span aria-hidden>{t.delta >= 0 ? "▲" : "▼"}</span>
@@ -217,6 +224,23 @@ export default function Home() {
         />
       </section>
 
+      {/* ───────────── BELTS ───────────── */}
+      <section className={`wrap ${s.section}`} aria-labelledby="belt-title" data-reveal>
+        <SectionHead id="belt-title" kicker="Títulos vigentes" title="Los cinturones" action={{ href: "/champions", label: "Tabla por división" }} />
+        <ul className={s.belts}>
+          {belts.map((c) => (
+            <li key={`${c.orgId}-${c.divisionId}`}>
+              <Link href={`/fighters/${c.fighter.slug}`} className={s.beltCard}>
+                <Image src={c.fighter.photo.src} alt="" width={512} height={512} sizes="120px" className={s.beltFace} />
+                <ChampionBadge title={{ org: c.org, division: c.division.name }} variant="tag" />
+                <span className={s.beltName}>{c.fighter.name}</span>
+                <span className={s.beltMeta}>{c.division.name} · {c.defenses} {c.defenses === 1 ? "defensa" : "defensas"}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* ───────────── R4 · FIGHTERS ───────────── */}
       <section className={`wrap ${s.section}`} aria-labelledby="ftr-title" data-reveal>
         <SectionHead id="ftr-title" round="R4" kicker="FIGHTCORE Scout" title="Tres expedientes abiertos" action={{ href: "/fighters", label: "Base de datos" }} />
@@ -228,7 +252,7 @@ export default function Home() {
             return (
               <article key={f.id} className={`${s.spotCard} ${i === 0 ? s.spotLead : ""}`}>
                 <Link href={`/fighters/${f.slug}`} className={s.spotLink} aria-label={`Abrir expediente de ${f.name}`}>
-                  <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={f.divisionShort} career={f.career} size={i === 0 ? "lg" : "md"} champion={f.champion} />
+                  <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={f.divisionShort} career={f.career} photo={f.photo} title={f.title} size={i === 0 ? "lg" : "md"} />
                 </Link>
                 <div className={s.spotBody}>
                   <span className="label">{String(i + 1).padStart(2, "0")} · {tagline}</span>
@@ -305,7 +329,9 @@ export default function Home() {
             { href: "/events", label: "Eventos", n: counts.events, note: "Pasados y programados" },
             { href: "/rankings", label: "Divisiones", n: counts.divisions, note: "8 masculinas · 3 femeninas" },
             { href: "/organizations", label: "Organizaciones", n: counts.organizations, note: "Actuales e históricas" },
-            { href: "/records", label: "Récords", n: records().length, note: "Carrera, golpeo, grappling, tiempo" },
+            { href: "/champions", label: "Campeones", n: currentChampions().length, note: "Cinturones vigentes por división" },
+            { href: "/records", label: "Récords", n: records().length, note: "Global, por organización y por división" },
+            { href: "/map", label: "Mapa", n: counts.countries, note: "Países con luchadores o eventos" },
             { href: "/methodology", label: "Metodología", n: 8, note: "Factores del FIGHTCORE Rating" },
           ].map((x, i) => (
             <li key={x.href}>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { RankingList } from "@/components/rankings/RankingList";
 import { EmptyState, SectionHead, Source } from "@/components/ui/primitives";
 import { Tabs } from "@/components/ui/Tabs";
@@ -33,11 +34,12 @@ export default function RankingsPage() {
             title="Sin proveedor oficial conectado"
             body="FIGHTCORE mostrará aquí los rankings publicados por cada organización, con su fecha y fuente, cuando exista una integración con licencia. No los reconstruimos ni los estimamos."
           />
-          <h3 className={s.h3}>Campeones vigentes del dataset</h3>
+          <h3 className={s.h3}>Campeones vigentes del dataset · <Link href="/champions" className={s.more}>tabla completa →</Link></h3>
           <ul className={s.champs}>
             {champs.map((c) => (
               <li key={`${c.orgId}-${c.divisionId}`}>
                 <Link href={`/fighters/${c.fighter.slug}`} className={s.champRow}>
+                  <FighterAvatar src={c.fighter.photo.src} size={40} champion />
                   <span className={s.champOrg}>{c.org}</span>
                   <span className={s.champDiv}>{c.division.name}</span>
                   <span className={s.champName}>{c.fighter.name}</span>

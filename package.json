@@ -8,19 +8,30 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test lib/*.test.ts lib/**/*.test.ts"
+    "test": "tsx --test lib/*.test.ts lib/**/*.test.ts",
+    "portraits": "tsx scripts/render-portraits.mts",
+    "geo": "tsx scripts/build-world.mts",
+    "db:seed": "tsx scripts/db-seed.mts"
   },
   "dependencies": {
     "next": "16.3.7",
+    "pg": "^8.23.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "server-only": "^0.0.1"
   },
   "devDependencies": {
+    "@types/d3-geo": "^3.1.1",
     "@types/node": "^22",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/topojson-client": "^3.1.5",
+    "d3-geo": "^3.1.1",
+    "sharp": "^0.35.5",
+    "topojson-client": "^3.1.0",
     "tsx": "^4.23.15",
-    "typescript": "^5.9"
+    "typescript": "^5.9",
+    "world-atlas": "^2.0.2"
   }
 }

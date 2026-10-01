@@ -164,7 +164,7 @@
 .trendHead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
 .miniTitle { font-variation-settings: "wdth" 72; font-weight: 750; font-size: 1.5rem; text-transform: uppercase; }
 .trendList { list-style: none; padding: 0; }
-.trendRow { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.trendRow { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .trendRow:hover .trendName { color: var(--ember); }
 .trendName { display: grid; font-weight: 600; transition: color var(--dur-1); }
 .trendMeta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--bone-3); font-weight: 400; }
@@ -240,3 +240,12 @@
   .spotLead figure > div:nth-child(3) { font-size: 44cqi; }
 }
 .recordsSrc { margin-top: 16px; display: flex; gap: 10px; align-items: center; font-size: var(--fs-xs); color: var(--bone-3); }
+.featFace { width: min(140px, 100%); height: auto; aspect-ratio: 1; margin-bottom: -4px; }
+
+.belts { contain: paint; list-style: none; padding: 0 0 12px; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(170px, 1fr); gap: 1px; overflow-x: auto; background: var(--line); border-top: 2px solid var(--gold); scroll-snap-type: x proximity; mask-image: linear-gradient(90deg, #000 calc(100% - 60px), transparent); }
+.belts li { background: var(--ink-0); scroll-snap-align: start; }
+.beltCard { display: grid; gap: 8px; justify-items: start; padding: 16px 16px 18px; height: 100%; }
+.beltCard:hover .beltName { color: var(--gold); }
+.beltFace { width: 96px; height: 96px; background: radial-gradient(70% 60% at 50% 45%, var(--ink-3), var(--ink-1) 70%); border-bottom: 3px solid var(--gold); }
+.beltName { font-weight: 700; line-height: 1.15; transition: color var(--dur-1); }
+.beltMeta { font-size: var(--fs-xs); color: var(--bone-3); }

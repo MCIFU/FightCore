@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { FighterAvatar } from "@/components/fighter/FighterAvatar";
+import { ChampionBadge } from "@/components/ui/ChampionBadge";
 import { CountryTag, FormStrip, RatingValue, RecordValue } from "@/components/ui/primitives";
 import type { RankingRow } from "@/lib/data/repository";
 import s from "./RankingList.module.css";
@@ -26,10 +28,11 @@ export function RankingList({ rows, density = "regular", showDivision, caption }
         <li key={r.fighter.id} className={`${s.row} ${r.rank === 1 ? s.first : ""}`}>
           <span className={s.rank} aria-label={`Puesto ${r.rank}`}>{String(r.rank).padStart(2, "0")}</span>
           <Movement row={r} />
+          <FighterAvatar src={r.fighter.photo.src} size={density === "compact" ? 32 : 44} />
           <span className={s.who}>
             <Link href={`/fighters/${r.fighter.slug}`} className={s.name}>
               {r.fighter.name}
-              {r.fighter.champion && <span className={s.champ} title="Campeón vigente">C</span>}
+              {r.fighter.title && <ChampionBadge title={r.fighter.title} variant="icon" />}
             </Link>
             <span className={s.meta}>
               <CountryTag code={r.fighter.country} name={r.fighter.countryName} />

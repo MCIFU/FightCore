@@ -43,6 +43,7 @@ const FAMILY = ["Rating", "Rankings", "Scout", "Stats", "Records", "History", "C
 
 export default function BrandPage() {
   const sample = divisionRanking("M-WW", 4);
+  const sampleFighter = sample[0].fighter;
   return (
     <div className={s.page}>
       <header className={`wrap ${s.head}`}>
@@ -205,7 +206,7 @@ export default function BrandPage() {
             <Tabs label="Demo" tabs={[{ id: "a", label: "Carrera", content: <p className="serif">Panel de carrera.</p> }, { id: "b", label: "Organización", content: <p className="serif">Panel de organización.</p> }, { id: "c", label: "División", content: <p className="serif">Panel de división.</p> }]} />
           </Demo>
           <Demo title="Placa de expediente">
-            <div style={{ maxWidth: 180 }}><FighterPlate id="ftr-000" firstName="Demo" lastName="Plate" country="ESP" division="LW" career={["W", "W", "L", "W", "D", "W", "W", "L", "W", "W"]} /></div>
+            <div style={{ maxWidth: 180 }}><FighterPlate id={sampleFighter.id} firstName={sampleFighter.firstName} lastName={sampleFighter.lastName} country={sampleFighter.country} division={sampleFighter.divisionShort} career={sampleFighter.career} photo={sampleFighter.photo} title={sampleFighter.title} /></div>
           </Demo>
           <Demo title="País y dato no disponible">
             <div className={s.row}><CountryTag code="ESP" name="España" /><CountryTag code="JPN" name="Japón" /><Unavailable reason="sin datos" /><Unavailable reason="pendiente" /></div>

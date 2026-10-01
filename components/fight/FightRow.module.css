@@ -23,3 +23,7 @@
 .open { font-size: 10px; color: var(--bone-3); }
 .center:hover .open { color: var(--ember); }
 @media (max-width: 560px) { .row { grid-template-columns: 1fr 5.5rem 1fr; } }
+.side { justify-items: start; }
+.blue { justify-items: end; }
+.face { margin-bottom: 6px; display: block; }
+.side > [role="img"] { justify-self: inherit; margin-bottom: 2px; }

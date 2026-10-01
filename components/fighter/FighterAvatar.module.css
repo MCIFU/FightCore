@@ -1,0 +1,8 @@
+.avatar { position: relative; display: inline-block; flex: none; background: var(--ink-2); border: 1px solid var(--line); overflow: visible; }
+.img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.c_a { box-shadow: inset 0 -3px 0 var(--corner-a); }
+.c_b { box-shadow: inset 0 -3px 0 var(--corner-b); }
+.c_c { box-shadow: inset 0 -3px 0 var(--corner-c); }
+.c_d { box-shadow: inset 0 -3px 0 var(--corner-d); }
+.belt { position: absolute; right: -5px; bottom: -5px; display: grid; place-items: center; width: 17px; height: 12px; background: var(--gold); box-shadow: 0 0 0 2px var(--ink-0); }
+.belt svg { color: #1c1506; }

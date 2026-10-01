@@ -3,7 +3,7 @@
  * the deterministic demo universe; swapping it for PostgreSQL means replacing
  * `loadProvider()` — every derived structure below is provider-agnostic.
  */
-import { buildDemoUniverse, DEMO_TODAY } from "../demo/simulate";
+import { DEMO_TODAY } from "../demo/simulate";
 import type { Championship, Event, Fight, Fighter, FighterBout, Outcome } from "../domain/types";
 import { computeRating, strength01, type RatingResult } from "../rating/model";
 import { careerStats, roundProfile, type CareerStats } from "../analytics/career";
@@ -31,8 +31,12 @@ export interface Store {
   champions: Map<string, Championship>; // fighterId → current reign
 }
 
-function loadProvider() {
-  return buildDemoUniverse();
+/** The facts a provider must supply. Everything else is derived here. */
+export interface Universe {
+  fighters: Fighter[];
+  fights: Fight[];
+  events: Event[];
+  championships: Championship[];
 }
 
 function outcomeFor(f: Fight, id: string): Outcome | null {
@@ -42,8 +46,7 @@ function outcomeFor(f: Fight, id: string): Outcome | null {
   return f.winnerId === id ? "W" : "L";
 }
 
-function build(): Store {
-  const u = loadProvider();
+function build(u: Universe): Store {
   const fighterById = new Map(u.fighters.map((f) => [f.id, f]));
   const fighterBySlug = new Map(u.fighters.map((f) => [f.slug, f]));
   const fightById = new Map(u.fights.map((f) => [f.id, f]));

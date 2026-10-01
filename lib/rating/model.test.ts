@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { buildStore } from "../data/build.ts";
+import { buildDemoUniverse } from "../demo/simulate.ts";
 import { FACTORS, computeRating } from "./model.ts";
 
-const store = buildStore();
+const store = buildStore(buildDemoUniverse());
 
 test("weights sum to 1", () => {
   assert.equal(Math.round(FACTORS.reduce((a, f) => a + f.weight, 0) * 1000), 1000);
@@ -27,7 +28,7 @@ test("ratings stay in 0–100 and band shrinks with sample", () => {
 });
 
 test("the demo universe is deterministic", () => {
-  const again = buildStore();
+  const again = buildStore(buildDemoUniverse());
   assert.equal(again.fights.length, store.fights.length);
   assert.equal(again.rating.get(store.fighters[5].id)!.value, store.rating.get(store.fighters[5].id)!.value);
 });
