@@ -19,7 +19,11 @@ const CACHE = "data/.cache/commons-search";
 mkdirSync(CACHE, { recursive: true });
 
 const snap = JSON.parse(gunzipSync(readFileSync("data/snapshot/ufc.json.gz")).toString()) as { fighters: Fighter[]; championships: Championship[] };
-const queued = new Set((JSON.parse(readFileSync("data/snapshot/photo-queue.json", "utf8")) as { id: string }[]).map((q) => q.id));
+// Fighters already holding a usable photo; a Wikidata photo the face checks rejected
+// (e.g. a group shot) doesn't count, and the search may find a better one.
+const processed = existsSync("data/snapshot/photo-processed.json") ? JSON.parse(readFileSync("data/snapshot/photo-processed.json", "utf8")) as Record<string, unknown> : {};
+const wikidataFile = new Map((JSON.parse(readFileSync("data/snapshot/photo-queue.json", "utf8")) as { id: string; file: string }[]).map((q) => [q.id, q.file]));
+const queued = new Set(Object.keys(processed));
 const belt = new Set(snap.championships.map((c) => c.fighterId));
 const targets = snap.fighters.filter((f) => !queued.has(f.id) && (f.status === "active" || belt.has(f.id)) && f.firstName && f.lastName);
 
@@ -39,7 +43,9 @@ function search(name: string): string {
   return readFileSync(file, "utf8");
 }
 
-const extra: { id: string; slug: string; file: string }[] = [];
+// Earlier search matches that passed every check stay queued.
+const previous: { id: string; slug: string; file: string }[] = existsSync("data/snapshot/photo-queue-extra.json") ? JSON.parse(readFileSync("data/snapshot/photo-queue-extra.json", "utf8")) : [];
+const extra = previous.filter((q) => queued.has(q.id));
 for (const [i, f] of targets.entries()) {
   const name = `${f.firstName} ${f.lastName}`;
   let html: string;
@@ -47,6 +53,7 @@ for (const [i, f] of targets.entries()) {
   const first = norm(f.firstName), lastN = norm(f.lastName);
   const files = [...new Set([...html.matchAll(/href="\/wiki\/File:([^"]+\.(?:jpe?g|png))"/gi)].map((m) => decodeURIComponent(m[1]).replace(/_/g, " ")))];
   const scored = files
+    .filter((file) => file !== wikidataFile.get(f.id))
     .map((file) => {
       const t = norm(file.replace(/\.[a-z]+$/i, ""));
       if (!t.includes(lastN) || CROWD.test(t)) return null;

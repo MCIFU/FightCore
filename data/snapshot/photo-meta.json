@@ -392,11 +392,11 @@
   "ext": "png"
  },
  "68dd7b3783c19f9c": {
-  "file": "Shane Carwin.JPG",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "author": "The Doppelganger ( talk ) ( Adam Etheridge )",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shane_Carwin.JPG",
+  "file": "Shane Carwin.jpg",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "author": "Peter Gordon",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shane_Carwin.jpg",
   "ext": "jpg"
  },
  "0e21976afc92e4d1": {
@@ -504,11 +504,11 @@
   "ext": "jpg"
  },
  "68d4a891e5cf2029": {
-  "file": "Tracy Cortez UFC.png",
+  "file": "Tracy Cortez UFC 322.png",
   "license": "CC BY 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
   "author": "We Fight All Night",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tracy_Cortez_UFC.png",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tracy_Cortez_UFC_322.png",
   "ext": "png"
  },
  "2e5c2aa8e4ab9d82": {
@@ -1032,11 +1032,11 @@
   "ext": "jpg"
  },
  "e8b731feff72294b": {
-  "file": "Alexa Grasso 2023 03.png",
+  "file": "Alexa Grasso 2023 02 (cropped).png",
   "license": "CC BY 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
   "author": "Alexa Lopez Col",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alexa_Grasso_2023_03.png",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alexa_Grasso_2023_02_(cropped).png",
   "ext": "png"
  },
  "20205040232ed0f3": {
@@ -3632,11 +3632,11 @@
   "ext": "jpg"
  },
  "fcaae0385b514f11": {
-  "file": "Frank Shamrock.jpg",
-  "license": "CC BY 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-  "author": "Bruno Massami",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frank_Shamrock.jpg",
+  "file": "Frank-shamrock-03-29-08.jpg",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "author": "Original uploader was Fatcat125 at en.wikipedia",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frank-shamrock-03-29-08.jpg",
   "ext": "jpg"
  },
  "029880cdbf5ca089": {
@@ -4528,11 +4528,11 @@
   "ext": "jpg"
  },
  "d661ce4da776fc20": {
-  "file": "Petr Yan at Kremlin award ceremonies with president Putin.jpg",
-  "license": "CC BY 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-  "author": "kremlin.ru",
-  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Petr_Yan_at_Kremlin_award_ceremonies_with_president_Putin.jpg",
+  "file": "PetrYan (cropped).jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "MMAnytt",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:PetrYan_(cropped).jpg",
   "ext": "jpg"
  },
  "4cd8b03aee1d0138": {
@@ -4614,5 +4614,237 @@
   "author": "PIXSELL",
   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Roberto_Soldi%C4%87.png",
   "ext": "png"
+ },
+ "3738e68d2261e60f": {
+  "file": "Andrei Arlovski 2018.jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "MMAnytt.se",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Andrei_Arlovski_2018.jpg",
+  "ext": "jpg"
+ },
+ "2c99576fefe53c7c": {
+  "file": "UFC 173 Renan Barao Media Day Interview - YouTube - 0-0-10 (cropped).jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "MMA Fight",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:UFC_173_Renan_Barao_Media_Day_Interview_-_YouTube_-_0-0-10_(cropped).jpg",
+  "ext": "jpg"
+ },
+ "b9f28e7045fdfce7": {
+  "file": "Photo of Raoni Barcelos.png",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "author": "Knighthawk07",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Photo_of_Raoni_Barcelos.png",
+  "ext": "png"
+ },
+ "70e1f8a821b72c8b": {
+  "file": "Jimmy Crute at UFC 234 (cropped).jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "MMAnytt",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jimmy_Crute_at_UFC_234_(cropped).jpg",
+  "ext": "jpg"
+ },
+ "d6c0cdd7e467c440": {
+  "file": "Kyle Daukaus.png",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+  "author": "Fight Bananas Official",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kyle_Daukaus.png",
+  "ext": "png"
+ },
+ "c849740a3ff51931": {
+  "file": "TJ Dillashaw.png",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "K.O. Artist Sports",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:TJ_Dillashaw.png",
+  "ext": "png"
+ },
+ "fcffee71cff5530e": {
+  "file": "Forrest Griffin - UFC 100 Fan Expo - Mandalay Bay Casino, Las Vegas.jpg",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "author": "Mark Richardson",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Forrest_Griffin_-_UFC_100_Fan_Expo_-_Mandalay_Bay_Casino%2C_Las_Vegas.jpg",
+  "ext": "jpg"
+ },
+ "971246648e162f0d": {
+  "file": "Chase Hooper 2022.png",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "Onlyfans",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chase_Hooper_2022.png",
+  "ext": "png"
+ },
+ "a9e260472d321361": {
+  "file": "Jasmine Jasudavicius 2023.png",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "MM-eh",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jasmine_Jasudavicius_2023.png",
+  "ext": "png"
+ },
+ "513c6f1715e547a8": {
+  "file": "Brock Lesnar At SummerSlam 2023 (cropped).jpg",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "author": "Diego Serrano",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brock_Lesnar_At_SummerSlam_2023_(cropped).jpg",
+  "ext": "jpg"
+ },
+ "06734ca9d88dec3a": {
+  "file": "Sharabutdin Magomedov 2024.png",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "Sexto Round",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sharabutdin_Magomedov_2024.png",
+  "ext": "png"
+ },
+ "f748267c4ab6c127": {
+  "file": "Rhys McKee at CAGE Warrior 100.jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "MMAnytt",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rhys_McKee_at_CAGE_Warrior_100.jpg",
+  "ext": "jpg"
+ },
+ "b6452706b373eea1": {
+  "file": "Renato Moicano 2024.png",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "Show Me The Money",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Renato_Moicano_2024.png",
+  "ext": "png"
+ },
+ "0845c81e37d3bcb3": {
+  "file": "Volkan Oezdemir at UFC Fight Night 153 in Stockholm, Sweden.jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "MMAnytt",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Volkan_Oezdemir_at_UFC_Fight_Night_153_in_Stockholm%2C_Sweden.jpg",
+  "ext": "jpg"
+ },
+ "07225ba28ae309b6": {
+  "file": "Charles Oliveira UFC.jpg",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "author": "Renan Silva",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Charles_Oliveira_UFC.jpg",
+  "ext": "jpg"
+ },
+ "18d01f7f8338ae72": {
+  "file": "Vinicius Oliveira 2026.jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "Sexto Round",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vinicius_Oliveira_2026.jpg",
+  "ext": "jpg"
+ },
+ "71171fc96445bf65": {
+  "file": "Vitor Petrino.png",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+  "author": "Sexto Round",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vitor_Petrino.png",
+  "ext": "png"
+ },
+ "1235b31de15d0c6e": {
+  "file": "Montserrat 'Conejo' Ruiz.png",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "Carlos Galvez",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Montserrat_'Conejo'_Ruiz.png",
+  "ext": "png"
+ },
+ "03688dc3c3af3ac1": {
+  "file": "Bas Rutten.jpg",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "author": "Michael Dunn from Silicon Valley, USA",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bas_Rutten.jpg",
+  "ext": "jpg"
+ },
+ "17734443a833cdf7": {
+  "file": "QuillanSalkilld4.png",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "author": "Dsdcrewsmoke",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:QuillanSalkilld4.png",
+  "ext": "png"
+ },
+ "9211aae062b799d6": {
+  "file": "Jean Silva (54451587575).jpg",
+  "license": "Public domain",
+  "licenseUrl": null,
+  "author": "The White House",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jean_Silva_(54451587575).jpg",
+  "ext": "jpg"
+ },
+ "262d32ebda89efc4": {
+  "file": "Natália Silva 2025.jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "Sexto Round",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nat%C3%A1lia_Silva_2025.jpg",
+  "ext": "jpg"
+ },
+ "52ef95b5860fb28c": {
+  "file": "Jean Silva (54451587575).jpg",
+  "license": "Public domain",
+  "licenseUrl": null,
+  "author": "The White House",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jean_Silva_(54451587575).jpg",
+  "ext": "jpg"
+ },
+ "4461d7e47375a895": {
+  "file": "Tatsuro taira 2025.png",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "에이든 우지",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tatsuro_taira_2025.png",
+  "ext": "png"
+ },
+ "19f8a2f6eecd92ac": {
+  "file": "Puja Tomar 2024.png",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "Chamatkar Sandhu",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Puja_Tomar_2024.png",
+  "ext": "png"
+ },
+ "329e403448756217": {
+  "file": "Nathaniel Wood at UFC 232.jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "MMAnytt",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nathaniel_Wood_at_UFC_232.jpg",
+  "ext": "jpg"
+ },
+ "w59a7783da700ff68": {
+  "file": "Abusupiyan Magomedov on Rue Saint-Honoré, Paris, 2026-02-13 (cropped).jpg",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "author": "Verisurma",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Abusupiyan_Magomedov_on_Rue_Saint-Honor%C3%A9%2C_Paris%2C_2026-02-13_(cropped).jpg",
+  "ext": "jpg"
+ },
+ "140567899d98978a": {
+  "file": "RobelisDespaigne.jpg",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "author": "Gustavo Trujillo",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:RobelisDespaigne.jpg",
+  "ext": "jpg"
+ },
+ "881bf86d4cba8578": {
+  "file": "Nassourdine Imavov.jpg",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "author": "JoeKhanMMA",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nassourdine_Imavov.jpg",
+  "ext": "jpg"
  }
 }

@@ -42,11 +42,18 @@ segmenter = mp.solutions.selfie_segmentation.SelfieSegmentation(model_selection=
 # Photos reviewed by eye and rejected (several people, subject ambiguous).
 EXCLUDE = {"brock-larson", "krzysztof-jotko", "kendall-grove", "lorenz-larkin", "kevin-holland", "mounir-lazzez", "frank-shamrock", "jessica-eye", "alexa-grasso", "tracy-cortez", "viviane-araujo", "war-machine", "wanderlei-silva", "nick-thompson", "phil-baroni", "joe-lauzon", "jorge-santiago", "jorge-gurgel"}
 
+# One file assigned to two fighters means namesakes: we can't tell who it shows.
+from collections import Counter
+file_count = Counter(m["file"] for m in meta.values())
+
 done, dropped = {}, {}
 only = set(sys.argv[1:])
 for fid, m in meta.items():
     slug = slug_by_id.get(fid)
     if not slug or (only and slug not in only):
+        continue
+    if file_count[m["file"]] > 1:
+        dropped[slug] = "file shared by namesakes"
         continue
     if slug in EXCLUDE:
         dropped[slug] = "excluded after review"

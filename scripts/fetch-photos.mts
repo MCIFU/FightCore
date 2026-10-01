@@ -11,7 +11,7 @@
  */
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
 const UA = "FIGHTCORE-importer/0.2 (mcifuentesramos@gmail.com)";
 const CACHE = "data/.cache/commons";
@@ -40,13 +40,27 @@ const text = (html: string) =>
   html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&#95;/g, "_").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
 
 interface Meta { file: string; license: string; licenseUrl: string | null; author: string; sourceUrl: string; ext: string }
-const queue: { id: string; slug: string; file: string }[] = [
+const queue = [
   ...JSON.parse(readFileSync("data/snapshot/photo-queue.json", "utf8")),
   // Matches found by searching Commons (scripts/find-commons-photos.mts).
-  ...(existsSync("data/snapshot/photo-queue-extra.json") ? JSON.parse(readFileSync("data/snapshot/photo-queue-extra.json", "utf8")) : []),
-];
+  ...(existsSync("data/snapshot/photo-queue-extra.json") ? JSON.parse(readFileSync("data/snapshot/photo-queue-extra.json", "utf8")).map((q: object) => ({ ...q, search: true })) : []),
+] as { id: string; slug: string; file: string; search?: boolean }[];
+/** A file found by name search must say it is about combat sports: namesakes are common. */
+/** The file sits in the fighter's own person category, and that category is about combat sports. */
+function personCategoryIsMma(html: string, slug: string): boolean {
+  const cats = [...html.matchAll(/href="\/wiki\/(Category:[^"#?]+)"/g)].map((m) => decodeURIComponent(m[1]));
+  const want = slug.replace(/-\d{4}$/, "").replace(/-/g, " ");
+  const cat = cats.find((c) => c.slice(9).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[_-]+/g, " ") === want);
+  if (!cat) return false;
+  const file = `${CACHE}/${createHash("sha1").update(cat).digest("hex")}.cat.html`;
+  try {
+    if (!existsSync(file)) curl(`https://commons.wikimedia.org/wiki/${encodeURIComponent(cat)}`, file);
+    return MMA_CONTEXT.test(text(readFileSync(file, "utf8")));
+  } catch { return false; }
+}
+const MMA_CONTEXT = /\b(UFC|mixed martial|MMA|Bellator|PFL|Strikeforce|ONE Championship|Cage Warriors|K-1|kickbox|jiu.jitsu|grappl|lutador|luchador|artes marciales mixtas|Kampfsport|octagon|weigh.in|fight night)\b/i;
 const out: Record<string, Meta> = existsSync("data/snapshot/photo-meta.json") ? JSON.parse(readFileSync("data/snapshot/photo-meta.json", "utf8")) : {};
-let ok = 0, nonFree = 0, failed = 0;
+let ok = 0, nonFree = 0, failed = 0, offTopic = 0;
 for (const [i, q] of queue.entries()) {
   const pageUrl = `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(q.file.replace(/ /g, "_"))}`;
   const cached = `${CACHE}/${createHash("sha1").update(q.file).digest("hex")}.html`;
@@ -56,12 +70,19 @@ for (const [i, q] of queue.entries()) {
     const short = html.match(/class="licensetpl_short"[^>]*>([^<]*)/)?.[1]?.trim();
     const link = html.match(/class="licensetpl_link"[^>]*>([^<]*)/)?.[1]?.trim() || null;
     if (!short || !FREE.test(short)) { nonFree++; delete out[q.id]; continue; }
+    if (q.search && !MMA_CONTEXT.test(text(html)) && !personCategoryIsMma(html, q.slug)) {
+      if (out[q.id]?.file === q.file) delete out[q.id];
+      offTopic++;
+      continue;
+    }
     const autCell = html.match(/id="fileinfotpl_aut"[^>]*>[\s\S]*?<\/td>\s*<td[^>]*>([\s\S]*?)<\/td>/)?.[1];
     const p170 = html.match(/author name string[^<]*<\/[^>]+>\s*(?:<[^>]+>\s*)*:\s*([^<]+)/)?.[1];
     let author = autCell ? text(autCell) : p170 ? p170.trim() : "";
     author = author.replace(/\s*\(talk\)|\s*Wikidata.*$/i, "").slice(0, 160) || "Autor no indicado en Commons";
     const ext = (q.file.match(/\.(jpe?g|png|webp|tiff?)$/i)?.[1] ?? "jpg").toLowerCase().replace("jpeg", "jpg");
     const img = `${PHOTOS}/${q.slug}.${ext === "tif" || ext === "tiff" ? "jpg" : ext}`;
+    // A different source file for the same fighter (search fallback) replaces the cached image.
+    if (out[q.id] && out[q.id].file !== q.file && existsSync(img)) rmSync(img);
     if (!existsSync(img)) {
       // Thumbnails come from thumb.wikimedia.org; a width at or above the original
       // redirects to the original file, which is rate-limited — so step down.
@@ -83,4 +104,4 @@ for (const [i, q] of queue.entries()) {
   }
 }
 writeFileSync("data/snapshot/photo-meta.json", JSON.stringify(out, null, 1));
-console.log(`done · ok ${ok} · non-free ${nonFree} · failed ${failed}`);
+console.log(`done · ok ${ok} · non-free ${nonFree} · off-topic ${offTopic} · failed ${failed}`);

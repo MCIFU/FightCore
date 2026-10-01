@@ -229,6 +229,11 @@
   "score": 0.758,
   "coverage": 0.412
  },
+ "68dd7b3783c19f9c": {
+  "slug": "shane-carwin",
+  "score": 0.856,
+  "coverage": 0.564
+ },
  "0e21976afc92e4d1": {
   "slug": "magnus-cedenblad",
   "score": 0.638,
@@ -1263,11 +1268,6 @@
   "slug": "neil-magny",
   "score": 0.855,
   "coverage": 0.445
- },
- "36b8f265bcd1b7a4": {
-  "slug": "abus-magomedov",
-  "score": 0.914,
-  "coverage": 0.526
  },
  "87aa9fb63d6b51a1": {
   "slug": "zabit-magomedsharipov",
@@ -2604,6 +2604,11 @@
   "score": 0.824,
   "coverage": 0.532
  },
+ "d661ce4da776fc20": {
+  "slug": "petr-yan",
+  "score": 0.905,
+  "coverage": 0.442
+ },
  "4cd8b03aee1d0138": {
   "slug": "shane-young",
   "score": 0.766,
@@ -2648,5 +2653,125 @@
   "slug": "roberto-soldic",
   "score": 0.834,
   "coverage": 0.424
+ },
+ "3738e68d2261e60f": {
+  "slug": "andrei-arlovski",
+  "score": 0.799,
+  "coverage": 0.498
+ },
+ "2c99576fefe53c7c": {
+  "slug": "renan-barao",
+  "score": 0.905,
+  "coverage": 0.394
+ },
+ "b9f28e7045fdfce7": {
+  "slug": "raoni-barcelos",
+  "score": 0.921,
+  "coverage": 0.396
+ },
+ "70e1f8a821b72c8b": {
+  "slug": "jimmy-crute",
+  "score": 0.76,
+  "coverage": 0.466
+ },
+ "d6c0cdd7e467c440": {
+  "slug": "kyle-daukaus",
+  "score": 0.845,
+  "coverage": 0.318
+ },
+ "971246648e162f0d": {
+  "slug": "chase-hooper",
+  "score": 0.913,
+  "coverage": 0.368
+ },
+ "a9e260472d321361": {
+  "slug": "jasmine-jasudavicius",
+  "score": 0.859,
+  "coverage": 0.462
+ },
+ "513c6f1715e547a8": {
+  "slug": "brock-lesnar",
+  "score": 0.824,
+  "coverage": 0.472
+ },
+ "06734ca9d88dec3a": {
+  "slug": "shara-magomedov",
+  "score": 0.782,
+  "coverage": 0.544
+ },
+ "f748267c4ab6c127": {
+  "slug": "rhys-mckee",
+  "score": 0.881,
+  "coverage": 0.249
+ },
+ "b6452706b373eea1": {
+  "slug": "renato-moicano",
+  "score": 0.754,
+  "coverage": 0.218
+ },
+ "0845c81e37d3bcb3": {
+  "slug": "volkan-oezdemir",
+  "score": 0.911,
+  "coverage": 0.47
+ },
+ "07225ba28ae309b6": {
+  "slug": "charles-oliveira",
+  "score": 0.918,
+  "coverage": 0.482
+ },
+ "18d01f7f8338ae72": {
+  "slug": "vinicius-oliveira",
+  "score": 0.824,
+  "coverage": 0.256
+ },
+ "71171fc96445bf65": {
+  "slug": "vitor-petrino",
+  "score": 0.854,
+  "coverage": 0.373
+ },
+ "1235b31de15d0c6e": {
+  "slug": "montserrat-conejo-ruiz",
+  "score": 0.849,
+  "coverage": 0.523
+ },
+ "03688dc3c3af3ac1": {
+  "slug": "bas-rutten",
+  "score": 0.815,
+  "coverage": 0.232
+ },
+ "17734443a833cdf7": {
+  "slug": "quillan-salkilld",
+  "score": 0.802,
+  "coverage": 0.51
+ },
+ "262d32ebda89efc4": {
+  "slug": "natalia-silva",
+  "score": 0.893,
+  "coverage": 0.371
+ },
+ "4461d7e47375a895": {
+  "slug": "tatsuro-taira",
+  "score": 0.927,
+  "coverage": 0.483
+ },
+ "19f8a2f6eecd92ac": {
+  "slug": "puja-tomar",
+  "score": 0.876,
+  "coverage": 0.367
+ },
+ "329e403448756217": {
+  "slug": "nathaniel-wood",
+  "score": 0.885,
+  "coverage": 0.556
+ },
+ "140567899d98978a": {
+  "slug": "robelis-despaigne",
+  "score": 0.801,
+  "coverage": 0.566
+ },
+ "881bf86d4cba8578": {
+  "slug": "nassourdine-imavov",
+  "score": 0.795,
+  "coverage": 0.223
  }
 }
