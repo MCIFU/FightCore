@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CornerMark } from "@/components/brand/Logo";
+import { NucleoMark } from "@/components/brand/Logo";
 import { FCR_VERSION } from "@/lib/rating/model";
 import { MORE_NAV, PRIMARY_NAV } from "./nav";
 import s from "./Footer.module.css";
@@ -10,7 +10,7 @@ export function Footer({ demo, asOf }: { demo: boolean; asOf: string }) {
       <div className="wrap">
         <div className={s.top}>
           <div className={s.brandCol}>
-            <CornerMark size={40} />
+            <NucleoMark size={40} />
             <p className={`serif ${s.manifesto}`}>
               Datos: lo que ocurrió. Contexto: por qué importa. Insight: qué podemos aprender.
             </p>

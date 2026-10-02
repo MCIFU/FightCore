@@ -20,7 +20,7 @@ import s from "@/components/fighter/Profile.module.css";
 
 /** ESPN's fighting-style labels in Spanish. */
 const STYLE_ES: Record<string, string> = {
-  "Brazilian Jiu-Jitsu": "Jiu-jitsu brasileño", Wrestling: "Lucha libre", Boxing: "Boxeo", Kickboxing: "Kickboxing", "Muay Thai": "Muay thai",
+  "Brazilian Jiu-Jitsu": "Jiu-jitsu brasileño", "Jiu-Jitsu": "Jiu-jitsu", "Mixed Martial Artist": "MMA completo", Freestyle: "Lucha libre olímpica", Grappling: "Grappling", Wrestling: "Lucha", Kickboxer: "Kickboxing", Boxer: "Boxeo", Wrestler: "Lucha", Boxing: "Boxeo", Kickboxing: "Kickboxing", "Muay Thai": "Muay thai",
   Karate: "Kárate", Judo: "Judo", Sambo: "Sambo", Taekwondo: "Taekwondo", "Mixed Martial Arts": "MMA", Striker: "Golpeador", Grappler: "Grappler",
   "Freestyle Wrestling": "Lucha libre olímpica", "Greco-Roman Wrestling": "Lucha grecorromana", "Kung Fu": "Kung fu", "Combat Sambo": "Sambo de combate",
 };
@@ -148,7 +148,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             <div><dt>Alcance</dt><dd>{fmtCm(f.reachCm)}</dd></div>
             <div><dt>Guardia</dt><dd>{fmtStance(f.stance)}</dd></div>
             <div><dt>Equipo</dt><dd>{f.team ?? <Unavailable reason="sin datos" />}</dd></div>
-            {f.style && <div><dt>Estilo base</dt><dd>{STYLE_ES[f.style] ?? f.style}</dd></div>}
+            {f.style && <div><dt>Estilo base</dt><dd>{f.style.split(",").map((x) => STYLE_ES[x.trim()] ?? x.trim()).join(", ")}</dd></div>}
             <div><dt>Último combate</dt><dd>{me.lastFight ? fmtDate(me.lastFight) : "—"}</dd></div>
             <div><dt>Tiempo en jaula</dt><dd>{Math.round(st.minutes)} min</dd></div>
           </dl>

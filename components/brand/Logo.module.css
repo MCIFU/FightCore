@@ -1,15 +1,16 @@
 .lockup {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  /* Gap = half the mark: the octagon needs air to read as a separate shape. */
+  gap: 12px;
   line-height: 1;
 }
 .word {
   font-family: var(--font-sans);
   font-variation-settings: "wdth" 125;
   font-weight: 800;
-  letter-spacing: 0.02em;
-  font-size: 1rem;
+  letter-spacing: 0.04em;
+  font-size: 1.0625rem;
   line-height: 1;
 }
 .stacked {
@@ -18,7 +19,7 @@
   align-items: center;
   gap: 14px;
 }
-.stacked .word { font-size: 1.75rem; }
+.stacked .word { font-size: 1.4rem; }
 .tag {
   font-family: var(--font-mono);
   font-size: 0.6875rem;

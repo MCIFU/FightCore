@@ -1,5 +1,5 @@
 /* FIGHTCORE service worker — offline-first shell, network-first pages. */
-const VERSION = "fc-v2";
+const VERSION = "fc-v3";
 const SHELL = ["/", "/offline", "/icon.svg", "/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {

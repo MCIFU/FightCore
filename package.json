@@ -17,7 +17,8 @@
     "photos:process": "node scripts/run-python.mjs scripts/process-photos.py",
     "photos:find": "tsx scripts/find-commons-photos.mts",
     "photos:official": "tsx scripts/fetch-official-photos.mts",
-    "photos:espn": "tsx scripts/fetch-espn-photos.mts"
+    "photos:espn": "tsx scripts/fetch-espn-photos.mts",
+    "icons": "tsx scripts/build-icons.mts"
   },
   "dependencies": {
     "next": "16.3.7",

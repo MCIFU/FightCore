@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CornerMark, Logo } from "@/components/brand/Logo";
+import { Logo, MARK_SPEC, NucleoMark, OCTAGON } from "@/components/brand/Logo";
 import { TaleOfTape } from "@/components/charts/TaleOfTape";
 import { SegmentBar } from "@/components/charts/Bars";
 import { FighterPlate } from "@/components/fighter/FighterPlate";
@@ -13,7 +13,7 @@ import s from "./brand.module.css";
 
 export const metadata: Metadata = {
   title: "Sistema de marca",
-  description: "Identidad visual y design system de FIGHTCORE: logo Corner Mark, tipografía, color, lenguaje visual y componentes.",
+  description: "Identidad visual y design system de FIGHTCORE: logo Núcleo, tipografía, color, lenguaje visual y componentes.",
   alternates: { canonical: "/brand" },
 };
 
@@ -39,6 +39,29 @@ const STATUS = [
   { name: "Danger", hex: "#FF6B6B", role: "Errores de sistema (nunca «derrota»)" },
 ];
 
+const BRAND = [
+  { name: "Ember", hex: "#EC6528", role: "Núcleo del logo, rellenos, señal principal" },
+  { name: "Ember texto", hex: "#FF7A3D", role: "Ember para texto sobre tinta (contraste AA)" },
+  { name: "Ember papel", hex: "#A33B0B", role: "Ember para texto sobre papel" },
+  { name: "Oro", hex: "#E3C16F", role: "Solo cinturones y títulos" },
+];
+const RATIO = [
+  { name: "Tinta", pct: 70, hex: "#0B0C0E", on: "#ECE6DA" },
+  { name: "Hueso", pct: 18, hex: "#ECE6DA", on: "#0B0C0E" },
+  { name: "Papel", pct: 5, hex: "#E9E2D4", on: "#0B0C0E" },
+  { name: "Ember", pct: 4, hex: "#EC6528", on: "#0B0C0E" },
+  { name: "Datos", pct: 3, hex: "#6A8EE8", on: "#0B0C0E" },
+];
+const rgb = (hex: string) => `RGB ${[1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(" ")}`;
+
+const PRODUCTS = [
+  { name: "FIGHTCORE", hex: "#EC6528" },
+  { name: "Scout", hex: "#6A8EE8" },
+  { name: "Stats", hex: "#2EA67D" },
+  { name: "History", hex: "#9E7DD4" },
+  { name: "Campeones", hex: "#E3C16F" },
+];
+
 const FAMILY = ["Rating", "Rankings", "Scout", "Stats", "Records", "History", "Compare", "Events", "Database"];
 
 export default function BrandPage() {
@@ -47,39 +70,61 @@ export default function BrandPage() {
   return (
     <div className={s.page}>
       <header className={`wrap ${s.head}`}>
-        <p className="label">Sistema de marca · v0.1</p>
+        <p className="label">Sistema de marca · v1.0</p>
         <h1 className={s.title}>Un instrumento para un deporte caótico</h1>
         <p className={`serif ${s.lede}`}>FIGHTCORE es la intersección de tres objetos: el expediente de scouting, el instrumento de laboratorio y el archivo histórico. Todo lo que ves aquí sale de esa idea.</p>
       </header>
 
       {/* LOGO */}
       <section className="wrap" aria-labelledby="b-logo">
-        <SectionHead id="b-logo" round="C" kicker="Logo" title="Corner Mark" lede="Dos esquinas opuestas de la jaula —roja y azul— que convergen en un núcleo. También es un visor: precisión y análisis. Funciona sin texto, a 16 px y bordado." />
+        <SectionHead id="b-logo" round="C" kicker="Logo" title="Núcleo" lede="El octágono es la jaula; el cuadrado, el núcleo: lo esencial de cada combate, medido. Dos formas planas que se reconocen a 16 px, en un solo color y bordadas." />
         <div className={s.logoGrid}>
-          <figure className={`${s.tile} ${s.tileHero}`}><CornerMark size={180} /><figcaption>Símbolo</figcaption></figure>
+          <figure className={`${s.tile} ${s.tileHero}`}><NucleoMark size={200} /><figcaption>Símbolo · principal</figcaption></figure>
           <figure className={s.tile}><Logo /><figcaption>Horizontal</figcaption></figure>
+          <figure className={s.tile}><Logo variant="stacked" /><figcaption>Apilada con lema</figcaption></figure>
           <figure className={s.tile}><Logo variant="compact" /><figcaption>Compacta</figcaption></figure>
-          <figure className={s.tile}><Logo variant="stacked" /><figcaption>Apilada con tagline</figcaption></figure>
-          <figure className={`${s.tile} ${s.tilePaper} paper`}><Logo mono /><figcaption>Monocroma sobre papel</figcaption></figure>
-          <figure className={`${s.tile} ${s.tileEmber}`}><CornerMark size={64} mono /><figcaption>Monocroma sobre Ember</figcaption></figure>
-          <figure className={s.tile}>
-            <span className={s.appIcon}><CornerMark size={64} /></span>
-            <figcaption>App icon</figcaption>
-          </figure>
-          <figure className={s.tile}>
-            <span className={s.favicons}>{[16, 24, 32, 48].map((z) => <CornerMark key={z} size={z} />)}</span>
-            <figcaption>Favicon 16 · 24 · 32 · 48</figcaption>
-          </figure>
+          <figure className={s.tile}><Logo variant="wordmark" /><figcaption>Solo logotipo</figcaption></figure>
+          <figure className={`${s.tile} ${s.tilePaper} paper`}><span className={s.onPaper}><Logo /></span><figcaption>Sobre papel</figcaption></figure>
+          <figure className={`${s.tile} ${s.tileEmber}`}><span className={s.onEmber}><NucleoMark size={80} core="#ECE6DA" /></span><figcaption>Inversa sobre Ember</figcaption></figure>
+          <figure className={s.tile}><span className={s.monoBone}><NucleoMark size={80} mono /></span><figcaption>Monocroma</figcaption></figure>
+          <figure className={`${s.tile} ${s.tileBone}`}><span className={s.monoInk}><NucleoMark size={80} mono /></span><figcaption>Monocroma tinta</figcaption></figure>
         </div>
-        <div className={s.construction} aria-hidden>
-          <svg viewBox="0 0 24 24" width="220" height="220">
-            {Array.from({ length: 25 }, (_, i) => <line key={`v${i}`} x1={i} x2={i} y1={0} y2={24} stroke="var(--line)" strokeWidth="0.05" />)}
-            {Array.from({ length: 25 }, (_, i) => <line key={`h${i}`} y1={i} y2={i} x1={0} x2={24} stroke="var(--line)" strokeWidth="0.05" />)}
-            <path d="M2 11V2h9" fill="none" stroke="var(--bone)" strokeWidth="3" strokeLinecap="square" />
-            <path d="M22 13v9h-9" fill="none" stroke="var(--bone)" strokeWidth="3" strokeLinecap="square" />
-            <rect x="9" y="9" width="6" height="6" fill="var(--corner-a)" />
+
+        <h3 className={s.h3}>Construcción</h3>
+        <div className={s.construction}>
+          <svg viewBox="-2 -2 28 28" width="260" height="260" aria-hidden>
+            {Array.from({ length: 25 }, (_, i) => <line key={`v${i}`} x1={i} x2={i} y1={0} y2={24} stroke="var(--line)" strokeWidth="0.04" />)}
+            {Array.from({ length: 25 }, (_, i) => <line key={`h${i}`} y1={i} y2={i} x1={0} x2={24} stroke="var(--line)" strokeWidth="0.04" />)}
+            <rect x="-2" y="-2" width="28" height="28" fill="none" stroke="var(--corner-b)" strokeWidth="0.06" strokeDasharray="0.4 0.3" />
+            <path d={OCTAGON} fill="none" stroke="var(--bone)" strokeWidth={MARK_SPEC.large.stroke} />
+            <rect x="8.5" y="8.5" width="7" height="7" fill="var(--corner-a)" />
           </svg>
-          <p className={s.constructionNote}>Rejilla de 24 unidades. Trazo de 3 u. Núcleo de 6 u centrado. Solo el núcleo puede llevar color.</p>
+          <dl className={s.specList}>
+            <div><dt>Rejilla</dt><dd>24 × 24 unidades</dd></div>
+            <div><dt>Octágono</dt><dd>Regular · trazo 2,5 u · esquinas a inglete</dd></div>
+            <div><dt>Núcleo</dt><dd>Cuadrado de 7 u, centrado</dd></div>
+            <div><dt>Versión pequeña</dt><dd>&lt; 28 px: trazo 3,2 u y núcleo de 8 u para que no se empaste</dd></div>
+            <div><dt>Zona de respeto</dt><dd>2 u alrededor (línea azul): nada entra en ese margen</dd></div>
+            <div><dt>Tamaño mínimo</dt><dd>16 px en pantalla · 6 mm impreso</dd></div>
+            <div><dt>Logotipo</dt><dd>Archivo Expanded ExtraBold (ancho 125, peso 800), espaciado +4 %, siempre en mayúsculas</dd></div>
+            <div><dt>Separación</dt><dd>Símbolo–logotipo = media altura del símbolo</dd></div>
+          </dl>
+        </div>
+
+        <h3 className={s.h3}>Color del núcleo por producto</h3>
+        <p className={s.note}>El octágono nunca cambia. El núcleo puede tomar el color de la línea de producto; Ember es la marca principal.</p>
+        <ul className={s.products}>
+          {PRODUCTS.map((p) => (
+            <li key={p.name}><NucleoMark size={56} core={p.hex} /><span><strong>{p.name}</strong><code>{p.hex}</code></span></li>
+          ))}
+        </ul>
+
+        <h3 className={s.h3}>App y favicon</h3>
+        <div className={s.icons}>
+          <figure><span className={s.appIcon}><NucleoMark size={68} /></span><figcaption>iOS</figcaption></figure>
+          <figure><span className={`${s.appIcon} ${s.round}`}><NucleoMark size={56} /></span><figcaption>Android adaptativo</figcaption></figure>
+          <figure><span className={`${s.appIcon} ${s.round} ${s.themed}`}><NucleoMark size={56} mono /></span><figcaption>Android 13 tema</figcaption></figure>
+          <figure><span className={s.favicons}>{[16, 24, 32, 48].map((z) => <span key={z} className={s.fav} style={{ width: z, height: z }}><NucleoMark size={Math.round(z * 0.8)} /></span>)}</span><figcaption>Favicon 16 · 24 · 32 · 48</figcaption></figure>
         </div>
       </section>
 
@@ -95,8 +140,13 @@ export default function BrandPage() {
 
       {/* TYPE */}
       <section className={`wrap ${s.section}`} aria-labelledby="b-type">
-        <SectionHead id="b-type" round="D" kicker="Tipografía" title="Tres voces" lede="DATA en mono y números tabulares. CONTEXT en serif. INSIGHT en sans. El lector sabe qué está leyendo antes de leerlo." />
+        <SectionHead id="b-type" round="D" kicker="Tipografía" title="Tres voces" lede="Una sola familia de marca, Archivo, con su eje de anchura: expandida para el logotipo, estrecha para titulares, normal para la interfaz. Más una serif para el contexto y una mono para los datos. El lector sabe qué está leyendo antes de leerlo." />
         <div className={s.typeGrid}>
+          <div className={`${s.spec} ${s.specWide}`}>
+            <span className="label">Logotipo · Archivo Expanded · ancho 125 · 800 · +4 % · mayúsculas</span>
+            <p className={s.specLogo}>FIGHTCORE</p>
+            <p className={s.specGlyphs}>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789</p>
+          </div>
           <div className={s.spec}>
             <span className="label">Display · Archivo wdth 62 · 800 · MAYÚSCULAS · lh 0.84</span>
             <p className={s.specDisplay}>Vasconcelos</p>
@@ -119,7 +169,7 @@ export default function BrandPage() {
           </div>
           <div className={s.spec}>
             <span className="label">Metadata · JetBrains Mono · 11 px · +0.08em</span>
-            <p className="mono" style={{ fontSize: 13 }}>UFC DEMO 69 · 2026.08.08 · R1 2:22 · 15.8°S 47.9°O</p>
+            <p className="mono" style={{ fontSize: 13 }}>UFC 331 · 2026.09.19 · R1 2:22 · 34.0°N 118.2°O</p>
           </div>
         </div>
       </section>
@@ -127,12 +177,27 @@ export default function BrandPage() {
       {/* COLOR */}
       <section className={`wrap ${s.section}`} aria-labelledby="b-color">
         <SectionHead id="b-color" round="E" kicker="Color" title="El color codifica, no decora" lede="Neutros de instrumento, papel para el archivo y un sistema de esquinas para comparar. Paleta de esquinas validada para daltonismo (ΔE ≥ 13 entre pares adyacentes)." />
+        <h3 className={s.h3}>Proporción</h3>
+        <p className={s.note}>En cualquier pantalla: casi todo tinta y hueso; Ember solo donde hay que mirar primero.</p>
+        <div className={s.ratio} role="img" aria-label="Proporción de uso: tinta 70 %, hueso 18 %, papel 5 %, Ember 4 %, colores de datos 3 %">
+          {RATIO.map((r) => <span key={r.name} style={{ flexGrow: r.pct, background: r.hex, color: r.on }}><b>{r.name}</b> {r.pct} %</span>)}
+        </div>
+
+        <h3 className={s.h3}>Marca</h3>
+        <ul className={s.swatches}>
+          {BRAND.map((c) => (
+            <li key={c.name} className={s.swatch}>
+              <span className={s.chip} style={{ background: c.hex }} />
+              <strong>{c.name}</strong><code>{c.hex} · {rgb(c.hex)}</code><span>{c.role}</span>
+            </li>
+          ))}
+        </ul>
         <h3 className={s.h3}>Neutros</h3>
         <ul className={s.swatches}>
           {COLORS.map((c) => (
             <li key={c.token} className={s.swatch}>
               <span className={s.chip} style={{ background: c.hex }} />
-              <strong>{c.name}</strong><code>{c.hex}</code><span>{c.role}{c.ratio ? ` · ${c.ratio} sobre Ink 0` : ""}</span>
+              <strong>{c.name}</strong><code>{c.hex} · {rgb(c.hex)}</code><span>{c.role}{c.ratio ? ` · ${c.ratio} sobre Ink 0` : ""}</span>
             </li>
           ))}
         </ul>

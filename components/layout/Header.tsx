@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { CornerMark, Logo } from "@/components/brand/Logo";
+import { NucleoMark, Logo } from "@/components/brand/Logo";
 import { openSearch } from "@/components/search/searchBus";
 import { MORE_NAV, PRIMARY_NAV } from "./nav";
 import s from "./Header.module.css";
@@ -123,7 +123,7 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
 
       {/* App-style bottom bar on phones: thumb-reach for the four core jobs. */}
       <nav aria-label="Accesos rápidos" className={s.tabbar}>
-        <Link href="/" aria-current={path === "/" ? "page" : undefined}><CornerMark size={18} mono /><span>Inicio</span></Link>
+        <Link href="/" aria-current={path === "/" ? "page" : undefined}><NucleoMark size={18} mono /><span>Inicio</span></Link>
         <Link href="/fighters" aria-current={active("/fighters") ? "page" : undefined}><TabIcon d="M10 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM4 17c0-3.3 2.7-5 6-5s6 1.7 6 5" /><span>Luchadores</span></Link>
         <button type="button" onClick={() => openSearch()} className={s.tabSearch}><TabIcon d="M8.5 3a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11ZM13 13l4.5 4.5" /><span>Buscar</span></button>
         <Link href="/rankings" aria-current={active("/rankings") ? "page" : undefined}><TabIcon d="M3 17V9h4v8M8 17V4h4v13M13 17v-6h4v6" /><span>Rankings</span></Link>

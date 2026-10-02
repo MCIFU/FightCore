@@ -15,6 +15,13 @@ export function ProfilePanels({ panels, label }: { panels: Panel[]; label: strin
   const [active, setActive] = useState<string | null>(null);
   const top = useRef<HTMLDivElement>(null);
 
+  /** Puts the tab bar right under the sticky site header. */
+  const headerHeight = () => document.querySelector("header")?.getBoundingClientRect().height ?? 60;
+  const scrollToBar = () => {
+    const el = top.current;
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - headerHeight() });
+  };
+
   const resolve = useCallback((hash: string) => {
     const id = hash.replace(/^#/, "");
     return panels.find((p) => p.id === id || p.aliases?.includes(id))?.id ?? null;
@@ -24,7 +31,7 @@ export function ProfilePanels({ panels, label }: { panels: Panel[]; label: strin
     const sync = () => {
       const id = resolve(location.hash);
       setActive(id ?? panels[0].id);
-      if (id) requestAnimationFrame(() => top.current?.scrollIntoView({ block: "start" }));
+      if (id) requestAnimationFrame(() => scrollToBar());
     };
     sync();
     window.addEventListener("hashchange", sync);
@@ -36,7 +43,7 @@ export function ProfilePanels({ panels, label }: { panels: Panel[]; label: strin
     history.replaceState(null, "", `#${id}`);
     const el = top.current;
     // Keep the tab bar in view when switching from far down a long panel.
-    if (el && el.getBoundingClientRect().top < 0) el.scrollIntoView({ block: "start" });
+    if (el && el.getBoundingClientRect().top < headerHeight()) scrollToBar();
     if (focus) document.getElementById(`tab-${id}`)?.focus();
   };
 

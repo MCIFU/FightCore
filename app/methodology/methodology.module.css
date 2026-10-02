@@ -32,3 +32,4 @@
 .scaleRow { display: grid; grid-template-columns: 6rem 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--paper-line); align-items: baseline; }
 .scaleRow strong { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 1.8rem; line-height: 1; }
 .link { border-bottom: 1px solid var(--ember-ink); }
+@media (max-width: 560px) { .table th[scope="row"] { white-space: normal; } .table th, .table td { padding-right: 8px; } }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CornerMark } from "@/components/brand/Logo";
+import { NucleoMark } from "@/components/brand/Logo";
 import { TaleOfTape } from "@/components/charts/TaleOfTape";
 import { FighterAvatar } from "@/components/fighter/FighterAvatar";
 import { FighterPlate } from "@/components/fighter/FighterPlate";
@@ -343,7 +343,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <div className={s.signoff} aria-hidden><CornerMark size={28} /></div>
+        <div className={s.signoff} aria-hidden><NucleoMark size={28} /></div>
       </section>
     </>
   );

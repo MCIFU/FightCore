@@ -1,18 +1,29 @@
 /**
- * Corner Mark — FIGHTCORE symbol.
- * Two opposing cage corners converging on a core. Built on a 24-unit grid so
- * it stays crisp at 16px. Only the core may carry colour.
+ * Núcleo — FIGHTCORE symbol.
+ * A regular octagon (the cage) holding a square core: "the core of MMA".
+ * 24-unit grid. Two optical masters: ≥ 28 px uses a 2.5 u stroke and a 7 u
+ * core; below that a heavier 3.2 u stroke and an 8 u core keep it crisp at
+ * 16 px. Only the core carries colour; the octagon is always one flat tone.
  */
+import { MARK_SPEC, OCTAGON } from "./geometry";
 import styles from "./Logo.module.css";
+
+export { MARK_SPEC, OCTAGON };
+
 
 interface SymbolProps {
   size?: number;
+  /** Whole mark in currentColor (single-ink reproductions). */
   mono?: boolean;
+  /** Core colour; defaults to Ember. Product lines may use their own. */
+  core?: string;
   className?: string;
   title?: string;
 }
 
-export function CornerMark({ size = 24, mono = false, className, title }: SymbolProps) {
+export function NucleoMark({ size = 24, mono = false, core, className, title }: SymbolProps) {
+  const m = size < 28 ? MARK_SPEC.small : MARK_SPEC.large;
+  const c0 = 12 - m.core / 2;
   return (
     <svg
       width={size}
@@ -23,9 +34,8 @@ export function CornerMark({ size = 24, mono = false, className, title }: Symbol
       aria-hidden={title ? undefined : true}
       aria-label={title}
     >
-      <path d="M2 11V2h9" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="square" />
-      <path d="M22 13v9h-9" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="square" />
-      <rect x="9" y="9" width="6" height="6" fill={mono ? "currentColor" : "var(--corner-a, #EC6528)"} />
+      <path d={OCTAGON} fill="none" stroke="currentColor" strokeWidth={m.stroke} strokeLinejoin="miter" />
+      <rect x={c0} y={c0} width={m.core} height={m.core} fill={mono ? "currentColor" : core ?? "var(--corner-a, #EC6528)"} />
     </svg>
   );
 }
@@ -43,7 +53,7 @@ export function Logo({ variant = "horizontal", mono = false, className }: Lockup
   if (variant === "compact") {
     return (
       <span className={`${styles.lockup} ${className ?? ""}`}>
-        <CornerMark size={22} mono={mono} />
+        <NucleoMark size={24} mono={mono} />
         <span className={styles.word}>FC</span>
       </span>
     );
@@ -51,7 +61,7 @@ export function Logo({ variant = "horizontal", mono = false, className }: Lockup
   if (variant === "stacked") {
     return (
       <span className={`${styles.stacked} ${className ?? ""}`}>
-        <CornerMark size={56} mono={mono} />
+        <NucleoMark size={64} mono={mono} />
         <span className={styles.word}>FIGHTCORE</span>
         <span className={styles.tag}>THE CORE OF MMA</span>
       </span>
@@ -59,7 +69,7 @@ export function Logo({ variant = "horizontal", mono = false, className }: Lockup
   }
   return (
     <span className={`${styles.lockup} ${className ?? ""}`}>
-      <CornerMark size={22} mono={mono} />
+      <NucleoMark size={24} mono={mono} />
       <span className={styles.word}>FIGHTCORE</span>
     </span>
   );
