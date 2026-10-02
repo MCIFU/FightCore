@@ -118,19 +118,25 @@ const tottCsv = load("ufc_fighter_tott.csv");
 console.log(`UFCStats: ${eventsCsv.length} events, ${resultsCsv.length} fights, ${tottCsv.length} fighters`);
 
 // ───────────────────────────── Wikidata ─────────────────────────────
-const SPARQL = `SELECT ?p ?label ?dob ?img ?iso WHERE {
+const SPARQL = `SELECT ?p ?label ?dob ?img ?iso ?place ?placeCountry WHERE {
   ?p wdt:P106 wd:Q11607585 .
   ?p rdfs:label ?label FILTER(lang(?label)="en")
   OPTIONAL { ?p wdt:P569 ?dob }
   OPTIONAL { ?p wdt:P18 ?img }
   OPTIONAL { ?p wdt:P27 ?c . ?c wdt:P298 ?iso }
+  OPTIONAL { ?p wdt:P19 ?bp .
+    OPTIONAL { ?bp rdfs:label ?placeEs FILTER(lang(?placeEs)="es") }
+    OPTIONAL { ?bp rdfs:label ?placeEn FILTER(lang(?placeEn)="en") }
+    OPTIONAL { ?bp wdt:P17 ?bpc . ?bpc wdt:P298 ?placeCountry }
+    BIND(COALESCE(?placeEs, ?placeEn) AS ?place) }
 }`;
-const wd = csv(get("https://query.wikidata.org/sparql", "wikidata-mma.csv", { accept: "text/csv", post: SPARQL }));
-interface WdPerson { q: string; label: string; dob: string | null; img: string | null; iso: string[] }
+const wd = csv(get("https://query.wikidata.org/sparql", "wikidata-mma-v2.csv", { accept: "text/csv", post: SPARQL }));
+interface WdPerson { q: string; label: string; dob: string | null; img: string | null; iso: string[]; place: string | null; placeCountry: string | null }
 const wdByQ = new Map<string, WdPerson>();
 for (const r of wd) {
   const q = idFromUrl(r.p);
-  const p = wdByQ.get(q) ?? { q, label: r.label, dob: r.dob ? r.dob.slice(0, 10) : null, img: null, iso: [] };
+  const p = wdByQ.get(q) ?? { q, label: r.label, dob: r.dob ? r.dob.slice(0, 10) : null, img: null, iso: [], place: null, placeCountry: null };
+  if (r.place && !p.place && !/^Q\d+$/.test(r.place)) { p.place = r.place; p.placeCountry = r.placeCountry || null; }
   if (r.img && !p.img) p.img = decodeURIComponent(r.img.split("/Special:FilePath/")[1] ?? "");
   if (r.iso && !p.iso.includes(r.iso)) p.iso.push(r.iso);
   wdByQ.set(q, p);
@@ -577,6 +583,7 @@ for (const r of [...raws, ...stubFighters]) {
     divisionId, orgId: "ufc", status,
     priorRecord: prior && prior.w >= 0 && prior.l >= 0 && prior.d >= 0 ? prior : null,
     wikidata: person?.q ?? null,
+    birthPlace: person?.place ? { city: person.place, country: person.placeCountry } : null,
     photo: { src: "", kind: "none", credit: "Sin fotografía con licencia libre", updated: AS_OF },
     provenance: "imported",
   });

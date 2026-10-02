@@ -22,7 +22,7 @@ export default async function MatchupPage({ searchParams }: { searchParams: Prom
   const ff = featuredFight();
   const a = sp.a ?? ff?.red.slug ?? "";
   const b = sp.b ?? (sp.a ? undefined : ff?.blue.slug);
-  const roster = listFighters().filter((x) => x.bouts >= 3).sort((p, q) => q.rating - p.rating)
+  const roster = listFighters().filter((x) => x.statBouts >= 3).sort((p, q) => q.rating - p.rating)
     .map((x) => ({ slug: x.slug, name: x.name, division: x.divisionShort, org: x.org, rating: x.rating, photo: x.photo.src }));
   const m = b ? matchupData(a, b) : null;
 

@@ -56,7 +56,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         </div>
         <dl className={s.facts}>
           <div><dt>Fecha</dt><dd>{fmtDateLong(e.date)}</dd></div>
-          <div><dt>Ciudad</dt><dd>{e.city}, {v.countryName}</dd></div>
+          <div><dt>Ciudad</dt><dd>{[e.city, v.countryName].filter(Boolean).join(", ") || "—"}</dd></div>
           <div><dt>Recinto</dt><dd>{e.venue ?? <Unavailable reason="sin datos" />}</dd></div>
           <div><dt>Combates</dt><dd className="num">{v.fights.length}</dd></div>
         </dl>

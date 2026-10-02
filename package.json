@@ -18,7 +18,9 @@
     "photos:find": "tsx scripts/find-commons-photos.mts",
     "photos:official": "tsx scripts/fetch-official-photos.mts",
     "photos:espn": "tsx scripts/fetch-espn-photos.mts",
-    "icons": "tsx scripts/build-icons.mts"
+    "icons": "tsx scripts/build-icons.mts",
+    "import:orgs": "tsx scripts/import-espn-orgs.mts",
+    "enrich:wiki": "tsx scripts/enrich-wikipedia.mts"
   },
   "dependencies": {
     "next": "16.3.7",

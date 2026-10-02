@@ -68,6 +68,8 @@ export interface Fighter {
   status: FighterStatus;
   /** Professional record outside FIGHTCORE coverage; null when unknown. */
   priorRecord: { w: number; l: number; d: number } | null;
+  /** Place of birth (Wikidata), city label and ISO-3 country. */
+  birthPlace?: { city: string; country: string | null } | null;
   /** Gym / team and base fighting style, when a source states them. */
   team?: string | null;
   style?: string | null;

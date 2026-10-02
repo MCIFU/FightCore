@@ -14,7 +14,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
   const slugs = requested.length ? requested : defaultCompareSlugs();
   const entries = compareData(slugs);
   const roster = listFighters()
-    .filter((x) => x.bouts >= 3)
+    .filter((x) => x.statBouts >= 3)
     .map((x) => ({ slug: x.slug, name: x.name, division: x.divisionShort, org: x.org, rating: x.rating, status: x.status }))
     .sort((a, b) => b.rating - a.rating);
   return <CompareView key={slugs.join(",")} entries={entries} roster={roster} demo={IS_DEMO} />;

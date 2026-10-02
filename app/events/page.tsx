@@ -24,7 +24,7 @@ function EventRows({ events }: { events: Ev[] }) {
             <Link href={`/events/${e.slug}`} className={s.row}>
               <span className={s.date}><span className={s.day}>{d.day}</span><span className={s.mon}>{d.month}<br />{e.date.slice(0, 4)}</span></span>
               <span className={s.org}>{e.orgShort}</span>
-              <span className={s.name}>{e.name}<span className={s.city}>{e.city} · {e.countryName} · {fmtWeekday(e.date)}</span></span>
+              <span className={s.name}>{e.name}<span className={s.city}>{[e.city, e.countryName, fmtWeekday(e.date)].filter(Boolean).join(" · ")}</span></span>
               <span className={s.main}>
                 {e.main && <><strong>{e.main.red} vs {e.main.blue}</strong>{e.main.title ? " · título" : ""}<br />{e.fightIds.length} {e.fightIds.length === 1 ? "combate" : "combates"}</>}
               </span>

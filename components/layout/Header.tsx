@@ -43,7 +43,7 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
           <span className={s.mastMid}>Performance intelligence · MMA</span>
           {demo
             ? <span className={s.demo}><span aria-hidden className={s.demoDot} />Dataset de demostración</span>
-            : <span className={s.live}><span aria-hidden className={s.liveDot} />Datos reales · UFC</span>}
+            : <span className={s.live}><span aria-hidden className={s.liveDot} />Datos reales · UFC + 12 org.</span>}
         </div>
       </div>
       <header className={s.header}>

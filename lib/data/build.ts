@@ -106,7 +106,7 @@ function build(u: Universe): Store {
   }
 
   const pop = u.fighters
-    .filter((f) => (stats.get(f.id)?.bouts ?? 0) >= 3)
+    .filter((f) => (stats.get(f.id)?.statBouts ?? 0) >= 3)
     .map((f) => {
       const b = bouts.get(f.id)!.filter((x) => x.fight.status === "completed");
       // Adaptation: how the per-round striking differential moves after R1.

@@ -10,6 +10,8 @@ export interface MethodSplit { ko: number; sub: number; dec: number }
 
 export interface CareerStats {
   bouts: number;
+  /** Bouts with a box score (UFC since 1997). Other organisations only have results. */
+  statBouts: number;
   minutes: number;
   record: RecordLine;
   winsBy: MethodSplit;
@@ -67,7 +69,7 @@ export function careerStats(all: FighterBout[]): CareerStats {
   const oppTotals = zero();
   let seconds = 0;
   // Per-minute rates only use bouts that have box scores (early UFC events don't).
-  let statSeconds = 0;
+  let statSeconds = 0, statBouts = 0;
   const winsBy: MethodSplit = { ko: 0, sub: 0, dec: 0 };
   const lossesBy: MethodSplit = { ko: 0, sub: 0, dec: 0 };
   let longest = 0, run = 0;
@@ -75,6 +77,7 @@ export function careerStats(all: FighterBout[]): CareerStats {
     seconds += boutSeconds(b);
     if (b.own && b.opp) {
       statSeconds += boutSeconds(b);
+      statBouts++;
       (Object.keys(totals) as (keyof StrikeStats)[]).forEach((k) => {
         totals[k] += b.own![k];
         oppTotals[k] += b.opp![k];
@@ -100,6 +103,7 @@ export function careerStats(all: FighterBout[]): CareerStats {
   const sig = totals.sigLanded || 1;
   return {
     bouts: bouts.length,
+    statBouts,
     minutes,
     record,
     winsBy,

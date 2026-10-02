@@ -36,7 +36,7 @@ export default async function ScoutPage({ searchParams }: { searchParams: Promis
   const { f } = await searchParams;
   const slug = f ?? poundForPound("M", 1)[0].fighter.slug;
   const r = scoutReport(slug);
-  const roster = listFighters().filter((x) => x.bouts >= 3).sort((a, b) => b.rating - a.rating)
+  const roster = listFighters().filter((x) => x.statBouts >= 3).sort((a, b) => b.rating - a.rating)
     .map((x) => ({ slug: x.slug, name: x.name, division: x.divisionShort, org: x.org, rating: x.rating, photo: x.photo.src }));
 
   return (

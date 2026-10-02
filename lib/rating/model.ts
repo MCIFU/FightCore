@@ -23,11 +23,13 @@ import type { FighterBout } from "../domain/types";
 export const FCR_VERSION = "0.2";
 
 /**
- * Out-of-sample check (scripts/eval-rating.mts, run 1 Oct 2026): UFC fights
- * since 2012 between fighters with ≥3 earlier UFC bouts, rating taken the day
- * before. "Acierto" = the higher-rated fighter won.
+ * Out-of-sample check (scripts/eval-rating.mts, run 2 Oct 2026): fights since
+ * 2012 in every covered organisation (UFC plus the ESPN results of PFL,
+ * Bellator, RIZIN, KSW, Cage Warriors, LFA…) between fighters with ≥3 earlier
+ * covered bouts, rating taken the day before. "Acierto" = the higher-rated
+ * fighter won. strength = the Elo-style index alone.
  */
-export const VALIDATION = { fights: 3372, accuracy: 60.5, accuracyBigGap: 69.6, bigGap: 10, previous: 59.9, strength: 58.7, strengthPrevious: 56.1, baseline: 56.6 } as const;
+export const VALIDATION = { fights: 6196, accuracy: 61.6, accuracyBigGap: 71.7, bigGap: 10, strength: 60.2, baseline: 57.7 } as const;
 
 export type FactorKey =
   | "performance" | "opponentQuality" | "winQuality" | "recentForm"
@@ -98,7 +100,8 @@ export function computeRating(allBouts: FighterBout[], asOf: string, opts: { isC
     const w = ageWeight(b.fight.date, asOf);
     pNum += w * adj; pDen += w; pN++;
   }
-  const performance = pDen ? shrink(scale(pNum / pDen, 0.3, 0.92), pN) : 0;
+  // No box scores (other organisations): neutral prior, not zero.
+  const performance = pDen ? shrink(scale(pNum / pDen, 0.3, 0.92), pN) : 0.4;
 
   // Opponent quality, weighted by age.
   let oNum = 0, oDen = 0;

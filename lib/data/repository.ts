@@ -8,6 +8,7 @@ import { countryByCode, divisionById, DIVISIONS, HISTORY, orgById, ORGANIZATIONS
 import type { Division, Event, Fight, Fighter, FighterBout, Outcome, StrikeStats } from "../domain/types";
 import { computeRating, strength01, type RatingResult } from "../rating/model";
 import { buildInsights } from "../analytics/insights";
+import { scoutingReport } from "../analytics/report";
 import { careerStats, roundProfile, type CareerStats, recordOf } from "../analytics/career";
 import { ATTRIBUTES } from "../analytics/attributes";
 import { finishRounds, roundLines, styleOf, vsStyles, zoneEdges, STYLE_LABEL } from "../analytics/scout";
@@ -19,7 +20,7 @@ export { DATASET, TODAY };
 /** Provenance tag for facts in the active dataset, and how the UI names it. */
 export const IS_DEMO = DATASET.kind === "demo";
 export const SRC: "demo" | "imported" = IS_DEMO ? "demo" : "imported";
-export const DATA_LABEL = IS_DEMO ? "Datos de demostración" : "Datos reales de UFC";
+export const DATA_LABEL = IS_DEMO ? "Datos de demostración" : "Datos reales de UFC y otras 12 organizaciones";
 
 export interface FighterSummary {
   id: string;
@@ -53,6 +54,8 @@ export interface FighterSummary {
   career: Outcome[];
   lastFight: string | null;
   bouts: number;
+  /** Bouts with a box score; scouting tools need at least three. */
+  statBouts: number;
 }
 
 const ageOn = (birth: string | null, on: string) => {
@@ -82,8 +85,15 @@ function eligible(f: Fighter, asOf: string) {
   return true;
 }
 
-const divisionRankings = cache((asOf: string) => {
+// Memoised per store, not with React's cache(): route handlers (the search
+// index) run outside a request scope, where cache() does not memoise.
+const rankingMemo = new WeakMap<object, Map<string, Map<string, { id: string; rating: RatingResult }[]>>>();
+const divisionRankings = (asOf: string) => {
   const s = store();
+  let byDate = rankingMemo.get(s);
+  if (!byDate) rankingMemo.set(s, (byDate = new Map()));
+  const hit = byDate.get(asOf);
+  if (hit) return hit;
   const out = new Map<string, { id: string; rating: RatingResult }[]>();
   for (const d of DIVISIONS) {
     const rows = s.fighters
@@ -92,8 +102,9 @@ const divisionRankings = cache((asOf: string) => {
       .sort((a, b) => b.rating.value - a.rating.value);
     out.set(d.id, rows);
   }
+  byDate.set(asOf, out);
   return out;
-});
+};
 
 function rankOf(id: string, divisionId: string): number | null {
   const rows = divisionRankings(TODAY).get(divisionId) ?? [];
@@ -133,6 +144,7 @@ export function summary(id: string): FighterSummary {
     photo: f.photo,
     lastFight: b.at(-1)?.fight.date ?? null,
     bouts: st.bouts,
+    statBouts: st.statBouts,
   };
 }
 
@@ -324,7 +336,7 @@ export type StyleKey = (typeof STYLE_DIMS)[number]["key"];
 
 const styleSignatures = cache(() => {
   const s = store();
-  const pop = s.fighters.filter((f) => s.stats.get(f.id)!.bouts >= 3).map((f) => {
+  const pop = s.fighters.filter((f) => s.stats.get(f.id)!.statBouts >= 3).map((f) => {
     const c = s.stats.get(f.id)!;
     const raw: Record<StyleKey, number> = {
       distance: c.slpm * c.position.distance, clinch: c.slpm * c.position.clinch, takedowns: c.tdAvg, control: c.ctrlShare,
@@ -404,11 +416,11 @@ export function fighterProfile(slug: string) {
   const upcoming = bouts.filter((b) => b.fight.status === "scheduled").map((b) => fightView(b.fight));
 
   // Division baseline: mean career stats of ranked-eligible peers.
-  const peers = s.fighters.filter((p) => p.divisionId === f.divisionId && (s.stats.get(p.id)?.bouts ?? 0) >= 3).map((p) => s.stats.get(p.id)!);
+  const peers = s.fighters.filter((p) => p.divisionId === f.divisionId && (s.stats.get(p.id)?.statBouts ?? 0) >= 3).map((p) => s.stats.get(p.id)!);
   const last5 = done.slice(-5);
 
   // Opponents' own career averages — "how good were the people he did this against?"
-  const oppStats = [...new Set(done.map((b) => b.opponentId))].map((id) => s.stats.get(id)!).filter((x) => x.bouts >= 3);
+  const oppStats = [...new Set(done.map((b) => b.opponentId))].map((id) => s.stats.get(id)!).filter((x) => x.statBouts >= 3);
 
   // Division attribute baseline.
   const divPeers = s.fighters.filter((p) => p.divisionId === f.divisionId && s.attributes.has(p.id)).map((p) => s.attributes.get(p.id)!);
@@ -437,6 +449,21 @@ export function fighterProfile(slug: string) {
     };
   });
 
+  const orgIds = [...new Set(done.map((b) => b.fight.orgId))];
+  const numbersStyle = (() => { const t = styleOf(s.attributes.get(f.id)); return t ? { striker: "Golpeador", wrestler: "Luchador (wrestling)", grappler: "Especialista en suelo", balanced: "Completo" }[t] : null; })();
+  const ranked = divisionRankings(TODAY).get(f.divisionId) ?? [];
+  const report = scoutingReport({
+    name: fullName(f), lastName: f.lastName, division: divisionById.get(f.divisionId)!.name,
+    stats: st, division_: peers.length >= 5 ? averageStats(peers) : null,
+    opponentQuality: s.rating.get(f.id)!.factors.opponentQuality,
+    ratingTrend: hist.length >= 4 ? hist[hist.length - 1].value - hist[hist.length - 4].value : null,
+    rank: me.rank, divisionSize: ranked.length,
+    daysSinceLast: me.lastFight ? (Date.parse(TODAY) - Date.parse(me.lastFight)) / DAY : null,
+    styleLabel: numbersStyle,
+    statOrgs: orgIds.filter((id) => done.some((b) => b.fight.orgId === id && b.own)).map((id) => orgById.get(id)!.short),
+    resultOnlyOrgs: orgIds.filter((id) => !done.some((b) => b.fight.orgId === id && b.own)).map((id) => orgById.get(id)!.short),
+  });
+
   const peak = hist.reduce<{ value: number; date: string } | null>((m, p) => (!m || p.value > m.value ? { value: p.value, date: p.date } : m), null);
 
   return {
@@ -455,8 +482,8 @@ export function fighterProfile(slug: string) {
     divisionAttributes,
     evolution,
     style: styleSignatures().get(f.id) ?? null,
-    divisionSize: (divisionRankings(TODAY).get(f.divisionId) ?? []).length,
-    rivalsToCompare: (divisionRankings(TODAY).get(f.divisionId) ?? []).filter((r) => r.id !== f.id).slice(0, 3).map((r) => summary(r.id)),
+    divisionSize: ranked.length,
+    rivalsToCompare: ranked.filter((r) => r.id !== f.id).slice(0, 3).map((r) => summary(r.id)),
     records: {
       career: me.record,
       prior: f.priorRecord,
@@ -471,6 +498,19 @@ export function fighterProfile(slug: string) {
     champion: s.champions.get(f.id) ?? null,
     titleHistory: s.championships.filter((c) => c.fighterId === f.id).map((c) => ({ ...c, org: orgById.get(c.orgId)!.short })),
     orgsFought: [...new Set(done.map((b) => orgById.get(b.fight.orgId)!.short))],
+    /** Record per organisation, in order of first appearance. */
+    orgRecords: [...new Set(done.map((b) => b.fight.orgId))].map((id) => ({ org: orgById.get(id)!.short, orgName: orgById.get(id)!.name, ...recordOf(done.filter((b) => b.fight.orgId === id)) })),
+    /** Style read from the numbers (striker / wrestler / grappler / complete), when there are stats. */
+    numbersStyle,
+    report,
+    debut: done[0] ? { date: done[0].fight.date, org: orgById.get(done[0].fight.orgId)!.short } : null,
+    birthCountryName: f.birthPlace?.country ? countryByCode.get(f.birthPlace.country)?.name ?? f.birthPlace.country : null,
+    /** Division means of height and reach, for "x cm above average". */
+    divisionBody: (() => {
+      const mates = s.fighters.filter((p) => p.divisionId === f.divisionId && p.status === "active");
+      const mean = (xs: number[]) => (xs.length >= 5 ? Math.round(xs.reduce((a, b) => a + b, 0) / xs.length) : null);
+      return { height: mean(mates.flatMap((p) => (p.heightCm ? [p.heightCm] : []))), reach: mean(mates.flatMap((p) => (p.reachCm ? [p.reachCm] : []))) };
+    })(),
   };
 }
 
@@ -932,7 +972,7 @@ export const statsOverview = cache(() => {
   const s = store();
   const pool = s.fighters.filter((f) => {
     const st = s.stats.get(f.id)!;
-    return st.bouts >= STAT_MIN_BOUTS && st.minutes >= STAT_MIN_MINUTES;
+    return st.statBouts >= STAT_MIN_BOUTS && st.minutes >= STAT_MIN_MINUTES;
   });
   const leaders = Object.fromEntries(STAT_METRICS.map((m) => [m.key, pool
     .map((f) => ({ fighter: summary(f.id), value: s.stats.get(f.id)![m.key] as number, sample: s.stats.get(f.id)!.bouts }))
@@ -972,7 +1012,7 @@ export function mapData() {
     const sm = summary(f.id);
     if (!r.top || sm.rating > r.top.rating) r.top = sm;
   }
-  for (const e of s.events) { const r = row(e.country); r.events++; r.fights += e.fightIds.length; }
+  for (const e of s.events) { if (!e.country) continue; const r = row(e.country); r.events++; r.fights += e.fightIds.length; }
   return [...rows.values()].sort((a, b) => b.fighters - a.fighters || b.events - a.events);
 }
 

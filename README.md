@@ -34,11 +34,13 @@ DATA_PROVIDER=postgres DATABASE_URL=postgres://… npm run build              # 
 
 | `DATA_PROVIDER` | Origen |
 |---|---|
-| *(vacío)* | Snapshot real de UFC en `data/snapshot` (por defecto) |
+| *(vacío)* | Snapshot real en `data/snapshot`: UFC con estadísticas + resultados de otras 12 organizaciones (por defecto) |
 | `demo` | Universo simulado determinista (`lib/demo`) |
 | `postgres` | Base de datos (`DATABASE_URL`) |
 
 El importador cruza las fuentes así: los combates de UFCStats definen luchadores, eventos y estadísticas; Wikidata se enlaza por nombre y fecha de nacimiento; la plantilla de Wikipedia marca quién está en activo y aporta el récord profesional total (lo previo a UFC = total − UFC). El linaje de cinturones se reconstruye con los combates por título y se coteja con los campeones actuales de Wikipedia (vacantes y ascensos de interinos no pasan por un combate). Los eventos programados salen de la página de cada evento en Wikipedia.
+
+**Otras organizaciones** (`npm run import:orgs`): PFL, Bellator, RIZIN, KSW, Cage Warriors, LFA, Strikeforce, WEC, PRIDE, DREAM, Pancrase y Shooto, desde la API pública de ESPN (eventos, combates en orden de cartelera, resultado, asalto y tiempo; atletas con fecha de nacimiento, altura, alcance, guardia, equipo y estilo). Un atleta de ESPN se une a su ficha UFC por el enlace ya conocido o por nombre + fecha de nacimiento (±2 días); los combates con un luchador sin identificar se descartan. Estas organizaciones no publican estadísticas de golpeo: cuentan para récord, índice de fuerza y rating (con el factor Dominio en neutro), no para métricas. Los títulos fuera de UFC aún no se detectan. `npm run enrich:wiki` añade el lugar de nacimiento desde las fichas de Wikipedia.
 
 ## Estructura
 

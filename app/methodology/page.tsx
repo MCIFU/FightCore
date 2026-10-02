@@ -59,11 +59,11 @@ export default function MethodologyPage() {
 
             <section id="validacion" aria-labelledby="h2bs">
               <SectionHead tone="paper" id="h2bs" as="h2" kicker="Comprobación" title="¿Funciona?" />
-              <p className="serif">Un rating que mide rendimiento debería explicar los resultados. Lo comprobamos con {VALIDATION.fights.toLocaleString("es-ES")} combates de UFC desde 2012 entre luchadores con al menos tres combates previos, usando el rating que cada uno tenía el día antes:</p>
+              <p className="serif">Un rating que mide rendimiento debería explicar los resultados. Lo comprobamos con {VALIDATION.fights.toLocaleString("es-ES")} combates desde 2012 (UFC y las demás organizaciones cubiertas) entre luchadores con al menos tres combates previos, usando el rating que cada uno tenía el día antes:</p>
               <dl className={s.sources}>
-                <div><dt><strong>{VALIDATION.accuracy.toLocaleString("es-ES")} %</strong></dt><dd>de las veces ganó el de rating más alto (v0.1: {VALIDATION.previous.toLocaleString("es-ES")} %).</dd></div>
+                <div><dt><strong>{VALIDATION.accuracy.toLocaleString("es-ES")} %</strong></dt><dd>de las veces ganó el de rating más alto.</dd></div>
                 <div><dt><strong>{VALIDATION.accuracyBigGap.toLocaleString("es-ES")} %</strong></dt><dd>cuando la diferencia era de {VALIDATION.bigGap} puntos o más.</dd></div>
-                <div><dt><strong>{VALIDATION.strength.toLocaleString("es-ES")} %</strong></dt><dd>con el índice de fuerza solo (antes {VALIDATION.strengthPrevious.toLocaleString("es-ES")} %).</dd></div>
+                <div><dt><strong>{VALIDATION.strength.toLocaleString("es-ES")} %</strong></dt><dd>con el índice de fuerza (tipo Elo) solo.</dd></div>
                 <div><dt><strong>{VALIDATION.baseline.toLocaleString("es-ES")} %</strong></dt><dd>referencia sin modelo (gana el que la fuente lista primero).</dd></div>
               </dl>
               <p className="serif">No es una herramienta de predicción: el MMA tiene mucha varianza y un rating hecho de resultados pasados no ve lesiones, cortes de peso ni estilos. La comprobación sirve para decidir qué cambios del modelo son mejoras reales; los pesos de v0.2 salen de ella.</p>
@@ -125,7 +125,7 @@ export default function MethodologyPage() {
                 <li>El récord previo a la cobertura de FIGHTCORE se suma al récord profesional, pero no alimenta el rating porque no tiene desglose.</li>
                 <li>Los luchadores de circuitos regionales pueden quedar infravalorados hasta que se enfrentan a rivales mejor medidos.</li>
                 <li>Los pesos se eligieron con la comprobación de resultados, pero redondeados y con «Títulos» y «Finalización» mantenidos como contexto: es un rating de rendimiento, no un modelo de apuestas.</li>
-                {!IS_DEMO && <li>La cobertura es UFC (1993–hoy). Los combates en otras organizaciones solo cuentan en el récord profesional cuando una fuente lo da; no alimentan el rating. Por eso un recién llegado con carrera larga fuera de UFC empieza con rating provisional.</li>}
+                {!IS_DEMO && <li>La cobertura es UFC (1993–hoy) con estadísticas completas, más los resultados de PFL, Bellator, RIZIN, KSW, Cage Warriors, LFA, Strikeforce, WEC, PRIDE, DREAM, Pancrase y Shooto publicados por ESPN. Esos combates cuentan para el récord, el índice de fuerza y la calidad de rivales, pero no tienen estadísticas de golpeo: el factor Dominio queda en valor neutro hasta que hay datos. Los títulos fuera de UFC aún no están identificados.</li>}
                 {!IS_DEMO && <li>Los combates más antiguos de UFC no tienen estadísticas de golpeo registradas; esos combates cuentan para resultados, no para métricas de rendimiento.</li>}
               </ul>
             </section>

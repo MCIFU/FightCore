@@ -25,6 +25,15 @@ const STYLE_ES: Record<string, string> = {
   "Freestyle Wrestling": "Lucha libre olímpica", "Greco-Roman Wrestling": "Lucha grecorromana", "Kung Fu": "Kung fu", "Combat Sambo": "Sambo de combate",
 };
 
+/** Dominant hand implied by the stance. */
+const HAND: Record<string, string> = { Orthodox: "Diestro · adelanta la izquierda", Southpaw: "Zurdo · adelanta la derecha", Switch: "Alterna las dos guardias" };
+const ftIn = (cm: number) => { const inch = Math.round(cm / 2.54); return `${Math.floor(inch / 12)}′${inch % 12}″`; };
+const vsAvg = (v: number, avg: number | null) => {
+  if (avg == null) return "";
+  const d = v - avg;
+  return d === 0 ? " · en la media" : ` · ${d > 0 ? "+" : "−"}${Math.abs(d)} vs media`;
+};
+
 export function generateStaticParams() {
   return prerenderFighterSlugs().map((slug) => ({ slug }));
 }
@@ -85,7 +94,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
           </nav>
 
           <div className={s.plateCol}>
-            <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={me.divisionShort} career={me.career} photo={me.photo} title={me.title} size="lg" priority />
+            <FighterPlate id={f.id} firstName={f.firstName} lastName={f.lastName} country={f.country} division={me.divisionShort} career={me.career} photo={me.photo} size="lg" priority />
           </div>
 
           <div className={s.idCol}>
@@ -97,7 +106,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             </div>
             <h1 id="fighter-name" className={s.name}>
               <span className={s.first}>{f.firstName}</span>
-              <span className={s.last}>{f.lastName}</span>
+              <span className={s.last} style={{ "--len": Math.max(9, ...f.lastName.split(/[\s-]+/).map((w) => w.length)) } as React.CSSProperties}>{f.lastName}</span>
             </h1>
             {f.nickname && <p className={`serif ${s.nick}`}>“{f.nickname}”</p>}
             <div className={s.idRow}>
@@ -142,16 +151,35 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
 
-          <dl className={s.facts}>
-            <div><dt>Edad</dt><dd>{me.age ?? "—"}</dd></div>
-            <div><dt>Altura</dt><dd>{fmtCm(f.heightCm)}</dd></div>
-            <div><dt>Alcance</dt><dd>{fmtCm(f.reachCm)}</dd></div>
-            <div><dt>Guardia</dt><dd>{fmtStance(f.stance)}</dd></div>
-            <div><dt>Equipo</dt><dd>{f.team ?? <Unavailable reason="sin datos" />}</dd></div>
-            {f.style && <div><dt>Estilo base</dt><dd>{f.style.split(",").map((x) => STYLE_ES[x.trim()] ?? x.trim()).join(", ")}</dd></div>}
-            <div><dt>Último combate</dt><dd>{me.lastFight ? fmtDate(me.lastFight) : "—"}</dd></div>
-            <div><dt>Tiempo en jaula</dt><dd>{Math.round(st.minutes)} min</dd></div>
-          </dl>
+          <section className={s.ficha} aria-label="Ficha">
+            <div className={s.fichaGroup}>
+              <h3 className={s.fichaHead}>Personal</h3>
+              <dl className={s.fichaList}>
+                <div><dt>Nacimiento</dt><dd>{f.birthDate ? <>{fmtDateLong(f.birthDate)}{me.age != null && <span className={s.fichaSub}>{me.age} años</span>}</> : <Unavailable reason="sin datos" />}</dd></div>
+                <div><dt>Lugar</dt><dd>{f.birthPlace?.city ? <>{f.birthPlace.city}{p.birthCountryName && <span className={s.fichaSub}>{p.birthCountryName}</span>}</> : <Unavailable reason="sin datos" />}</dd></div>
+                <div><dt>Nacionalidad</dt><dd>{me.countryName ? <span className={s.fichaFlag}><CountryTag code={f.country} name={me.countryName} />{me.countryName}</span> : "—"}</dd></div>
+                <div><dt>Equipo</dt><dd>{f.team ?? <Unavailable reason="sin datos" />}</dd></div>
+              </dl>
+            </div>
+            <div className={s.fichaGroup}>
+              <h3 className={s.fichaHead}>Físico</h3>
+              <dl className={s.fichaList}>
+                <div><dt>Altura</dt><dd>{f.heightCm ? <>{f.heightCm} cm<span className={s.fichaSub}>{ftIn(f.heightCm)}{vsAvg(f.heightCm, p.divisionBody.height)}</span></> : "—"}</dd></div>
+                <div><dt>Alcance</dt><dd>{f.reachCm ? <>{f.reachCm} cm<span className={s.fichaSub}>{Math.round(f.reachCm / 2.54)}″{vsAvg(f.reachCm, p.divisionBody.reach)}</span></> : "—"}</dd></div>
+                <div><dt>Guardia y mano</dt><dd>{f.stance ? <>{fmtStance(f.stance)}<span className={s.fichaSub}>{HAND[f.stance] ?? ""}</span></> : "—"}</dd></div>
+                <div><dt>Peso</dt><dd>{me.division}</dd></div>
+              </dl>
+            </div>
+            <div className={s.fichaGroup}>
+              <h3 className={s.fichaHead}>Combate</h3>
+              <dl className={s.fichaList}>
+                <div><dt>Estilo</dt><dd>{f.style ? <>{f.style.split(",").map((x) => STYLE_ES[x.trim()] ?? x.trim()).join(" · ")}{p.numbersStyle && <span className={s.fichaSub}>Por números: {p.numbersStyle.toLowerCase()}</span>}</> : p.numbersStyle ? <>{p.numbersStyle}<span className={s.fichaSub}>según sus números</span></> : <Unavailable reason="sin datos" />}</dd></div>
+                <div><dt>Organizaciones</dt><dd className={s.fichaOrgs}>{p.orgRecords.length ? p.orgRecords.map((o) => <span key={o.org} title={o.orgName}><b>{o.org}</b> {o.w}-{o.l}{o.d ? `-${o.d}` : ""}</span>) : "—"}</dd></div>
+                <div><dt>Debut en cobertura</dt><dd>{p.debut ? <>{fmtDate(p.debut.date)}<span className={s.fichaSub}>{p.debut.org}</span></> : "—"}</dd></div>
+                <div><dt>Último combate</dt><dd>{me.lastFight ? <>{fmtDate(me.lastFight)}<span className={s.fichaSub}>{st.minutes > 0 ? `${Math.round(st.minutes)} min en jaula` : ""}</span></> : "—"}</dd></div>
+              </dl>
+            </div>
+          </section>
 
           {p.upcoming[0] && (
             <Link href={`/fights/${p.upcoming[0].fight.id}`} className={s.next}>
@@ -165,11 +193,45 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
       </header>
 
       <ProfilePanels label="Apartados del expediente" panels={[
-        { id: "resumen", label: "Resumen", hint: "Lectura y forma", aliases: ["lectura", "forma"], content: (
+        { id: "resumen", label: "Resumen", hint: "Informe y forma", aliases: ["informe", "lectura", "forma"], content: (
           <>
+        {/* ───────── INFORME ───────── */}
+        <section id="s-informe" className={s.section} aria-labelledby="h-informe">
+          <SectionHead id="h-informe" kicker="Informe FIGHTCORE" title="Lectura del luchador"
+            lede={p.report.depth === "stats"
+              ? `Comparado con la media de su división. Base: ${p.report.sample.statBouts} combates con estadísticas de ${p.report.sample.bouts} en cobertura.`
+              : `Solo resultados: sus combates no tienen estadísticas de golpeo publicadas. Base: ${p.report.sample.bouts} combates.`} />
+          <div className={s.report}>
+            <div className={`serif ${s.reportText}`}>{p.report.summary.map((t, i) => <p key={i}>{t}</p>)}</div>
+            <div className={s.reportCols}>
+              {([["Fortalezas", p.report.strengths, s.repUp], ["Puntos débiles", p.report.weaknesses, s.repDown]] as const).map(([h, list, tone]) => (
+                <div key={h} className={`${s.repCol} ${tone}`}>
+                  <h3 className={s.repHead}>{h}</h3>
+                  {list.length ? (
+                    <ul className={s.repList}>
+                      {list.map((x) => (
+                        <li key={x.label}>
+                          <span className={s.repLabel}>{x.label}</span>
+                          <span className={s.repValue}>{x.value}{x.ref && <span className={s.repRef}> · media {x.ref}</span>}</span>
+                          <span className={s.repNote}>{x.note}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : <p className={s.emptyNote}>{h === "Fortalezas" ? "Ningún aspecto se separa claramente de la media." : "Ningún aspecto queda claramente por debajo de la media."}</p>}
+                </div>
+              ))}
+            </div>
+            {(p.report.wins || p.report.losses) && (
+              <dl className={s.repHow}>
+                {p.report.wins && <div><dt>Cómo gana</dt><dd>{p.report.wins}</dd></div>}
+                {p.report.losses && <div><dt>Cómo pierde</dt><dd>{p.report.losses}</dd></div>}
+              </dl>
+            )}
+          </div>
+        </section>
         {/* ───────── 01 LECTURA RÁPIDA ───────── */}
         <section id="s-lectura" className={s.section} aria-labelledby="h-lectura">
-          <SectionHead id="h-lectura" kicker="FIGHTCORE Scout" title="Qué dicen los datos"
+          <SectionHead id="h-lectura" kicker="FIGHTCORE Scout" title="Patrones en los datos"
             lede="Observaciones generadas por reglas explícitas. Cada una muestra su evidencia y solo aparece si hay muestra suficiente." />
           {p.insights.length ? (
             <ul className={s.insights}>

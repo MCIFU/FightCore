@@ -43,8 +43,8 @@ export default function CreditsPage() {
       <section aria-labelledby="c-photos" className={s.block}>
         <h2 id="c-photos" className={s.h2}>Fotografías <span className={s.count}>{photos.length}</span></h2>
         <p className={s.p}>
-          {photos.some((p) => p.license === "© UFC")
-            ? "Retratos oficiales de estudio de UFC (© UFC), obtenidos a través de las fichas de atleta de ESPN y recortados a busto. FIGHTCORE es un proyecto independiente sin acuerdo con UFC: estos retratos se usan con fines de demostración. Quien no tiene retrato oficial muestra sus iniciales."
+          {photos.some((p) => p.license.startsWith("©"))
+            ? "Retratos oficiales de estudio de cada organización (UFC, PFL, Bellator…), obtenidos a través de las fichas de atleta de ESPN y recortados a busto. Los derechos son de cada organización; FIGHTCORE es un proyecto independiente sin acuerdo con ellas y los usa con fines de demostración. Quien no tiene retrato oficial muestra sus iniciales."
             : "Fotografías de Wikimedia Commons con licencia libre, recortadas a un primer plano de la cabeza y sin fondo; las que tienen licencia CC BY-SA se distribuyen modificadas bajo esa misma licencia. Quien no tiene foto libre muestra sus iniciales."}
         </p>
         {photos.length > 0 && (
