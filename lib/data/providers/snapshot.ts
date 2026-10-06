@@ -27,11 +27,12 @@ export function loadUniverseFromSnapshot(): Universe {
   // Other organizations (scripts/import-espn-orgs.mts): their events and bouts, and
   // the fighters who never fought in the UFC. UFC fighters keep one career.
   if (existsSync(join(dir, "orgs.json.gz"))) {
-    const orgs = JSON.parse(gunzipSync(readFileSync(join(dir, "orgs.json.gz"))).toString("utf8")) as Pick<Snapshot, "fighters" | "fights" | "events">;
+    const orgs = JSON.parse(gunzipSync(readFileSync(join(dir, "orgs.json.gz"))).toString("utf8")) as Pick<Snapshot, "fighters" | "fights" | "events"> & { championships?: Snapshot["championships"] };
     const known = new Set(snap.fighters.map((f) => f.id));
     snap.fighters.push(...orgs.fighters.filter((f) => !known.has(f.id)));
     snap.fights.push(...orgs.fights);
     snap.events.push(...orgs.events);
+    snap.championships.push(...(orgs.championships ?? []));
     // A UFC fighter whose latest bout is elsewhere now belongs to that organization.
     const latest = new Map<string, { date: string; orgId: string }>();
     for (const f of orgs.fights) for (const id of [f.redId, f.blueId]) if ((latest.get(id)?.date ?? "") < f.date) latest.set(id, { date: f.date, orgId: f.orgId });

@@ -106,7 +106,7 @@ export default async function OrgPage({ params }: { params: Promise<{ slug: stri
                     <span className={s.evDate}>{fmtDate(t.from)}</span>
                     <span className={s.rowLabel}>{t.division}</span>
                     <Link href={`/fighters/${t.slug}`}>{t.fighter}</Link>
-                    <span className={s.rowMeta}>{t.to ? `hasta ${fmtDate(t.to)}` : "vigente"} · {t.defenses} def.</span>
+                    <span className={s.rowMeta}>{t.to ? `${t.toApprox ? "último combate" : "hasta"} ${fmtDate(t.to)}` : "vigente"} · {t.defenses} def.</span>
                   </li>
                 ))}
               </ol>

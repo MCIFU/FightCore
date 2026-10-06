@@ -368,7 +368,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
                       <p className={s.recNote}>
                         {p.records.prior
                           ? <>Récord profesional. Incluye {p.records.prior.w}-{p.records.prior.l}-{p.records.prior.d} fuera de la cobertura de FIGHTCORE, sin desglose por método.</>
-                          : <>Solo combates en cobertura{DATASET.kind === "ufc" ? " (UFC)" : ""}: el récord profesional completo no está disponible en las fuentes.</>}
+                          : <>Solo combates en cobertura{DATASET.kind === "ufc" ? " (UFC y las organizaciones que publica ESPN)" : ""}: el récord profesional completo no está disponible en las fuentes.</>}
                       </p>
                     </div>
                     <dl className={s.recStats}>
@@ -426,7 +426,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
         {/* ───────── 07 CARRERA ───────── */}
         <section id="s-carrera" className={s.section} aria-labelledby="h-carrera">
           <SectionHead id="h-carrera" kicker="FIGHTCORE History" title="Carrera"
-            lede={p.titleHistory.length ? `${p.titleHistory.length} ${p.titleHistory.length === 1 ? "reinado" : "reinados"} como campeón: ${p.titleHistory.map((t) => `${t.org} desde ${fmtDate(t.from)}${t.to ? ` hasta ${fmtDate(t.to)}` : " (vigente)"}, ${t.defenses} ${t.defenses === 1 ? "defensa" : "defensas"}`).join("; ")}.` : "Cada combate registrado, con la organización en la que se disputó."} />
+            lede={p.titleHistory.length ? `${p.titleHistory.length} ${p.titleHistory.length === 1 ? "reinado" : "reinados"} como campeón: ${p.titleHistory.map((t) => `${t.org} desde ${fmtDate(t.from)}${t.to ? (t.toApprox ? ` (último combate como campeón: ${fmtDate(t.to)})` : ` hasta ${fmtDate(t.to)}`) : " (vigente)"}, ${t.defenses} ${t.defenses === 1 ? "defensa" : "defensas"}`).join("; ")}.` : "Cada combate registrado, con la organización en la que se disputó."} />
           <CareerTimeline
             titleWins={titleWinIds}
             bouts={p.bouts.map((b) => ({

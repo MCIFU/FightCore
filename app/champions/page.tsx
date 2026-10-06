@@ -28,6 +28,14 @@ function Cell({ c, org }: { c: ChampionCell; org: string }) {
       </Link>
     );
   }
+  if (c.state === "unknown" || c.state === "historic") {
+    return (
+      <span className={s.vacant}>
+        <strong>{c.state === "historic" ? "Organización cerrada" : "Sin dato vigente"}</strong>
+        <span className={s.champMeta}>{c.state === "historic" ? "Último campeón" : "Último registrado"}: <Link href={`/fighters/${c.lastSlug}`}>{c.lastChampion}</Link>, hasta {fmtDate(c.lastUntil!)} · {c.reigns} {c.reigns === 1 ? "reinado" : "reinados"}</span>
+      </span>
+    );
+  }
   if (c.state === "vacant") {
     return (
       <span className={s.vacant}>
@@ -58,7 +66,7 @@ export default function ChampionsPage() {
         lede={<>{count} cinturones vigentes{allOrgs.length === 1 ? ` de ${allOrgs[0].short}` : ` en ${allOrgs.length} organizaciones`}. La última columna no es un título: es el número 1 del FIGHTCORE Rating en la división, como referencia independiente. <Source kind={SRC} /></>}
       />
       <p className={s.legend}>
-        <ChampionBadge title={{ org: "ORG", division: "División" }} variant="icon" /> Campeón vigente · <strong>Vacante</strong> = el título existió pero hoy no tiene dueño · — = la organización no ha registrado ese título.
+        <ChampionBadge title={{ org: "ORG", division: "División" }} variant="icon" /> Campeón vigente · <strong>Vacante</strong> = el título existió pero hoy no tiene dueño · <strong>Sin dato vigente</strong> = la fuente deja de registrar el cinturón · — = la organización no ha registrado ese título.
       </p>
 
       {groups.map((g) => (
@@ -101,7 +109,7 @@ export default function ChampionsPage() {
       ))}
       {regional.length > 0 && (
         <section aria-labelledby="g-reg" className={s.group}>
-          <h2 id="g-reg" className={s.groupTitle}>Organizaciones regionales</h2>
+          <h2 id="g-reg" className={s.groupTitle}>Otras organizaciones</h2>
           <div className={s.regional}>
             {regional.map((r) => (
               <div key={r.org.id} className={s.regOrg}>
@@ -119,7 +127,7 @@ export default function ChampionsPage() {
           </div>
         </section>
       )}
-      <p className={s.foot}>{IS_DEMO ? "Títulos del dataset de demostración." : "Cobertura: UFC. Linaje reconstruido a partir de los combates por título (UFCStats) y campeones actuales cotejados con Wikipedia; un cinturón que se deja vacante sin combate figura desde la fecha que indica Wikipedia."} <Link href="/rankings">Ver rankings</Link></p>
+      <p className={s.foot}>{IS_DEMO ? "Títulos del dataset de demostración." : "UFC: linaje reconstruido a partir de los combates por título (UFCStats) y campeones actuales cotejados con Wikipedia. Resto de organizaciones: combates marcados como título por ESPN; ESPN no registra cinturones dejados vacantes, así que un reinado solo cuenta como vigente si su dueño sigue peleando allí (último combate en esa organización y hace menos de 600 días). Si no, figura como «sin dato vigente» con el último campeón registrado."} <Link href="/rankings">Ver rankings</Link></p>
     </div>
   );
 }

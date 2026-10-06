@@ -210,7 +210,7 @@ export function SearchDialog({ demo = false }: { demo?: boolean }) {
           <span><kbd>↑</kbd><kbd>↓</kbd> navegar</span>
           <span><kbd>↵</kbd> abrir</span>
           <span><kbd>esc</kbd> cerrar</span>
-          <span className={s.footSrc}>Índice · {demo ? "datos demo" : "UFC 1993–hoy"}</span>
+          <span className={s.footSrc}>Índice · {demo ? "datos demo" : "UFC + 12 organizaciones"}</span>
         </div>
       </div>
     </dialog>

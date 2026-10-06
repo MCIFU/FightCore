@@ -27,10 +27,10 @@ test("snapshot: slugs are unique and names are clean", () => {
   for (const f of u.fighters) assert.ok(!/\((c|ic)\)/i.test(f.lastName), `${f.lastName} keeps a champion marker`);
 });
 
-test("snapshot: one current undisputed champion per active division at most", () => {
+test("snapshot: one current undisputed champion per organization and division at most", () => {
   const open = u.championships.filter((c) => !c.to && !c.interim);
   const per = new Map<string, number>();
-  for (const c of open) per.set(c.divisionId, (per.get(c.divisionId) ?? 0) + 1);
+  for (const c of open) per.set(`${c.orgId}/${c.divisionId}`, (per.get(`${c.orgId}/${c.divisionId}`) ?? 0) + 1);
   for (const [d, n] of per) assert.equal(n, 1, `${d} has ${n} open reigns`);
   assert.ok(open.length >= 8);
 });

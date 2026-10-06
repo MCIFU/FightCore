@@ -23,13 +23,13 @@ import type { FighterBout } from "../domain/types";
 export const FCR_VERSION = "0.2";
 
 /**
- * Out-of-sample check (scripts/eval-rating.mts, run 2 Oct 2026): fights since
+ * Out-of-sample check (scripts/eval-rating.mts, run 6 Oct 2026): fights since
  * 2012 in every covered organisation (UFC plus the ESPN results of PFL,
  * Bellator, RIZIN, KSW, Cage Warriors, LFA…) between fighters with ≥3 earlier
  * covered bouts, rating taken the day before. "Acierto" = the higher-rated
  * fighter won. strength = the Elo-style index alone.
  */
-export const VALIDATION = { fights: 6196, accuracy: 61.6, accuracyBigGap: 71.7, bigGap: 10, strength: 60.2, baseline: 57.7 } as const;
+export const VALIDATION = { fights: 6240, accuracy: 61.9, accuracyBigGap: 71.5, bigGap: 10, strength: 60.1, baseline: 57.7 } as const;
 
 export type FactorKey =
   | "performance" | "opponentQuality" | "winQuality" | "recentForm"

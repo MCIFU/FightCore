@@ -106,11 +106,43 @@ function method(r: { name?: string; displayName?: string; description?: string }
   return null;
 }
 
+/**
+ * Title bouts: ESPN tags them in competition.types ("Bellator Middleweight Title",
+ * "KSW Heavyweight Championship", "Lightweight Title"). Tournament finals and
+ * regional belts (WSOF Canadian…) are not the promotion's world title, and a
+ * belt named after another promotion is not this one's lineage.
+ */
+const TITLE_ORG: [RegExp, string][] = [
+  [/^bellator\b/i, "bellator"], [/^pfl\b/i, "pfl"], [/^ksw\b/i, "ksw"], [/^lfa\b/i, "lfa"], [/^(cage warriors|cw)\b/i, "cw"],
+  [/^rizin\b/i, "rizin"], [/^strikeforce\b/i, "strikeforce"], [/^wec\b/i, "wec"], [/^pride\b/i, "pride"], [/^dream\b/i, "dream"],
+  [/^(king of pancrase|pancrase)\b/i, "pancrase"], [/^shooto\b/i, "shooto"], [/^(ufc|wsof|cage)\b/i, "other"],
+];
+function titleOf(c: Competition, orgId: string): { title: boolean; interim: boolean; text: string | null } {
+  const text = c.types?.map((t) => t.text ?? "").find((t) => /title|championship/i.test(t)) ?? null;
+  if (!text || /tournament|grand prix|canadian|regional|national|amateur/i.test(text)) return { title: false, interim: false, text };
+  const owner = TITLE_ORG.find(([re]) => re.test(text))?.[1] ?? orgId;
+  return { title: owner === orgId, interim: /interim/i.test(text), text };
+}
+
+/**
+ * ESPN times are UTC. A night card in the Americas (19:00 in New York is
+ * 00:00 UTC the next day) would land on the wrong day, so there a start before
+ * 04:00 UTC belongs to the previous local day. 04:00/05:00 UTC exactly is how
+ * ESPN stores a date without a time (midnight US Eastern): that is the day.
+ */
+const AMERICAS = new Set(["USA", "CAN", "MEX", "BRA", "ARG", "CHL", "PER", "COL", "ECU", "VEN", "URY", "PRY", "BOL", "PAN", "CRI", "PRI", "DOM", "JAM", "GTM", "HND", "SLV", "NIC", "BHS", "TTO"]);
+const US_LEAGUES = new Set(["pfl", "bellator", "lfa", "strikeforce", "wec"]);
+function localDay(iso: string, venueCountry: string | null, league: string): string {
+  const americas = venueCountry ? AMERICAS.has(venueCountry) : US_LEAGUES.has(league);
+  const t = new Date(Date.parse(iso));
+  return new Date(t.getTime() - (americas && t.getUTCHours() < 4 ? 86_400_000 : 0)).toISOString().slice(0, 10);
+}
+
 // ───────── 1. events ─────────
 type Ref = { $ref: string };
 interface EvList { items?: Ref[]; pageCount?: number }
 interface Competitor { id: string; order: number; winner?: boolean; athlete?: Ref }
-interface Competition { id: string; date: string; description?: string; type?: { text?: string }; cardSegment?: { name?: string }; matchNumber?: number; competitors: Competitor[]; status?: Ref; format?: { regulation?: { periods?: number } } }
+interface Competition { id: string; date: string; description?: string; type?: { text?: string }; types?: { text?: string }[]; cardSegment?: { name?: string }; matchNumber?: number; competitors: Competitor[]; status?: Ref; format?: { regulation?: { periods?: number } } }
 interface EspnEvent { id: string; name: string; date: string; venues?: Ref[]; competitions: Competition[] }
 
 const refs: { league: string; ref: string }[] = [];
@@ -138,8 +170,11 @@ interface Venue { fullName?: string; address?: { city?: string; country?: string
 const venues = new Map((await pool(venueRefs, 8, async (r) => [r, await get<Venue>(r)] as const)));
 
 // ───────── 3. athletes ─────────
+/** Fighters created by this script: "e" + ESPN id (UFC ids are 16 hex characters). */
+const NON_UFC = /^e\d+$/;
 const espnMap: Record<string, { slug: string; espnId: string }> = existsSync("data/snapshot/espn.json") ? JSON.parse(readFileSync("data/snapshot/espn.json", "utf8")) : {};
-const ufcByEspn = new Map(Object.entries(espnMap).map(([fid, v]) => [v.espnId, fid]));
+// Only UFC fighters: entries keyed "e…" are this script's own (non-UFC) portraits from a previous run.
+const ufcByEspn = new Map(Object.entries(espnMap).filter(([fid]) => !NON_UFC.test(fid)).map(([fid, v]) => [v.espnId, fid]));
 const athleteIds = [...new Set(comps.flatMap(({ c }) => c.competitors.map((x) => x.id)))];
 interface Athlete { id: string; firstName?: string; lastName?: string; fullName?: string; nickname?: string; dateOfBirth?: string; height?: number; reach?: number; citizenship?: string; citizenshipCountry?: { abbreviation?: string }; stance?: { text?: string }; association?: { name?: string }; styles?: { text: string }[]; gender?: string; weightClass?: { text?: string }; headshot?: { href: string } }
 done = 0;
@@ -180,6 +215,7 @@ console.log(`athletes: ${athleteIds.length} (${athleteIds.filter((id) => ufcByEs
 // veteran's PRIDE or Strikeforce bouts must join the same career.
 const nameKey = (x: string) => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter(Boolean).sort().join(" ");
 const ufc = JSON.parse(gunzipSync(readFileSync("data/snapshot/ufc.json.gz")).toString()) as { fighters: { id: string; slug: string; firstName: string; lastName: string; birthDate: string | null }[]; events: { slug: string }[] };
+const ufcSlug = new Map(ufc.fighters.map((f) => [f.id, f.slug]));
 const ufcByName = new Map<string, { id: string; birthDate: string | null }[]>();
 for (const f of ufc.fighters) { const k = nameKey(`${f.firstName} ${f.lastName}`); ufcByName.set(k, [...(ufcByName.get(k) ?? []), f]); }
 const taken = new Set(ufcByEspn.values());
@@ -192,7 +228,13 @@ for (const id of athleteIds) {
   const dob = a.dateOfBirth?.slice(0, 10) ?? null;
   const near = (x: string, y: string) => Math.abs(Date.parse(x) - Date.parse(y)) <= 2 * 86_400_000;
   const exact = dob ? cands.filter((c) => c.birthDate && near(c.birthDate, dob)) : [];
-  const pick = exact.length === 1 ? exact[0] : cands.length === 1 && (!dob || !cands[0].birthDate) ? cands[0] : null;
+  // A single namesake whose date differs by a typical source error (year off, day and month swapped, same month) is the same person.
+  const typo = (x: string, y: string) => {
+    const [xy, xm, xd] = x.split("-"), [yy, ym, yd] = y.split("-");
+    return (xm === ym && xd === yd && Math.abs(+xy - +yy) <= 10) || (xy === yy && xm === yd && xd === ym) || (xy === yy && (xm === ym || xd === yd));
+  };
+  const pick = exact.length === 1 ? exact[0]
+    : cands.length === 1 && (!dob || !cands[0].birthDate || typo(dob, cands[0].birthDate)) ? cands[0] : null;
   if (pick) { ufcByEspn.set(id, pick.id); taken.add(pick.id); linked++; }
 }
 console.log(`linked to UFC fighters by name + birth date: ${linked}`);
@@ -208,19 +250,20 @@ comps.forEach(({ league, ev, c }, i) => {
   if (c.competitors.some((x) => !athletes.get(x.id) && !ufcByEspn.has(x.id))) return;
   const [a, b] = [...c.competitors].sort((x, y) => x.order - y.order);
   const completed = !!st?.type?.completed;
-  const date = (c.date ?? ev.date).slice(0, 10);
+  const date = localDay(c.date ?? ev.date, country(venues.get(ev.venues?.[0]?.$ref ?? "")?.address?.country), league);
   const nc = /no contest|overturn/i.test(`${st?.result?.displayName ?? ""} ${st?.type?.description ?? ""}`);
   const winner = a.winner ? a.id : b.winner ? b.id : null;
   const draw = completed && !winner && !nc && /draw/i.test(`${st?.result?.displayName ?? ""} ${st?.type?.description ?? ""}`);
   const m = completed ? method(st?.result, draw, nc) : null;
   if (completed && !winner && !draw && !nc) return; // result unknown: leave it out rather than guess
+  const t = titleOf(c, LEAGUES[league]);
   outFights.push({
     id: `x${c.id}`, eventId: `x${ev.id}`, date, orgId: LEAGUES[league],
-    divisionId: division(c.type?.text ?? athletes.get(a.id)?.weightClass?.text, female(a.id) || female(b.id)),
+    divisionId: division(c.type?.text ?? t.text?.replace(/^.*?\b((women'?s )?(light heavy|heavy|middle|welter|light|feather|bantam|fly|straw|atom)weight)\b.*$/i, "$1") ?? athletes.get(a.id)?.weightClass?.text, female(a.id) || female(b.id)),
     redId: fighterId(a.id), blueId: fighterId(b.id), status: completed ? "completed" : date > AS_OF ? "scheduled" : "completed",
     winnerId: winner ? fighterId(winner) : null, method: m, submission: m === "SUB" ? st?.result?.description || null : null,
     round: completed ? st?.period ?? null : null, time: completed && st?.clock != null ? Math.round(st.clock) : null,
-    scheduledRounds: c.format?.regulation?.periods ?? 3, titleFight: /title|championship/i.test(c.description ?? ""), interim: /interim/i.test(c.description ?? ""), referee: null,
+    scheduledRounds: c.format?.regulation?.periods ?? 3, titleFight: t.title, interim: t.interim || undefined, referee: null,
     slot: "main-card", order: 0, _match: c.matchNumber ?? 0, _seg: c.cardSegment?.name ?? "",
     red: null, blue: null, rounds: [], scorecards: null, redStrengthPre: 1500, blueStrengthPre: 1500, provenance: "imported",
   });
@@ -233,7 +276,7 @@ for (const { league, ev } of events) {
   if (!fs.length) continue;
   fs.forEach((f, i) => { f.order = i; f.slot = i === 0 ? "main" : i === 1 ? "co-main" : /prelim/.test(String(f._seg)) ? "prelims" : "main-card"; delete f._match; delete f._seg; });
   const v = venues.get(ev.venues?.[0]?.$ref ?? "");
-  const date = ev.date.slice(0, 10);
+  const date = localDay(ev.date, country(v?.address?.country), league);
   let slug = slugify(ev.name) || `evento-${ev.id}`;
   if (usedSlugs.has(slug)) slug = `${slug}-${date.slice(0, 4)}`;
   if (usedSlugs.has(slug)) slug = `${slug}-${ev.id}`;
@@ -259,6 +302,11 @@ for (const espnId of athleteIds) {
   const style = a?.styles?.map((x) => x.text).join(",") || null;
   // Profile extras for every fighter, UFC ones included (team, style).
   extra[id] = { espnId, team: a?.association?.name ?? null, style };
+  // A UFC fighter linked here by name + birth date, still without an official portrait.
+  if (ufcByEspn.has(espnId) && a?.headshot?.href && !espnMap[id] && (lastBout.get(id) ?? "") >= new Date(Date.parse(AS_OF) - 730 * 86_400_000).toISOString().slice(0, 10)) {
+    const slug = ufcSlug.get(id);
+    if (slug) headshots.push({ id, slug, href: a.headshot.href });
+  }
   if (ufcByEspn.has(espnId) || !inBouts.has(id) || !a) continue;
   const first = a.firstName ?? (a.fullName ?? "").split(" ")[0] ?? "";
   const last = a.lastName ?? (a.fullName ?? "").split(" ").slice(1).join(" ");
@@ -279,7 +327,47 @@ for (const espnId of athleteIds) {
   if (recent && a.headshot?.href) headshots.push({ id, slug, href: a.headshot.href });
 }
 
-writeFileSync("data/snapshot/orgs.json.gz", gzipSync(JSON.stringify({ meta: { asOf: AS_OF, source: "ESPN" }, fighters: outFighters, fights: outFights, events: outEvents })));
+// ───────── championships ─────────
+// Same rules as the UFC lineage (scripts/import-ufc.mts): the winner of a title
+// bout holds the belt until someone else wins one in that division; an
+// undisputed bout ends any interim reign. ESPN doesn't record vacated belts, so
+// a reign stays current only while the holder keeps fighting there: if their
+// last bout anywhere is in another promotion, or the promotion has closed, or
+// it is older than 600 days, the reign is closed at their last bout in it.
+type OF = { id: string; date: string; orgId: string; divisionId: string; winnerId: string | null; status: string; titleFight: boolean; interim?: boolean; order: number; redId: string; blueId: string };
+const championships: { orgId: string; divisionId: string; fighterId: string; wonFightId: string; from: string; to: string | null; defenses: number; interim?: boolean; toApprox?: boolean }[] = [];
+const ofs = outFights as OF[];
+const CLOSED = new Set(["strikeforce", "wec", "pride", "dream"]);
+for (const org of new Set(Object.values(LEAGUES))) {
+  const holder = new Map<string, (typeof championships)[number]>(), interimHolder = new Map<string, (typeof championships)[number]>();
+  for (const f of ofs.filter((x) => x.orgId === org && x.status === "completed" && x.titleFight).sort((a, b) => a.date.localeCompare(b.date) || b.order - a.order)) {
+    if (f.divisionId === "CATCH" || f.divisionId === "OPEN" || !f.winnerId) continue;
+    const track = f.interim ? interimHolder : holder;
+    const cur = track.get(f.divisionId);
+    if (cur && cur.fighterId === f.winnerId) { cur.defenses++; continue; }
+    // An interim champion winning the undisputed belt continues as champion.
+    if (cur) cur.to = f.date;
+    const reign = { orgId: org, divisionId: f.divisionId, fighterId: f.winnerId, wonFightId: f.id, from: f.date, to: null, defenses: 0, interim: f.interim || undefined };
+    championships.push(reign);
+    track.set(f.divisionId, reign);
+    if (!f.interim) { const ir = interimHolder.get(f.divisionId); if (ir) { ir.to = f.date; interimHolder.delete(f.divisionId); } }
+  }
+}
+const lastAny = new Map<string, { date: string; orgId: string }>();
+for (const f of ofs) for (const id of [f.redId, f.blueId]) if ((lastAny.get(id)?.date ?? "") < f.date) lastAny.set(id, { date: f.date, orgId: f.orgId });
+// UFC bouts count as "fought elsewhere" too.
+const ufcFights = (JSON.parse(gunzipSync(readFileSync("data/snapshot/ufc.json.gz")).toString()) as { fights: { date: string; redId: string; blueId: string }[] }).fights;
+for (const f of ufcFights) for (const id of [f.redId, f.blueId]) if ((lastAny.get(id)?.date ?? "") < f.date) lastAny.set(id, { date: f.date, orgId: "ufc" });
+const staleBefore = new Date(Date.parse(AS_OF) - 600 * 86_400_000).toISOString().slice(0, 10);
+for (const r of championships) {
+  if (r.to) continue;
+  const last = lastAny.get(r.fighterId);
+  const lastHere = ofs.filter((f) => f.orgId === r.orgId && (f.redId === r.fighterId || f.blueId === r.fighterId) && f.status === "completed").map((f) => f.date).sort().at(-1) ?? r.from;
+  if (CLOSED.has(r.orgId) || !last || last.orgId !== r.orgId || last.date < staleBefore) { r.to = lastHere; r.toApprox = true; }
+}
+console.log(`title bouts ${ofs.filter((f) => f.titleFight).length} · reigns ${championships.length} · current ${championships.filter((r) => !r.to).length}`);
+
+writeFileSync("data/snapshot/orgs.json.gz", gzipSync(JSON.stringify({ meta: { asOf: AS_OF, source: "ESPN" }, fighters: outFighters, fights: outFights, events: outEvents, championships })));
 writeFileSync("data/snapshot/espn-extra.json", JSON.stringify(extra));
 writeFileSync("data/snapshot/espn-headshots.json", JSON.stringify(headshots));
 const per: Record<string, number> = {};
@@ -290,6 +378,8 @@ console.log(`events ${outEvents.length} · bouts ${outFights.length} · new figh
 // Merged into data/snapshot/espn.json so scripts/process-photos.py crops them like the UFC ones.
 const espnPath = "data/snapshot/espn.json";
 const espnOut: Record<string, { slug: string; espnId: string; headshot: string; team: string | null; style: string | null; nickname: string | null; page: string }> = existsSync(espnPath) ? JSON.parse(readFileSync(espnPath, "utf8")) : {};
+// Non-UFC entries are rebuilt on every run (a fighter may since have been linked to a UFC record).
+for (const k of Object.keys(espnOut)) if (NON_UFC.test(k)) delete espnOut[k];
 mkdirSync("data/.cache/espn", { recursive: true });
 let got = 0;
 await pool(headshots, 6, async (h) => {
@@ -301,7 +391,7 @@ await pool(headshots, 6, async (h) => {
       writeFileSync(img, Buffer.from(await r.arrayBuffer()));
     } catch { return; }
   }
-  const espnId = h.id.slice(1);
+  const espnId = NON_UFC.test(h.id) ? h.id.slice(1) : [...ufcByEspn].find(([, fid]) => fid === h.id)![0];
   const x = extra[h.id] as { team: string | null; style: string | null };
   espnOut[h.id] = { slug: h.slug, espnId, headshot: h.href, team: x?.team ?? null, style: x?.style ?? null, nickname: null, page: `https://www.espn.com/mma/fighter/_/id/${espnId}` };
   got++;

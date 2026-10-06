@@ -181,6 +181,8 @@ export interface Championship {
   to: ISODate | null;
   defenses: number;
   interim?: boolean;
+  /** The source doesn't record how the reign ended: `to` is the holder's last bout there. */
+  toApprox?: boolean;
 }
 
 export interface HistoricalEvent {

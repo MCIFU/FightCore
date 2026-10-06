@@ -853,12 +853,15 @@ export function organizationDetail(slug: string) {
 /* ─────────────────────────── Champions table ─────────────────────────── */
 
 export interface ChampionCell {
-  state: "champion" | "vacant" | "none";
+  /** unknown: the source stops recording the belt (no vacancy or new champion on file). */
+  state: "champion" | "vacant" | "unknown" | "historic" | "none";
   fighter: FighterSummary | null;
   since: string | null;
   defenses: number;
   reigns: number;
   lastChampion: string | null;
+  lastSlug: string | null;
+  lastUntil: string | null;
 }
 
 /** Division × organization grid of current titles, plus the FCR #1 as a separate reference. */
@@ -873,12 +876,14 @@ export const championsTable = cache(() => {
       const cur = reigns.find((c) => !c.to);
       const last = reigns.at(-1);
       cells[o] = {
-        state: cur ? "champion" : reigns.length ? "vacant" : "none",
+        state: cur ? "champion" : !reigns.length ? "none" : orgById.get(o)!.activeTo ? "historic" : last?.toApprox ? "unknown" : "vacant",
         fighter: cur ? summary(cur.fighterId) : null,
         since: cur?.from ?? null,
         defenses: cur?.defenses ?? 0,
         reigns: reigns.length,
         lastChampion: !cur && last ? fullName(s.fighterById.get(last.fighterId)!) : null,
+        lastSlug: !cur && last ? s.fighterById.get(last.fighterId)!.slug : null,
+        lastUntil: !cur && last ? last.to : null,
       };
     }
     const top = (divisionRankings(TODAY).get(d.id) ?? [])[0];
