@@ -45,7 +45,7 @@ export function Footer({ demo, asOf }: { demo: boolean; asOf: string }) {
             </p>
           ) : (
             <p>
-              Datos a {asOf}: resultados y estadísticas de UFC de <a href="http://ufcstats.com/">UFCStats</a> (vía <a href="https://github.com/Greco1899/scrape_ufc_stats">scrape_ufc_stats</a>); nacionalidades de <a href="https://www.wikidata.org/">Wikidata</a> (CC0); plantilla, campeones actuales y carteleras de <a href="https://en.wikipedia.org/wiki/List_of_current_UFC_fighters">Wikipedia</a> (CC BY-SA 4.0). Retratos oficiales © UFC vía ESPN: <Link href="/credits">créditos</Link>. Rating, atributos y récords calculados por FIGHTCORE · FCR v{FCR_VERSION}.
+              Datos a {asOf}: resultados y estadísticas de UFC de <a href="http://ufcstats.com/">UFCStats</a> (vía <a href="https://github.com/Greco1899/scrape_ufc_stats">scrape_ufc_stats</a>); nacionalidades de <a href="https://www.wikidata.org/">Wikidata</a> (CC0); plantilla, campeones actuales y carteleras de <a href="https://en.wikipedia.org/wiki/List_of_current_UFC_fighters">Wikipedia</a> (CC BY-SA 4.0); resultados y títulos de PFL, Bellator, RIZIN, KSW y otras organizaciones de <a href="https://www.espn.com/mma/">ESPN</a>. Retratos oficiales © de cada organización vía ESPN: <Link href="/credits">créditos</Link>. Rating, atributos y récords calculados por FIGHTCORE · FCR v{FCR_VERSION}.
             </p>
           )}
         </div>

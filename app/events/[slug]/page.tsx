@@ -66,7 +66,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <section aria-labelledby="ev-hl" className={s.highlights}>
           <h2 id="ev-hl" className="visually-hidden">Highlights estadísticos</h2>
           <div><span className="label">Finalizaciones</span><strong className="num">{finishes.length}/{done.length}</strong></div>
-          <div><span className="label">Golpes sig. totales</span><strong className="num">{totalSig}</strong></div>
+          <div><span className="label">Golpes sig. totales</span>{done.some((f) => f.fight.red) ? <strong className="num">{totalSig}</strong> : <><strong className="num">—</strong><span className={s.hlSub}>{v.org.short} no publica estadísticas de golpeo</span></>}</div>
           {fastest && <div><span className="label">Finalización más rápida</span><strong className="num">R{fastest.fight.round} {Math.floor(fastest.fight.time! / 60)}:{String(fastest.fight.time! % 60).padStart(2, "0")}</strong><span className={s.hlSub}>{METHOD_SHORT[fastest.fight.method!]} · {fastest.fight.winnerId === fastest.red.id ? fastest.red.name : fastest.blue.name}</span></div>}
           {bestSig && <div><span className="label">Más golpes sig.</span><strong className="num">{Math.max(bestSig.fight.red!.sigLanded, bestSig.fight.blue!.sigLanded)}</strong><span className={s.hlSub}>{bestSig.fight.red!.sigLanded >= bestSig.fight.blue!.sigLanded ? bestSig.red.name : bestSig.blue.name}</span></div>}
         </section>

@@ -1,3 +1,4 @@
+import { orgById } from "@/lib/domain/reference";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -32,7 +33,7 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
   const d = fightDetail(id);
   if (!d) notFound();
   const f = d.fight;
-  const done = f.status === "completed" && f.red && f.blue;
+  const done = f.status === "completed";
   const winner = f.winnerId === d.red.id ? d.red : f.winnerId === d.blue.id ? d.blue : null;
   const loser = winner ? (winner.id === d.red.id ? d.blue : d.red) : null;
   const pct = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)}%` : "—");
@@ -91,9 +92,9 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
             {winner ? <><strong>{winner.name}</strong> derrota a {loser!.name}</> : f.method === "NC" ? "Sin resultado" : "Empate"}
           </p>
           <dl className={s.resultFacts}>
-            <div><dt>Método</dt><dd>{METHOD_LABEL[f.method!]}{f.submission ? ` · ${f.submission}` : ""}</dd></div>
-            <div><dt>Round</dt><dd>{f.round} de {f.scheduledRounds}</dd></div>
-            <div><dt>Tiempo</dt><dd>{mmss(f.time!)}</dd></div>
+            <div><dt>Método</dt><dd>{f.method ? METHOD_LABEL[f.method] : "—"}{f.submission ? ` · ${f.submission}` : ""}</dd></div>
+            {f.round != null && <div><dt>Round</dt><dd>{f.round} de {f.scheduledRounds}</dd></div>}
+            {f.time != null && <div><dt>Tiempo</dt><dd>{mmss(f.time)}</dd></div>}
             {f.scorecards && <div><dt>Tarjetas (A–B)</dt><dd>{f.scorecards.join(" · ")}</dd></div>}
             {f.referee && <div><dt>Árbitro</dt><dd>{f.referee}</dd></div>}
           </dl>
@@ -108,7 +109,7 @@ export default async function FightPage({ params }: { params: Promise<{ id: stri
 
       {done && !(f.red && f.blue) && (
         <section className={s.block}>
-          <EmptyState title="Sin estadísticas de este combate" body="La fuente no registra golpes ni derribos para este combate (habitual en los primeros eventos de UFC). El resultado sí es oficial." />
+          <EmptyState title="Sin estadísticas de este combate" body={d.event.orgId === "ufc" ? "La fuente no registra golpes ni derribos para este combate (habitual en los primeros eventos de UFC). El resultado sí es oficial." : `${orgById.get(d.event.orgId)?.short ?? "Esta organización"} no publica estadísticas de golpeo: de este combate hay resultado, método, asalto y tiempo (fuente: ESPN).`} />
         </section>
       )}
       {done && f.red && f.blue ? (

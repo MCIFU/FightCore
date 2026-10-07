@@ -312,12 +312,14 @@ export function poundForPound(sex: "M" | "F" = "M", limit = 15): RankingRow[] {
 
 export function currentChampions() {
   const s = store();
-  return [...s.champions.values()].map((c) => ({
+  // Every open reign (a fighter can hold two belts), UFC first.
+  const rank = (o: string) => (o === "ufc" ? 0 : orgById.get(o)!.group === "major" ? 1 : 2);
+  return s.championships.filter((c) => !c.to).sort((a, b) => rank(a.orgId) - rank(b.orgId)).map((c) => ({
     ...c,
     org: orgById.get(c.orgId)!.short,
     division: divisionById.get(c.divisionId)!,
     fighter: summary(c.fighterId),
-  })).sort((a, b) => a.org.localeCompare(b.org) || a.division.order - b.division.order);
+  })).sort((a, b) => rank(a.orgId) - rank(b.orgId) || a.org.localeCompare(b.org) || a.division.order - b.division.order);
 }
 
 /* ─────────────────────────── Style signature ─────────────────────────── */
