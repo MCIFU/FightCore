@@ -6,7 +6,7 @@
 .note { font-size: var(--fs-sm); color: var(--paper-ink-2); margin: 8px 0 20px; max-width: 70ch; }
 .spanBlock { padding: var(--s-7) 0; border-bottom: 1px solid var(--paper-line); }
 .spanChart { position: relative; padding-top: 24px; }
-.spanAxis { position: absolute; top: 0; left: 6rem; right: 0; height: 100%; pointer-events: none; font-family: var(--font-mono); font-size: 10px; color: var(--paper-ink-2); }
+.spanAxis { position: absolute; top: 0; left: 6rem; right: 0; height: 100%; pointer-events: none; font-family: var(--font-mono); font-size: var(--fs-label); color: var(--paper-ink-2); }
 .spanAxis span { position: absolute; top: 0; transform: translateX(-50%); }
 .spanAxis span::after { content: ""; position: absolute; top: 18px; left: 50%; height: 2000px; border-left: 1px dashed var(--paper-line); }
 .spanRow { display: grid; grid-template-columns: 6rem 1fr; align-items: center; height: 26px; }
@@ -24,7 +24,7 @@
 .item:target { background: var(--paper-2); }
 .year { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 2.4rem; line-height: 0.9; font-variant-numeric: tabular-nums; }
 .itemBody { display: grid; gap: 6px; }
-.kind { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper-ink-2); }
+.kind { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper-ink-2); }
 .itemTitle { font-size: var(--fs-lg); font-weight: 700; line-height: 1.15; }
 .itemBody p { font-size: 1.1rem; line-height: 1.5; color: var(--paper-ink-2); max-width: 60ch; }
 .src { margin-top: 40px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: var(--fs-xs); color: var(--paper-ink-2); }

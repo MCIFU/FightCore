@@ -39,11 +39,11 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
     <>
       <div className={s.masthead}>
         <div className={`wrap ${s.mastInner}`}>
-          <span>Edición {stamp}</span>
+          <span className={s.nowrap}><span className={s.mastWide}>Edición </span>{stamp}</span>
           <span className={s.mastMid}>Performance intelligence · MMA</span>
           {demo
             ? <span className={s.demo}><span aria-hidden className={s.demoDot} />Dataset de demostración</span>
-            : <span className={s.live}><span aria-hidden className={s.liveDot} />Datos reales · UFC + 12 org.</span>}
+            : <span className={s.live}><span aria-hidden className={s.liveDot} /><span className={s.mastWide}>Datos reales · </span>UFC + 12 org.</span>}
         </div>
       </div>
       <header className={s.header}>
@@ -113,7 +113,7 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
                 <Link href={i.href} className={s.sheetLink} aria-current={active(i.href) ? "page" : undefined}>
                   <span className={s.sheetIdx}>{String(idx + 1).padStart(2, "0")}</span>
                   <span>{i.label}</span>
-                  {i.product && <span className={s.sheetProduct}>FC {i.product}</span>}
+                  {i.product && <span className={s.sheetProduct}>{i.product}</span>}
                 </Link>
               </li>
             ))}

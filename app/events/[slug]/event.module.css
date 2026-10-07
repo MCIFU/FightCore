@@ -1,4 +1,4 @@
-.crumbs { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
+.crumbs { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
 .crumbs a:hover { color: var(--bone); }
 .head { display: grid; gap: 24px; padding: 28px 0 32px; border-bottom: 1px solid var(--line); }
 @media (min-width: 1000px) { .head { grid-template-columns: 1fr 440px; align-items: end; } }
@@ -7,7 +7,7 @@
 .title { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: var(--fs-3xl); line-height: 0.92; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
 .facts > div { padding: 12px 0; border-bottom: 1px solid var(--line); }
-.facts dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
+.facts dt { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
 .facts dd { font-weight: 600; margin-top: 2px; }
 .highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); border-bottom: 1px solid var(--line); }
 .highlights > div { display: grid; gap: 4px; padding: 20px 20px 20px 0; }
@@ -16,3 +16,4 @@
 .hlSub { font-size: var(--fs-xs); color: var(--bone-3); }
 .h2 { font-variation-settings: "wdth" 72; font-weight: 750; text-transform: uppercase; font-size: var(--fs-xl); margin: 48px 0 8px; }
 .card { list-style: none; padding: 0; border-top: 1px solid var(--line-strong); }
+.crumbs a { display: inline-block; padding-block: 8px; margin-block: -8px; }

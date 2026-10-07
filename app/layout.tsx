@@ -6,14 +6,14 @@ import { Reveal } from "@/components/layout/Reveal";
 import { ServiceWorker } from "@/components/layout/ServiceWorker";
 import { SearchDialog } from "@/components/search/SearchDialog";
 import { IS_DEMO, TODAY } from "@/lib/data/repository";
-import { fmtDate, fmtStamp } from "@/lib/format";
+import { fmtDate, fmtStamp, SITE_URL } from "@/lib/format";
 import "./globals.css";
 
 const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo", display: "swap" });
 const newsreader = Newsreader({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-newsreader", display: "swap" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-jetbrains", display: "swap" });
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fightcore.app";
+const SITE = SITE_URL;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

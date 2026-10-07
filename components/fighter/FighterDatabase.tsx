@@ -21,7 +21,7 @@ const norm = (x: string) => x.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
  */
 export type FighterRow = Pick<FighterSummary, "id" | "slug" | "name" | "firstName" | "lastName" | "nickname" | "country" | "countryName" | "divisionId" | "divisionShort" | "org" | "status" | "age" | "record" | "rating" | "provisional" | "rank" | "title" | "form" | "career" | "photo" | "lastFight">;
 
-export function FighterDatabase({ fighters, divisions }: { fighters: FighterRow[]; divisions: { id: string; name: string; short: string }[] }) {
+export function FighterDatabase({ fighters, countries, orgs, divisions }: { fighters: FighterRow[]; countries: [string, string][]; orgs: string[]; divisions: { id: string; name: string; short: string }[] }) {
   const router = useRouter();
   const path = usePathname();
   const params = useSearchParams();
@@ -46,8 +46,6 @@ export function FighterDatabase({ fighters, divisions }: { fighters: FighterRow[
   const sort = get("sort", "rating") as Sort;
   const minRating = Number(get("min", "0"));
 
-  const orgs = useMemo(() => [...new Set(fighters.map((f) => f.org))].sort(), [fighters]);
-  const countries = useMemo(() => [...new Map(fighters.flatMap((f) => (f.country ? [[f.country, f.countryName ?? f.country] as [string, string]] : []))).entries()].sort((a, b) => a[1].localeCompare(b[1], "es")), [fighters]);
 
   const list = useMemo(() => {
     const nq = norm(q.trim());

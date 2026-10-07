@@ -1,5 +1,7 @@
 .split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); padding-bottom: var(--s-8); }
 @media (min-width: 1180px) { .split { grid-template-columns: 360px minmax(0, 1fr); } }
+/* One column: the FIGHTCORE ranking comes first, the official side after it. */
+@media (max-width: 1179px) { .fc { order: -1; } }
 .blockHead { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 2px solid var(--bone); margin-bottom: 18px; }
 .h2 { font-variation-settings: "wdth" 72; font-weight: 750; text-transform: uppercase; font-size: var(--fs-xl); line-height: 1; }
 .h3 { font-size: var(--fs-sm); font-weight: 700; margin: 32px 0 8px; }
@@ -8,12 +10,12 @@
 .champs { list-style: none; padding: 0; border-top: 1px solid var(--line); }
 .champRow { display: grid; grid-template-columns: auto 3.6rem 1fr; gap: 2px 12px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: center; }
 .champRow > [aria-hidden]:first-child { grid-row: 1 / 4; }
-.more { color: var(--ember); font-weight: 400; }
+.more { color: var(--ember); font-weight: 400; display: inline-block; padding-block: 8px; margin-block: -8px; }
 .champRow:hover .champName { color: var(--ember); }
 .champOrg { grid-row: 1 / 4; font-family: var(--font-mono); font-size: 11px; color: var(--bone-2); letter-spacing: 0.06em; }
 .champDiv { font-size: var(--fs-xs); color: var(--bone-3); }
 .champName { font-weight: 650; transition: color var(--dur-1); }
-.champMeta { grid-column: 3; font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); }
+.champMeta { grid-column: 3; font-family: var(--font-mono); font-size: var(--fs-label); color: var(--bone-3); }
 .src { margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: var(--fs-xs); color: var(--bone-3); }
 .rules { font-size: var(--fs-sm); color: var(--bone-3); max-width: 80ch; margin-bottom: 12px; }
 .divHead { font-size: var(--fs-sm); color: var(--bone-2); margin-bottom: 14px; }

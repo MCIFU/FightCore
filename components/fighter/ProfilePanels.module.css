@@ -14,7 +14,7 @@
 .tab[aria-selected="true"] { color: var(--bone); }
 .tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 16px; bottom: -1px; height: 2px; background: var(--ember); }
 .tab:focus-visible { outline: 2px solid var(--ember); outline-offset: -2px; }
-.idx { font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); }
+.idx { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--bone-3); }
 .tab[aria-selected="true"] .idx { color: var(--ember); }
 .text { display: grid; gap: 2px; min-width: 0; }
 .label { font-weight: 600; font-size: var(--fs-sm); white-space: nowrap; }

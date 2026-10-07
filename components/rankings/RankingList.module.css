@@ -13,7 +13,7 @@
 }
 .rank { grid-area: rank; font-variation-settings: "wdth" 75; font-weight: 700; font-size: 1.25rem; font-variant-numeric: tabular-nums; color: var(--bone-3); }
 .first .rank { color: var(--ember); }
-.mv { grid-area: mv; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; }
+.mv { grid-area: mv; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.04em; }
 .mvUp { color: var(--success); }
 .mvDown { color: var(--bone-3); }
 .mvSame { color: var(--bone-3); }
@@ -22,8 +22,8 @@
 .who { grid-area: who; display: grid; gap: 3px; min-width: 0; }
 .name { font-weight: 650; font-size: 1.02rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-flex; align-items: center; gap: 8px; }
 .name:hover { color: var(--ember); }
-.champ { flex: none; display: inline-grid; place-items: center; width: 16px; height: 16px; background: var(--warning); color: var(--ink-0); font-family: var(--font-mono); font-size: 9px; font-weight: 700; }
-.meta { display: flex; gap: 10px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--bone-3); text-transform: uppercase; }
+.champ { flex: none; display: inline-grid; place-items: center; width: 16px; height: 16px; background: var(--warning); color: var(--ink-0); font-family: var(--font-mono); font-size: var(--fs-label-sm); font-weight: 700; }
+.meta { display: flex; gap: 10px; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; color: var(--bone-3); text-transform: uppercase; }
 .record, .form, .band { display: none; }
 @media (min-width: 900px) {
   .record { display: block; grid-area: record; }
@@ -38,3 +38,7 @@
 .rating { grid-area: rating; justify-self: end; }
 .compact .row { padding: 8px 0; }
 .compact .name { font-size: 0.95rem; }
+
+/* The #1's large rating only where the row has room for it. */
+.wideOnly { display: none; }
+@media (min-width: 900px) { .wideOnly { display: inline; } .narrowOnly { display: none; } }

@@ -16,7 +16,9 @@ export const metadata: Metadata = {
 };
 
 export default function RankingsPage() {
-  const champs = currentChampions();
+  const all = currentChampions();
+  const champs = all.filter((c) => c.orgId === "ufc");
+  const others = all.length - champs.length;
   return (
     <div className="wrap" style={{ paddingTop: "var(--s-7)" }}>
       <SectionHead
@@ -32,9 +34,9 @@ export default function RankingsPage() {
           </div>
           <EmptyState
             title="Sin proveedor oficial conectado"
-            body="FIGHTCORE mostrará aquí los rankings publicados por cada organización, con su fecha y fuente, cuando exista una integración con licencia. No los reconstruimos ni los estimamos."
+            body="Aquí irán los rankings publicados por cada organización, con fecha y fuente, cuando haya una integración con licencia. No los reconstruimos."
           />
-          <h3 className={s.h3}>Campeones vigentes del dataset · <Link href="/champions" className={s.more}>tabla completa →</Link></h3>
+          <h3 className={s.h3}>Campeones vigentes de UFC · <Link href="/champions" className={s.more}>tabla completa →</Link></h3>
           <ul className={s.champs}>
             {champs.map((c) => (
               <li key={`${c.orgId}-${c.divisionId}`}>
@@ -48,6 +50,7 @@ export default function RankingsPage() {
               </li>
             ))}
           </ul>
+          {others > 0 && <p className={s.src}><Link href="/champions" className={s.more}>+ {others} campeones de PFL, LFA y otras organizaciones →</Link></p>}
           <p className={s.src}><Source kind={SRC} /> {IS_DEMO ? "Títulos de la simulación, no reales." : "Linaje reconstruido a partir de los combates por título; campeones actuales cotejados con Wikipedia."}</p>
         </section>
 

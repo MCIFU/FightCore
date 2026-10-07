@@ -21,6 +21,6 @@
 .label { grid-area: label; font-weight: 700; font-size: var(--fs-md); }
 .holder { grid-area: holder; display: flex; align-items: center; gap: 10px; }
 .holder > span:last-child { display: grid; }
-.holder small { font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); letter-spacing: 0.06em; }
+.holder small { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--bone-3); letter-spacing: 0.06em; }
 .ctx { grid-area: ctx; font-size: var(--fs-sm); color: var(--bone-3); }
 .note { margin-top: 28px; color: var(--bone-3); font-size: var(--fs-sm); }

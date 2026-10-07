@@ -68,4 +68,6 @@ export const cmToFtIn = (cm: number) => {
 export const fmtCm = (cm: number | null | undefined) => (cm == null ? "—" : `${cm} cm`);
 export const STANCE_LABEL: Record<string, string> = { Orthodox: "Ortodoxa", Southpaw: "Zurda", Switch: "Cambiante" };
 export const fmtStance = (st: string | null | undefined) => (st ? STANCE_LABEL[st] ?? st : "—");
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fightcore.app";
+/** Public origin: explicit, else the Vercel production domain, else the placeholder. */
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
+  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://fightcore.app");

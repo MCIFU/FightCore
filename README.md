@@ -42,6 +42,17 @@ El importador cruza las fuentes así: los combates de UFCStats definen luchadore
 
 **Otras organizaciones** (`npm run import:orgs`): PFL, Bellator, RIZIN, KSW, Cage Warriors, LFA, Strikeforce, WEC, PRIDE, DREAM, Pancrase y Shooto, desde la API pública de ESPN (eventos, combates en orden de cartelera, resultado, asalto y tiempo; atletas con fecha de nacimiento, altura, alcance, guardia, equipo y estilo). Un atleta de ESPN se une a su ficha UFC por el enlace ya conocido o por nombre + fecha de nacimiento (±2 días, o un único homónimo cuya fecha difiere por una errata típica: año cambiado, día y mes cruzados); los combates con un luchador sin identificar se descartan. Estas organizaciones no publican estadísticas de golpeo: cuentan para récord, índice de fuerza y rating (con el factor Dominio en neutro), no para métricas. Los títulos salen de los combates que ESPN marca como título (`competition.types`), sin torneos ni cinturones regionales; ESPN no registra vacantes, así que un reinado sigue vigente solo si su dueño pelea allí en los últimos 600 días. `npm run enrich:wiki` añade el lugar de nacimiento desde las fichas de Wikipedia.
 
+## Desplegar en Vercel
+
+1. En vercel.com → **Add New… → Project** → importar el repositorio de GitHub.
+2. **Framework:** Next.js (se detecta solo). Build `next build`, sin variables obligatorias.
+3. **Production Branch** (Settings → Git): la rama que quieras publicar.
+4. Opcional, en Settings → Environment Variables:
+   - `NEXT_PUBLIC_SITE_URL` = dominio propio (`https://…`), para enlaces canónicos y Open Graph. Si falta, se usa el dominio de producción de Vercel.
+   - `PHOTO_SOURCE=free` para publicar solo fotos con licencia libre (sin retratos oficiales).
+
+El build genera ~1.550 páginas estáticas (unos 3 minutos). El resto de fichas de luchador y combate se generan bajo demanda; el snapshot de datos viaja con cada función (`outputFileTracingIncludes` en `next.config.ts`). Las imágenes se sirven sin el optimizador de Vercel (`images.unoptimized`): los retratos ya están comprimidos y así no se agota la cuota gratuita.
+
 ## Estructura
 
 | Carpeta | Qué contiene |

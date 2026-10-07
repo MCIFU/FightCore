@@ -21,5 +21,5 @@
 .plate { container-type: inline-size; }
 .belt { position: absolute; top: 10px; left: 10px; }
 .sm .belt { top: 6px; left: 6px; }
-.license { font-size: 10px; line-height: 1.4; color: var(--bone-3); }
+.license { font-size: var(--fs-label); line-height: 1.4; color: var(--bone-3); }
 .license a { color: var(--bone-2); text-decoration: underline; text-underline-offset: 2px; }

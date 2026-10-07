@@ -9,5 +9,5 @@
 .short { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 3rem; line-height: 0.85; text-transform: uppercase; transition: color var(--dur-1); overflow-wrap: anywhere; }
 .name { font-weight: 600; font-size: var(--fs-sm); }
 .meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: var(--fs-xs); color: var(--bone-3); }
-.counts { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--bone-3); text-transform: uppercase; margin-top: 6px; }
+.counts { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.06em; color: var(--bone-3); text-transform: uppercase; margin-top: 6px; }
 .src { margin-top: 28px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: var(--fs-xs); color: var(--bone-3); }

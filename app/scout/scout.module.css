@@ -14,16 +14,16 @@
 .qHead { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: baseline; }
 .qn { font-family: var(--font-mono); font-size: 11px; color: var(--ember); }
 .qt { font-size: var(--fs-lg); font-weight: 700; letter-spacing: -0.01em; }
-.qs { grid-column: 2; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--bone-3); text-transform: uppercase; }
+.qs { grid-column: 2; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.06em; color: var(--bone-3); text-transform: uppercase; }
 .qBody { display: grid; gap: 12px; min-width: 0; }
-.caption { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); margin-top: 4px; }
+.caption { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); margin-top: 4px; }
 .note { font-size: var(--fs-xs); color: var(--bone-3); line-height: 1.5; }
 .table { width: 100%; font-size: var(--fs-sm); }
 .table th, .table td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); text-align: right; }
 .table th:first-child { text-align: left; font-weight: 600; }
-.table thead th { font-family: var(--font-mono); font-size: 10px; font-weight: 400; color: var(--bone-3); letter-spacing: 0.06em; text-transform: uppercase; }
+.table thead th { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400; color: var(--bone-3); letter-spacing: 0.06em; text-transform: uppercase; }
 .bad th, .bad td { color: var(--ember); }
 .patterns { list-style: none; padding: 0; display: grid; gap: 12px; }
 .patterns li { display: grid; gap: 2px; padding-left: 12px; border-left: 2px solid var(--line-strong); }
 .patterns span { font-family: var(--font-serif); color: var(--bone-2); }
-.patterns em { font-style: normal; font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); }
+.patterns em { font-style: normal; font-family: var(--font-mono); font-size: var(--fs-label); color: var(--bone-3); }

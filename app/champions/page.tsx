@@ -65,9 +65,12 @@ export default function ChampionsPage() {
         as="h1" kicker="FIGHTCORE Rankings · Títulos" title="Campeones"
         lede={<>{count} cinturones vigentes{allOrgs.length === 1 ? ` de ${allOrgs[0].short}` : ` en ${allOrgs.length} organizaciones`}. La última columna no es un título: es el número 1 del FIGHTCORE Rating en la división, como referencia independiente. <Source kind={SRC} /></>}
       />
-      <p className={s.legend}>
-        <ChampionBadge title={{ org: "ORG", division: "División" }} variant="icon" /> Campeón vigente · <strong>Vacante</strong> = el título existió pero hoy no tiene dueño · <strong>Sin dato vigente</strong> = la fuente deja de registrar el cinturón · — = la organización no ha registrado ese título.
-      </p>
+      <ul className={s.legend}>
+        <li><ChampionBadge title={{ org: "ORG", division: "División" }} variant="icon" /> Campeón vigente</li>
+        <li><strong>Vacante</strong>: el título existió pero hoy no tiene dueño</li>
+        <li><strong>Sin dato vigente</strong>: la fuente deja de registrar el cinturón</li>
+        <li><strong>—</strong>: la organización no ha registrado ese título</li>
+      </ul>
 
       {groups.map((g) => (
         <section key={g.id} aria-labelledby={`g-${g.id}`} className={s.group}>

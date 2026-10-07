@@ -16,7 +16,7 @@
 .count strong { color: var(--bone); font-size: 1.25rem; font-variation-settings: "wdth" 75; }
 .clear { font-size: var(--fs-xs); color: var(--ember); border-bottom: 1px solid currentColor; min-height: 32px; }
 .views { display: flex; gap: 2px; }
-.viewBtn { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-3); }
+.viewBtn { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-3); }
 .viewBtn[aria-pressed="true"] { background: var(--bone); color: var(--ink-0); border-color: var(--bone); }
 .viewBtn:hover:not([aria-pressed="true"]) { color: var(--bone); }
 
@@ -28,17 +28,17 @@
 .cardName span { font-size: var(--fs-xs); color: var(--bone-2); }
 .cardName strong { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: 1.6rem; line-height: 0.95; transition: color var(--dur-1); overflow-wrap: anywhere; }
 .cardRow { display: flex; justify-content: space-between; align-items: baseline; }
-.cardMeta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--bone-3); }
+.cardMeta { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; color: var(--bone-3); }
 
 .table { width: 100%; }
-.table thead th { position: sticky; top: var(--header-h); background: var(--ink-0); z-index: 1; text-align: left; font-family: var(--font-mono); font-size: 10px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line-strong); }
+.table thead th { position: sticky; top: var(--header-h); background: var(--ink-0); z-index: 1; text-align: left; font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line-strong); }
 .table td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
 .table tbody tr:hover td { background: var(--ink-1); }
 .compact td { padding-top: 6px; padding-bottom: 6px; font-size: var(--fs-sm); }
 .name { font-weight: 650; display: inline-flex; align-items: center; gap: 8px; }
 .name:hover { color: var(--ember); }
 .nick { display: block; font-family: var(--font-serif); font-style: italic; font-size: var(--fs-sm); color: var(--bone-3); }
-.champ { display: inline-grid; place-items: center; width: 16px; height: 16px; background: var(--warning); color: var(--ink-0); font-family: var(--font-mono); font-size: 9px; font-weight: 700; }
+.champ { display: inline-grid; place-items: center; width: 16px; height: 16px; background: var(--warning); color: var(--ink-0); font-family: var(--font-mono); font-size: var(--fs-label-sm); font-weight: 700; }
 .mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--bone-2); }
 .rank { color: var(--ember); }
 .r { text-align: right !important; }

@@ -2,11 +2,11 @@
 .scroller { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--ink-4) transparent; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .svg { display: block; min-width: 100%; }
 .yearLine { stroke: var(--line); stroke-dasharray: 1 4; }
-.year { fill: var(--bone-3); font-family: var(--font-mono); font-size: 10px; }
+.year { fill: var(--bone-3); font-family: var(--font-mono); font-size: var(--fs-label); }
 .axis { stroke: var(--bone-3); stroke-width: 1; }
 .period { fill: var(--ink-4); }
 .periodAlt { fill: var(--bone-3); opacity: 0.55; }
-.periodLabel { fill: var(--bone-3); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; }
+.periodLabel { fill: var(--bone-3); font-family: var(--font-mono); font-size: var(--fs-label-sm); letter-spacing: 0.1em; }
 .bout { cursor: pointer; outline: none; }
 .stemW { stroke: var(--bone); stroke-width: 2; }
 .stemL { stroke: var(--bone-3); stroke-width: 1.5; }
@@ -20,7 +20,7 @@
 .titleRingWin { fill: none; stroke: var(--warning); stroke-width: 1.5; }
 .hit { fill: transparent; }
 .readout { min-height: 64px; display: grid; gap: 2px; align-content: start; }
-.readOutcome { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.readOutcome { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase; }
 .r_W { color: var(--bone); }
 .r_L { color: var(--bone-3); }
 .readMain { font-weight: 700; font-size: var(--fs-md); }

@@ -5,7 +5,7 @@
 .side { display: flex; align-items: center; gap: 10px; }
 .sideB { flex-direction: row; }
 .label {
-  width: 34%; text-align: center; font-family: var(--font-mono); font-size: 10px; font-weight: 400;
+  width: 34%; text-align: center; font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400;
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); padding: 0 8px;
 }
 .val {

@@ -1,7 +1,7 @@
 /* Provenance */
 .source {
   display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--bone-3); padding: 2px 6px 2px 5px; border: 1px solid var(--line); border-radius: var(--radius);
   white-space: nowrap; line-height: 1.4;
 }
@@ -40,7 +40,7 @@
 .ratingInt { font-variation-settings: "wdth" 75; font-weight: 700; letter-spacing: -0.02em; }
 .ratingDec { font-variation-settings: "wdth" 75; font-weight: 600; font-size: 0.55em; color: var(--bone-2); letter-spacing: -0.01em; }
 .ratingBand { font-family: var(--font-mono); font-size: max(10px, 0.18em); color: var(--bone-3); margin-left: 0.5em; letter-spacing: 0.02em; align-self: flex-start; padding-top: 0.2em; }
-.provisional { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--warning); margin-left: 6px; border: 1px solid currentColor; padding: 1px 3px; align-self: center; }
+.provisional { font-family: var(--font-mono); font-size: var(--fs-label-sm); letter-spacing: 0.1em; color: var(--warning); margin-left: 6px; border: 1px solid currentColor; padding: 1px 3px; align-self: center; }
 .rating_xs { font-size: 1rem; }
 .rating_sm { font-size: 1.375rem; }
 .rating_md { font-size: 2.5rem; }
@@ -51,7 +51,7 @@
 /* Record */
 .record { display: inline-flex; align-items: baseline; gap: 0.08em; font-variation-settings: "wdth" 75; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
 .recordSep { color: var(--bone-3); font-weight: 400; margin: 0 0.04em; }
-.recordNc { font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); margin-left: 8px; font-weight: 400; }
+.recordNc { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--bone-3); margin-left: 8px; font-weight: 400; }
 .record_sm { font-size: 1rem; }
 .record_md { font-size: 1.75rem; }
 .record_lg { font-size: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
@@ -61,7 +61,7 @@
   display: inline-grid; place-items: center; font-family: var(--font-mono); font-weight: 700;
   line-height: 1; border: 1.5px solid var(--bone); flex: none;
 }
-.o_sm { width: 20px; height: 20px; font-size: 10px; }
+.o_sm { width: 20px; height: 20px; font-size: var(--fs-label); }
 .o_md { width: 28px; height: 28px; font-size: 12px; }
 .o_lg { width: 40px; height: 40px; font-size: 15px; }
 .o_W { background: var(--bone); color: var(--ink-0); }
@@ -73,7 +73,7 @@
 .form { display: inline-flex; gap: 3px; }
 .formCell {
   width: 16px; height: 16px; display: inline-grid; place-items: center;
-  font-family: var(--font-mono); font-size: 9px; font-weight: 700; border: 1.25px solid var(--bone);
+  font-family: var(--font-mono); font-size: var(--fs-label-sm); font-weight: 700; border: 1.25px solid var(--bone);
 }
 .formMd { width: 22px; height: 22px; font-size: 11px; }
 .f_W { background: var(--bone); color: var(--ink-0); }
@@ -87,7 +87,7 @@
 
 /* Tag */
 .tag {
-  display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px;
+  display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: var(--fs-label);
   letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 7px; line-height: 1.3;
   border: 1px solid var(--line-strong); color: var(--bone-2); white-space: nowrap;
 }

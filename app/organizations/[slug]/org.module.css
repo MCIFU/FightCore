@@ -1,4 +1,4 @@
-.crumbs { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
+.crumbs { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
 .crumbs a:hover { color: var(--bone); }
 .head { display: grid; gap: 24px; padding: 28px 0 36px; border-bottom: 1px solid var(--line); align-items: end; }
 @media (min-width: 1000px) { .head { grid-template-columns: minmax(0, 1.2fr) 1fr; } }
@@ -7,7 +7,7 @@
 .name { font-size: var(--fs-xl); font-weight: 700; letter-spacing: -0.01em; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
 .facts > div { padding: 10px 0; border-bottom: 1px solid var(--line); }
-.facts dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
+.facts dt { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
 .facts dd { font-weight: 600; }
 .note { color: var(--bone-2); font-size: 1.1rem; }
 .disclaimer { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: var(--fs-xs); color: var(--bone-3); }
@@ -20,7 +20,7 @@
 .list { list-style: none; padding: 0; border-top: 1px solid var(--line-strong); }
 .row { display: grid; grid-template-columns: 7rem 1fr auto; gap: 12px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .row:hover strong { color: var(--ember); }
-.rowLabel { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-3); }
+.rowLabel { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-3); }
 .rowMeta { font-size: var(--fs-xs); color: var(--bone-3); }
 .empty { color: var(--bone-3); padding: 16px 0; }
 .events { list-style: none; padding: 0; border-top: 1px solid var(--line-strong); }
@@ -34,3 +34,4 @@
 .lineage a:hover { color: var(--ember); }
 @media (max-width: 700px) { .lineage li { grid-template-columns: 1fr 1fr; } }
 .withBelt { display: inline-flex; align-items: center; gap: 12px; }
+.crumbs a { display: inline-block; padding-block: 8px; margin-block: -8px; }

@@ -9,7 +9,7 @@
 .toc ol { list-style: none; padding: 0; counter-reset: t; display: grid; }
 .toc li { counter-increment: t; border-bottom: 1px solid var(--paper-line); }
 .toc a { display: flex; gap: 10px; padding: 9px 0; font-size: var(--fs-sm); }
-.toc a::before { content: counter(t, decimal-leading-zero); font-family: var(--font-mono); font-size: 10px; color: var(--paper-ink-2); padding-top: 3px; }
+.toc a::before { content: counter(t, decimal-leading-zero); font-family: var(--font-mono); font-size: var(--fs-label); color: var(--paper-ink-2); padding-top: 3px; }
 .toc a:hover { color: var(--ember-ink); }
 .body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
 .body section { scroll-margin-top: 100px; }
@@ -17,7 +17,7 @@
 .body code { font-family: var(--font-mono); font-size: 0.85em; background: var(--paper-2); padding: 1px 4px; }
 .formula { font-family: var(--font-mono); font-size: clamp(0.9rem, 0.8rem + 0.6vw, 1.2rem); background: var(--paper-ink); color: var(--paper); padding: 22px 24px; margin: 8px 0 18px; overflow-x: auto; white-space: pre; }
 .table { width: 100%; border-top: 2px solid var(--paper-ink); }
-.table thead th { text-align: left; font-family: var(--font-mono); font-size: 10px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 12px 10px 0; color: var(--paper-ink-2); border-bottom: 1px solid var(--paper-line); }
+.table thead th { text-align: left; font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 12px 10px 0; color: var(--paper-ink-2); border-bottom: 1px solid var(--paper-line); }
 .table th[scope="row"] { text-align: left; font-weight: 700; padding: 14px 12px 14px 0; white-space: nowrap; vertical-align: top; }
 .table td { padding: 14px 12px 14px 0; border-bottom: 1px solid var(--paper-line); vertical-align: top; font-size: var(--fs-sm); color: var(--paper-ink-2); }
 .table tbody tr th { border-bottom: 1px solid var(--paper-line); }

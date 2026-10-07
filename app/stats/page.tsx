@@ -46,7 +46,7 @@ export default function StatsPage() {
 
       <section aria-labelledby="div" className={s.block}>
         <h2 id="div" className={s.h2}>Por división <span>métodos de resultado y volumen de golpeo</span></h2>
-        <table className={s.table}>
+        <div className="scrollx" tabIndex={0} role="region" aria-label="Tabla desplazable"><table className={s.table}>
           <caption className="visually-hidden">Métodos de resultado y ritmo por división</caption>
           <thead><tr><th scope="col">División</th><th scope="col">Métodos</th><th scope="col" className={s.r}>KO</th><th scope="col" className={s.r}>SUB</th><th scope="col" className={s.r}>DEC</th><th scope="col">Golpes sig./min (ambos)</th><th scope="col" className={s.r}>n</th></tr></thead>
           <tbody>
@@ -60,7 +60,7 @@ export default function StatsPage() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
         <p className={s.legend}><i className={s.sKo} /> KO/TKO <i className={s.sSub} /> Sumisión <i className={s.sDec} /> Decisión</p>
       </section>
 

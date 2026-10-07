@@ -13,7 +13,7 @@
 .chips { list-style: none; padding: 0; display: contents; }
 .chip { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding-left: 0; border: 1px solid var(--line-strong); background: var(--ink-1); }
 .chipLetter { align-self: stretch; display: grid; place-items: center; width: 32px; background: var(--c); color: var(--ink-0); font-family: var(--font-mono); font-weight: 700; font-size: 12px; }
-.chipName { font-weight: 600; font-size: var(--fs-sm); }
+.chipName { font-weight: 600; font-size: var(--fs-sm); display: inline-block; padding-block: 6px; margin-block: -6px; }
 .chipName:hover { text-decoration: underline; text-decoration-color: var(--c); text-underline-offset: 3px; }
 .chipX { width: 40px; align-self: stretch; font-size: 1.2rem; color: var(--bone-3); border-left: 1px solid var(--line); }
 .chipX:hover { color: var(--bone); background: var(--ink-2); }
@@ -23,7 +23,7 @@
 .options { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 20; list-style: none; padding: 4px; background: var(--ink-1); border: 1px solid var(--line-strong); box-shadow: 0 20px 40px -12px rgb(0 0 0 / 0.6); }
 .option { display: grid; gap: 2px; padding: 10px 12px; cursor: pointer; font-size: var(--fs-sm); font-weight: 600; }
 .option:hover { background: var(--ink-2); }
-.optMeta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--bone-3); font-weight: 400; }
+.optMeta { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.06em; color: var(--bone-3); font-weight: 400; }
 .empty, .emptyInline { color: var(--bone-3); padding: 24px 0; }
 
 /* Corners */
@@ -54,7 +54,7 @@
 
 /* Rating scale */
 .scale { position: relative; padding: 28px 0 8px; }
-.scaleAxis { position: absolute; top: 0; left: 0; right: 0; height: 20px; font-family: var(--font-mono); font-size: 10px; color: var(--bone-3); }
+.scaleAxis { position: absolute; top: 0; left: 0; right: 0; height: 20px; font-family: var(--font-mono); font-size: var(--fs-label); color: var(--bone-3); }
 .scaleAxis span { position: absolute; transform: translateX(-50%); }
 .scaleAxis span:first-child { transform: none; }
 .scaleAxis span:last-child { transform: translateX(-100%); }
@@ -77,7 +77,7 @@
 .laneDot {
   position: absolute; top: 50%; width: 22px; height: 22px; transform: translate(-50%, -50%);
   display: grid; place-items: center; background: var(--c); color: var(--ink-0);
-  font-family: var(--font-mono); font-size: 10px; font-weight: 700; box-shadow: 0 0 0 2px var(--ink-0);
+  font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 700; box-shadow: 0 0 0 2px var(--ink-0);
   transition: left var(--dur-3) var(--ease-out);
 }
 .laneVal { font-variation-settings: "wdth" 75; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--bone-3); padding: 0 0 0 10px; text-align: right; width: 2.6rem; }
@@ -98,7 +98,7 @@
 .matrix { width: 100%; min-width: 520px; font-variant-numeric: tabular-nums; }
 .matrix th, .matrix td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line); text-align: right; }
 .matrix th:first-child { text-align: left; font-weight: 500; color: var(--bone-2); }
-.matrix thead th { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-2); font-weight: 400; border-bottom-color: var(--line-strong); white-space: nowrap; }
+.matrix thead th { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-2); font-weight: 400; border-bottom-color: var(--line-strong); white-space: nowrap; }
 .matrix thead th i { margin-right: 8px; vertical-align: middle; }
 .matrix td { color: var(--bone-2); }
 .matrix a:hover { color: var(--ember); }

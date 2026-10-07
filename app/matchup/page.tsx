@@ -116,7 +116,7 @@ export default async function MatchupPage({ searchParams }: { searchParams: Prom
 
           <section className={s.block} aria-labelledby="rnd">
             <h2 id="rnd" className={s.h2}>Cómo evolucionan por round</h2>
-            <table className={s.rtable}>
+            <div className="scrollx" tabIndex={0} role="region" aria-label="Tabla desplazable"><table className={s.rtable}>
               <caption className="visually-hidden">Diferencial y volumen por round</caption>
               <thead><tr><th scope="col">Round</th><th scope="col">A · golpes sig. intentados</th><th scope="col">A · diferencial</th><th scope="col">B · golpes sig. intentados</th><th scope="col">B · diferencial</th></tr></thead>
               <tbody>
@@ -132,7 +132,7 @@ export default async function MatchupPage({ searchParams }: { searchParams: Prom
                   );
                 })}
               </tbody>
-            </table>
+            </table></div>
           </section>
 
           <section className={s.block} aria-labelledby="cmn">

@@ -46,7 +46,11 @@ export function RankingList({ rows, density = "regular", showDivision, caption }
             <span className={s.bandRange} style={{ left: pos(r.rating - r.band), right: `calc(100% - ${pos(r.rating + r.band)})` }} />
             <span className={s.bandPoint} style={{ left: pos(r.rating) }} />
           </span>
-          <span className={s.rating}><RatingValue value={r.rating} band={r.band} size={r.rank === 1 && density === "regular" ? "md" : "sm"} /></span>
+          <span className={s.rating}>
+            {r.rank === 1 && density === "regular"
+              ? <><span className={s.wideOnly}><RatingValue value={r.rating} band={r.band} size="md" /></span><span className={s.narrowOnly}><RatingValue value={r.rating} band={r.band} size="sm" /></span></>
+              : <RatingValue value={r.rating} band={r.band} size="sm" />}
+          </span>
         </li>
       ))}
     </ol>
