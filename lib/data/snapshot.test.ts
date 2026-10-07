@@ -46,3 +46,9 @@ test("snapshot: licensed photos carry author, licence and an existing file", () 
 test("snapshot: ratings are finite and bounded", () => {
   for (const r of store.rating.values()) assert.ok(Number.isFinite(r.value) && r.value >= 0 && r.value <= 100);
 });
+
+test("snapshot: no duplicate fighters left after merging sources", async () => {
+  const { dedupeFighters } = await import("./dedupe.ts");
+  const again = dedupeFighters(u.fighters, u.fights);
+  assert.equal(again.merged.length, 0, again.merged.slice(0, 5).map((m) => m.name).join(", "));
+});

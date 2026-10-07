@@ -2,7 +2,7 @@
   "name": "fightcore",
   "version": "0.1.0",
   "private": true,
-  "description": "FIGHTCORE \u2014 The core of MMA. Plataforma de datos, historia y scouting de MMA.",
+  "description": "FIGHTCORE — The core of MMA. Plataforma de datos, historia y scouting de MMA.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -20,7 +20,9 @@
     "photos:espn": "tsx scripts/fetch-espn-photos.mts",
     "icons": "tsx scripts/build-icons.mts",
     "import:orgs": "tsx scripts/import-espn-orgs.mts",
-    "enrich:wiki": "tsx scripts/enrich-wikipedia.mts"
+    "enrich:wiki": "tsx scripts/enrich-wikipedia.mts",
+    "check:duplicates": "tsx scripts/check-duplicates.mts",
+    "import:wiki-orgs": "tsx scripts/import-wiki-orgs.mts"
   },
   "dependencies": {
     "next": "16.3.7",

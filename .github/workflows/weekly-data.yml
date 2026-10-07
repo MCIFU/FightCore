@@ -1,0 +1,91 @@
+# Weekly data update: new results, upcoming cards, titles and portraits.
+#
+# Runs every Tuesday at 06:17 UTC (after the weekend's events, once the sources
+# have caught up) and on demand from Actions → "Actualización semanal" → Run.
+# It imports every source, checks the result (tests, duplicates, build) and,
+# only if everything passes, commits the new snapshot to the branch it runs on.
+# Vercel redeploys that branch on push.
+#
+# Scheduled workflows run on the repository's default branch: this file must be
+# there for the weekly run to happen.
+name: Actualización semanal de datos
+
+on:
+  schedule:
+    - cron: "17 6 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          sudo apt-get update -qq && sudo apt-get install -y -qq pngquant
+          pip install --quiet opencv-python-headless "mediapipe==0.10.14" numpy
+
+      # Downloaded pages and API answers. Old results never change, so keeping
+      # them saves thousands of requests; recent ones expire inside the scripts.
+      - name: Restore download cache
+        uses: actions/cache@v4
+        with:
+          path: data/.cache
+          key: data-cache-${{ github.run_id }}
+          restore-keys: data-cache-
+
+      - name: UFC (UFCStats, Wikidata, Wikipedia)
+        run: npx tsx scripts/import-ufc.mts --refresh
+
+      - name: Birthplaces from Wikipedia
+        run: npm run enrich:wiki
+
+      - name: Official UFC portraits (new fighters)
+        run: npm run photos:espn
+
+      - name: Other organizations (ESPN)
+        run: npm run import:orgs
+
+      - name: ONE, KSW and RIZIN (Wikipedia)
+        run: npm run import:wiki-orgs
+
+      - name: Crop new portraits
+        run: python scripts/process-photos.py --official-only
+
+      - name: Check
+        run: |
+          npm run typecheck
+          npm test
+          npm run check:duplicates
+          npm run build
+
+      - name: Commit and push
+        run: |
+          git config user.name "fightcore-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/snapshot public/photos/official
+          if git diff --cached --quiet; then
+            echo "Sin cambios en los datos."
+            exit 0
+          fi
+          git commit -m "Datos: actualización semanal $(date -u +%Y-%m-%d)"
+          git push

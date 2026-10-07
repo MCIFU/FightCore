@@ -20,7 +20,7 @@ export { DATASET, TODAY };
 /** Provenance tag for facts in the active dataset, and how the UI names it. */
 export const IS_DEMO = DATASET.kind === "demo";
 export const SRC: "demo" | "imported" = IS_DEMO ? "demo" : "imported";
-export const DATA_LABEL = IS_DEMO ? "Datos de demostración" : "Datos reales de UFC y otras 12 organizaciones";
+export const DATA_LABEL = IS_DEMO ? "Datos de demostración" : "Datos reales de UFC y otras 13 organizaciones";
 
 export interface FighterSummary {
   id: string;

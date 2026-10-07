@@ -34,13 +34,17 @@ DATA_PROVIDER=postgres DATABASE_URL=postgres://… npm run build              # 
 
 | `DATA_PROVIDER` | Origen |
 |---|---|
-| *(vacío)* | Snapshot real en `data/snapshot`: UFC con estadísticas + resultados de otras 12 organizaciones (por defecto) |
+| *(vacío)* | Snapshot real en `data/snapshot`: UFC con estadísticas + resultados de otras 13 organizaciones (por defecto) |
 | `demo` | Universo simulado determinista (`lib/demo`) |
 | `postgres` | Base de datos (`DATABASE_URL`) |
 
 El importador cruza las fuentes así: los combates de UFCStats definen luchadores, eventos y estadísticas; Wikidata se enlaza por nombre y fecha de nacimiento; la plantilla de Wikipedia marca quién está en activo y aporta el récord profesional total (lo previo a UFC = total − UFC). El linaje de cinturones se reconstruye con los combates por título y se coteja con los campeones actuales de Wikipedia (vacantes y ascensos de interinos no pasan por un combate). Los eventos programados salen de la página de cada evento en Wikipedia.
 
-**Otras organizaciones** (`npm run import:orgs`): PFL, Bellator, RIZIN, KSW, Cage Warriors, LFA, Strikeforce, WEC, PRIDE, DREAM, Pancrase y Shooto, desde la API pública de ESPN (eventos, combates en orden de cartelera, resultado, asalto y tiempo; atletas con fecha de nacimiento, altura, alcance, guardia, equipo y estilo). Un atleta de ESPN se une a su ficha UFC por el enlace ya conocido o por nombre + fecha de nacimiento (±2 días, o un único homónimo cuya fecha difiere por una errata típica: año cambiado, día y mes cruzados); los combates con un luchador sin identificar se descartan. Estas organizaciones no publican estadísticas de golpeo: cuentan para récord, índice de fuerza y rating (con el factor Dominio en neutro), no para métricas. Los títulos salen de los combates que ESPN marca como título (`competition.types`), sin torneos ni cinturones regionales; ESPN no registra vacantes, así que un reinado sigue vigente solo si su dueño pelea allí en los últimos 600 días. `npm run enrich:wiki` añade el lugar de nacimiento desde las fichas de Wikipedia.
+**Otras organizaciones** (`npm run import:orgs`): PFL, Bellator, RIZIN, KSW, Cage Warriors, LFA, Strikeforce, WEC, PRIDE, DREAM, Pancrase y Shooto, desde la API pública de ESPN (eventos, combates en orden de cartelera, resultado, asalto y tiempo; atletas con fecha de nacimiento, altura, alcance, guardia, equipo y estilo). Un atleta de ESPN se une a su ficha UFC por el enlace ya conocido o por nombre + fecha de nacimiento (±2 días, o un único homónimo cuya fecha difiere por una errata típica: año cambiado, día y mes cruzados); los combates con un luchador sin identificar se descartan. Estas organizaciones no publican estadísticas de golpeo: cuentan para récord, índice de fuerza y rating (con el factor Dominio en neutro), no para métricas. Los títulos salen de los combates que ESPN marca como título (`competition.types`), sin torneos ni cinturones regionales; ESPN no registra vacantes, así que un reinado sigue vigente solo si su dueño pelea allí en los últimos 600 días. **ONE Championship, y KSW y RIZIN desde 2025** (`npm run import:wiki-orgs`): ESPN no cubre ONE y dejó de cubrir KSW y RIZIN tras 2024. Se toman de Wikipedia (CC BY-SA 4.0): las páginas «YYYY in ONE Championship», «YYYY in Konfrontacja Sztuk Walki» y «YYYY in Rizin Fighting Federation» y el artículo de cada evento que lo tiene. Solo combates de MMA: los de muay thai, kickboxing, grappling, exhibiciones y reglas especiales se descartan. Las clases de ONE se asignan por nombre (su «flyweight» pesa 61,2 kg). Los títulos y su linaje, de todas las fuentes juntas, se calculan al cargar (`lib/data/lineage.ts`).
+
+**Duplicados** (`lib/data/dedupe.ts`, `npm run check:duplicates`): al cargar, los registros de una misma persona en varias fuentes se funden (mismo nombre normalizado; fechas de nacimiento compatibles o a menos de 2,5 años con la misma división o la contigua; nunca dos combates el mismo día ni enfrentados entre sí). Los homónimos con fechas o pesos incompatibles quedan separados.
+
+`npm run enrich:wiki` añade el lugar de nacimiento desde las fichas de Wikipedia.
 
 ## Desplegar en Vercel
 
@@ -52,6 +56,22 @@ El importador cruza las fuentes así: los combates de UFCStats definen luchadore
    - `PHOTO_SOURCE=free` para publicar solo fotos con licencia libre (sin retratos oficiales).
 
 El build genera ~1.550 páginas estáticas (unos 3 minutos). El resto de fichas de luchador y combate se generan bajo demanda; el snapshot de datos viaja con cada función (`outputFileTracingIncludes` en `next.config.ts`). Las imágenes se sirven sin el optimizador de Vercel (`images.unoptimized`): los retratos ya están comprimidos y así no se agota la cuota gratuita.
+
+## Actualización semanal de datos
+
+`.github/workflows/weekly-data.yml` se ejecuta cada martes a las 06:17 UTC (y a mano desde Actions → «Actualización semanal de datos» → Run workflow):
+
+1. UFC con `--refresh` (UFCStats, Wikidata, Wikipedia), lugares de nacimiento y retratos oficiales de los luchadores nuevos.
+2. Otras organizaciones de ESPN y ONE/KSW/RIZIN de Wikipedia. La caché de descargas se guarda entre ejecuciones; los resultados recientes y los carteles caducan (3–5 días), los antiguos no se vuelven a pedir.
+3. Recorte de los retratos nuevos (`process-photos.py --official-only`; los ya recortados se conservan).
+4. Comprobaciones: tipos, tests, duplicados y build. Si algo falla, no se publica nada.
+5. Commit de `data/snapshot` y `public/photos/official` en la rama en la que corre; Vercel vuelve a desplegar.
+
+GitHub solo ejecuta las tareas programadas desde la rama principal del repositorio: el archivo tiene que estar en ella. La primera ejecución tarda más (rellena la caché, unos 30–60 min).
+
+## Modo claro
+
+Botón de sol/luna en la cabecera. Sin elección guardada se sigue la preferencia del sistema; la elección se guarda en el dispositivo. El tema se aplica antes de pintar (`components/layout/theme-script.ts`), así que no hay destello. Los colores son tokens en `app/globals.css` (`:root[data-theme="light"]`).
 
 ## Estructura
 

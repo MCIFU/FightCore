@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, JetBrains_Mono, Newsreader } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { THEME_SCRIPT } from "@/components/layout/theme-script";
 import { Reveal } from "@/components/layout/Reveal";
 import { ServiceWorker } from "@/components/layout/ServiceWorker";
 import { SearchDialog } from "@/components/search/SearchDialog";
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#0b0c0e",
-  colorScheme: "dark",
+  colorScheme: "dark light",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -36,7 +37,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${archivo.variable} ${newsreader.variable} ${jetbrains.variable}`}>
+    // data-theme is set before paint by THEME_SCRIPT, so React mustn't complain about it.
+    <html lang="es" className={`${archivo.variable} ${newsreader.variable} ${jetbrains.variable}`} data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
         <a href="#main" className="skip-link">Saltar al contenido</a>
         <Header stamp={fmtStamp(TODAY)} demo={IS_DEMO} />

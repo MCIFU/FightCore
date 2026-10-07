@@ -1,7 +1,7 @@
 .root { scroll-margin-top: var(--header-h); }
 .bar {
   position: sticky; top: var(--header-h); z-index: 40;
-  background: rgb(11 12 14 / 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
 .tabs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); overflow-x: auto; scrollbar-width: none; }

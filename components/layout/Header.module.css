@@ -14,7 +14,7 @@
 
 .header {
   position: sticky; top: 0; z-index: 50;
-  background: rgb(11 12 14 / 0.86);
+  background: var(--glass);
   backdrop-filter: saturate(140%) blur(10px);
   -webkit-backdrop-filter: saturate(140%) blur(10px);
   border-bottom: 1px solid var(--line);
@@ -72,6 +72,8 @@
 }
 @media (min-width: 640px) { .kbd { display: inline-block; } }
 
+.themeBtn { width: 40px; height: 40px; display: grid; place-items: center; flex: none; color: var(--bone-2); border: 1px solid var(--line-strong); margin-left: 8px; transition: color var(--dur-1), border-color var(--dur-1); }
+.themeBtn:hover { color: var(--bone); border-color: var(--bone-3); }
 .menuBtn { width: 44px; height: 44px; display: grid; place-items: center; margin-right: -10px; }
 @media (min-width: 960px) { .menuBtn { display: none; } }
 .burger { position: relative; width: 20px; height: 10px; }
@@ -100,7 +102,7 @@
 .tabbar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
   display: grid; grid-template-columns: repeat(5, 1fr);
-  background: rgb(11 12 14 / 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  background: var(--glass-strong); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--line-strong);
   padding-bottom: env(safe-area-inset-bottom);
 }

@@ -39,6 +39,13 @@
   --warning: #f2b84b;
   --danger: #ff6b6b;
 
+  /* Theme-dependent surfaces. */
+  --glass: rgb(11 12 14 / 0.88);
+  --glass-strong: rgb(11 12 14 / 0.94);
+  --plate-1: #2a2e35; --plate-2: #1a1d22; --plate-3: #121418;
+  --ramp-0: #3b2a22; --ramp-1: #5e3322; --ramp-2: #8c4022; --ramp-3: #c05224; --ramp-4: #ec6528;
+  color-scheme: dark;
+
   /* Type */
   --font-sans: var(--font-archivo), "Archivo", system-ui, sans-serif;
   --font-serif: var(--font-newsreader), "Newsreader", Georgia, serif;
@@ -170,6 +177,39 @@ p { text-wrap: pretty; }
   font-weight: 600;
 }
 .skip-link:focus { top: var(--s-2); }
+
+/* ───────────────────────── Light theme ─────────────────────────
+   Same roles, inverted: "ink" surfaces become warm paper, "bone" readings
+   become ink. Brand and status colours step down for contrast on light. */
+:root[data-theme="light"] {
+  --ink-0: #f6f3ec;
+  --ink-1: #eee9df;
+  --ink-2: #e5dfd3;
+  --ink-3: #d6cfc1;
+  --ink-4: #bcb4a5;
+  --bone: #15130f;
+  --bone-2: #463f35;
+  --bone-3: #645d51;
+  --line: rgb(21 19 15 / 0.13);
+  --line-strong: rgb(21 19 15 / 0.28);
+  --paper: #e6ddca;
+  --paper-2: #d9cfb9;
+  --corner-a: #d4531a;
+  --corner-b: #3b63cc;
+  --corner-c: #1d8a62;
+  --corner-d: #7a57bd;
+  --ember: #a8400e;
+  --cobalt-text: #2b4fae;
+  --gold-deep: #7a5c14;
+  --success: #17754a;
+  --warning: #855a00;
+  --danger: #b8262a;
+  --glass: rgb(246 243 236 / 0.9);
+  --glass-strong: rgb(246 243 236 / 0.96);
+  --plate-1: #ebe6dc; --plate-2: #ddd6c8; --plate-3: #cfc7b7;
+  --ramp-0: #f0d6c4; --ramp-1: #e8b493; --ramp-2: #e08e5f; --ramp-3: #d4672f; --ramp-4: #a8400e;
+  color-scheme: light;
+}
 
 /* Paper sections swap the palette locally. */
 .paper {

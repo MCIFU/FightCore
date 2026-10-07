@@ -14,7 +14,7 @@
  *
  *   npm run import:orgs        (cached in data/.cache/espn-core; ≈30–60 min the first time)
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
 import { gunzipSync, gzipSync } from "node:zlib";
@@ -27,17 +27,18 @@ const LEAGUES: Record<string, string> = {
   pfl: "pfl", bellator: "bellator", rizin: "rizin", ksw: "ksw", "cage-warriors": "cw", lfa: "lfa",
   strikeforce: "strikeforce", wec: "wec", pride: "pride", dream: "dream", pancrase: "pancrase", "shooto-japan": "shooto",
 };
-const YEARS = Array.from({ length: 2026 - 1997 + 1 }, (_, i) => 1997 + i);
+const YEARS = Array.from({ length: new Date().getUTCFullYear() + 1 - 1997 + 1 }, (_, i) => 1997 + i);
 const CACHE = "data/.cache/espn-core";
 mkdirSync(CACHE, { recursive: true });
 const AS_OF = new Date().toISOString().slice(0, 10);
 
 // ───────── fetch with cache, retries and a small concurrency pool ─────────
 const key = (u: string) => createHash("sha1").update(u.replace(/^http:/, "https:").replace(/[?&](lang|region)=[^&]*/g, "")).digest("hex");
-async function get<T = Record<string, unknown>>(url: string): Promise<T | null> {
+/** maxAgeDays: refetch a cached answer older than this (recent events change; old ones don't). */
+async function get<T = Record<string, unknown>>(url: string, maxAgeDays = Infinity): Promise<T | null> {
   const u = url.replace(/^http:/, "https:");
   const file = `${CACHE}/${key(u)}.json`;
-  if (existsSync(file)) { const t = readFileSync(file, "utf8"); return t === "null" ? null : JSON.parse(t); }
+  if (existsSync(file) && Date.now() - statSync(file).mtimeMs < maxAgeDays * 86_400_000) { const t = readFileSync(file, "utf8"); return t === "null" ? null : JSON.parse(t); }
   for (const wait of [0, 2000, 8000]) {
     if (wait) await new Promise((r) => setTimeout(r, wait));
     try {
@@ -145,14 +146,16 @@ interface Competitor { id: string; order: number; winner?: boolean; athlete?: Re
 interface Competition { id: string; date: string; description?: string; type?: { text?: string }; types?: { text?: string }[]; cardSegment?: { name?: string }; matchNumber?: number; competitors: Competitor[]; status?: Ref; format?: { regulation?: { periods?: number } } }
 interface EspnEvent { id: string; name: string; date: string; venues?: Ref[]; competitions: Competition[] }
 
-const refs: { league: string; ref: string }[] = [];
+const THIS_YEAR = +AS_OF.slice(0, 4);
+const refs: { league: string; ref: string; fresh: boolean }[] = [];
 await pool(Object.keys(LEAGUES).flatMap((l) => YEARS.map((y) => [l, y] as const)), 6, async ([league, y]) => {
-  const list = await get<EvList>(`https://sports.core.api.espn.com/v2/sports/mma/leagues/${league}/events?dates=${y}&limit=1000`);
-  for (const it of list?.items ?? []) refs.push({ league, ref: it.$ref });
+  const fresh = y >= THIS_YEAR - 1;
+  const list = await get<EvList>(`https://sports.core.api.espn.com/v2/sports/mma/leagues/${league}/events?dates=${y}&limit=1000`, fresh ? 3 : Infinity);
+  for (const it of list?.items ?? []) refs.push({ league, ref: it.$ref, fresh });
 });
 console.log(`event refs: ${refs.length}`);
 
-const events = (await pool(refs, 8, async (r) => ({ league: r.league, ev: await get<EspnEvent>(r.ref) })))
+const events = (await pool(refs, 8, async (r) => ({ league: r.league, ev: await get<EspnEvent>(r.ref, r.fresh ? 3 : Infinity) })))
   .filter((x): x is { league: string; ev: EspnEvent } => !!x.ev && !!x.ev.competitions?.length);
 console.log(`events: ${events.length}`);
 
@@ -161,7 +164,9 @@ interface Status { period?: number; clock?: number; type?: { completed?: boolean
 const comps = events.flatMap(({ league, ev }) => ev.competitions.map((c) => ({ league, ev, c })));
 let done = 0;
 const statuses = await pool(comps, 10, async ({ c }) => {
-  const s = c.status ? await get<Status>(c.status.$ref) : null;
+  // Results of the last 60 days and upcoming bouts can still change.
+  const recentBout = (c.date ?? "") >= new Date(Date.now() - 60 * 86_400_000).toISOString();
+  const s = c.status ? await get<Status>(c.status.$ref, recentBout ? 3 : Infinity) : null;
   if (++done % 1000 === 0) console.log(`status ${done}/${comps.length}`);
   return s;
 });
@@ -179,7 +184,7 @@ const athleteIds = [...new Set(comps.flatMap(({ c }) => c.competitors.map((x) =>
 interface Athlete { id: string; firstName?: string; lastName?: string; fullName?: string; nickname?: string; dateOfBirth?: string; height?: number; reach?: number; citizenship?: string; citizenshipCountry?: { abbreviation?: string }; stance?: { text?: string }; association?: { name?: string }; styles?: { text: string }[]; gender?: string; weightClass?: { text?: string }; headshot?: { href: string } }
 done = 0;
 const athletes = new Map((await pool(athleteIds, 10, async (id) => {
-  const a = await get<Athlete>(`https://sports.core.api.espn.com/v2/sports/mma/athletes/${id}`);
+  const a = await get<Athlete>(`https://sports.core.api.espn.com/v2/sports/mma/athletes/${id}`, 90);
   if (++done % 1000 === 0) console.log(`athletes ${done}/${athleteIds.length}`);
   return [id, a] as const;
 })));
@@ -327,47 +332,10 @@ for (const espnId of athleteIds) {
   if (recent && a.headshot?.href) headshots.push({ id, slug, href: a.headshot.href });
 }
 
-// ───────── championships ─────────
-// Same rules as the UFC lineage (scripts/import-ufc.mts): the winner of a title
-// bout holds the belt until someone else wins one in that division; an
-// undisputed bout ends any interim reign. ESPN doesn't record vacated belts, so
-// a reign stays current only while the holder keeps fighting there: if their
-// last bout anywhere is in another promotion, or the promotion has closed, or
-// it is older than 600 days, the reign is closed at their last bout in it.
-type OF = { id: string; date: string; orgId: string; divisionId: string; winnerId: string | null; status: string; titleFight: boolean; interim?: boolean; order: number; redId: string; blueId: string };
-const championships: { orgId: string; divisionId: string; fighterId: string; wonFightId: string; from: string; to: string | null; defenses: number; interim?: boolean; toApprox?: boolean }[] = [];
-const ofs = outFights as OF[];
-const CLOSED = new Set(["strikeforce", "wec", "pride", "dream"]);
-for (const org of new Set(Object.values(LEAGUES))) {
-  const holder = new Map<string, (typeof championships)[number]>(), interimHolder = new Map<string, (typeof championships)[number]>();
-  for (const f of ofs.filter((x) => x.orgId === org && x.status === "completed" && x.titleFight).sort((a, b) => a.date.localeCompare(b.date) || b.order - a.order)) {
-    if (f.divisionId === "CATCH" || f.divisionId === "OPEN" || !f.winnerId) continue;
-    const track = f.interim ? interimHolder : holder;
-    const cur = track.get(f.divisionId);
-    if (cur && cur.fighterId === f.winnerId) { cur.defenses++; continue; }
-    // An interim champion winning the undisputed belt continues as champion.
-    if (cur) cur.to = f.date;
-    const reign = { orgId: org, divisionId: f.divisionId, fighterId: f.winnerId, wonFightId: f.id, from: f.date, to: null, defenses: 0, interim: f.interim || undefined };
-    championships.push(reign);
-    track.set(f.divisionId, reign);
-    if (!f.interim) { const ir = interimHolder.get(f.divisionId); if (ir) { ir.to = f.date; interimHolder.delete(f.divisionId); } }
-  }
-}
-const lastAny = new Map<string, { date: string; orgId: string }>();
-for (const f of ofs) for (const id of [f.redId, f.blueId]) if ((lastAny.get(id)?.date ?? "") < f.date) lastAny.set(id, { date: f.date, orgId: f.orgId });
-// UFC bouts count as "fought elsewhere" too.
-const ufcFights = (JSON.parse(gunzipSync(readFileSync("data/snapshot/ufc.json.gz")).toString()) as { fights: { date: string; redId: string; blueId: string }[] }).fights;
-for (const f of ufcFights) for (const id of [f.redId, f.blueId]) if ((lastAny.get(id)?.date ?? "") < f.date) lastAny.set(id, { date: f.date, orgId: "ufc" });
-const staleBefore = new Date(Date.parse(AS_OF) - 600 * 86_400_000).toISOString().slice(0, 10);
-for (const r of championships) {
-  if (r.to) continue;
-  const last = lastAny.get(r.fighterId);
-  const lastHere = ofs.filter((f) => f.orgId === r.orgId && (f.redId === r.fighterId || f.blueId === r.fighterId) && f.status === "completed").map((f) => f.date).sort().at(-1) ?? r.from;
-  if (CLOSED.has(r.orgId) || !last || last.orgId !== r.orgId || last.date < staleBefore) { r.to = lastHere; r.toApprox = true; }
-}
-console.log(`title bouts ${ofs.filter((f) => f.titleFight).length} · reigns ${championships.length} · current ${championships.filter((r) => !r.to).length}`);
+// Title lineage is built at load time from every source (lib/data/lineage.ts).
+console.log(`title bouts ${(outFights as { titleFight: boolean }[]).filter((f) => f.titleFight).length}`);
 
-writeFileSync("data/snapshot/orgs.json.gz", gzipSync(JSON.stringify({ meta: { asOf: AS_OF, source: "ESPN" }, fighters: outFighters, fights: outFights, events: outEvents, championships })));
+writeFileSync("data/snapshot/orgs.json.gz", gzipSync(JSON.stringify({ meta: { asOf: AS_OF, source: "ESPN" }, fighters: outFighters, fights: outFights, events: outEvents })));
 writeFileSync("data/snapshot/espn-extra.json", JSON.stringify(extra));
 writeFileSync("data/snapshot/espn-headshots.json", JSON.stringify(headshots));
 const per: Record<string, number> = {};

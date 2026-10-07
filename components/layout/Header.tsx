@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -43,7 +44,7 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
           <span className={s.mastMid}>Performance intelligence · MMA</span>
           {demo
             ? <span className={s.demo}><span aria-hidden className={s.demoDot} />Dataset de demostración</span>
-            : <span className={s.live}><span aria-hidden className={s.liveDot} /><span className={s.mastWide}>Datos reales · </span>UFC + 12 org.</span>}
+            : <span className={s.live}><span aria-hidden className={s.liveDot} /><span className={s.mastWide}>Datos reales · </span>UFC + 13 org.</span>}
         </div>
       </div>
       <header className={s.header}>
@@ -91,6 +92,8 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
             <span className={s.searchText}>Buscar luchadores, eventos…</span>
             <kbd className={s.kbd}>/</kbd>
           </button>
+
+          <ThemeToggle className={s.themeBtn} />
 
           <button
             type="button"

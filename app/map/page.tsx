@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 /** Sequential single-hue ramp (Ember), light → dark on a dark surface = more → brighter. */
-const RAMP = ["#3b2a22", "#5e3322", "#8c4022", "#c05224", "#ec6528"];
+const RAMP = ["var(--ramp-0)", "var(--ramp-1)", "var(--ramp-2)", "var(--ramp-3)", "var(--ramp-4)"];
 
 export default function MapPage() {
   const data = mapData();
@@ -45,7 +45,7 @@ export default function MapPage() {
               {world.countries.map((c) => {
                 const d = c.a3 ? by.get(c.a3) : undefined;
                 const b = d ? bucket(d.fighters) : -1;
-                const shape = <path d={c.d} fill={b >= 0 ? RAMP[b] : undefined} className={b >= 0 ? s.has : s.empty} />;
+                const shape = <path d={c.d} style={b >= 0 ? { fill: RAMP[b] } : undefined} className={b >= 0 ? s.has : s.empty} />;
                 return d ? (
                   <a key={c.id + c.name} href={`/fighters?country=${d.code}&status=all`} aria-label={`${d.name}: ${d.fighters} luchadores, ${d.events} eventos, ${d.champions} campeones`}>
                     <title>{`${d.name} · ${d.fighters} luchadores · ${d.events} eventos · ${d.champions} campeones`}</title>

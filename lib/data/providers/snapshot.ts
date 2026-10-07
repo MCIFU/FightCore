@@ -9,6 +9,8 @@ import { gunzipSync } from "node:zlib";
 import type { Championship, Event, Fight, Fighter } from "../../domain/types";
 import type { DatasetInfo, Universe } from "../build";
 import { orgById } from "../../domain/reference";
+import { buildLineage } from "../lineage";
+import { applyAlias, dedupeFighters } from "../dedupe";
 
 interface Snapshot {
   meta: { asOf: string; lastEvent?: string; sources: DatasetInfo["sources"] };
@@ -24,31 +26,55 @@ const readJson = <T,>(file: string, fallback: T): T => (existsSync(join(dir, fil
 
 export function loadUniverseFromSnapshot(): Universe {
   const snap = JSON.parse(gunzipSync(readFileSync(join(dir, "ufc.json.gz"))).toString("utf8")) as Snapshot;
-  // Other organizations (scripts/import-espn-orgs.mts): their events and bouts, and
-  // the fighters who never fought in the UFC. UFC fighters keep one career.
-  if (existsSync(join(dir, "orgs.json.gz"))) {
-    const orgs = JSON.parse(gunzipSync(readFileSync(join(dir, "orgs.json.gz"))).toString("utf8")) as Pick<Snapshot, "fighters" | "fights" | "events"> & { championships?: Snapshot["championships"] };
-    const known = new Set(snap.fighters.map((f) => f.id));
-    snap.fighters.push(...orgs.fighters.filter((f) => !known.has(f.id)));
-    snap.fights.push(...orgs.fights);
-    snap.events.push(...orgs.events);
-    snap.championships.push(...(orgs.championships ?? []));
-    // A UFC fighter whose latest bout is elsewhere now belongs to that organization.
-    const latest = new Map<string, { date: string; orgId: string }>();
-    for (const f of orgs.fights) for (const id of [f.redId, f.blueId]) if ((latest.get(id)?.date ?? "") < f.date) latest.set(id, { date: f.date, orgId: f.orgId });
-    const lastUfc = new Map<string, string>();
-    for (const f of snap.fights) if (f.orgId === "ufc") for (const id of [f.redId, f.blueId]) if ((lastUfc.get(id) ?? "") < f.date) lastUfc.set(id, f.date);
-    for (const f of snap.fighters) {
-      const l = latest.get(f.id);
-      if (l && known.has(f.id) && l.date > (lastUfc.get(f.id) ?? "")) f.orgId = l.orgId;
-    }
+  // Other organizations: ESPN results (scripts/import-espn-orgs.mts) and, for ONE
+  // and KSW/RIZIN after 2024, Wikipedia (scripts/import-wiki-orgs.mts). Fighters
+  // already known keep one career; the rest are added.
+  const known = new Set(snap.fighters.map((f) => f.id));
+  for (const file of ["orgs.json.gz", "wiki-orgs.json.gz"]) {
+    if (!existsSync(join(dir, file))) continue;
+    const extra = JSON.parse(gunzipSync(readFileSync(join(dir, file))).toString("utf8")) as Pick<Snapshot, "fighters" | "fights" | "events">;
+    for (const f of extra.fighters) if (!known.has(f.id)) { snap.fighters.push(f); known.add(f.id); }
+    snap.fights.push(...extra.fights);
+    snap.events.push(...extra.events);
   }
+  // Sources are imported one after another: for a while a bout can point to a
+  // fighter that another source no longer has. Such bouts are left out.
+  const ids = new Set(snap.fighters.map((f) => f.id));
+  const orphan = new Set(snap.fights.filter((f) => !ids.has(f.redId) || !ids.has(f.blueId)).map((f) => f.id));
+  if (orphan.size) {
+    snap.fights = snap.fights.filter((f) => !orphan.has(f.id));
+    for (const e of snap.events) e.fightIds = e.fightIds.filter((id) => !orphan.has(id));
+    snap.events = snap.events.filter((e) => e.fightIds.length || e.status === "upcoming");
+  }
+  // One person, one record across sources (lib/data/dedupe.ts).
+  const dd = dedupeFighters(snap.fighters, snap.fights);
+  snap.fighters = applyAlias(dd.alias, snap.fighters, snap.fights, snap.championships);
+  const aliasesOf = new Map<string, string[]>();
+  for (const [from, into] of dd.alias) aliasesOf.set(into, [...(aliasesOf.get(into) ?? []), from]);
+  /** A per-fighter extra keyed by id, falling back to a merged record's. */
+  const pick = <T,>(m: Record<string, T>, id: string): T | undefined => m[id] ?? (aliasesOf.get(id) ?? []).map((a) => m[a]).find(Boolean);
+  // Organization, division and status follow the latest bout when it's outside the UFC.
+  const latest = new Map<string, { date: string; orgId: string; div: string }>();
+  for (const f of snap.fights) {
+    if (f.status !== "completed") continue;
+    for (const id of [f.redId, f.blueId]) if ((latest.get(id)?.date ?? "") < f.date) latest.set(id, { date: f.date, orgId: f.orgId, div: f.divisionId });
+  }
+  const recent = new Date(Date.parse(snap.meta.asOf) - 730 * 86_400_000).toISOString().slice(0, 10);
+  for (const f of snap.fighters) {
+    const l = latest.get(f.id);
+    if (!l || l.orgId === "ufc") continue;
+    f.orgId = l.orgId;
+    if (l.div !== "CATCH" && l.div !== "OPEN") f.divisionId = l.div;
+    if (f.status !== "retired") f.status = l.date >= recent ? "active" : "inactive";
+  }
+  // Title lineage of every organization except UFC, across sources.
+  snap.championships = [...snap.championships.filter((c) => c.orgId === "ufc"), ...buildLineage(snap.fights, snap.meta.asOf)];
   const extra = readJson<Record<string, { team: string | null; style: string | null }>>("espn-extra.json", {});
   const places = readJson<Record<string, { city: string; country: string | null }>>("wiki-extra.json", {});
   for (const f of snap.fighters) {
-    const x = extra[f.id];
+    const x = pick(extra, f.id);
     if (x) { f.team ??= x.team; f.style ??= x.style; }
-    if (!f.birthPlace && places[f.id]) f.birthPlace = places[f.id];
+    if (!f.birthPlace) f.birthPlace = pick(places, f.id) ?? f.birthPlace;
   }
   const meta = readJson<Record<string, PhotoMeta>>("photo-meta.json", {});
   const processed = readJson<Record<string, { slug: string }>>("photo-processed.json", {});
@@ -57,7 +83,7 @@ export function loadUniverseFromSnapshot(): Universe {
   const free = process.env.PHOTO_SOURCE === "free";
   const official = readJson<Record<string, { slug: string; page: string; team: string | null; style: string | null }>>("photo-official-processed.json", {});
   for (const f of snap.fighters) {
-    const o = official[f.id];
+    const o = pick(official, f.id);
     if (o) {
       f.team = o.team;
       f.style = o.style;

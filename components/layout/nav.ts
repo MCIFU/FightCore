@@ -16,7 +16,7 @@ export const MORE_NAV: NavItem[] = [
   { href: "/records", label: "Récords", product: "Marcas", phase: 2 },
   { href: "/map", label: "Mapa del MMA", product: "Por país", phase: 2 },
   { href: "/history", label: "Historia", product: "1993–hoy", phase: 2 },
-  { href: "/organizations", label: "Organizaciones", product: "13 con datos", phase: 2 },
+  { href: "/organizations", label: "Organizaciones", product: "14 con datos", phase: 2 },
   { href: "/methodology", label: "Metodología FCR", product: "Cómo se calcula", phase: 2 },
   { href: "/credits", label: "Fuentes y créditos", phase: 2 },
   { href: "/brand", label: "Sistema de marca", phase: 1 },

@@ -50,8 +50,11 @@ from collections import Counter
 file_count = Counter(m["file"] for m in meta.values())
 
 done, dropped = {}, {}
-only = set(sys.argv[1:])
-for fid, m in meta.items():
+# --official-only: skip the Wikimedia Commons crops (their sources live in a local
+# cache that CI doesn't have; a full run without it would delete them).
+OFFICIAL_ONLY = "--official-only" in sys.argv
+only = set(a for a in sys.argv[1:] if not a.startswith("--"))
+for fid, m in ({} if OFFICIAL_ONLY else meta).items():
     slug = slug_by_id.get(fid)
     if not slug or (only and slug not in only):
         continue
@@ -140,20 +143,21 @@ for fid, m in meta.items():
     cv2.imwrite(f"{OUT}/{slug}.png", out, [cv2.IMWRITE_PNG_COMPRESSION, 9])
     done[fid] = {"slug": slug, "score": round(float(det.score[0]), 3), "coverage": round(coverage, 3)}
 
-json.dump(done, open("data/snapshot/photo-processed.json", "w"), indent=1)
-print(f"processed {len(done)} · dropped {len(dropped)}")
+if not OFFICIAL_ONLY:
+    json.dump(done, open("data/snapshot/photo-processed.json", "w"), indent=1)
+    print(f"processed {len(done)} · dropped {len(dropped)}")
 for k, v in list(dropped.items())[:40]:
     print("  ✗", k, v)
 
 # Palette PNGs keep the transparency at a quarter of the size (needs pngquant).
 import shutil, subprocess
-if shutil.which("pngquant"):
+if shutil.which("pngquant") and not OFFICIAL_ONLY:
     files = [f"{OUT}/{d['slug']}.png" for d in done.values()]
     for i in range(0, len(files), 50):
         subprocess.run(["pngquant", "--quality=65-90", "--speed", "1", "--force", "--ext", ".png", "--skip-if-larger", *files[i:i + 50]])
 
 # Full runs also remove crops that no longer qualify.
-if not only:
+if not only and not OFFICIAL_ONLY:
     keep_files = {f"{d['slug']}.png" for d in done.values()}
     for f in os.listdir(OUT):
         if (f.endswith(".webp") or f.endswith(".png")) and f not in keep_files:
@@ -167,8 +171,15 @@ if os.path.exists(ESPN):
     OUT_OFF = f"{OUT}/official"
     os.makedirs(OUT_OFF, exist_ok=True)
     official_done = {}
+    new_files = []
+    REDO = "--redo" in sys.argv
     for fid, o in json.load(open(ESPN)).items():
         slug = o["slug"]
+        entry = {"slug": slug, "page": o["page"], "team": o.get("team"), "style": o.get("style")}
+        # Already cropped: keep it (the source may not be in this machine's cache, e.g. in CI).
+        if not REDO and os.path.exists(f"{OUT_OFF}/{slug}.png"):
+            official_done[fid] = entry
+            continue
         src = cv2.imread(f"data/.cache/espn/{slug}.png", cv2.IMREAD_UNCHANGED)
         if src is None:
             continue
@@ -202,10 +213,11 @@ if os.path.exists(ESPN):
             continue
         crop = cv2.resize(crop, (OFF_SIZE, OFF_SIZE), interpolation=cv2.INTER_AREA)
         cv2.imwrite(f"{OUT_OFF}/{slug}.png", crop, [cv2.IMWRITE_PNG_COMPRESSION, 9])
-        official_done[fid] = {"slug": slug, "page": o["page"], "team": o.get("team"), "style": o.get("style")}
+        official_done[fid] = entry
+        new_files.append(f"{OUT_OFF}/{slug}.png")
     json.dump(official_done, open("data/snapshot/photo-official-processed.json", "w"), indent=1)
     if shutil.which("pngquant"):
-        files = [f"{OUT_OFF}/{d['slug']}.png" for d in official_done.values()]
+        files = new_files
         for i in range(0, len(files), 50):
             subprocess.run(["pngquant", "--quality=70-92", "--speed", "1", "--force", "--ext", ".png", "--skip-if-larger", *files[i:i + 50]])
-    print(f"official {len(official_done)}")
+    print(f"official {len(official_done)} · new {len(new_files)}")
