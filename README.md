@@ -73,6 +73,24 @@ GitHub solo ejecuta las tareas programadas desde la rama principal del repositor
 
 Botón de sol/luna en la cabecera. Sin elección guardada se sigue la preferencia del sistema; la elección se guarda en el dispositivo. El tema se aplica antes de pintar (`components/layout/theme-script.ts`), así que no hay destello. Los colores son tokens en `app/globals.css` (`:root[data-theme="light"]`).
 
+## Rendimiento y experiencia en móvil
+
+Lighthouse móvil (4G lenta y CPU ×4), build de producción:
+
+| Página | Antes | Ahora | Bloqueo (TBT) |
+|---|---|---|---|
+| Portada | 43 | 87 | 3.050 → 60 ms |
+| Rankings | 69 | 89 | 310 → 70 ms |
+| Eventos | 60 | 87 | 430 → 130 ms (43.668 → 569 elementos) |
+| Luchadores | 75 | 80 | CLS 0,41 → 0 |
+| Perfil | 87 | 87 | |
+
+- Sin `loading.tsx` global: escondía el contenido ya renderizado hasta que corría un script al final del HTML (≈4 s más de LCP en móvil). En su lugar, barra de progreso al navegar (`NavProgress`).
+- Pestañas que solo pintan la abierta (`Tabs`); el histórico de eventos va por años (`/events/archivo/[año]`).
+- La aparición al hacer scroll ya no oculta lo que está en pantalla al cargar (`Reveal`).
+- Fuente de lectura con `display: optional` (sin redibujar texto) y mono sin precarga.
+- Transiciones entre páginas (`<ViewTransition>`), cabecera y barra inferior que se apartan al bajar y vuelven al subir (`ScrollDirection`), deslizar entre apartados del perfil, «volver arriba», respuesta visual al tocar, campos de texto sin zoom en iOS y el índice de búsqueda empieza a descargarse al tocar el botón.
+
 ## Estructura
 
 | Carpeta | Qué contiene |

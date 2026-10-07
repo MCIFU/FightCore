@@ -56,6 +56,29 @@ export function ProfilePanels({ panels, label }: { panels: Panel[]; label: strin
   };
 
   const current = active ?? panels[0].id;
+
+  // Swipe left/right on a panel to move between sections (phones). Ignored when
+  // the gesture starts inside something that scrolls sideways (tables, charts).
+  const touch = useRef<{ x: number; y: number; t: number } | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    for (let el = e.target as HTMLElement | null; el && el !== e.currentTarget; el = el.parentElement) {
+      if (el.scrollWidth > el.clientWidth + 2 && getComputedStyle(el).overflowX !== "visible") { touch.current = null; return; }
+      if (el.dataset.noswipe !== undefined || el.tagName === "svg") { touch.current = null; return; }
+    }
+    const t = e.touches[0];
+    touch.current = { x: t.clientX, y: t.clientY, t: Date.now() };
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const start = touch.current; touch.current = null;
+    if (!start) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - start.x, dy = t.clientY - start.y;
+    if (Math.abs(dx) < 70 || Math.abs(dy) > Math.abs(dx) * 0.6 || Date.now() - start.t > 600) return;
+    const i = panels.findIndex((p) => p.id === current);
+    const to = dx < 0 ? i + 1 : i - 1;
+    if (to >= 0 && to < panels.length) choose(panels[to].id);
+  };
+
   return (
     <div ref={top} className={s.root}>
       <div className={s.bar}>
@@ -74,7 +97,7 @@ export function ProfilePanels({ panels, label }: { panels: Panel[]; label: strin
           </div>
         </div>
       </div>
-      <div className="wrap">
+      <div className="wrap" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         {panels.map((p) => (
           <div
             key={p.id} id={`panel-${p.id}`} role="tabpanel" aria-labelledby={`tab-${p.id}`}

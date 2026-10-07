@@ -113,3 +113,11 @@
 }
 .tabbar > [aria-current="page"] { color: var(--bone); box-shadow: inset 0 2px 0 var(--ember); }
 .tabSearch { color: var(--bone) !important; }
+
+/* Phones: header and bottom bar make way while scrolling down (ScrollDirection). */
+@media (max-width: 959px) {
+  .header, .tabbar { transition: transform 260ms var(--ease-out); will-change: transform; }
+  :global(html[data-scroll="down"]) .header { transform: translateY(-100%); }
+  :global(html[data-scroll="down"]) .tabbar { transform: translateY(100%); }
+}
+@media (prefers-reduced-motion: reduce) { .header, .tabbar { transition: none; } }

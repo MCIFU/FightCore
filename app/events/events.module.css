@@ -20,3 +20,15 @@
 }
 .year { margin-top: 32px; }
 .yearTitle { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 3rem; line-height: 1; margin-bottom: 8px; color: var(--bone-3); }
+
+/* Archive index: one tile per year. */
+.years { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: var(--s-5); }
+.yearLink { display: grid; gap: 2px; padding: 16px; background: var(--ink-0); min-height: 76px; transition: background var(--dur-1); }
+.yearLink:hover, .yearLink:focus-visible { background: var(--ink-1); }
+.yearNum { font-variation-settings: "wdth" 70; font-weight: 800; font-size: 1.9rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.yearCount { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-3); }
+.yearNav { display: flex; justify-content: space-between; gap: 12px; margin: var(--s-6) 0 var(--s-4); }
+.yearNav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--line-strong); font-weight: 600; }
+.yearNav a:hover { border-color: var(--bone-3); }
+.crumbs { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); margin-bottom: var(--s-4); }
+.crumbs a { display: inline-block; padding-block: 8px; margin-block: -8px; }

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 type Ev = ReturnType<typeof listEvents>[number];
 
-function EventRows({ events }: { events: Ev[] }) {
+export function EventRows({ events }: { events: Ev[] }) {
   return (
     <ol className={s.rows}>
       {events.map((e) => {
@@ -57,14 +57,14 @@ export default function EventsPage() {
           { id: "recent", label: `Últimos 12 meses · ${recent.length}`, content: <EventRows events={recent} /> },
           {
             id: "hist", label: `Histórico · ${historical.length}`, content: (
-              <div>
-                {byYear.map((y) => (
-                  <section key={y} aria-labelledby={`y-${y}`} className={s.year}>
-                    <h2 id={`y-${y}`} className={s.yearTitle}>{y}</h2>
-                    <EventRows events={historical.filter((e) => e.date.startsWith(y))} />
-                  </section>
-                ))}
-              </div>
+              <nav aria-label="Archivo por años">
+                <ul className={s.years}>
+                  {byYear.map((y) => {
+                    const n = historical.filter((e) => e.date.startsWith(y)).length;
+                    return <li key={y}><Link href={`/events/archivo/${y}`} className={s.yearLink}><span className={s.yearNum}>{y}</span><span className={s.yearCount}>{n} {n === 1 ? "evento" : "eventos"}</span></Link></li>;
+                  })}
+                </ul>
+              </nav>
             ),
           },
         ]}

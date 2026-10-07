@@ -1,6 +1,6 @@
 .root { scroll-margin-top: var(--header-h); }
 .bar {
-  position: sticky; top: var(--header-h); z-index: 40;
+  position: sticky; top: var(--header-offset, var(--header-h)); z-index: 40; transition: top 260ms var(--ease-out);
   background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -30,3 +30,9 @@
 /* Headings inside a panel: a section title, not a page title. */
 .panel :global(h2) { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem); }
 .panel header + * { margin-top: 0; }
+
+/* Switching sections: a short fade, not a jump. */
+@media (prefers-reduced-motion: no-preference) {
+  .panel:not([hidden]) { animation: panelIn 220ms var(--ease-out); }
+  @keyframes panelIn { from { opacity: 0; transform: translateY(6px); } }
+}

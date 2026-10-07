@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { NucleoMark, Logo } from "@/components/brand/Logo";
-import { openSearch } from "@/components/search/searchBus";
+import { openSearch, prefetchSearchIndex } from "@/components/search/searchBus";
 import { MORE_NAV, PRIMARY_NAV } from "./nav";
 import s from "./Header.module.css";
 
@@ -47,7 +47,7 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
             : <span className={s.live}><span aria-hidden className={s.liveDot} /><span className={s.mastWide}>Datos reales · </span>UFC + 13 org.</span>}
         </div>
       </div>
-      <header className={s.header}>
+      <header className={s.header} style={{ viewTransitionName: "site-header" }}>
         <div className={`wrap ${s.inner}`}>
           <Link href="/" className={s.brand} aria-label="FIGHTCORE, inicio">
             <Logo className={s.logoFull} />
@@ -87,7 +87,7 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
             </ul>
           </nav>
 
-          <button type="button" className={s.search} onClick={() => openSearch()} aria-label="Buscar (atajo: tecla barra o Ctrl+K)">
+          <button type="button" className={s.search} onPointerDown={() => prefetchSearchIndex()} onFocus={() => prefetchSearchIndex()} onClick={() => openSearch()} aria-label="Buscar (atajo: tecla barra o Ctrl+K)">
             <svg aria-hidden viewBox="0 0 20 20" width="16" height="16"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.6" /><path d="m13 13 4.5 4.5" stroke="currentColor" strokeWidth="1.6" /></svg>
             <span className={s.searchText}>Buscar luchadores, eventos…</span>
             <kbd className={s.kbd}>/</kbd>
@@ -125,10 +125,10 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
       </div>
 
       {/* App-style bottom bar on phones: thumb-reach for the four core jobs. */}
-      <nav aria-label="Accesos rápidos" className={s.tabbar}>
+      <nav aria-label="Accesos rápidos" className={s.tabbar} style={{ viewTransitionName: "site-tabbar" }}>
         <Link href="/" aria-current={path === "/" ? "page" : undefined}><NucleoMark size={18} mono /><span>Inicio</span></Link>
         <Link href="/fighters" aria-current={active("/fighters") ? "page" : undefined}><TabIcon d="M10 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM4 17c0-3.3 2.7-5 6-5s6 1.7 6 5" /><span>Luchadores</span></Link>
-        <button type="button" onClick={() => openSearch()} className={s.tabSearch}><TabIcon d="M8.5 3a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11ZM13 13l4.5 4.5" /><span>Buscar</span></button>
+        <button type="button" onPointerDown={() => prefetchSearchIndex()} onClick={() => openSearch()} className={s.tabSearch}><TabIcon d="M8.5 3a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11ZM13 13l4.5 4.5" /><span>Buscar</span></button>
         <Link href="/rankings" aria-current={active("/rankings") ? "page" : undefined}><TabIcon d="M3 17V9h4v8M8 17V4h4v13M13 17v-6h4v6" /><span>Rankings</span></Link>
         <Link href="/compare" aria-current={active("/compare") ? "page" : undefined}><TabIcon d="M3 10h6M11 10h6M9 5v10M11 5v10" /><span>Comparar</span></Link>
       </nav>

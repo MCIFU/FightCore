@@ -139,7 +139,8 @@
 .ledger td { padding: 14px 12px 14px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
 .ledger tr:hover td { background: var(--ink-1); }
 .num { text-align: right !important; }
-.ledgerDate { white-space: nowrap; color: var(--bone-2); }
+.ledgerDate { white-space: nowrap; color: var(--bone-2); max-width: clamp(140px, 24vw, 280px); }
+.ledgerDate > span { overflow: hidden; text-overflow: ellipsis; }
 .ledgerDate > span { display: block; }
 .ledgerEvent { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.06em; color: var(--bone-3); text-transform: uppercase; }
 .ledgerFight { margin-right: 8px; }

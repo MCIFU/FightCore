@@ -7,10 +7,14 @@ export interface TabDef { id: string; label: ReactNode; content: ReactNode; hint
 
 /**
  * WAI-ARIA tabs with automatic activation, roving tabindex, Home/End support.
- * Panels stay in the DOM (hidden) so server-rendered content is indexable.
+ * Only the open panel is rendered at first; a panel stays mounted once visited.
+ * Pages with many tabs (rankings by division) were painting thousands of
+ * hidden elements on load, which made phones stutter.
  */
 export function Tabs({ tabs, label, initial, variant = "line", onChange }: { tabs: TabDef[]; label: string; initial?: string; variant?: "line" | "pill" | "scroll"; onChange?: (id: string) => void }) {
-  const [active, setActive] = useState(initial ?? tabs[0]?.id);
+  const [active, setActiveRaw] = useState(initial ?? tabs[0]?.id);
+  const [seen, setSeen] = useState(() => new Set([initial ?? tabs[0]?.id]));
+  const setActive = (id: string) => { setActiveRaw(id); setSeen((s) => (s.has(id) ? s : new Set(s).add(id))); };
   const base = useId();
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -60,7 +64,7 @@ export function Tabs({ tabs, label, initial, variant = "line", onChange }: { tab
           tabIndex={0}
           className={s.panel}
         >
-          {t.content}
+          {seen.has(t.id) ? t.content : null}
         </div>
       ))}
     </div>

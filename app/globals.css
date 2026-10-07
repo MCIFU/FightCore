@@ -73,6 +73,8 @@
   --max: 1520px;
   --radius: 2px;
   --header-h: 60px;
+  /* Space the sticky header takes right now (0 while it's hidden on phones). */
+  --header-offset: var(--header-h);
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -229,8 +231,8 @@ p { text-wrap: pretty; }
 
 /* Reveal-on-scroll (progressive: content is visible without JS). */
 @media (prefers-reduced-motion: no-preference) {
-  .js [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out); }
-  .js [data-reveal][data-in] { opacity: 1; transform: none; }
+  [data-reveal] { transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out); }
+  [data-reveal][data-pending] { opacity: 0; transform: translateY(14px); }
 }
 main:focus { outline: none; }
 
@@ -243,3 +245,47 @@ main:focus { outline: none; }
 .scrollx { overflow-x: auto; overscroll-behavior-x: contain; max-width: 100%; }
 .scrollx > table { min-width: max-content; }
 @media (min-width: 640px) { .scrollx > table { min-width: 0; } }
+
+@media (max-width: 959px) { html[data-scroll="down"] { --header-offset: 0px; } }
+
+/* ───────── Page transitions (React <ViewTransition>, see app/layout.tsx) ───────── */
+::view-transition { pointer-events: none; }
+::view-transition-old(*), ::view-transition-new(*) { animation-duration: 180ms; animation-timing-function: var(--ease-out); }
+/* Header and bottom bar stay put: only the content changes. */
+::view-transition-group(site-header), ::view-transition-group(site-tabbar) { animation: none; z-index: 100; }
+::view-transition-old(site-header), ::view-transition-old(site-tabbar) { display: none; }
+::view-transition-new(site-header), ::view-transition-new(site-tabbar) { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*), ::view-transition-new(*), ::view-transition-group(*) { animation-duration: 0s !important; animation-delay: 0s !important; }
+}
+
+/* ───────── Touch ───────── */
+html { -webkit-tap-highlight-color: transparent; }
+/* A press reads as a press: quick dim on links and buttons with a coarse pointer. */
+@media (pointer: coarse) {
+  a, button, [role="tab"], summary { transition: opacity 120ms ease; }
+  a:active, button:active, [role="tab"]:active, summary:active { opacity: 0.6; }
+  /* iOS zooms into inputs under 16px: keep them at 16px. */
+  input, select, textarea { font-size: max(16px, 1em) !important; }
+}
+
+/* Navigation progress (components/layout/NavProgress.tsx). */
+.nav-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 200; pointer-events: none; transform-origin: left; transform: scaleX(0); opacity: 0; background: var(--ember); }
+.nav-progress[data-state="busy"] { opacity: 1; animation: navBusy 8s cubic-bezier(0.1, 0.7, 0.2, 1) forwards; }
+.nav-progress[data-state="done"] { opacity: 0; transform: scaleX(1); transition: transform 160ms ease-out, opacity 260ms 140ms ease; }
+@keyframes navBusy { from { transform: scaleX(0.04); } to { transform: scaleX(0.92); } }
+
+/* Back to top (components/layout/BackToTop.tsx): above the bottom bar on phones. */
+.back-to-top {
+  position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 55;
+  width: 46px; height: 46px; display: grid; place-items: center;
+  background: var(--glass-strong); color: var(--bone); border: 1px solid var(--line-strong);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity 200ms var(--ease-out), transform 260ms var(--ease-out);
+}
+.back-to-top[data-show] { opacity: 1; transform: none; pointer-events: auto; }
+@media (max-width: 759px) {
+  .back-to-top { bottom: calc(72px + env(safe-area-inset-bottom)); }
+  html[data-scroll="down"] .back-to-top { bottom: calc(16px + env(safe-area-inset-bottom)); }
+}

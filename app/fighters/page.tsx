@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { FighterDatabase } from "@/components/fighter/FighterDatabase";
 import { SectionHead, Source } from "@/components/ui/primitives";
 import { DIVISIONS } from "@/lib/domain/reference";
@@ -37,9 +36,8 @@ export default async function FightersPage({ searchParams }: { searchParams: Pro
         as="h1" kicker="FIGHTCORE Database" title="Luchadores"
         lede={<>Todos los expedientes en un solo índice. Filtra, ordena y elige la densidad que necesites. <Source kind={SRC} /></>}
       />
-      <Suspense>
-        <FighterDatabase fighters={fighters} countries={countries} orgs={orgs} divisions={DIVISIONS.map((d) => ({ id: d.id, name: d.name, short: d.short }))} />
-      </Suspense>
+      {/* Dynamic page (reads searchParams): no Suspense needed, so the list is in the first HTML and nothing jumps. */}
+      <FighterDatabase fighters={fighters} countries={countries} orgs={orgs} divisions={DIVISIONS.map((d) => ({ id: d.id, name: d.name, short: d.short }))} />
     </div>
   );
 }

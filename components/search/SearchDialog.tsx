@@ -5,7 +5,7 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 import type { SearchDoc, SearchFight } from "@/lib/data/repository";
 import { fmtDate } from "@/lib/format";
 import { score } from "./match";
-import { onOpenSearch } from "./searchBus";
+import { onOpenSearch, prefetchSearchIndex } from "./searchBus";
 import s from "./SearchDialog.module.css";
 import { unpack, type PackedIndex } from "@/lib/search-pack";
 
@@ -38,7 +38,7 @@ export function SearchDialog({ demo = false }: { demo?: boolean }) {
   const load = useCallback(() => {
     if (idx) return;
     setError(false);
-    fetch("/api/search").then((r) => (r.ok ? r.json() : Promise.reject())).then((p: PackedIndex) => setIdx(unpack(p))).catch(() => setError(true));
+    prefetchSearchIndex().then((p) => setIdx(unpack(p as PackedIndex))).catch(() => setError(true));
   }, [idx]);
 
   const open = useCallback((query = "") => {
