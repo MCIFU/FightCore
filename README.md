@@ -59,7 +59,7 @@ El build genera ~1.550 páginas estáticas (unos 3 minutos). El resto de fichas 
 
 ## Actualización semanal de datos
 
-`.github/workflows/weekly-data.yml` se ejecuta cada martes a las 06:17 UTC (y a mano desde Actions → «Actualización semanal de datos» → Run workflow):
+`.github/workflows/weekly-data.yml` se ejecuta cada lunes a las 08:00 hora de España (Europe/Madrid; GitHub solo admite UTC, así que hay dos horarios, 06:00 y 07:00 UTC, y un primer paso deja pasar solo el que corresponde según el horario de verano o de invierno) y a mano desde Actions → «Actualización semanal de datos» → Run workflow:
 
 1. UFC con `--refresh` (UFCStats, Wikidata, Wikipedia), lugares de nacimiento y retratos oficiales de los luchadores nuevos.
 2. Otras organizaciones de ESPN y ONE/KSW/RIZIN de Wikipedia. La caché de descargas se guarda entre ejecuciones; los resultados recientes y los carteles caducan (3–5 días), los antiguos no se vuelven a pedir.
