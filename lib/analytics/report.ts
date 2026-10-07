@@ -152,7 +152,7 @@ export function scoutingReport(i: ReportInput): ScoutingReport {
   // 5 · Trend and activity.
   const trend = i.ratingTrend;
   const bits: string[] = [];
-  if (trend !== null && Math.abs(trend) >= 2) bits.push(`su rating ${trend > 0 ? "sube" : "baja"} ${num(Math.abs(trend))} puntos en sus tres últimos combates`);
+  if (trend !== null && Math.abs(trend) >= 1.5) bits.push(`su rating ${trend > 0 ? "sube" : "baja"} ${num(Math.abs(trend))} puntos en sus tres últimos combates`);
   if (st.currentStreak.kind === "W" && st.currentStreak.n >= 3) bits.push(`llega con ${st.currentStreak.n} victorias seguidas`);
   if (st.currentStreak.kind === "L" && st.currentStreak.n >= 2) bits.push(`llega con ${st.currentStreak.n} derrotas seguidas`);
   if (i.daysSinceLast !== null && i.daysSinceLast > 540) bits.push(`lleva ${Math.round(i.daysSinceLast / 30.4)} meses sin pelear`);

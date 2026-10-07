@@ -53,7 +53,15 @@ export function LineChart({ series, height = 280, yDomain, yLabel, formatX, form
 
   const sx = (x: number) => pad.l + ((x - xMin) / Math.max(1, xMax - xMin)) * (W - pad.l - pad.r);
   const sy = (y: number) => pad.t + (1 - (y - yMin) / (yMax - yMin)) * (H - pad.t - pad.b);
-  const ticks = Array.from({ length: 5 }, (_, i) => yMin + ((yMax - yMin) * i) / 4);
+  // Round tick values (1, 2, 2.5 or 5 × 10ⁿ), about five of them.
+  const ticks = useMemo(() => {
+    const raw = (yMax - yMin) / 4;
+    const mag = 10 ** Math.floor(Math.log10(raw || 1));
+    const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((x) => x >= raw * 0.8) ?? raw;
+    const out: number[] = [];
+    for (let v = Math.ceil(yMin / step - 1e-9) * step; v <= yMax + 1e-9; v += step) out.push(Math.round(v * 1000) / 1000);
+    return out;
+  }, [yMin, yMax]);
   const years = useMemo(() => {
     const out: number[] = [];
     const y0 = new Date(xMin).getUTCFullYear(), y1 = new Date(xMax).getUTCFullYear();

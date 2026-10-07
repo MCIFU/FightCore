@@ -20,7 +20,7 @@ export default function MethodologyPage() {
           <p className="label">FIGHTCORE Rating · Modelo v{FCR_VERSION}</p>
           <h1 className={s.title}>Un número que enseña sus cuentas</h1>
           <p className={`serif ${s.lede}`}>
-            El FIGHTCORE Rating (FCR) resume en una escala de 0 a 100 el rendimiento competitivo que un luchador ha demostrado. No es una predicción, ni un juicio sobre quién ganaría, ni «la verdad» sobre quién es mejor. Es una métrica propia, con reglas públicas.
+            El FIGHTCORE Rating (FCR) resume en una escala de 50 a 100 el rendimiento competitivo que un luchador ha demostrado. No es una predicción, ni un juicio sobre quién ganaría, ni «la verdad» sobre quién es mejor. Es una métrica propia, con reglas públicas.
           </p>
         </header>
 
@@ -48,11 +48,18 @@ export default function MethodologyPage() {
 
             <section id="calculo" aria-labelledby="h2s">
               <SectionHead tone="paper" id="h2s" as="h2" round="02" kicker="Fórmula" title="Cómo se calcula" />
-              <p className="serif">Cada factor se puntúa de 0 a 100 a partir de datos observables. El rating es la suma ponderada:</p>
-              <pre className={s.formula} aria-label="FCR igual a la suma de cada factor por su peso">
-                FCR = Σ ( factor<sub>i</sub> × peso<sub>i</sub> )     Σ peso = 1
+              <p className="serif">Cada factor se puntúa de 0 a 100 a partir de datos observables. Su suma ponderada es la <em>puntuación</em> del luchador en ese momento:</p>
+              <pre className={s.formula} aria-label="Puntuación igual a la suma de cada factor por su peso">
+                P = Σ ( factor<sub>i</sub> × peso<sub>i</sub> )     Σ peso = 1
               </pre>
-              <p className="serif">Los pesos son fijos y públicos. Cambiar un peso cambia la versión del modelo. En la ficha de cada luchador se muestra cuántos puntos aporta cada factor, y siempre suman exactamente el rating publicado.</p>
+              <p className="serif">El rating publicado pasa esa puntuación a la escala 50–100 y la suaviza combate a combate:</p>
+              <pre className={s.formula} aria-label="Nivel nuevo igual a nivel anterior más 45 por ciento de la diferencia, con un máximo de 6; FCR igual a 50 más nivel entre 2">
+                nivel = nivel<sub>ant.</sub> + 0,45 × (P − nivel<sub>ant.</sub>), máx. ±6{"\n"}
+                FCR = 50 + nivel ÷ 2
+              </pre>
+              <p className="serif"><strong>Por qué 50–100.</strong> Todos los luchadores con cobertura son profesionales seleccionados; empezar en 0 exageraba las distancias (un luchador medio salía con 40 y uno de élite con 90). El orden no cambia: un luchador medio ronda hoy 72, el 10 % mejor pasa de 80 y la élite está entre 85 y 95.</p>
+              <p className="serif"><strong>Por qué suavizado.</strong> Un combate es una muestra pequeña. Cada resultado mueve el rating un 45 % de la distancia hasta su nuevo nivel y nunca más de 3 puntos; una racha sí lo mueve mucho. El cambio típico por combate es de 0,9 puntos. Comprobado: suavizar casi no cambia la capacidad de explicar resultados ({VALIDATION.accuracy.toLocaleString("es-ES")} % frente a {VALIDATION.unsmoothed.toLocaleString("es-ES")} % sin suavizar).</p>
+              <p className="serif">Los pesos y estas reglas son fijos y públicos; cambiarlos cambia la versión del modelo. En la ficha de cada luchador se muestra cuántos puntos aporta cada factor a su puntuación.</p>
               <p className="serif">La <em>fuerza del rival</em> que usan varios factores procede de un índice tipo Elo: cada combate transfiere puntos según lo esperable del resultado. En las decisiones cuenta también cuánto dominó cada uno (golpes, derribos, control); las divididas pesan la mitad, los combates por el título un tercio más, y tras más de 18 meses sin pelear el índice vuelve poco a poco a la media. Se toma en el momento del combate, no con lo que el rival hizo después.</p>
               <p className="serif">Los combates pierden peso con el tiempo: uno de hace 2,5 años cuenta la mitad que uno de hoy. Con pocos combates, cada factor se acerca a un valor neutro en lugar de dispararse por una o dos peleas.</p>
             </section>
@@ -66,7 +73,7 @@ export default function MethodologyPage() {
                 <div><dt><strong>{VALIDATION.strength.toLocaleString("es-ES")} %</strong></dt><dd>con el índice de fuerza (tipo Elo) solo.</dd></div>
                 <div><dt><strong>{VALIDATION.baseline.toLocaleString("es-ES")} %</strong></dt><dd>referencia sin modelo (gana el que la fuente lista primero).</dd></div>
               </dl>
-              <p className="serif">No es una herramienta de predicción: el MMA tiene mucha varianza y un rating hecho de resultados pasados no ve lesiones, cortes de peso ni estilos. La comprobación sirve para decidir qué cambios del modelo son mejoras reales; los pesos de v0.2 salen de ella.</p>
+              <p className="serif">No es una herramienta de predicción: el MMA tiene mucha varianza y un rating hecho de resultados pasados no ve lesiones, cortes de peso ni estilos. La comprobación sirve para decidir qué cambios del modelo son mejoras reales; los pesos de v0.2 y el suavizado de v0.3 salen de ella.</p>
             </section>
 
             <section id="factores" aria-labelledby="h3s">

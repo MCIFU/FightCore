@@ -3,7 +3,7 @@
  * universe or PostgreSQL). Every derived structure below is provider-agnostic.
  */
 import type { Championship, Event, Fight, Fighter, FighterBout, Outcome } from "../domain/types";
-import { computeRating, strength01, type RatingResult } from "../rating/model";
+import { ratingSeries, strength01, type RatingResult } from "../rating/model";
 import { computeStrength } from "../rating/strength";
 import { careerStats, roundProfile, type CareerStats } from "../analytics/career";
 import { computeAttributes, type AttributeKey } from "../analytics/attributes";
@@ -94,14 +94,11 @@ function build(u: Universe): Store {
   const stats = new Map<string, CareerStats>();
   for (const f of u.fighters) {
     const b = bouts.get(f.id)!;
-    rating.set(f.id, computeRating(b, TODAY, { isChampion: champions.has(f.id) }));
+    // Today counts as "champion" for a current holder; earlier dates use the lineage.
+    const series = ratingSeries(b, TODAY, (d) => (d === TODAY ? champions.has(f.id) : wasChampionAt(f.id, d)));
+    rating.set(f.id, series.current);
     stats.set(f.id, careerStats(b));
-    const hist: RatingPoint[] = [];
-    b.forEach((bout) => {
-      if (bout.fight.status !== "completed") return;
-      const r = computeRating(b, bout.fight.date, { isChampion: wasChampionAt(f.id, bout.fight.date) });
-      hist.push({ date: bout.fight.date, value: r.value, band: r.band, fightId: bout.fight.id, outcome: bout.outcome });
-    });
+    const hist: RatingPoint[] = series.history;
     ratingHistory.set(f.id, hist);
   }
 

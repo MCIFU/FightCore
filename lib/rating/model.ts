@@ -16,20 +16,24 @@
  *    swinging on one or two fights; the uncertainty band still shows it.
  *  · The strength index behind opponent quality is now margin-aware
  *    (lib/rating/strength.ts).
+ *
+ * v0.3 (October 2026): published on a 50–100 scale (50 + composite / 2) and
+ * smoothed fight by fight (45 % of the gap, at most 3 published points per
+ * fight). Per-fight change: median 3.8 → 0.9 points; accuracy 61.9 % → 61.7 %.
  * See /methodology for the public explanation.
  */
 import type { FighterBout } from "../domain/types";
 
-export const FCR_VERSION = "0.2";
+export const FCR_VERSION = "0.3";
 
 /**
- * Out-of-sample check (scripts/eval-rating.mts, run 6 Oct 2026): fights since
+ * Out-of-sample check (scripts/eval-rating.mts, run 7 Oct 2026): fights since
  * 2012 in every covered organisation (UFC plus the ESPN results of PFL,
  * Bellator, RIZIN, KSW, Cage Warriors, LFA…) between fighters with ≥3 earlier
  * covered bouts, rating taken the day before. "Acierto" = the higher-rated
  * fighter won. strength = the Elo-style index alone.
  */
-export const VALIDATION = { fights: 6240, accuracy: 61.9, accuracyBigGap: 71.5, bigGap: 10, strength: 60.1, baseline: 57.7 } as const;
+export const VALIDATION = { fights: 6240, accuracy: 61.7, accuracyBigGap: 71.7, bigGap: 5, strength: 60.1, baseline: 57.7, unsmoothed: 61.9 } as const;
 
 export type FactorKey =
   | "performance" | "opponentQuality" | "winQuality" | "recentForm"
@@ -54,7 +58,10 @@ export const FACTORS: FactorDef[] = [
 ];
 
 export interface RatingResult {
+  /** Published rating on the 50–100 scale, smoothed fight by fight. */
   value: number;
+  /** Today's composite score (0–100) before scaling and smoothing. */
+  composite: number;
   /** Half-width of the uncertainty band, in rating points. */
   band: number;
   provisional: boolean;
@@ -78,7 +85,11 @@ const ageWeight = (date: string, asOf: string) => Math.pow(0.5, Math.max(0, days
 /** Pulls a 0..1 factor toward a neutral value when the sample is small. */
 const shrink = (v: number, n: number, prior = 0.4, k = 2) => (n * v + k * prior) / (n + k);
 
-export function computeRating(allBouts: FighterBout[], asOf: string, opts: { isChampion?: boolean } = {}): RatingResult {
+/**
+ * Composite score at one date, recomputed from scratch (0–100, unsmoothed).
+ * The published rating smooths this fight by fight: see computeRating.
+ */
+export function compositeAt(allBouts: FighterBout[], asOf: string, opts: { isChampion?: boolean } = {}): RatingResult {
   const bouts = allBouts.filter((b) => b.fight.status === "completed" && b.fight.date <= asOf && b.outcome !== "NC");
   const n = bouts.length;
   const recent = [...bouts].reverse();
@@ -173,10 +184,73 @@ export function computeRating(allBouts: FighterBout[], asOf: string, opts: { isC
 
   return {
     value: Math.round(value * 10) / 10,
+    composite: Math.round(value * 10) / 10,
     band: Math.round((16 / Math.sqrt(n + 2)) * 10) / 10,
     provisional: n < 3,
     sample: n,
     factors,
     contributions,
   };
+}
+
+/* ─────────────────────────── Published rating (v0.3) ─────────────────────────── */
+
+/**
+ * Scale: FCR = 50 + composite / 2. Every professional in coverage is already a
+ * selected athlete, so the scale starts at 50 instead of 0: the order doesn't
+ * change, but the gap between an average and an elite fighter reads as it
+ * should (≈ 70 vs ≈ 90), not as 40 vs 90.
+ */
+export const SCALE = { base: 50, factor: 0.5 } as const;
+export const toScale = (composite: number) => SCALE.base + SCALE.factor * composite;
+
+/**
+ * Smoothing: after each fight the rating moves only part of the way towards
+ * the newly computed level (STEP of the gap; the whole gap on the debut), and
+ * never more than MAX_STEP composite points in one fight. One result moves a
+ * rating; a run of results moves it a lot. Between fights the same rule
+ * applies to the drift from inactivity.
+ */
+export const SMOOTHING = { step: 0.45, maxStep: 6 } as const;
+
+export interface RatingPointRaw { date: string; fightId: string; outcome: FighterBout["outcome"]; value: number; band: number }
+
+function smoothTowards(prev: number | null, target: number) {
+  if (prev === null) return target;
+  const d = SMOOTHING.step * (target - prev);
+  return prev + Math.max(-SMOOTHING.maxStep, Math.min(SMOOTHING.maxStep, d));
+}
+
+/** Published rating after every completed bout up to `asOf`, plus the rating at `asOf`. */
+export function ratingSeries(
+  allBouts: FighterBout[], asOf: string, championAt: (date: string) => boolean = () => false,
+): { history: RatingPointRaw[]; current: RatingResult } {
+  const done = allBouts.filter((b) => b.fight.status === "completed" && b.fight.date <= asOf);
+  let level: number | null = null;
+  const history: RatingPointRaw[] = [];
+  const cache = new Map<string, RatingResult>();
+  const at = (date: string, champ: boolean) => {
+    const k = `${date}|${champ}`;
+    if (!cache.has(k)) cache.set(k, compositeAt(allBouts, date, { isChampion: champ }));
+    return cache.get(k)!;
+  };
+  for (const b of done) {
+    const c = at(b.fight.date, championAt(b.fight.date));
+    // A no contest doesn't move the rating.
+    if (b.outcome !== "NC" || level === null) level = smoothTowards(level, c.composite);
+    history.push({ date: b.fight.date, fightId: b.fight.id, outcome: b.outcome, value: round1(toScale(level)), band: round1(c.band * SCALE.factor) });
+  }
+  const now = at(asOf, championAt(asOf));
+  const last = done.at(-1)?.fight.date;
+  const finalLevel = level === null ? now.composite : last && last < asOf ? smoothTowards(level, now.composite) : level;
+  const current: RatingResult = { ...now, value: round1(toScale(finalLevel)), band: round1(now.band * SCALE.factor) };
+  return { history, current };
+}
+
+const round1 = (v: number) => Math.round(v * 10) / 10;
+
+/** Published FIGHTCORE Rating at `asOf` (50–100, smoothed). */
+export function computeRating(allBouts: FighterBout[], asOf: string, opts: { isChampion?: boolean; championAt?: (date: string) => boolean } = {}): RatingResult {
+  const champ = opts.championAt ?? ((d: string) => (d === asOf ? !!opts.isChampion : false));
+  return ratingSeries(allBouts, asOf, champ).current;
 }

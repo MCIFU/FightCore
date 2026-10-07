@@ -26,6 +26,9 @@ const ATTRS: { key: AttributeKey; label: string }[] = [
 
 interface RosterItem { slug: string; name: string; division: string; org: string; rating: number; status: string }
 
+/** Position on the 50–100 FCR scale, in %. */
+const fcrPos = (v: number) => Math.max(0, Math.min(100, (v - 50) * 2));
+
 export function CompareView({ entries, roster, demo = false }: { entries: CompareEntry[]; roster: RosterItem[]; demo?: boolean }) {
   const router = useRouter();
   const [pending, start] = useTransition();
@@ -167,11 +170,11 @@ export function CompareView({ entries, roster, demo = false }: { entries: Compar
               </p>
             </div>
             <div className={s.scale} role="img" aria-label={entries.map((e) => `${e.summary.name}: ${e.rating.value.toFixed(1)} ±${e.rating.band}`).join("; ")}>
-              <div className={s.scaleAxis}>{[0, 25, 50, 75, 100].map((t) => <span key={t} style={{ left: `${t}%` }}>{t}</span>)}</div>
+              <div className={s.scaleAxis}>{[50, 60, 70, 80, 90, 100].map((t) => <span key={t} style={{ left: `${fcrPos(t)}%` }}>{t}</span>)}</div>
               {entries.map((e, i) => (
                 <div key={e.summary.slug} className={`${s.scaleRow} ${s[`c_${CORNERS[i]}`]}`}>
-                  <span className={s.scaleRange} style={{ left: `${e.rating.value - e.rating.band}%`, width: `${e.rating.band * 2}%` }} />
-                  <span className={s.scalePoint} style={{ left: `${e.rating.value}%` }}>{LETTER[i]}</span>
+                  <span className={s.scaleRange} style={{ left: `${fcrPos(e.rating.value - e.rating.band)}%`, width: `${e.rating.band * 4}%` }} />
+                  <span className={s.scalePoint} style={{ left: `${fcrPos(e.rating.value)}%` }}>{LETTER[i]}</span>
                 </div>
               ))}
             </div>
@@ -289,7 +292,7 @@ export function CompareView({ entries, roster, demo = false }: { entries: Compar
             <div className={s.blockHead}><h2 id="cmp-evo" className={s.h2}>Evolución del rating</h2><p className={s.note}>Tras cada combate. Útil para ver quién llega en ascenso.</p></div>
             <LineChart
               series={entries.map((e, i) => ({ id: e.summary.slug, label: `${LETTER[i]} · ${e.summary.name}`, color: CORNER_VAR[i], points: e.history.map((h) => ({ x: Date.parse(h.date), y: h.value })) }))}
-              yDomain={[0, 100]}
+              yDomain={[50, 100]}
               yLabel="FIGHTCORE Rating"
               formatX={(x) => fmtDate(new Date(x).toISOString().slice(0, 10))}
               formatY={(y) => y.toFixed(1)}

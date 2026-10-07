@@ -32,8 +32,8 @@ const logloss = (k: "gap" | "eloGap") => {
   }
   return best;
 };
-const big = rows.filter((r) => Math.abs(r.gap) >= 10);
+const big = rows.filter((r) => Math.abs(r.gap) >= 5);
 console.log(`combates evaluados: ${rows.length}`);
-console.log(`FCR  acierto ${(acc("gap") * 100).toFixed(1)}% · log-loss ${logloss("gap").toFixed(4)} · con diferencia ≥10: ${(big.filter((r) => (r.gap > 0) === r.redWon).length / big.length * 100).toFixed(1)}% de ${big.length}`);
+console.log(`FCR  acierto ${(acc("gap") * 100).toFixed(1)}% · log-loss ${logloss("gap").toFixed(4)} · con diferencia ≥5: ${(big.filter((r) => (r.gap > 0) === r.redWon).length / big.length * 100).toFixed(1)}% de ${big.length}`);
 console.log(`Elo  acierto ${(acc("eloGap") * 100).toFixed(1)}% · log-loss ${logloss("eloGap").toFixed(4)}`);
 console.log(`base (siempre gana rojo) ${(rows.filter((r) => r.redWon).length / rows.length * 100).toFixed(1)}%`);

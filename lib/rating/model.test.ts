@@ -10,16 +10,21 @@ test("weights sum to 1", () => {
   assert.equal(Math.round(FACTORS.reduce((a, f) => a + f.weight, 0) * 1000), 1000);
 });
 
-test("contributions sum to the published rating", () => {
+test("contributions sum to today's composite score", () => {
   for (const f of store.fighters.slice(0, 40)) {
     const r = store.rating.get(f.id)!;
     const sum = Object.values(r.contributions).reduce((a, b) => a + b, 0);
-    assert.ok(Math.abs(sum - r.value) < 0.06, `${f.slug}: ${sum} vs ${r.value}`);
+    assert.ok(Math.abs(sum - r.composite) < 0.06, `${f.slug}: ${sum} vs ${r.composite}`);
   }
 });
 
-test("ratings stay in 0–100 and band shrinks with sample", () => {
-  for (const r of store.rating.values()) assert.ok(r.value >= 0 && r.value <= 100);
+test("one fight moves the published rating by at most 3 points", () => {
+  for (const h of store.ratingHistory.values())
+    for (let i = 1; i < h.length; i++) assert.ok(Math.abs(h[i].value - h[i - 1].value) <= 3.05, `${h[i].fightId}: ${h[i - 1].value} → ${h[i].value}`);
+});
+
+test("ratings stay on the 50–100 scale and band shrinks with sample", () => {
+  for (const r of store.rating.values()) assert.ok(r.value >= 50 && r.value <= 100, String(r.value));
   const bouts = store.bouts.get(store.fighters[0].id)!;
   const early = computeRating(bouts.slice(0, 2), "2030-01-01");
   const late = computeRating(bouts, "2030-01-01");

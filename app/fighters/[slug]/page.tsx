@@ -137,9 +137,9 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
               </p>
               <div className={s.bandScale} aria-hidden>
                 <span className={s.bandTrack} />
-                <span className={s.bandRange} style={{ left: `${Math.max(0, rating.value - rating.band)}%`, width: `${rating.band * 2}%` }} />
-                <span className={s.bandPoint} style={{ left: `${rating.value}%` }} />
-                <span className={s.bandTicks}><span>0</span><span>50</span><span>100</span></span>
+                <span className={s.bandRange} style={{ left: `${Math.max(0, (rating.value - rating.band - 50) * 2)}%`, width: `${rating.band * 4}%` }} />
+                <span className={s.bandPoint} style={{ left: `${(rating.value - 50) * 2}%` }} />
+                <span className={s.bandTicks}><span>50</span><span>75</span><span>100</span></span>
               </div>
               <p className={s.ratingMeta}>
                 <span>±{rating.band.toFixed(1)} margen</span>
@@ -284,7 +284,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
         {/* ───────── 02 RATING ───────── */}
         <section id="s-rating" className={s.section} aria-labelledby="h-rating">
           <SectionHead id="h-rating" kicker={`FIGHTCORE Rating · v${FCR_VERSION}`} title="Cómo se compone su rating"
-            lede={<>Ocho factores con peso fijo. La barra suma exactamente {rating.value.toFixed(1)} puntos. <Link href="/methodology" className={s.inlineLink}>Metodología completa</Link>.</>} />
+            lede={<>Ocho factores con peso fijo forman su puntuación de hoy ({rating.composite.toFixed(1)} sobre 100). El rating la pasa a la escala 50–100 y se mueve hacia ella poco a poco, combate a combate, para que un solo resultado no lo dispare ni lo hunda. <Link href="/methodology" className={s.inlineLink}>Metodología completa</Link>.</>} />
           <div className={s.stackWrap}>
             <div className={s.stack} role="img" aria-label={`Contribución por factor: ${FACTORS.map((x) => `${x.label} ${rating.contributions[x.key].toFixed(1)}`).join(", ")}. Total ${factorTotal.toFixed(1)} de 100.`}>
               {FACTORS.map((x, i) => (
@@ -310,7 +310,8 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
               ))}
             </tbody>
             <tfoot>
-              <tr><th scope="row">Total</th><td /><td className={s.hideSm} /><td className={`${s.r} ${s.mono}`}>100%</td><td className={`${s.r} ${s.fContrib}`}>{rating.value.toFixed(1)}</td></tr>
+              <tr><th scope="row">Puntuación de hoy</th><td /><td className={s.hideSm} /><td className={`${s.r} ${s.mono}`}>100%</td><td className={`${s.r} ${s.fContrib}`}>{rating.composite.toFixed(1)}</td></tr>
+              <tr><th scope="row">FIGHTCORE Rating<span className={s.fDesc}>50 + puntuación ÷ 2, suavizado combate a combate (cada combate mueve como mucho 3 puntos).</span></th><td /><td className={s.hideSm} /><td /><td className={`${s.r} ${s.fContrib}`}>{rating.value.toFixed(1)}</td></tr>
             </tfoot>
           </table>
 

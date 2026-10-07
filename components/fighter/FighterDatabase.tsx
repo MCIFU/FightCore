@@ -85,7 +85,7 @@ export function FighterDatabase({ fighters, countries, orgs, divisions }: { figh
         <Select label="Organización" value={org} onChange={(v) => set("org", v)} options={[["all", "Todas"], ...orgs.map((o) => [o, o] as [string, string])]} />
         <Select label="País" value={country} onChange={(v) => set("country", v)} options={[["all", "Todos"], ...countries]} />
         <Select label="Estado" value={status} onChange={(v) => set("status", v)} options={[["active", "En activo"], ["inactive", "Inactivos"], ["retired", "Retirados"], ["all", "Todos"]]} />
-        <Select label="FCR mínimo" value={String(minRating)} onChange={(v) => set("min", v === "0" ? "" : v)} options={[["0", "Cualquiera"], ["40", "≥ 40"], ["55", "≥ 55"], ["65", "≥ 65"], ["75", "≥ 75"]]} />
+        <Select label="FCR mínimo" value={String(minRating)} onChange={(v) => set("min", v === "0" ? "" : v)} options={[["0", "Cualquiera"], ["65", "≥ 65"], ["70", "≥ 70"], ["75", "≥ 75"], ["80", "≥ 80"]]} />
         <Select label="Ordenar" value={sort} onChange={(v) => set("sort", v === "rating" ? "" : v)} options={[["rating", "FCR"], ["wins", "Victorias"], ["recent", "Último combate"], ["age", "Más jóvenes"], ["name", "Apellido"]]} />
       </div>
 

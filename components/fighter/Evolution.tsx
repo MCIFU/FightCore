@@ -41,7 +41,7 @@ export function Evolution({ points, bands, titleDates }: { points: EvoPoint[]; b
         series={[{ id: metric, label: m.label, color: "var(--corner-a)", points: pts }]}
         band={metric === "rating" ? bands.map((b) => ({ x: Date.parse(b.date), lo: b.lo, hi: b.hi })) : undefined}
         markers={titleDates.map((t) => ({ x: Date.parse(t.date), label: t.label }))}
-        yDomain={metric === "rating" ? [0, 100] : undefined}
+        yDomain={metric === "rating" ? [50, 100] : undefined}
         yLabel={m.unit}
         formatX={(x) => fmtDate(new Date(x).toISOString().slice(0, 10))}
         formatY={m.fmt}
