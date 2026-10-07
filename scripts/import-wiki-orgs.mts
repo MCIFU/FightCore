@@ -211,20 +211,28 @@ const usedSlugs = new Set<string>([...ufc.fighters, ...orgs.fighters].map((f) =>
 // ───────── collect ─────────
 interface EventOut { id: string; slug: string; name: string; orgId: string; date: string; city: string; country: string; venue: string | null; status: string; fightIds: string[]; provenance: string }
 const events: EventOut[] = [], fights: Record<string, unknown>[] = [];
-const people = new Map<string, { id: string; name: string; link: string | null; country: string | null; bouts: { date: string; orgId: string; div: string }[] }>();
+const people = new Map<string, Person>();
 const id = (p: string, s: string) => `${p}${createHash("sha1").update(s).digest("hex").slice(0, 14)}`;
 const titleCase = (s: string) => s.trim();
 
+/** Same person whether a table links them or not; two different links = namesakes. */
+const byName = new Map<string, Person[]>();
+type Person = { id: string; name: string; link: string | null; country: string | null; bouts: { date: string; orgId: string; div: string }[] };
 function person(c: ReturnType<typeof cellText>) {
   const name = c.text.replace(/\((?:c|ic|ac)\)/gi, "").replace(/\s+/g, " ").trim();
   if (!name || /^tba|^tbd/i.test(name)) return null;
-  const key = c.link ? `L:${c.link}` : `N:${nameKey(name)}`;
-  let p = people.get(key);
+  const nk = nameKey(name);
+  const same = byName.get(nk) ?? [];
+  let p = c.link
+    ? same.find((x) => x.link === c.link) ?? same.find((x) => !x.link)
+    : same.length === 1 ? same[0] : same.find((x) => !x.link);
+  if (p && c.link && !p.link) p.link = c.link;
   if (!p) {
     // Link to an existing record only on a unique exact name match.
-    const ex = existing.get(nameKey(name)) ?? (c.link ? existing.get(nameKey(c.link.replace(/\s*\(.*\)$/, ""))) : undefined);
-    p = { id: ex && ex.length === 1 ? ex[0] : id("w", key), name: titleCase(name), link: c.link, country: country(c.flag), bouts: [] };
-    people.set(key, p);
+    const ex = existing.get(nk) ?? (c.link ? existing.get(nameKey(c.link.replace(/\s*\(.*\)$/, ""))) : undefined);
+    p = { id: ex && ex.length === 1 ? ex[0] : id("w", c.link ? `L:${c.link}` : `N:${nk}`), name: titleCase(name), link: c.link, country: country(c.flag), bouts: [] };
+    byName.set(nk, [...same, p]);
+    people.set(p.id, p);
   }
   if (!p.country) p.country = country(c.flag);
   return p;

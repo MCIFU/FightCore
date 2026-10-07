@@ -44,7 +44,9 @@ export function dedupeFighters(fighters: Fighter[], fights: Fight[]): DedupeResu
   for (const [, list] of groups) {
     if (list.length < 2) continue;
     // Clusters of records that can be the same person.
-    const sorted = [...list].sort((a, b) => rank(a.id) - rank(b.id) || (bouts.get(b.id)?.length ?? 0) - (bouts.get(a.id)?.length ?? 0));
+    // The kept record: best source, then the clean URL (no disambiguation suffix), then the longest career.
+    const suffixed = (f: Fighter) => (/-[0-9a-f]{5,}$|-\d{5,}$/.test(f.slug) ? 1 : 0);
+    const sorted = [...list].sort((a, b) => rank(a.id) - rank(b.id) || suffixed(a) - suffixed(b) || (bouts.get(b.id)?.length ?? 0) - (bouts.get(a.id)?.length ?? 0));
     const clusters: Fighter[][] = [];
     for (const f of sorted) {
       const fits = clusters.filter((c) => c.every((g) => sameish(f, g)));
