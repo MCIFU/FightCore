@@ -121,3 +121,7 @@
   :global(html[data-scroll="down"]) .tabbar { transform: translateY(100%); }
 }
 @media (prefers-reduced-motion: reduce) { .header, .tabbar { transition: none; } }
+
+/* Installed app only: a back arrow (no browser chrome there). */
+.appBack { display: none; width: 40px; height: 40px; place-items: center; margin-left: -10px; color: var(--bone); flex: none; }
+@media (display-mode: standalone) { .appBack { display: grid; } }

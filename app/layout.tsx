@@ -32,6 +32,8 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
   formatDetection: { telephone: false },
+  // Installed on iOS (Add to Home Screen / PWABuilder iOS): full screen, own name.
+  appleWebApp: { capable: true, title: "FIGHTCORE", statusBarStyle: "black" },
 };
 
 export const viewport: Viewport = {

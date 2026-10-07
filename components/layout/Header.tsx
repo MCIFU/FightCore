@@ -1,5 +1,6 @@
 "use client";
 
+import { AppBack } from "./AppBack";
 import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -49,6 +50,7 @@ export function Header({ stamp, demo }: { stamp: string; demo: boolean }) {
       </div>
       <header className={s.header} style={{ viewTransitionName: "site-header" }}>
         <div className={`wrap ${s.inner}`}>
+          <AppBack className={s.appBack} />
           <Link href="/" className={s.brand} aria-label="FIGHTCORE, inicio">
             <Logo className={s.logoFull} />
             <span className={s.logoCompact}><Logo variant="compact" /></span>

@@ -22,7 +22,8 @@
     "import:orgs": "tsx scripts/import-espn-orgs.mts",
     "enrich:wiki": "tsx scripts/enrich-wikipedia.mts",
     "check:duplicates": "tsx scripts/check-duplicates.mts",
-    "import:wiki-orgs": "tsx scripts/import-wiki-orgs.mts"
+    "import:wiki-orgs": "tsx scripts/import-wiki-orgs.mts",
+    "screenshots": "node scripts/build-screenshots.mjs"
   },
   "dependencies": {
     "next": "16.3.7",
@@ -40,6 +41,7 @@
     "@types/topojson-client": "^3.1.5",
     "d3-geo": "^3.1.1",
     "i18n-iso-countries": "^7.14.0",
+    "playwright-core": "^1.63.0",
     "sharp": "^0.35.5",
     "topojson-client": "^3.1.0",
     "tsx": "^4.23.15",

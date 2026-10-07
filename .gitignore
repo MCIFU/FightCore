@@ -6,3 +6,10 @@ next-env.d.ts
 .env*
 .DS_Store
 data/.cache
+
+# App signing keys and store packages (docs/APP-MOVIL.md): never commit
+*.keystore
+*.jks
+*.aab
+*.apk
+signing-key-info.txt
