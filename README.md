@@ -16,7 +16,7 @@
 - **Rankings, campeones y eventos** de UFC, PFL, ONE, Bellator, RIZIN, KSW y más.
 - **Comparador**, buscador, modo claro y oscuro, y funciona sin conexión como app.
 
-Datos de UFCStats, ESPN, Wikipedia y Wikidata, actualizados cada lunes. Proyecto independiente, sin relación con ninguna organización.
+Datos de UFCStats, ESPN, Wikipedia y Wikidata, actualizados los lunes y jueves. Proyecto independiente, sin relación con ninguna organización.
 
 ## Arrancar
 
