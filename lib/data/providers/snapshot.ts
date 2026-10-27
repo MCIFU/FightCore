@@ -47,8 +47,15 @@ export function loadUniverseFromSnapshot(): Universe {
     snap.events = snap.events.filter((e) => e.fightIds.length || e.status === "upcoming");
   }
   // One person, one record across sources (lib/data/dedupe.ts).
-  const dd = dedupeFighters(snap.fighters, snap.fights);
-  snap.fighters = applyAlias(dd.alias, snap.fighters, snap.fights, snap.championships);
+  // A merge can fill in a birth date that allows another, so repeat until stable.
+  const dd = { alias: new Map<string, string>() };
+  for (let pass = 0; pass < 5; pass++) {
+    const { alias } = dedupeFighters(snap.fighters, snap.fights);
+    if (!alias.size) break;
+    snap.fighters = applyAlias(alias, snap.fighters, snap.fights, snap.championships);
+    for (const [from, into] of dd.alias) dd.alias.set(from, alias.get(into) ?? into);
+    for (const [from, into] of alias) dd.alias.set(from, into);
+  }
   const aliasesOf = new Map<string, string[]>();
   for (const [from, into] of dd.alias) aliasesOf.set(into, [...(aliasesOf.get(into) ?? []), from]);
   /** A per-fighter extra keyed by id, falling back to a merged record's. */
