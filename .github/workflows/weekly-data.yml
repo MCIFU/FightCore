@@ -109,7 +109,10 @@ jobs:
 
       - name: Check · tests
         if: steps.when.outputs.go == 'true'
-        run: npm test
+        # Failing tests also go out as annotations, readable without the full log.
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee test.log || { grep -A12 "^not ok\|^# Subtest\|error:" test.log | grep -E "not ok|error:|expected|actual|Error" | head -20 | sed 's/^/::error title=Test::/'; exit 1; }
 
       - name: Check · duplicates
         if: steps.when.outputs.go == 'true'
