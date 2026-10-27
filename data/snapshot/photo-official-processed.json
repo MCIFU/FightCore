@@ -974,7 +974,7 @@
  "7f6ed67d3ed3c036": {
   "slug": "cody-durden",
   "page": "https://www.espn.com/mma/fighter/_/id/4686725",
-  "team": "American Top Team Atlanta",
+  "team": "American Top Team",
   "style": "Striker"
  },
  "c03520b5c88ed6b4": {
@@ -3272,7 +3272,7 @@
  "85497ffd934ecf7e": {
   "slug": "jacobe-smith",
   "page": "https://www.espn.com/mma/fighter/_/id/5149961",
-  "team": "Fortis MMA",
+  "team": "Ranger MMA",
   "style": null
  },
  "5c84f673b7bb7c15": {
@@ -3482,7 +3482,7 @@
  "7d0a1968b38ca439": {
   "slug": "ramazan-temirov",
   "page": "https://www.espn.com/mma/fighter/_/id/4895691",
-  "team": "Muradov Legion Gym",
+  "team": "Jasur Alijanov MMA",
   "style": "Striker"
  },
  "545092d13c67aa49": {
@@ -3776,7 +3776,7 @@
  "2e45d08b3f2f02c8": {
   "slug": "malcolm-wellmaker",
   "page": "https://www.espn.com/mma/fighter/_/id/5212854",
-  "team": "Faglier's Mixed Martial Arts",
+  "team": "American Top Team",
   "style": null
  },
  "d66a46de8d705353": {
@@ -3818,7 +3818,7 @@
  "95aff2fd8d09a5f0": {
   "slug": "abdul-rakhman-yakhyaev",
   "page": "https://www.espn.com/mma/fighter/_/id/5291025",
-  "team": "MMA & Combat Nurnberg",
+  "team": "Fight Sports Deerfield Beach",
   "style": null
  },
  "c41d426cc7326d1b": {
@@ -4298,7 +4298,7 @@
  "wae391e341d127c91": {
   "slug": "zach-reese",
   "page": "https://www.espn.com/mma/fighter/_/id/5143223",
-  "team": "Bangtao Muay Thai",
+  "team": "WAR Training Center",
   "style": "Mixed Martial Artist"
  },
  "w4a96de452c4edd44": {
@@ -4619,22 +4619,82 @@
   "team": "Dante Rivera BJJ",
   "style": null
  },
- "e4093244": {
-  "slug": "natan-schulte",
-  "page": "https://www.espn.com/mma/fighter/_/id/4093244",
-  "team": "American Top Team",
+ "92b5f4ee9ff40321": {
+  "slug": "alik-lorenz",
+  "page": "https://www.espn.com/mma/fighter/_/id/5220971",
+  "team": "Hard Drive MMA",
   "style": null
  },
- "e4236070": {
-  "slug": "robert-watley",
-  "page": "https://www.espn.com/mma/fighter/_/id/4236070",
-  "team": "Royal Martial Arts",
+ "15b1f83a90302adf": {
+  "slug": "quentin-pasley",
+  "page": "https://www.espn.com/mma/fighter/_/id/5307124",
+  "team": "Fighting Arts Academy",
+  "style": null
+ },
+ "15e0d2df09025bda": {
+  "slug": "ronald-humphrey",
+  "page": "https://www.espn.com/mma/fighter/_/id/5361909",
+  "team": "American Top Team Atlanta",
+  "style": null
+ },
+ "23dec7c47cb418f8": {
+  "slug": "zachary-reese",
+  "page": "https://www.espn.com/mma/fighter/_/id/5143223",
+  "team": "WAR Training Center",
+  "style": "Mixed Martial Artist"
+ },
+ "48e43b65f7838878": {
+  "slug": "modestino-rodrigues",
+  "page": "https://www.espn.com/mma/fighter/_/id/5364355",
+  "team": "Revira Black Team",
+  "style": null
+ },
+ "5a229cbd9cdd28ca": {
+  "slug": "roberto-soldic",
+  "page": "https://www.espn.com/mma/fighter/_/id/4274796",
+  "team": "UFD Gym",
+  "style": "Striker"
+ },
+ "20e04625a5395a06": {
+  "slug": "lucas-armand",
+  "page": "https://www.espn.com/mma/fighter/_/id/5450121",
+  "team": "Murcielago MMA",
+  "style": null
+ },
+ "a24bc9922ee76e9f": {
+  "slug": "asaf-chopurov",
+  "page": "https://www.espn.com/mma/fighter/_/id/5454811",
+  "team": "Team Chingiz Allazov",
+  "style": null
+ },
+ "6188ad39d85a8bf8": {
+  "slug": "joel-faglier",
+  "page": "https://www.espn.com/mma/fighter/_/id/5454260",
+  "team": "Faglier's Mixed Martial Arts",
+  "style": null
+ },
+ "6c39d016053601ee": {
+  "slug": "bruce-whitehead",
+  "page": "https://www.espn.com/mma/fighter/_/id/5311402",
+  "team": "WAR Training Center",
+  "style": null
+ },
+ "wcbec7df7ff67aa62": {
+  "slug": "matthieu-letho-duclos",
+  "page": "https://www.espn.com/mma/fighter/_/id/5013686",
+  "team": "Woirin Team Elite",
   "style": null
  },
  "e4231144": {
   "slug": "sadibou-sy",
   "page": "https://www.espn.com/mma/fighter/_/id/4231144",
   "team": "Pancrase Gym Sweden",
+  "style": null
+ },
+ "e4236070": {
+  "slug": "robert-watley",
+  "page": "https://www.espn.com/mma/fighter/_/id/4236070",
+  "team": "Royal Martial Arts",
   "style": null
  },
  "e4425611": {
@@ -4649,16 +4709,22 @@
   "team": "Alliance MMA",
   "style": "Striker"
  },
+ "e4093244": {
+  "slug": "natan-schulte",
+  "page": "https://www.espn.com/mma/fighter/_/id/4093244",
+  "team": "American Top Team",
+  "style": null
+ },
  "e4423241": {
   "slug": "gadzhi-rabadanov",
   "page": "https://www.espn.com/mma/fighter/_/id/4423241",
   "team": "Eagles MMA",
   "style": null
  },
- "e4300148": {
-  "slug": "movlid-khaybulaev",
-  "page": "https://www.espn.com/mma/fighter/_/id/4300148",
-  "team": "Fight Nights Team",
+ "e4832859": {
+  "slug": "magomed-umalatov",
+  "page": "https://www.espn.com/mma/fighter/_/id/4832859",
+  "team": "American Top Team",
   "style": null
  },
  "e3024604": {
@@ -4667,16 +4733,10 @@
   "team": "Sambo-Piter",
   "style": null
  },
- "e3108772": {
-  "slug": "antonio-carlos-jr",
-  "page": "https://www.espn.com/mma/fighter/_/id/3108772",
-  "team": "American Top Team",
-  "style": "Brazilian Jiu-Jitsu"
- },
- "e4832859": {
-  "slug": "magomed-umalatov",
-  "page": "https://www.espn.com/mma/fighter/_/id/4832859",
-  "team": "American Top Team",
+ "e4300148": {
+  "slug": "movlid-khaybulaev",
+  "page": "https://www.espn.com/mma/fighter/_/id/4300148",
+  "team": "Fight Nights Team",
   "style": null
  },
  "e3949930": {
@@ -4685,22 +4745,16 @@
   "team": "Corinthians MMA",
   "style": "Striker"
  },
+ "e3108772": {
+  "slug": "antonio-carlos-jr",
+  "page": "https://www.espn.com/mma/fighter/_/id/3108772",
+  "team": "American Top Team",
+  "style": "Brazilian Jiu-Jitsu"
+ },
  "e4408708": {
   "slug": "renan-ferreira",
   "page": "https://www.espn.com/mma/fighter/_/id/4408708",
   "team": "Team Nogueira",
-  "style": null
- },
- "e4915658": {
-  "slug": "simeon-powell",
-  "page": "https://www.espn.com/mma/fighter/_/id/4915658",
-  "team": "Great Britain Top Team",
-  "style": null
- },
- "e4295923": {
-  "slug": "jarrah-al-silawi",
-  "page": "https://www.espn.com/mma/fighter/_/id/4295923",
-  "team": "The Source MMA",
   "style": null
  },
  "e4821018": {
@@ -4709,16 +4763,16 @@
   "team": "American Top Team",
   "style": null
  },
+ "e4295923": {
+  "slug": "jarrah-al-silawi",
+  "page": "https://www.espn.com/mma/fighter/_/id/4295923",
+  "team": "The Source MMA",
+  "style": null
+ },
  "e4969980": {
   "slug": "alexei-pergande",
   "page": "https://www.espn.com/mma/fighter/_/id/4969980",
   "team": "Kill Cliff FC",
-  "style": null
- },
- "e4941944": {
-  "slug": "chris-mixan",
-  "page": "https://www.espn.com/mma/fighter/_/id/4941944",
-  "team": "High Altitude Martial Arts",
   "style": null
  },
  "e4913833": {
@@ -4727,16 +4781,22 @@
   "team": "SBG Ireland",
   "style": null
  },
- "e5080821": {
-  "slug": "alex-chizov",
-  "page": "https://www.espn.com/mma/fighter/_/id/5080821",
-  "team": "Gracie Barra BH",
-  "style": null
- },
  "e5080570": {
   "slug": "dakota-ditcheva",
   "page": "https://www.espn.com/mma/fighter/_/id/5080570",
   "team": "American Top Team",
+  "style": null
+ },
+ "e4915658": {
+  "slug": "simeon-powell",
+  "page": "https://www.espn.com/mma/fighter/_/id/4915658",
+  "team": "Great Britain Top Team",
+  "style": null
+ },
+ "e4941944": {
+  "slug": "chris-mixan",
+  "page": "https://www.espn.com/mma/fighter/_/id/4941944",
+  "team": "High Altitude Martial Arts",
   "style": null
  },
  "e5080573": {
@@ -4745,16 +4805,22 @@
   "team": "Manchester Top Team",
   "style": null
  },
+ "e5080821": {
+  "slug": "alex-chizov",
+  "page": "https://www.espn.com/mma/fighter/_/id/5080821",
+  "team": "Gracie Barra BH",
+  "style": null
+ },
  "e5124792": {
   "slug": "gabriel-braga",
   "page": "https://www.espn.com/mma/fighter/_/id/5124792",
   "team": "Tropa Thai",
   "style": null
  },
- "e5144896": {
-  "slug": "mike-bardsley",
-  "page": "https://www.espn.com/mma/fighter/_/id/5144896",
-  "team": "",
+ "e5147581": {
+  "slug": "damion-nelson",
+  "page": "https://www.espn.com/mma/fighter/_/id/5147581",
+  "team": "Longo-Weidman MMA",
   "style": null
  },
  "e4689226": {
@@ -4769,22 +4835,16 @@
   "team": "Fight Sports Deerfield Beach",
   "style": null
  },
- "e5147581": {
-  "slug": "damion-nelson",
-  "page": "https://www.espn.com/mma/fighter/_/id/5147581",
-  "team": "Longo-Weidman MMA",
-  "style": null
- },
- "e5120975": {
-  "slug": "mostafa-nada",
-  "page": "https://www.espn.com/mma/fighter/_/id/5120975",
-  "team": "MMA Jeddah Club",
-  "style": null
- },
  "e5103717": {
   "slug": "biaggio-ali-walsh",
   "page": "https://www.espn.com/mma/fighter/_/id/5103717",
   "team": "Xtreme Couture",
+  "style": null
+ },
+ "e5144896": {
+  "slug": "mike-bardsley",
+  "page": "https://www.espn.com/mma/fighter/_/id/5144896",
+  "team": "",
   "style": null
  },
  "e3821379": {
@@ -4793,10 +4853,10 @@
   "team": "Team Bodyshop",
   "style": "Striker"
  },
- "e3955014": {
-  "slug": "vadim-nemkov",
-  "page": "https://www.espn.com/mma/fighter/_/id/3955014",
-  "team": "FedorTeam",
+ "e5120975": {
+  "slug": "mostafa-rashed-neda",
+  "page": "https://www.espn.com/mma/fighter/_/id/5120975",
+  "team": "MMA Jeddah Club",
   "style": null
  },
  "e3120931": {
@@ -4805,16 +4865,10 @@
   "team": "Kill Cliff FC",
   "style": null
  },
- "e4697390": {
-  "slug": "johnny-eblen",
-  "page": "https://www.espn.com/mma/fighter/_/id/4697390",
-  "team": "American Top Team",
-  "style": null
- },
- "e5127795": {
-  "slug": "bryce-meredith",
-  "page": "https://www.espn.com/mma/fighter/_/id/5127795",
-  "team": "MMA LAB",
+ "e3955014": {
+  "slug": "vadim-nemkov",
+  "page": "https://www.espn.com/mma/fighter/_/id/3955014",
+  "team": "FedorTeam",
   "style": null
  },
  "e5110272": {
@@ -4823,15 +4877,21 @@
   "team": "Alliance Jiu-Jitsu",
   "style": null
  },
+ "e5127795": {
+  "slug": "bryce-meredith",
+  "page": "https://www.espn.com/mma/fighter/_/id/5127795",
+  "team": "MMA LAB",
+  "style": null
+ },
  "e4609439": {
   "slug": "kana-watanabe",
   "page": "https://www.espn.com/mma/fighter/_/id/4609439",
   "team": "Fighter's Flow",
   "style": null
  },
- "e4336342": {
-  "slug": "oleg-popov",
-  "page": "https://www.espn.com/mma/fighter/_/id/4336342",
+ "e4293151": {
+  "slug": "sergei-bilostenniy",
+  "page": "https://www.espn.com/mma/fighter/_/id/4293151",
   "team": "FedorTeam",
   "style": null
  },
@@ -4841,22 +4901,16 @@
   "team": "Pitbull Brothers",
   "style": null
  },
- "e4293151": {
-  "slug": "sergei-bilostenniy",
-  "page": "https://www.espn.com/mma/fighter/_/id/4293151",
-  "team": "FedorTeam",
-  "style": null
- },
  "e4257422": {
   "slug": "juliana-velasquez",
   "page": "https://www.espn.com/mma/fighter/_/id/4257422",
   "team": "Team Nogueira",
   "style": null
  },
- "e3068118": {
-  "slug": "linton-vassell",
-  "page": "https://www.espn.com/mma/fighter/_/id/3068118",
-  "team": "Kill Cliff FC",
+ "e4336342": {
+  "slug": "oleg-popov",
+  "page": "https://www.espn.com/mma/fighter/_/id/4336342",
+  "team": "FedorTeam",
   "style": null
  },
  "e4076780": {
@@ -4865,16 +4919,22 @@
   "team": "FedorTeam",
   "style": "Brazilian Jiu-Jitsu"
  },
+ "e4018603": {
+  "slug": "dovlet-yagshimuradov",
+  "page": "https://www.espn.com/mma/fighter/_/id/4018603",
+  "team": "American Top Team",
+  "style": null
+ },
  "e3902688": {
   "slug": "brent-primus",
   "page": "https://www.espn.com/mma/fighter/_/id/3902688",
   "team": "Team Oyama",
   "style": "Brazilian Jiu-Jitsu"
  },
- "e4018603": {
-  "slug": "dovlet-yagshimuradov",
-  "page": "https://www.espn.com/mma/fighter/_/id/4018603",
-  "team": "American Top Team",
+ "e3068118": {
+  "slug": "linton-vassell",
+  "page": "https://www.espn.com/mma/fighter/_/id/3068118",
+  "team": "Kill Cliff FC",
   "style": null
  },
  "e4610008": {
@@ -4883,22 +4943,22 @@
   "team": "Xtreme Couture",
   "style": null
  },
+ "e4208418": {
+  "slug": "adam-borics",
+  "page": "https://www.espn.com/mma/fighter/_/id/4208418",
+  "team": "Kill Cliff FC",
+  "style": null
+ },
  "e4911955": {
   "slug": "murad-ramazanov",
   "page": "https://www.espn.com/mma/fighter/_/id/4911955",
   "team": "Dagestan Fighter",
   "style": null
  },
- "e4894428": {
-  "slug": "timur-khizriev",
-  "page": "https://www.espn.com/mma/fighter/_/id/4894428",
-  "team": "American Top Team",
-  "style": null
- },
- "e4208418": {
-  "slug": "adam-borics",
-  "page": "https://www.espn.com/mma/fighter/_/id/4208418",
-  "team": "Kill Cliff FC",
+ "e4688510": {
+  "slug": "shamil-musaev",
+  "page": "https://www.espn.com/mma/fighter/_/id/4688510",
+  "team": "Golden Team",
   "style": null
  },
  "e4234873": {
@@ -4907,10 +4967,10 @@
   "team": "Kill Cliff FC",
   "style": "Wrestling,Striker"
  },
- "e4688510": {
-  "slug": "shamil-musaev",
-  "page": "https://www.espn.com/mma/fighter/_/id/4688510",
-  "team": "Golden Team",
+ "e4894428": {
+  "slug": "timur-khizriev",
+  "page": "https://www.espn.com/mma/fighter/_/id/4894428",
+  "team": "American Top Team",
   "style": null
  },
  "e4330789": {
@@ -4924,12 +4984,6 @@
   "page": "https://www.espn.com/mma/fighter/_/id/2980488",
   "team": "Rusfighters Sport Club",
   "style": "Striker"
- },
- "e4408681": {
-  "slug": "saray-orozco",
-  "page": "https://www.espn.com/mma/fighter/_/id/4408681",
-  "team": "",
-  "style": null
  },
  "e4842487": {
   "slug": "sumiko-inaba",
@@ -4949,10 +5003,22 @@
   "team": "Xtreme Couture",
   "style": null
  },
+ "e4408681": {
+  "slug": "saray-orozco",
+  "page": "https://www.espn.com/mma/fighter/_/id/4408681",
+  "team": "",
+  "style": null
+ },
  "e5139190": {
   "slug": "alan-dominguez",
   "page": "https://www.espn.com/mma/fighter/_/id/5139190",
   "team": "",
+  "style": null
+ },
+ "e4697390": {
+  "slug": "johnny-eblen",
+  "page": "https://www.espn.com/mma/fighter/_/id/4697390",
+  "team": "American Top Team",
   "style": null
  },
  "e3084476": {
@@ -4961,22 +5027,10 @@
   "team": "SBG Ireland",
   "style": null
  },
- "e5219208": {
-  "slug": "nick-meck",
-  "page": "https://www.espn.com/mma/fighter/_/id/5219208",
-  "team": "Marathon MMA",
-  "style": null
- },
  "e5149044": {
   "slug": "lazaro-dayron",
   "page": "https://www.espn.com/mma/fighter/_/id/5149044",
   "team": "MMA Science Academy",
-  "style": null
- },
- "e4085672": {
-  "slug": "mukhamed-berkhamov",
-  "page": "https://www.espn.com/mma/fighter/_/id/4085672",
-  "team": "Kill Cliff FC",
   "style": null
  },
  "e5210197": {
@@ -4991,22 +5045,10 @@
   "team": "Black Panther Gym",
   "style": null
  },
- "e4601137": {
-  "slug": "makkasharip-zaynukov",
-  "page": "https://www.espn.com/mma/fighter/_/id/4601137",
-  "team": "Eagles MMA",
-  "style": null
- },
  "e4063783": {
   "slug": "raufeon-stots",
   "page": "https://www.espn.com/mma/fighter/_/id/4063783",
   "team": "Roufusport",
-  "style": null
- },
- "e4712360": {
-  "slug": "paul-hughes",
-  "page": "https://www.espn.com/mma/fighter/_/id/4712360",
-  "team": "Next Generation Northern Ireland",
   "style": null
  },
  "e5093699": {
@@ -5015,10 +5057,40 @@
   "team": "UFD Gym",
   "style": null
  },
+ "e4712360": {
+  "slug": "paul-hughes",
+  "page": "https://www.espn.com/mma/fighter/_/id/4712360",
+  "team": "Next Generation Northern Ireland",
+  "style": null
+ },
+ "e4601137": {
+  "slug": "makkasharip-zaynukov",
+  "page": "https://www.espn.com/mma/fighter/_/id/4601137",
+  "team": "Eagles MMA",
+  "style": null
+ },
+ "e4085672": {
+  "slug": "mukhamed-berkhamov",
+  "page": "https://www.espn.com/mma/fighter/_/id/4085672",
+  "team": "Kill Cliff FC",
+  "style": null
+ },
+ "e5219208": {
+  "slug": "nick-meck",
+  "page": "https://www.espn.com/mma/fighter/_/id/5219208",
+  "team": "Marathon MMA",
+  "style": null
+ },
  "e4341543": {
   "slug": "fabian-edwards",
   "page": "https://www.espn.com/mma/fighter/_/id/4341543",
   "team": "Ultimate Training Center",
+  "style": null
+ },
+ "e4819856": {
+  "slug": "souhil-tairi",
+  "page": "https://www.espn.com/mma/fighter/_/id/4819856",
+  "team": "",
   "style": null
  },
  "e2354564": {
@@ -5033,18 +5105,6 @@
   "team": "",
   "style": null
  },
- "e4819856": {
-  "slug": "souhil-tairi",
-  "page": "https://www.espn.com/mma/fighter/_/id/4819856",
-  "team": "",
-  "style": null
- },
- "e5080723": {
-  "slug": "john-mitchell",
-  "page": "https://www.espn.com/mma/fighter/_/id/5080723",
-  "team": "Pedro Bessa BJJ",
-  "style": null
- },
  "e5210073": {
   "slug": "ruel-panales",
   "page": "https://www.espn.com/mma/fighter/_/id/5210073",
@@ -5054,6 +5114,24 @@
  "e5215147": {
   "slug": "hadi-omar-al-hussaini",
   "page": "https://www.espn.com/mma/fighter/_/id/5215147",
+  "team": "",
+  "style": null
+ },
+ "e5080723": {
+  "slug": "john-mitchell",
+  "page": "https://www.espn.com/mma/fighter/_/id/5080723",
+  "team": "Pedro Bessa BJJ",
+  "style": null
+ },
+ "e5217039": {
+  "slug": "mike-thompson",
+  "page": "https://www.espn.com/mma/fighter/_/id/5217039",
+  "team": "MMA Academy Liverpool",
+  "style": null
+ },
+ "e5086821": {
+  "slug": "ahmed-sami",
+  "page": "https://www.espn.com/mma/fighter/_/id/5086821",
   "team": "",
   "style": null
  },
@@ -5069,9 +5147,9 @@
   "team": "",
   "style": null
  },
- "e5086821": {
-  "slug": "ahmed-sami",
-  "page": "https://www.espn.com/mma/fighter/_/id/5086821",
+ "e5222162": {
+  "slug": "renat-khavalov",
+  "page": "https://www.espn.com/mma/fighter/_/id/5222162",
   "team": "",
   "style": null
  },
@@ -5081,10 +5159,10 @@
   "team": "",
   "style": null
  },
- "e5222162": {
-  "slug": "renat-khavalov",
-  "page": "https://www.espn.com/mma/fighter/_/id/5222162",
-  "team": "",
+ "e4726566": {
+  "slug": "usman-nurmagomedov",
+  "page": "https://www.espn.com/mma/fighter/_/id/4726566",
+  "team": "AKA (American Kickboxing Academy)",
   "style": null
  },
  "e5074314": {
@@ -5093,46 +5171,10 @@
   "team": "SBG Ireland",
   "style": null
  },
- "e5078211": {
-  "slug": "akhmed-magomedov",
-  "page": "https://www.espn.com/mma/fighter/_/id/5078211",
-  "team": "KHK MMA Team",
-  "style": null
- },
- "e4726566": {
-  "slug": "usman-nurmagomedov",
-  "page": "https://www.espn.com/mma/fighter/_/id/4726566",
-  "team": "AKA (American Kickboxing Academy)",
-  "style": null
- },
  "e4039837": {
   "slug": "tae-kyun-kim",
   "page": "https://www.espn.com/mma/fighter/_/id/4039837",
   "team": "",
-  "style": null
- },
- "e5137744": {
-  "slug": "masayuki-kikuiri",
-  "page": "https://www.espn.com/mma/fighter/_/id/5137744",
-  "team": "Never Quit MMA",
-  "style": null
- },
- "e5140244": {
-  "slug": "giannis-bachar",
-  "page": "https://www.espn.com/mma/fighter/_/id/5140244",
-  "team": "MMA Masters",
-  "style": null
- },
- "e5274109": {
-  "slug": "fred-dupras",
-  "page": "https://www.espn.com/mma/fighter/_/id/5274109",
-  "team": "H2O MMA",
-  "style": null
- },
- "e5146218": {
-  "slug": "joseph-luciano",
-  "page": "https://www.espn.com/mma/fighter/_/id/5146218",
-  "team": "Absolute Mixed Martial Arts",
   "style": null
  },
  "e4799669": {
@@ -5141,10 +5183,28 @@
   "team": "Akhmat Fight Team",
   "style": null
  },
- "e5268875": {
-  "slug": "elora-dana",
-  "page": "https://www.espn.com/mma/fighter/_/id/5268875",
-  "team": "Nak Su Thai Gym",
+ "e5146218": {
+  "slug": "joseph-luciano",
+  "page": "https://www.espn.com/mma/fighter/_/id/5146218",
+  "team": "Absolute Mixed Martial Arts",
+  "style": null
+ },
+ "e5274109": {
+  "slug": "fred-dupras",
+  "page": "https://www.espn.com/mma/fighter/_/id/5274109",
+  "team": "H2O MMA",
+  "style": null
+ },
+ "e5140244": {
+  "slug": "giannis-bachar",
+  "page": "https://www.espn.com/mma/fighter/_/id/5140244",
+  "team": "MMA Masters",
+  "style": null
+ },
+ "e5137744": {
+  "slug": "masayuki-kikuiri",
+  "page": "https://www.espn.com/mma/fighter/_/id/5137744",
+  "team": "Never Quit MMA",
   "style": null
  },
  "e3896616": {
@@ -5153,10 +5213,40 @@
   "team": "Team Nogueira",
   "style": null
  },
+ "e5078211": {
+  "slug": "akhmed-magomedov",
+  "page": "https://www.espn.com/mma/fighter/_/id/5078211",
+  "team": "KHK MMA Team",
+  "style": null
+ },
  "e5120811": {
   "slug": "ekaterina-shakalova",
   "page": "https://www.espn.com/mma/fighter/_/id/5120811",
   "team": "Honour MMA Academy",
+  "style": null
+ },
+ "e5268875": {
+  "slug": "elora-dana",
+  "page": "https://www.espn.com/mma/fighter/_/id/5268875",
+  "team": "Nak Su Thai Gym",
+  "style": null
+ },
+ "e4876401": {
+  "slug": "mando-gutierrez",
+  "page": "https://www.espn.com/mma/fighter/_/id/4876401",
+  "team": "Murcielago MMA",
+  "style": null
+ },
+ "e5120295": {
+  "slug": "marcirley-alves",
+  "page": "https://www.espn.com/mma/fighter/_/id/5120295",
+  "team": "Chute Boxe",
+  "style": null
+ },
+ "e3028866": {
+  "slug": "leandro-higo",
+  "page": "https://www.espn.com/mma/fighter/_/id/3028866",
+  "team": "Pitbull Brothers",
   "style": null
  },
  "e4867811": {
@@ -5171,40 +5261,10 @@
   "team": "AKA (American Kickboxing Academy)",
   "style": null
  },
- "e4876401": {
-  "slug": "mando-gutierrez",
-  "page": "https://www.espn.com/mma/fighter/_/id/4876401",
-  "team": "Murcielago MMA",
-  "style": null
- },
- "e3028866": {
-  "slug": "leandro-higo",
-  "page": "https://www.espn.com/mma/fighter/_/id/3028866",
-  "team": "Pitbull Brothers",
-  "style": null
- },
- "e5120295": {
-  "slug": "marcirley-alves",
-  "page": "https://www.espn.com/mma/fighter/_/id/5120295",
-  "team": "Chute Boxe",
-  "style": null
- },
- "e4255574": {
-  "slug": "aaron-jeffery",
-  "page": "https://www.espn.com/mma/fighter/_/id/4255574",
-  "team": "Niagara Top Team",
-  "style": null
- },
  "e5088845": {
   "slug": "vinicius-cenci",
   "page": "https://www.espn.com/mma/fighter/_/id/5088845",
   "team": "Kings MMA",
-  "style": null
- },
- "e4084363": {
-  "slug": "mike-shipman",
-  "page": "https://www.espn.com/mma/fighter/_/id/4084363",
-  "team": "London Shootfighters",
   "style": null
  },
  "e4820893": {
@@ -5213,10 +5273,10 @@
   "team": "London Shootfighters",
   "style": null
  },
- "e4685785": {
-  "slug": "jay-jay-wilson",
-  "page": "https://www.espn.com/mma/fighter/_/id/4685785",
-  "team": "American Top Team",
+ "e4084363": {
+  "slug": "mike-shipman",
+  "page": "https://www.espn.com/mma/fighter/_/id/4084363",
+  "team": "London Shootfighters",
   "style": null
  },
  "e4744150": {
@@ -5231,16 +5291,28 @@
   "team": "Power MMA Team",
   "style": null
  },
- "e4078664": {
-  "slug": "karl-albrektsson",
-  "page": "https://www.espn.com/mma/fighter/_/id/4078664",
-  "team": "Pancrase Gym Sweden",
-  "style": null
- },
  "e3950364": {
   "slug": "karl-moore",
   "page": "https://www.espn.com/mma/fighter/_/id/3950364",
   "team": "SBG Ireland",
+  "style": null
+ },
+ "e4255574": {
+  "slug": "aaron-jeffery",
+  "page": "https://www.espn.com/mma/fighter/_/id/4255574",
+  "team": "Niagara Top Team",
+  "style": null
+ },
+ "e4685785": {
+  "slug": "jay-jay-wilson",
+  "page": "https://www.espn.com/mma/fighter/_/id/4685785",
+  "team": "American Top Team",
+  "style": null
+ },
+ "e4078664": {
+  "slug": "karl-albrektsson",
+  "page": "https://www.espn.com/mma/fighter/_/id/4078664",
+  "team": "Pancrase Gym Sweden",
   "style": null
  },
  "e5145009": {
@@ -5255,10 +5327,10 @@
   "team": "",
   "style": null
  },
- "e4399100": {
-  "slug": "kendly-st-louis",
-  "page": "https://www.espn.com/mma/fighter/_/id/4399100",
-  "team": "American Top Team Sunrise",
+ "e4881916": {
+  "slug": "darragh-kelly",
+  "page": "https://www.espn.com/mma/fighter/_/id/4881916",
+  "team": "SBG Ireland",
   "style": null
  },
  "e5121006": {
@@ -5273,28 +5345,28 @@
   "team": "MMA LAB",
   "style": null
  },
- "e4881916": {
-  "slug": "darragh-kelly",
-  "page": "https://www.espn.com/mma/fighter/_/id/4881916",
-  "team": "SBG Ireland",
-  "style": null
- },
  "e4808753": {
   "slug": "antonio-caruso",
   "page": "https://www.espn.com/mma/fighter/_/id/4808753",
   "team": "Kill Cliff FC",
   "style": null
  },
- "e2966188": {
-  "slug": "magomed-magomedov",
-  "page": "https://www.espn.com/mma/fighter/_/id/2966188",
-  "team": "Dagestan Fighter",
-  "style": null
- },
  "e5022142": {
   "slug": "sarvarjon-khamidov",
   "page": "https://www.espn.com/mma/fighter/_/id/5022142",
   "team": "",
+  "style": null
+ },
+ "e4399100": {
+  "slug": "kendly-st-louis",
+  "page": "https://www.espn.com/mma/fighter/_/id/4399100",
+  "team": "American Top Team Sunrise",
+  "style": null
+ },
+ "e2966188": {
+  "slug": "magomed-magomedov",
+  "page": "https://www.espn.com/mma/fighter/_/id/2966188",
+  "team": "Dagestan Fighter",
   "style": null
  },
  "e3067201": {
@@ -5309,10 +5381,10 @@
   "team": "Elevation Fight Team",
   "style": null
  },
- "e4073993": {
-  "slug": "rafael-xavier",
-  "page": "https://www.espn.com/mma/fighter/_/id/4073993",
-  "team": "Spitfire Gym",
+ "e5289735": {
+  "slug": "takeshi-izumi",
+  "page": "https://www.espn.com/mma/fighter/_/id/5289735",
+  "team": "Fighter's Flow",
   "style": null
  },
  "e5282289": {
@@ -5321,10 +5393,10 @@
   "team": "",
   "style": null
  },
- "e5289735": {
-  "slug": "takeshi-izumi",
-  "page": "https://www.espn.com/mma/fighter/_/id/5289735",
-  "team": "Fighter's Flow",
+ "e5127822": {
+  "slug": "jakub-kaszuba",
+  "page": "https://www.espn.com/mma/fighter/_/id/5127822",
+  "team": "Gracie Barra South Jax",
   "style": null
  },
  "e4330791": {
@@ -5339,16 +5411,16 @@
   "team": "AKA (American Kickboxing Academy)",
   "style": null
  },
- "e5127822": {
-  "slug": "jakub-kaszuba",
-  "page": "https://www.espn.com/mma/fighter/_/id/5127822",
-  "team": "Gracie Barra South Jax",
+ "e4073993": {
+  "slug": "rafael-xavier",
+  "page": "https://www.espn.com/mma/fighter/_/id/4073993",
+  "team": "Spitfire Gym",
   "style": null
  },
- "e4783230": {
-  "slug": "jordan-newman",
-  "page": "https://www.espn.com/mma/fighter/_/id/4783230",
-  "team": "Roufusport",
+ "e4894845": {
+  "slug": "asael-adjoudj",
+  "page": "https://www.espn.com/mma/fighter/_/id/4894845",
+  "team": "SBG Ireland",
   "style": null
  },
  "e3022308": {
@@ -5357,10 +5429,10 @@
   "team": "Snake Team",
   "style": null
  },
- "e4894845": {
-  "slug": "asael-adjoudj",
-  "page": "https://www.espn.com/mma/fighter/_/id/4894845",
-  "team": "SBG Ireland",
+ "e4783230": {
+  "slug": "jordan-newman",
+  "page": "https://www.espn.com/mma/fighter/_/id/4783230",
+  "team": "Roufusport",
   "style": null
  },
  "e5293191": {
@@ -5375,28 +5447,16 @@
   "team": "AMA Fight Club",
   "style": null
  },
- "e5293617": {
-  "slug": "sabrinna-de-sousa",
-  "page": "https://www.espn.com/mma/fighter/_/id/5293617",
-  "team": "KHK MMA Team",
-  "style": null
- },
- "e5295150": {
-  "slug": "adryan-grundy",
-  "page": "https://www.espn.com/mma/fighter/_/id/5295150",
-  "team": "",
-  "style": null
- },
  "e4378418": {
   "slug": "j-p-saint-louis",
   "page": "https://www.espn.com/mma/fighter/_/id/4378418",
   "team": "Fusion X-Cel",
   "style": null
  },
- "e4881028": {
-  "slug": "tyler-ray",
-  "page": "https://www.espn.com/mma/fighter/_/id/4881028",
-  "team": "Kill Cliff FC",
+ "e5293617": {
+  "slug": "sabrinna-de-sousa",
+  "page": "https://www.espn.com/mma/fighter/_/id/5293617",
+  "team": "KHK MMA Team",
   "style": null
  },
  "e3110835": {
@@ -5411,10 +5471,22 @@
   "team": "KHK MMA Team",
   "style": null
  },
+ "e4881028": {
+  "slug": "tyler-ray",
+  "page": "https://www.espn.com/mma/fighter/_/id/4881028",
+  "team": "Kill Cliff FC",
+  "style": null
+ },
  "e4699459": {
   "slug": "ethan-goss",
   "page": "https://www.espn.com/mma/fighter/_/id/4699459",
   "team": "Gorilla House Gym",
+  "style": null
+ },
+ "e5295150": {
+  "slug": "adryan-grundy",
+  "page": "https://www.espn.com/mma/fighter/_/id/5295150",
+  "team": "",
   "style": null
  },
  "e2559789": {
@@ -5423,16 +5495,16 @@
   "team": "Atch Academy",
   "style": null
  },
- "e5172118": {
-  "slug": "luann-sardinha",
-  "page": "https://www.espn.com/mma/fighter/_/id/5172118",
-  "team": "Chute Boxe",
-  "style": null
- },
  "e5139025": {
   "slug": "florim-zendeli",
   "page": "https://www.espn.com/mma/fighter/_/id/5139025",
   "team": "Planet Eater",
+  "style": null
+ },
+ "e5172118": {
+  "slug": "luann-sardinha",
+  "page": "https://www.espn.com/mma/fighter/_/id/5172118",
+  "team": "Chute Boxe",
   "style": null
  },
  "e5215143": {
@@ -5447,16 +5519,16 @@
   "team": "MMA Factory",
   "style": null
  },
+ "e5322341": {
+  "slug": "rayan-balbali",
+  "page": "https://www.espn.com/mma/fighter/_/id/5322341",
+  "team": "",
+  "style": null
+ },
  "e5272739": {
   "slug": "pouya-rahmani",
   "page": "https://www.espn.com/mma/fighter/_/id/5272739",
   "team": "Team Nogueira Dubai",
-  "style": null
- },
- "e4584150": {
-  "slug": "jack-cartwright",
-  "page": "https://www.espn.com/mma/fighter/_/id/4584150",
-  "team": "SBG Manchester",
   "style": null
  },
  "e5292389": {
@@ -5465,16 +5537,28 @@
   "team": "Shore Mixed Martial Arts Centre of Excellence",
   "style": null
  },
- "e5322341": {
-  "slug": "rayan-balbali",
-  "page": "https://www.espn.com/mma/fighter/_/id/5322341",
-  "team": "",
-  "style": null
- },
  "e5210203": {
   "slug": "paulina-wisniewska",
   "page": "https://www.espn.com/mma/fighter/_/id/5210203",
   "team": "",
+  "style": null
+ },
+ "e4584150": {
+  "slug": "jack-cartwright",
+  "page": "https://www.espn.com/mma/fighter/_/id/4584150",
+  "team": "SBG Manchester",
+  "style": null
+ },
+ "e5118333": {
+  "slug": "guilherme-soares",
+  "page": "https://www.espn.com/mma/fighter/_/id/5118333",
+  "team": "Hybrid Training Centre",
+  "style": null
+ },
+ "e5138049": {
+  "slug": "connor-hughes",
+  "page": "https://www.espn.com/mma/fighter/_/id/5138049",
+  "team": "MMA Academy Liverpool",
   "style": null
  },
  "e5104264": {
@@ -5489,22 +5573,10 @@
   "team": "",
   "style": null
  },
- "e5138049": {
-  "slug": "connor-hughes",
-  "page": "https://www.espn.com/mma/fighter/_/id/5138049",
-  "team": "MMA Academy Liverpool",
-  "style": null
- },
- "e5118333": {
-  "slug": "guilherme-soares",
-  "page": "https://www.espn.com/mma/fighter/_/id/5118333",
-  "team": "Hybrid Training Centre",
-  "style": null
- },
- "e5292380": {
-  "slug": "boris-mbarga-atangana",
-  "page": "https://www.espn.com/mma/fighter/_/id/5292380",
-  "team": "Team Sendo",
+ "e4709157": {
+  "slug": "liam-gittins",
+  "page": "https://www.espn.com/mma/fighter/_/id/4709157",
+  "team": "Next Generation UK",
   "style": null
  },
  "e4705584": {
@@ -5513,22 +5585,16 @@
   "team": "Performance MMA",
   "style": null
  },
- "e5295060": {
-  "slug": "baris-adiguzel",
-  "page": "https://www.espn.com/mma/fighter/_/id/5295060",
-  "team": "Boxing Squad",
-  "style": null
- },
- "e4709157": {
-  "slug": "liam-gittins",
-  "page": "https://www.espn.com/mma/fighter/_/id/4709157",
-  "team": "Next Generation UK",
-  "style": null
- },
  "e5196656": {
   "slug": "patrick-habirora",
   "page": "https://www.espn.com/mma/fighter/_/id/5196656",
   "team": "Team Sendo",
+  "style": null
+ },
+ "e5295060": {
+  "slug": "baris-adiguzel",
+  "page": "https://www.espn.com/mma/fighter/_/id/5295060",
+  "team": "Boxing Squad",
   "style": null
  },
  "e5127785": {
@@ -5537,22 +5603,16 @@
   "team": "Resilience Training Centre",
   "style": null
  },
- "e5074270": {
-  "slug": "jhony-gregory",
-  "page": "https://www.espn.com/mma/fighter/_/id/5074270",
-  "team": "Daniel Oliveira Methodology",
-  "style": null
- },
  "e5331213": {
   "slug": "khabib-nabiev",
   "page": "https://www.espn.com/mma/fighter/_/id/5331213",
   "team": "Abdulmanap Nurmagomedov Martial Arts School",
   "style": null
  },
- "e4875324": {
-  "slug": "luke-trainer",
-  "page": "https://www.espn.com/mma/fighter/_/id/4875324",
-  "team": "Great Britain Top Team",
+ "e4275484": {
+  "slug": "denise-kielholtz",
+  "page": "https://www.espn.com/mma/fighter/_/id/4275484",
+  "team": "Team Schrijber",
   "style": null
  },
  "e4064998": {
@@ -5561,10 +5621,28 @@
   "team": "Pitbull Brothers",
   "style": null
  },
- "e4275484": {
-  "slug": "denise-kielholtz",
-  "page": "https://www.espn.com/mma/fighter/_/id/4275484",
-  "team": "Team Schrijber",
+ "e5292380": {
+  "slug": "boris-mbarga-atangana",
+  "page": "https://www.espn.com/mma/fighter/_/id/5292380",
+  "team": "Team Sendo",
+  "style": null
+ },
+ "e4875324": {
+  "slug": "luke-trainer",
+  "page": "https://www.espn.com/mma/fighter/_/id/4875324",
+  "team": "Great Britain Top Team",
+  "style": null
+ },
+ "e5074270": {
+  "slug": "jhony-gregory",
+  "page": "https://www.espn.com/mma/fighter/_/id/5074270",
+  "team": "Daniel Oliveira Methodology",
+  "style": null
+ },
+ "e4218124": {
+  "slug": "kolton-englund",
+  "page": "https://www.espn.com/mma/fighter/_/id/4218124",
+  "team": "",
   "style": null
  },
  "e4415122": {
@@ -5577,24 +5655,6 @@
   "slug": "edgars-skrivers",
   "page": "https://www.espn.com/mma/fighter/_/id/4287629",
   "team": "TKMMAFIT",
-  "style": null
- },
- "e4218124": {
-  "slug": "kolton-englund",
-  "page": "https://www.espn.com/mma/fighter/_/id/4218124",
-  "team": "",
-  "style": null
- },
- "e5264795": {
-  "slug": "amru-magomedov",
-  "page": "https://www.espn.com/mma/fighter/_/id/5264795",
-  "team": "Abdulmanap Nurmagomedov Martial Arts School",
-  "style": null
- },
- "e5328681": {
-  "slug": "salamat-isbulaev",
-  "page": "https://www.espn.com/mma/fighter/_/id/5328681",
-  "team": "Erkin Kush",
   "style": null
  },
  "e4245706": {
@@ -5615,6 +5675,18 @@
   "team": "SBG Ireland",
   "style": null
  },
+ "e5328681": {
+  "slug": "salamat-isbulaev",
+  "page": "https://www.espn.com/mma/fighter/_/id/5328681",
+  "team": "Erkin Kush",
+  "style": null
+ },
+ "e5264795": {
+  "slug": "amru-magomedov",
+  "page": "https://www.espn.com/mma/fighter/_/id/5264795",
+  "team": "Abdulmanap Nurmagomedov Martial Arts School",
+  "style": null
+ },
  "e5334832": {
   "slug": "ernesto-schisano",
   "page": "https://www.espn.com/mma/fighter/_/id/5334832",
@@ -5627,16 +5699,16 @@
   "team": "Higher Level Martial Arts",
   "style": null
  },
+ "e4684239": {
+  "slug": "jose-augusto",
+  "page": "https://www.espn.com/mma/fighter/_/id/4684239",
+  "team": "Pitbull Brothers",
+  "style": null
+ },
  "e5278193": {
   "slug": "gino-van-steenis",
   "page": "https://www.espn.com/mma/fighter/_/id/5278193",
   "team": "",
-  "style": null
- },
- "e5295059": {
-  "slug": "borja-garcia",
-  "page": "https://www.espn.com/mma/fighter/_/id/5295059",
-  "team": "Centro Deportivo Tibet",
   "style": null
  },
  "e4763958": {
@@ -5645,34 +5717,28 @@
   "team": "Black Lion Jiu-Jitsu",
   "style": null
  },
- "e5149438": {
-  "slug": "luciano-pereira",
-  "page": "https://www.espn.com/mma/fighter/_/id/5149438",
-  "team": "",
-  "style": null
- },
- "e4684239": {
-  "slug": "jose-augusto",
-  "page": "https://www.espn.com/mma/fighter/_/id/4684239",
-  "team": "Pitbull Brothers",
-  "style": null
- },
  "e5331633": {
   "slug": "benita-van-rooij",
   "page": "https://www.espn.com/mma/fighter/_/id/5331633",
   "team": "Van Buel Sports",
   "style": null
  },
- "e4819858": {
-  "slug": "yassin-najid",
-  "page": "https://www.espn.com/mma/fighter/_/id/4819858",
-  "team": "Free Fight Academy",
+ "e5295059": {
+  "slug": "borja-garcia",
+  "page": "https://www.espn.com/mma/fighter/_/id/5295059",
+  "team": "Centro Deportivo Tibet",
   "style": null
  },
  "e5334829": {
   "slug": "franco-tenaglia",
   "page": "https://www.espn.com/mma/fighter/_/id/5334829",
   "team": "Climent Club",
+  "style": null
+ },
+ "e5149438": {
+  "slug": "luciano-pereira",
+  "page": "https://www.espn.com/mma/fighter/_/id/5149438",
+  "team": "",
   "style": null
  },
  "e5336700": {
@@ -5685,6 +5751,12 @@
   "slug": "ernesto-rodriguez",
   "page": "https://www.espn.com/mma/fighter/_/id/5077053",
   "team": "Xtreme Couture",
+  "style": null
+ },
+ "e4819858": {
+  "slug": "yassin-najid",
+  "page": "https://www.espn.com/mma/fighter/_/id/4819858",
+  "team": "Free Fight Academy",
   "style": null
  },
  "e4903519": {
@@ -5705,22 +5777,16 @@
   "team": "Rasthai Temple",
   "style": "Striker"
  },
- "e4880997": {
-  "slug": "andrea-vazquez",
-  "page": "https://www.espn.com/mma/fighter/_/id/4880997",
-  "team": "Boxing Camp Playa",
-  "style": null
- },
  "e5344477": {
   "slug": "eoghan-masoliver",
   "page": "https://www.espn.com/mma/fighter/_/id/5344477",
   "team": "",
   "style": null
  },
- "e5344479": {
-  "slug": "shane-mullen",
-  "page": "https://www.espn.com/mma/fighter/_/id/5344479",
-  "team": "",
+ "e4880997": {
+  "slug": "andrea-vazquez",
+  "page": "https://www.espn.com/mma/fighter/_/id/4880997",
+  "team": "Boxing Camp Playa",
   "style": null
  },
  "e5001017": {
@@ -5735,22 +5801,16 @@
   "team": "SBG Ireland",
   "style": null
  },
- "e5139026": {
-  "slug": "chequina-noso-pedro",
-  "page": "https://www.espn.com/mma/fighter/_/id/5139026",
-  "team": "BA Army",
-  "style": null
- },
  "e5204224": {
   "slug": "omran-chaaban",
   "page": "https://www.espn.com/mma/fighter/_/id/5204224",
   "team": "Team KF Martial Arts",
   "style": null
  },
- "e3077633": {
-  "slug": "alan-philpott",
-  "page": "https://www.espn.com/mma/fighter/_/id/3077633",
-  "team": "Next Generation Northern Ireland",
+ "e5344479": {
+  "slug": "shane-mullen",
+  "page": "https://www.espn.com/mma/fighter/_/id/5344479",
+  "team": "",
   "style": null
  },
  "e5292616": {
@@ -5765,16 +5825,22 @@
   "team": "New Wave Academy",
   "style": null
  },
- "e3961957": {
-  "slug": "bryce-logan",
-  "page": "https://www.espn.com/mma/fighter/_/id/3961957",
-  "team": "Fight Ready",
-  "style": null
- },
  "e4568503": {
   "slug": "yan-qihui",
   "page": "https://www.espn.com/mma/fighter/_/id/4568503",
   "team": "",
+  "style": null
+ },
+ "e3077633": {
+  "slug": "alan-philpott",
+  "page": "https://www.espn.com/mma/fighter/_/id/3077633",
+  "team": "Next Generation Northern Ireland",
+  "style": null
+ },
+ "e3961957": {
+  "slug": "bryce-logan",
+  "page": "https://www.espn.com/mma/fighter/_/id/3961957",
+  "team": "Fight Ready",
   "style": null
  },
  "e4695350": {
@@ -5783,27 +5849,33 @@
   "team": "HAMMA",
   "style": null
  },
- "e5142179": {
-  "slug": "rustam-serbiev",
-  "page": "https://www.espn.com/mma/fighter/_/id/5142179",
-  "team": "",
-  "style": null
- },
  "e5146397": {
   "slug": "adam-meskini",
   "page": "https://www.espn.com/mma/fighter/_/id/5146397",
   "team": "Old School MMA",
   "style": null
  },
- "e5212940": {
-  "slug": "keweny-lopes",
-  "page": "https://www.espn.com/mma/fighter/_/id/5212940",
-  "team": "Nova Uniao ",
-  "style": null
- },
  "e5289354": {
   "slug": "khamzat-abaev",
   "page": "https://www.espn.com/mma/fighter/_/id/5289354",
+  "team": "",
+  "style": null
+ },
+ "e5142179": {
+  "slug": "rustam-serbiev",
+  "page": "https://www.espn.com/mma/fighter/_/id/5142179",
+  "team": "",
+  "style": null
+ },
+ "e5139026": {
+  "slug": "chequina-noso-pedro",
+  "page": "https://www.espn.com/mma/fighter/_/id/5139026",
+  "team": "BA Army",
+  "style": null
+ },
+ "e5344105": {
+  "slug": "donegi-abena",
+  "page": "https://www.espn.com/mma/fighter/_/id/5344105",
   "team": "",
   "style": null
  },
@@ -5813,16 +5885,16 @@
   "team": "",
   "style": "Kickboxing"
  },
- "e5344105": {
-  "slug": "donegi-abena",
-  "page": "https://www.espn.com/mma/fighter/_/id/5344105",
-  "team": "",
-  "style": null
- },
  "e5011101": {
   "slug": "keisuke-sasu",
   "page": "https://www.espn.com/mma/fighter/_/id/5011101",
   "team": "Master Japan",
+  "style": null
+ },
+ "e5212940": {
+  "slug": "keweny-lopes",
+  "page": "https://www.espn.com/mma/fighter/_/id/5212940",
+  "team": "Nova Uniao ",
   "style": null
  },
  "e5355507": {
@@ -5831,22 +5903,10 @@
   "team": "",
   "style": null
  },
- "e5355508": {
-  "slug": "cobey-fehr",
-  "page": "https://www.espn.com/mma/fighter/_/id/5355508",
-  "team": "Xtreme Couture",
-  "style": null
- },
  "e5211222": {
   "slug": "shannon-clark",
   "page": "https://www.espn.com/mma/fighter/_/id/5211222",
   "team": "Canadian Martial Arts Centre",
-  "style": null
- },
- "e4715264": {
-  "slug": "khasan-magomedsharipov",
-  "page": "https://www.espn.com/mma/fighter/_/id/4715264",
-  "team": "Dagestan Fighter",
   "style": null
  },
  "e4205092": {
@@ -5855,10 +5915,10 @@
   "team": "American Top Team",
   "style": null
  },
- "e5110297": {
-  "slug": "eliezer-kubanza",
-  "page": "https://www.espn.com/mma/fighter/_/id/5110297",
-  "team": "Soma Fight Club",
+ "e5355508": {
+  "slug": "cobey-fehr",
+  "page": "https://www.espn.com/mma/fighter/_/id/5355508",
+  "team": "Xtreme Couture",
   "style": null
  },
  "e5053878": {
@@ -5867,16 +5927,16 @@
   "team": "Machado Team",
   "style": null
  },
+ "e5110297": {
+  "slug": "eliezer-kubanza",
+  "page": "https://www.espn.com/mma/fighter/_/id/5110297",
+  "team": "Soma Fight Club",
+  "style": null
+ },
  "e5147245": {
   "slug": "robbie-ring",
   "page": "https://www.espn.com/mma/fighter/_/id/5147245",
   "team": "Ring Combat Sports",
-  "style": null
- },
- "e4875507": {
-  "slug": "brandon-lewis",
-  "page": "https://www.espn.com/mma/fighter/_/id/4875507",
-  "team": "DEFWAR",
   "style": null
  },
  "e5287881": {
@@ -5891,10 +5951,16 @@
   "team": "",
   "style": null
  },
- "e4309525": {
-  "slug": "aiden-lee",
-  "page": "https://www.espn.com/mma/fighter/_/id/4309525",
-  "team": "Fearless MMA",
+ "e4875507": {
+  "slug": "brandon-lewis",
+  "page": "https://www.espn.com/mma/fighter/_/id/4875507",
+  "team": "DEFWAR",
+  "style": null
+ },
+ "e4715264": {
+  "slug": "khasan-magomedsharipov",
+  "page": "https://www.espn.com/mma/fighter/_/id/4715264",
+  "team": "Dagestan Fighter",
   "style": null
  },
  "e4764301": {
@@ -5903,16 +5969,16 @@
   "team": "Middlesbrough Fight Academy",
   "style": null
  },
+ "e4309525": {
+  "slug": "aiden-lee",
+  "page": "https://www.espn.com/mma/fighter/_/id/4309525",
+  "team": "Fearless MMA",
+  "style": null
+ },
  "e4977642": {
   "slug": "theo-haig",
   "page": "https://www.espn.com/mma/fighter/_/id/4977642",
   "team": "AKA (American Kickboxing Academy)",
-  "style": null
- },
- "e5088321": {
-  "slug": "steven-hill",
-  "page": "https://www.espn.com/mma/fighter/_/id/5088321",
-  "team": "",
   "style": null
  },
  "e5100571": {
@@ -5921,16 +5987,22 @@
   "team": "Grappling Krakow",
   "style": null
  },
- "e4915407": {
-  "slug": "damon-wilson",
-  "page": "https://www.espn.com/mma/fighter/_/id/4915407",
-  "team": "Scorpion Fighting System",
+ "e5088321": {
+  "slug": "steven-hill",
+  "page": "https://www.espn.com/mma/fighter/_/id/5088321",
+  "team": "",
   "style": null
  },
  "e5193167": {
   "slug": "chasen-blair",
   "page": "https://www.espn.com/mma/fighter/_/id/5193167",
   "team": "MMA Fight Academy",
+  "style": null
+ },
+ "e4915407": {
+  "slug": "damon-wilson",
+  "page": "https://www.espn.com/mma/fighter/_/id/4915407",
+  "team": "Scorpion Fighting System",
   "style": null
  },
  "e5369446": {
@@ -5945,22 +6017,16 @@
   "team": "Fight Academy Ireland",
   "style": null
  },
- "e5311705": {
-  "slug": "luca-borando",
-  "page": "https://www.espn.com/mma/fighter/_/id/5311705",
-  "team": "Aurora MMA",
+ "e5445622": {
+  "slug": "christian-natividad",
+  "page": "https://www.espn.com/mma/fighter/_/id/5445622",
+  "team": "Fight Ready",
   "style": null
  },
  "e5296254": {
   "slug": "mario-mingaj",
   "page": "https://www.espn.com/mma/fighter/_/id/5296254",
   "team": "Pompeo's Team",
-  "style": null
- },
- "e5364353": {
-  "slug": "sean-clancy-jr",
-  "page": "https://www.espn.com/mma/fighter/_/id/5364353",
-  "team": "Higher Level Martial Arts",
   "style": null
  },
  "e5124146": {
@@ -5975,22 +6041,28 @@
   "team": "Next Generation MMA Liverpool",
   "style": null
  },
- "e5445622": {
-  "slug": "christian-natividad",
-  "page": "https://www.espn.com/mma/fighter/_/id/5445622",
-  "team": "Fight Ready",
-  "style": null
- },
  "e5077056": {
   "slug": "jacobi-jones",
   "page": "https://www.espn.com/mma/fighter/_/id/5077056",
   "team": "FactoryX Muay Thai",
   "style": null
  },
+ "e5364353": {
+  "slug": "sean-clancy-jr",
+  "page": "https://www.espn.com/mma/fighter/_/id/5364353",
+  "team": "Higher Level Martial Arts",
+  "style": null
+ },
  "e5149436": {
   "slug": "kasey-tanner",
   "page": "https://www.espn.com/mma/fighter/_/id/5149436",
   "team": "Fight Ready",
+  "style": null
+ },
+ "e5291155": {
+  "slug": "reginaldo-junior",
+  "page": "https://www.espn.com/mma/fighter/_/id/5291155",
+  "team": "Fighting Nerds",
   "style": null
  },
  "e5223853": {
@@ -6005,22 +6077,16 @@
   "team": "Pitbull Brothers",
   "style": null
  },
- "e5291155": {
-  "slug": "reginaldo-junior",
-  "page": "https://www.espn.com/mma/fighter/_/id/5291155",
-  "team": "Fighting Nerds",
+ "e5110864": {
+  "slug": "aline-pereira",
+  "page": "https://www.espn.com/mma/fighter/_/id/5110864",
+  "team": "Teixeira MMA & Fitness",
   "style": null
  },
- "e5143887": {
-  "slug": "janaina-silva",
-  "page": "https://www.espn.com/mma/fighter/_/id/5143887",
-  "team": "Babuino Gold Team",
-  "style": null
- },
- "e5220468": {
-  "slug": "guilherme-uriel",
-  "page": "https://www.espn.com/mma/fighter/_/id/5220468",
-  "team": "Evolution Combat MMA",
+ "e5311705": {
+  "slug": "luca-borando",
+  "page": "https://www.espn.com/mma/fighter/_/id/5311705",
+  "team": "Aurora MMA",
   "style": null
  },
  "e5401056": {
@@ -6029,21 +6095,15 @@
   "team": "KO Squad MMA",
   "style": null
  },
- "92b5f4ee9ff40321": {
-  "slug": "alik-lorenz",
-  "page": "https://www.espn.com/mma/fighter/_/id/5220971",
-  "team": "Hard Drive MMA",
+ "e5143887": {
+  "slug": "janaina-silva",
+  "page": "https://www.espn.com/mma/fighter/_/id/5143887",
+  "team": "Babuino Gold Team",
   "style": null
  },
- "e5218816": {
-  "slug": "joey-hart",
-  "page": "https://www.espn.com/mma/fighter/_/id/5218816",
-  "team": "Start BJJ",
-  "style": null
- },
- "e5077314": {
-  "slug": "erick-visconde",
-  "page": "https://www.espn.com/mma/fighter/_/id/5077314",
+ "e5401060": {
+  "slug": "luis-francischinelli",
+  "page": "https://www.espn.com/mma/fighter/_/id/5401060",
   "team": "California Mixed Martial Marts",
   "style": null
  },
@@ -6065,16 +6125,22 @@
   "team": "MMA Masters",
   "style": null
  },
- "e5307813": {
-  "slug": "mackson-lee",
-  "page": "https://www.espn.com/mma/fighter/_/id/5307813",
-  "team": "Markine Fight",
+ "e5308528": {
+  "slug": "mateus-soares",
+  "page": "https://www.espn.com/mma/fighter/_/id/5308528",
+  "team": "",
   "style": null
  },
- "e5307815": {
-  "slug": "adam-livingston",
-  "page": "https://www.espn.com/mma/fighter/_/id/5307815",
-  "team": "Long Island MMA",
+ "e5218816": {
+  "slug": "joey-hart",
+  "page": "https://www.espn.com/mma/fighter/_/id/5218816",
+  "team": "Start BJJ",
+  "style": null
+ },
+ "e5077314": {
+  "slug": "erick-visconde",
+  "page": "https://www.espn.com/mma/fighter/_/id/5077314",
+  "team": "California Mixed Martial Marts",
   "style": null
  },
  "e5113920": {
@@ -6083,10 +6149,10 @@
   "team": "Cruz MMA",
   "style": null
  },
- "e4848663": {
-  "slug": "edivan-santos",
-  "page": "https://www.espn.com/mma/fighter/_/id/4848663",
-  "team": "Chute Boxe",
+ "e5307815": {
+  "slug": "adam-livingston",
+  "page": "https://www.espn.com/mma/fighter/_/id/5307815",
+  "team": "Long Island MMA",
   "style": null
  },
  "e4935217": {
@@ -6095,22 +6161,22 @@
   "team": "Serra-Longo Fight Team ",
   "style": null
  },
- "15b1f83a90302adf": {
-  "slug": "quentin-pasley",
-  "page": "https://www.espn.com/mma/fighter/_/id/5307124",
-  "team": "Fighting Arts Academy",
+ "e5220468": {
+  "slug": "guilherme-uriel",
+  "page": "https://www.espn.com/mma/fighter/_/id/5220468",
+  "team": "Evolution Combat MMA",
+  "style": null
+ },
+ "e4848663": {
+  "slug": "edivan-santos",
+  "page": "https://www.espn.com/mma/fighter/_/id/4848663",
+  "team": "Chute Boxe",
   "style": null
  },
  "e5287948": {
   "slug": "neemias-santana",
   "page": "https://www.espn.com/mma/fighter/_/id/5287948",
   "team": "Team Lucas Mineiro",
-  "style": null
- },
- "e5401060": {
-  "slug": "luis-francischinelli",
-  "page": "https://www.espn.com/mma/fighter/_/id/5401060",
-  "team": "California Mixed Martial Marts",
   "style": null
  },
  "e5264647": {
@@ -6131,6 +6197,12 @@
   "team": "MMA LAB",
   "style": null
  },
+ "e5369424": {
+  "slug": "charlie-cleveland",
+  "page": "https://www.espn.com/mma/fighter/_/id/5369424",
+  "team": "Demolition Fight Team",
+  "style": null
+ },
  "e5228275": {
   "slug": "phil-latu",
   "page": "https://www.espn.com/mma/fighter/_/id/5228275",
@@ -6143,16 +6215,10 @@
   "team": "",
   "style": null
  },
- "15e0d2df09025bda": {
-  "slug": "ronald-humphrey",
-  "page": "https://www.espn.com/mma/fighter/_/id/5361909",
-  "team": "American Top Team Atlanta",
-  "style": null
- },
- "e5369424": {
-  "slug": "charlie-cleveland",
-  "page": "https://www.espn.com/mma/fighter/_/id/5369424",
-  "team": "Demolition Fight Team",
+ "e5307813": {
+  "slug": "mackson-lee",
+  "page": "https://www.espn.com/mma/fighter/_/id/5307813",
+  "team": "Markine Fight",
   "style": null
  }
 }
