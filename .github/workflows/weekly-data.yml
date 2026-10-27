@@ -45,15 +45,15 @@ jobs:
           echo "Madrid UTC$offset · ejecutar: $go"
           echo "go=$go" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: steps.when.outputs.go == 'true'
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         if: steps.when.outputs.go == 'true'
         with:
           node-version: 22
           cache: npm
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         if: steps.when.outputs.go == 'true'
         with:
           python-version: "3.11"
@@ -99,13 +99,21 @@ jobs:
         if: steps.when.outputs.go == 'true'
         run: python scripts/process-photos.py --official-only
 
-      - name: Check
+      - name: Check · build
         if: steps.when.outputs.go == 'true'
-        run: |
-          npm run typecheck
-          npm test
-          npm run check:duplicates
-          npm run build
+        run: npm run build
+
+      - name: Check · types
+        if: steps.when.outputs.go == 'true'
+        run: npm run typecheck
+
+      - name: Check · tests
+        if: steps.when.outputs.go == 'true'
+        run: npm test
+
+      - name: Check · duplicates
+        if: steps.when.outputs.go == 'true'
+        run: npm run check:duplicates
 
       - name: Commit and push
         if: steps.when.outputs.go == 'true'

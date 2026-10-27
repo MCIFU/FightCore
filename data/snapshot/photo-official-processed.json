@@ -4967,12 +4967,6 @@
   "team": "Marathon MMA",
   "style": null
  },
- "e4423415": {
-  "slug": "dedrek-sanders",
-  "page": "https://www.espn.com/mma/fighter/_/id/4423415",
-  "team": "Nashville MMA",
-  "style": null
- },
  "e5149044": {
   "slug": "lazaro-dayron",
   "page": "https://www.espn.com/mma/fighter/_/id/5149044",
@@ -4983,18 +4977,6 @@
   "slug": "mukhamed-berkhamov",
   "page": "https://www.espn.com/mma/fighter/_/id/4085672",
   "team": "Kill Cliff FC",
-  "style": null
- },
- "e5202203": {
-  "slug": "tariq-ismail",
-  "page": "https://www.espn.com/mma/fighter/_/id/5202203",
-  "team": "TriStar Gym",
-  "style": null
- },
- "e5210569": {
-  "slug": "taha-bendaoud",
-  "page": "https://www.espn.com/mma/fighter/_/id/5210569",
-  "team": "Thai Long Muay Thai",
   "style": null
  },
  "e5210197": {
@@ -5021,12 +5003,6 @@
   "team": "Roufusport",
   "style": null
  },
- "e5014781": {
-  "slug": "marcos-breno",
-  "page": "https://www.espn.com/mma/fighter/_/id/5014781",
-  "team": "Black House MMA",
-  "style": null
- },
  "e4712360": {
   "slug": "paul-hughes",
   "page": "https://www.espn.com/mma/fighter/_/id/4712360",
@@ -5037,12 +5013,6 @@
   "slug": "husein-kadimagomaev",
   "page": "https://www.espn.com/mma/fighter/_/id/5093699",
   "team": "UFD Gym",
-  "style": null
- },
- "e5238206": {
-  "slug": "zafar-mohsen",
-  "page": "https://www.espn.com/mma/fighter/_/id/5238206",
-  "team": "",
   "style": null
  },
  "e4341543": {
@@ -5273,12 +5243,6 @@
   "team": "Elevation Fight Team",
   "style": null
  },
- "e4869256": {
-  "slug": "dante-schiro",
-  "page": "https://www.espn.com/mma/fighter/_/id/4869256",
-  "team": "Chosen Few Gym",
-  "style": null
- },
  "e4881916": {
   "slug": "darragh-kelly",
   "page": "https://www.espn.com/mma/fighter/_/id/4881916",
@@ -5373,12 +5337,6 @@
   "slug": "rafael-xavier",
   "page": "https://www.espn.com/mma/fighter/_/id/4073993",
   "team": "Spitfire Gym",
-  "style": null
- },
- "e5289735": {
-  "slug": "takeshi-izumi",
-  "page": "https://www.espn.com/mma/fighter/_/id/5289735",
-  "team": "Fighter's Flow",
   "style": null
  },
  "e5125629": {
@@ -5517,6 +5475,12 @@
   "slug": "ronnie-gibbs",
   "page": "https://www.espn.com/mma/fighter/_/id/5282289",
   "team": "",
+  "style": null
+ },
+ "e5289735": {
+  "slug": "takeshi-izumi",
+  "page": "https://www.espn.com/mma/fighter/_/id/5289735",
+  "team": "Fighter's Flow",
   "style": null
  },
  "e4246527": {
@@ -6101,12 +6065,6 @@
   "team": "Long Island MMA",
   "style": null
  },
- "e5307524": {
-  "slug": "freddy-vidal",
-  "page": "https://www.espn.com/mma/fighter/_/id/5307524",
-  "team": "Serra-Longo Fight Team ",
-  "style": null
- },
  "e5113920": {
   "slug": "ednilson-santos",
   "page": "https://www.espn.com/mma/fighter/_/id/5113920",
@@ -6123,6 +6081,18 @@
   "slug": "george-staines",
   "page": "https://www.espn.com/mma/fighter/_/id/5401045",
   "team": "Next Generation MMA Liverpool",
+  "style": null
+ },
+ "e5369424": {
+  "slug": "charlie-cleveland",
+  "page": "https://www.espn.com/mma/fighter/_/id/5369424",
+  "team": "Demolition Fight Team",
+  "style": null
+ },
+ "e5228275": {
+  "slug": "phil-latu",
+  "page": "https://www.espn.com/mma/fighter/_/id/5228275",
+  "team": "Elevation Fight Team",
   "style": null
  },
  "e4935217": {
@@ -6161,22 +6131,28 @@
   "team": "MMA LAB",
   "style": null
  },
- "e5228275": {
-  "slug": "phil-latu",
-  "page": "https://www.espn.com/mma/fighter/_/id/5228275",
-  "team": "Elevation Fight Team",
-  "style": null
- },
  "e5361909": {
   "slug": "ronald-humphrey",
   "page": "https://www.espn.com/mma/fighter/_/id/5361909",
   "team": "American Top Team Atlanta",
   "style": null
  },
- "e5369424": {
-  "slug": "charlie-cleveland",
-  "page": "https://www.espn.com/mma/fighter/_/id/5369424",
-  "team": "Demolition Fight Team",
+ "e5401060": {
+  "slug": "luis-francischinelli",
+  "page": "https://www.espn.com/mma/fighter/_/id/5401060",
+  "team": "California Mixed Martial Marts",
+  "style": null
+ },
+ "e5401598": {
+  "slug": "douglas-da-lapa",
+  "page": "https://www.espn.com/mma/fighter/_/id/5401598",
+  "team": "",
+  "style": null
+ },
+ "e5088321": {
+  "slug": "steven-hill",
+  "page": "https://www.espn.com/mma/fighter/_/id/5088321",
+  "team": "",
   "style": null
  }
 }

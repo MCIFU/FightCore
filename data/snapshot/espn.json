@@ -7451,15 +7451,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5219208"
  },
- "e4423415": {
-  "slug": "dedrek-sanders",
-  "espnId": "4423415",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4423415.png",
-  "team": "Nashville MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4423415"
- },
  "e5149044": {
   "slug": "lazaro-dayron",
   "espnId": "5149044",
@@ -7477,24 +7468,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4085672"
- },
- "e5202203": {
-  "slug": "tariq-ismail",
-  "espnId": "5202203",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5202203.png",
-  "team": "TriStar Gym",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5202203"
- },
- "e5210569": {
-  "slug": "taha-bendaoud",
-  "espnId": "5210569",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5210569.png",
-  "team": "Thai Long Muay Thai",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5210569"
  },
  "e5210197": {
   "slug": "ibragim-ibragimov",
@@ -7532,15 +7505,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4063783"
  },
- "e5014781": {
-  "slug": "marcos-breno",
-  "espnId": "5014781",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5014781.png",
-  "team": "Black House MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5014781"
- },
  "e4712360": {
   "slug": "paul-hughes",
   "espnId": "4712360",
@@ -7558,15 +7522,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5093699"
- },
- "e5238206": {
-  "slug": "zafar-mohsen",
-  "espnId": "5238206",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5238206.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5238206"
  },
  "e4341543": {
   "slug": "fabian-edwards",
@@ -7910,15 +7865,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4878438"
  },
- "e4869256": {
-  "slug": "dante-schiro",
-  "espnId": "4869256",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4869256.png",
-  "team": "Chosen Few Gym",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4869256"
- },
  "e4881916": {
   "slug": "darragh-kelly",
   "espnId": "4881916",
@@ -8062,15 +8008,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4073993"
- },
- "e5289735": {
-  "slug": "takeshi-izumi",
-  "espnId": "5289735",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5289735.png",
-  "team": "Fighter's Flow",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5289735"
  },
  "e5125629": {
   "slug": "haider-khan",
@@ -8278,6 +8215,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5282289"
+ },
+ "e5289735": {
+  "slug": "takeshi-izumi",
+  "espnId": "5289735",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5289735.png",
+  "team": "Fighter's Flow",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5289735"
  },
  "e4246527": {
   "slug": "kyle-driscoll",
@@ -9152,15 +9098,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5307815"
  },
- "e5307524": {
-  "slug": "freddy-vidal",
-  "espnId": "5307524",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5307524.png",
-  "team": "Serra-Longo Fight Team ",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5307524"
- },
  "e5113920": {
   "slug": "ednilson-santos",
   "espnId": "5113920",
@@ -9187,6 +9124,24 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5401045"
+ },
+ "e5369424": {
+  "slug": "charlie-cleveland",
+  "espnId": "5369424",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5369424.png",
+  "team": "Demolition Fight Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5369424"
+ },
+ "e5228275": {
+  "slug": "phil-latu",
+  "espnId": "5228275",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5228275.png",
+  "team": "Elevation Fight Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5228275"
  },
  "e4935217": {
   "slug": "dylan-mantello",
@@ -9242,15 +9197,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5401059"
  },
- "e5228275": {
-  "slug": "phil-latu",
-  "espnId": "5228275",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5228275.png",
-  "team": "Elevation Fight Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5228275"
- },
  "e5361909": {
   "slug": "ronald-humphrey",
   "espnId": "5361909",
@@ -9260,13 +9206,31 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5361909"
  },
- "e5369424": {
-  "slug": "charlie-cleveland",
-  "espnId": "5369424",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5369424.png",
-  "team": "Demolition Fight Team",
+ "e5401060": {
+  "slug": "luis-francischinelli",
+  "espnId": "5401060",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5401060.png",
+  "team": "California Mixed Martial Marts",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5369424"
+  "page": "https://www.espn.com/mma/fighter/_/id/5401060"
+ },
+ "e5401598": {
+  "slug": "douglas-da-lapa",
+  "espnId": "5401598",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5401598.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5401598"
+ },
+ "e5088321": {
+  "slug": "steven-hill",
+  "espnId": "5088321",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5088321.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5088321"
  }
 }
