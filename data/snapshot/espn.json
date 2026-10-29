@@ -7028,14 +7028,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5013686"
  },
- "e4231144": {
-  "slug": "sadibou-sy",
-  "espnId": "4231144",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4231144.png",
-  "team": "Pancrase Gym Sweden",
+ "e4093244": {
+  "slug": "natan-schulte",
+  "espnId": "4093244",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4093244.png",
+  "team": "American Top Team",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4231144"
+  "page": "https://www.espn.com/mma/fighter/_/id/4093244"
  },
  "e4236070": {
   "slug": "robert-watley",
@@ -7045,6 +7045,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4236070"
+ },
+ "e4231144": {
+  "slug": "sadibou-sy",
+  "espnId": "4231144",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4231144.png",
+  "team": "Pancrase Gym Sweden",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4231144"
  },
  "e4425611": {
   "slug": "ramazan-kuramagomedov",
@@ -7064,15 +7073,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/3146345"
  },
- "e4093244": {
-  "slug": "natan-schulte",
-  "espnId": "4093244",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4093244.png",
-  "team": "American Top Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4093244"
- },
  "e4423241": {
   "slug": "gadzhi-rabadanov",
   "espnId": "4423241",
@@ -7081,24 +7081,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4423241"
- },
- "e4832859": {
-  "slug": "magomed-umalatov",
-  "espnId": "4832859",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4832859.png",
-  "team": "American Top Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4832859"
- },
- "e3024604": {
-  "slug": "denis-goltsov",
-  "espnId": "3024604",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3024604.png",
-  "team": "Sambo-Piter",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/3024604"
  },
  "e4300148": {
   "slug": "movlid-khaybulaev",
@@ -7109,14 +7091,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4300148"
  },
- "e3949930": {
-  "slug": "bruno-cappelozza",
-  "espnId": "3949930",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3949930.png",
-  "team": "Corinthians MMA",
-  "style": "Striker",
+ "e3024604": {
+  "slug": "denis-goltsov",
+  "espnId": "3024604",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3024604.png",
+  "team": "Sambo-Piter",
+  "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/3949930"
+  "page": "https://www.espn.com/mma/fighter/_/id/3024604"
  },
  "e3108772": {
   "slug": "antonio-carlos-jr",
@@ -7127,6 +7109,24 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/3108772"
  },
+ "e4832859": {
+  "slug": "magomed-umalatov",
+  "espnId": "4832859",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4832859.png",
+  "team": "American Top Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4832859"
+ },
+ "e3949930": {
+  "slug": "bruno-cappelozza",
+  "espnId": "3949930",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3949930.png",
+  "team": "Corinthians MMA",
+  "style": "Striker",
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/3949930"
+ },
  "e4408708": {
   "slug": "renan-ferreira",
   "espnId": "4408708",
@@ -7135,51 +7135,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4408708"
- },
- "e4821018": {
-  "slug": "josh-silveira",
-  "espnId": "4821018",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4821018.png",
-  "team": "American Top Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4821018"
- },
- "e4295923": {
-  "slug": "jarrah-al-silawi",
-  "espnId": "4295923",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4295923.png",
-  "team": "The Source MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4295923"
- },
- "e4969980": {
-  "slug": "alexei-pergande",
-  "espnId": "4969980",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4969980.png",
-  "team": "Kill Cliff FC",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4969980"
- },
- "e4913833": {
-  "slug": "nathan-kelly",
-  "espnId": "4913833",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4913833.png",
-  "team": "SBG Ireland",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4913833"
- },
- "e5080570": {
-  "slug": "dakota-ditcheva",
-  "espnId": "5080570",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5080570.png",
-  "team": "American Top Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5080570"
  },
  "e4915658": {
   "slug": "simeon-powell",
@@ -7190,6 +7145,33 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4915658"
  },
+ "e4295923": {
+  "slug": "jarrah-al-silawi",
+  "espnId": "4295923",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4295923.png",
+  "team": "The Source MMA",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4295923"
+ },
+ "e4821018": {
+  "slug": "josh-silveira",
+  "espnId": "4821018",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4821018.png",
+  "team": "American Top Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4821018"
+ },
+ "e4969980": {
+  "slug": "alexei-pergande",
+  "espnId": "4969980",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4969980.png",
+  "team": "Kill Cliff FC",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4969980"
+ },
  "e4941944": {
   "slug": "chris-mixan",
   "espnId": "4941944",
@@ -7199,14 +7181,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4941944"
  },
- "e5080573": {
-  "slug": "abraham-bably",
-  "espnId": "5080573",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5080573.png",
-  "team": "Manchester Top Team",
+ "e4913833": {
+  "slug": "nathan-kelly",
+  "espnId": "4913833",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4913833.png",
+  "team": "SBG Ireland",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5080573"
+  "page": "https://www.espn.com/mma/fighter/_/id/4913833"
  },
  "e5080821": {
   "slug": "alex-chizov",
@@ -7217,6 +7199,24 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5080821"
  },
+ "e5080570": {
+  "slug": "dakota-ditcheva",
+  "espnId": "5080570",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5080570.png",
+  "team": "American Top Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5080570"
+ },
+ "e5080573": {
+  "slug": "abraham-bably",
+  "espnId": "5080573",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5080573.png",
+  "team": "Manchester Top Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5080573"
+ },
  "e5124792": {
   "slug": "gabriel-braga",
   "espnId": "5124792",
@@ -7226,14 +7226,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5124792"
  },
- "e5147581": {
-  "slug": "damion-nelson",
-  "espnId": "5147581",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5147581.png",
-  "team": "Longo-Weidman MMA",
+ "e5144896": {
+  "slug": "mike-bardsley",
+  "espnId": "5144896",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5144896.png",
+  "team": "",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5147581"
+  "page": "https://www.espn.com/mma/fighter/_/id/5144896"
  },
  "e4689226": {
   "slug": "chelsea-hackett",
@@ -7253,32 +7253,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5120974"
  },
- "e5103717": {
-  "slug": "biaggio-ali-walsh",
-  "espnId": "5103717",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5103717.png",
-  "team": "Xtreme Couture",
+ "e5147581": {
+  "slug": "damion-nelson",
+  "espnId": "5147581",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5147581.png",
+  "team": "Longo-Weidman MMA",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5103717"
- },
- "e5144896": {
-  "slug": "mike-bardsley",
-  "espnId": "5144896",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5144896.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5144896"
- },
- "e3821379": {
-  "slug": "aj-mckee",
-  "espnId": "3821379",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3821379.png",
-  "team": "Team Bodyshop",
-  "style": "Striker",
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/3821379"
+  "page": "https://www.espn.com/mma/fighter/_/id/5147581"
  },
  "e5120975": {
   "slug": "mostafa-rashed-neda",
@@ -7289,14 +7271,23 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5120975"
  },
- "e3120931": {
-  "slug": "jason-jackson",
-  "espnId": "3120931",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3120931.png",
-  "team": "Kill Cliff FC",
+ "e5103717": {
+  "slug": "biaggio-ali-walsh",
+  "espnId": "5103717",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5103717.png",
+  "team": "Xtreme Couture",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/3120931"
+  "page": "https://www.espn.com/mma/fighter/_/id/5103717"
+ },
+ "e3821379": {
+  "slug": "aj-mckee",
+  "espnId": "3821379",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3821379.png",
+  "team": "Team Bodyshop",
+  "style": "Striker",
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/3821379"
  },
  "e3955014": {
   "slug": "vadim-nemkov",
@@ -7307,14 +7298,23 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/3955014"
  },
- "e5110272": {
-  "slug": "jena-bishop",
-  "espnId": "5110272",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5110272.png",
-  "team": "Alliance Jiu-Jitsu",
+ "e3120931": {
+  "slug": "jason-jackson",
+  "espnId": "3120931",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3120931.png",
+  "team": "Kill Cliff FC",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5110272"
+  "page": "https://www.espn.com/mma/fighter/_/id/3120931"
+ },
+ "e4697390": {
+  "slug": "johnny-eblen",
+  "espnId": "4697390",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4697390.png",
+  "team": "American Top Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4697390"
  },
  "e5127795": {
   "slug": "bryce-meredith",
@@ -7325,6 +7325,15 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5127795"
  },
+ "e5110272": {
+  "slug": "jena-bishop",
+  "espnId": "5110272",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5110272.png",
+  "team": "Alliance Jiu-Jitsu",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5110272"
+ },
  "e4609439": {
   "slug": "kana-watanabe",
   "espnId": "4609439",
@@ -7333,33 +7342,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4609439"
- },
- "e4293151": {
-  "slug": "sergei-bilostenniy",
-  "espnId": "4293151",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4293151.png",
-  "team": "FedorTeam",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4293151"
- },
- "e4070802": {
-  "slug": "ilara-joanne",
-  "espnId": "4070802",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4070802.png",
-  "team": "Pitbull Brothers",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4070802"
- },
- "e4257422": {
-  "slug": "juliana-velasquez",
-  "espnId": "4257422",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4257422.png",
-  "team": "Team Nogueira",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4257422"
  },
  "e4336342": {
   "slug": "oleg-popov",
@@ -7370,32 +7352,32 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4336342"
  },
- "e4076780": {
-  "slug": "valentin-moldavsky",
-  "espnId": "4076780",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4076780.png",
-  "team": "FedorTeam",
-  "style": "Brazilian Jiu-Jitsu",
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4076780"
- },
- "e4018603": {
-  "slug": "dovlet-yagshimuradov",
-  "espnId": "4018603",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4018603.png",
-  "team": "American Top Team",
+ "e4070802": {
+  "slug": "ilara-joanne",
+  "espnId": "4070802",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4070802.png",
+  "team": "Pitbull Brothers",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4018603"
+  "page": "https://www.espn.com/mma/fighter/_/id/4070802"
  },
- "e3902688": {
-  "slug": "brent-primus",
-  "espnId": "3902688",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3902688.png",
-  "team": "Team Oyama",
-  "style": "Brazilian Jiu-Jitsu",
+ "e4293151": {
+  "slug": "sergei-bilostenniy",
+  "espnId": "4293151",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4293151.png",
+  "team": "FedorTeam",
+  "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/3902688"
+  "page": "https://www.espn.com/mma/fighter/_/id/4293151"
+ },
+ "e4257422": {
+  "slug": "juliana-velasquez",
+  "espnId": "4257422",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4257422.png",
+  "team": "Team Nogueira",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4257422"
  },
  "e3068118": {
   "slug": "linton-vassell",
@@ -7406,6 +7388,33 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/3068118"
  },
+ "e4076780": {
+  "slug": "valentin-moldavsky",
+  "espnId": "4076780",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4076780.png",
+  "team": "FedorTeam",
+  "style": "Brazilian Jiu-Jitsu",
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4076780"
+ },
+ "e3902688": {
+  "slug": "brent-primus",
+  "espnId": "3902688",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3902688.png",
+  "team": "Team Oyama",
+  "style": "Brazilian Jiu-Jitsu",
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/3902688"
+ },
+ "e4018603": {
+  "slug": "dovlet-yagshimuradov",
+  "espnId": "4018603",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4018603.png",
+  "team": "American Top Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4018603"
+ },
  "e4610008": {
   "slug": "alex-polizzi",
   "espnId": "4610008",
@@ -7414,15 +7423,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4610008"
- },
- "e4208418": {
-  "slug": "adam-borics",
-  "espnId": "4208418",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4208418.png",
-  "team": "Kill Cliff FC",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4208418"
  },
  "e4911955": {
   "slug": "murad-ramazanov",
@@ -7433,14 +7433,23 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4911955"
  },
- "e4688510": {
-  "slug": "shamil-musaev",
-  "espnId": "4688510",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4688510.png",
-  "team": "Golden Team",
+ "e4894428": {
+  "slug": "timur-khizriev",
+  "espnId": "4894428",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4894428.png",
+  "team": "American Top Team",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4688510"
+  "page": "https://www.espn.com/mma/fighter/_/id/4894428"
+ },
+ "e4208418": {
+  "slug": "adam-borics",
+  "espnId": "4208418",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4208418.png",
+  "team": "Kill Cliff FC",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4208418"
  },
  "e4234873": {
   "slug": "logan-storley",
@@ -7451,14 +7460,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4234873"
  },
- "e4894428": {
-  "slug": "timur-khizriev",
-  "espnId": "4894428",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4894428.png",
-  "team": "American Top Team",
+ "e4688510": {
+  "slug": "shamil-musaev",
+  "espnId": "4688510",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4688510.png",
+  "team": "Golden Team",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4894428"
+  "page": "https://www.espn.com/mma/fighter/_/id/4688510"
  },
  "e4330789": {
   "slug": "pedro-carvalho",
@@ -7477,6 +7486,15 @@
   "style": "Striker",
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/2980488"
+ },
+ "e4408681": {
+  "slug": "saray-orozco",
+  "espnId": "4408681",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4408681.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4408681"
  },
  "e4842487": {
   "slug": "sumiko-inaba",
@@ -7505,15 +7523,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4336000"
  },
- "e4408681": {
-  "slug": "saray-orozco",
-  "espnId": "4408681",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4408681.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4408681"
- },
  "e5139190": {
   "slug": "alan-dominguez",
   "espnId": "5139190",
@@ -7522,15 +7531,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5139190"
- },
- "e4697390": {
-  "slug": "johnny-eblen",
-  "espnId": "4697390",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4697390.png",
-  "team": "American Top Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4697390"
  },
  "e3084476": {
   "slug": "luca-poclit",
@@ -7541,6 +7541,15 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/3084476"
  },
+ "e5219208": {
+  "slug": "nick-meck",
+  "espnId": "5219208",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5219208.png",
+  "team": "Marathon MMA",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5219208"
+ },
  "e5149044": {
   "slug": "lazaro-dayron",
   "espnId": "5149044",
@@ -7549,6 +7558,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5149044"
+ },
+ "e4085672": {
+  "slug": "mukhamed-berkhamov",
+  "espnId": "4085672",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4085672.png",
+  "team": "Kill Cliff FC",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4085672"
  },
  "e5210197": {
   "slug": "ibragim-ibragimov",
@@ -7568,6 +7586,15 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5238211"
  },
+ "e4601137": {
+  "slug": "makkasharip-zaynukov",
+  "espnId": "4601137",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4601137.png",
+  "team": "Eagles MMA",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4601137"
+ },
  "e4063783": {
   "slug": "raufeon-stots",
   "espnId": "4063783",
@@ -7576,15 +7603,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4063783"
- },
- "e5093699": {
-  "slug": "husein-kadimagomaev",
-  "espnId": "5093699",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5093699.png",
-  "team": "UFD Gym",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5093699"
  },
  "e4712360": {
   "slug": "paul-hughes",
@@ -7595,32 +7613,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4712360"
  },
- "e4601137": {
-  "slug": "makkasharip-zaynukov",
-  "espnId": "4601137",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4601137.png",
-  "team": "Eagles MMA",
+ "e5093699": {
+  "slug": "husein-kadimagomaev",
+  "espnId": "5093699",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5093699.png",
+  "team": "UFD Gym",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4601137"
- },
- "e4085672": {
-  "slug": "mukhamed-berkhamov",
-  "espnId": "4085672",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4085672.png",
-  "team": "Kill Cliff FC",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4085672"
- },
- "e5219208": {
-  "slug": "nick-meck",
-  "espnId": "5219208",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5219208.png",
-  "team": "Marathon MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5219208"
+  "page": "https://www.espn.com/mma/fighter/_/id/5093699"
  },
  "e4341543": {
   "slug": "fabian-edwards",
@@ -7630,15 +7630,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4341543"
- },
- "e4819856": {
-  "slug": "souhil-tairi",
-  "espnId": "4819856",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4819856.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4819856"
  },
  "e2354564": {
   "slug": "cris-cyborg",
@@ -7658,6 +7649,24 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5125629"
  },
+ "e4819856": {
+  "slug": "souhil-tairi",
+  "espnId": "4819856",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4819856.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4819856"
+ },
+ "e5080723": {
+  "slug": "john-mitchell",
+  "espnId": "5080723",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5080723.png",
+  "team": "Pedro Bessa BJJ",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5080723"
+ },
  "e5210073": {
   "slug": "ruel-panales",
   "espnId": "5210073",
@@ -7676,15 +7685,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5215147"
  },
- "e5080723": {
-  "slug": "john-mitchell",
-  "espnId": "5080723",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5080723.png",
-  "team": "Pedro Bessa BJJ",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5080723"
- },
  "e5217039": {
   "slug": "mike-thompson",
   "espnId": "5217039",
@@ -7693,15 +7693,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5217039"
- },
- "e5086821": {
-  "slug": "ahmed-sami",
-  "espnId": "5086821",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5086821.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5086821"
  },
  "e5260270": {
   "slug": "mirafzal-akhtamov",
@@ -7721,14 +7712,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4020445"
  },
- "e5222162": {
-  "slug": "renat-khavalov",
-  "espnId": "5222162",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5222162.png",
+ "e5086821": {
+  "slug": "ahmed-sami",
+  "espnId": "5086821",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5086821.png",
   "team": "",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5222162"
+  "page": "https://www.espn.com/mma/fighter/_/id/5086821"
  },
  "e5125124": {
   "slug": "cleiver-fernandes",
@@ -7739,14 +7730,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5125124"
  },
- "e4726566": {
-  "slug": "usman-nurmagomedov",
-  "espnId": "4726566",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4726566.png",
-  "team": "AKA (American Kickboxing Academy)",
+ "e5222162": {
+  "slug": "renat-khavalov",
+  "espnId": "5222162",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5222162.png",
+  "team": "",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4726566"
+  "page": "https://www.espn.com/mma/fighter/_/id/5222162"
  },
  "e5074314": {
   "slug": "kenny-mokhonoana",
@@ -7757,6 +7748,24 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5074314"
  },
+ "e5078211": {
+  "slug": "akhmed-magomedov",
+  "espnId": "5078211",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5078211.png",
+  "team": "KHK MMA Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5078211"
+ },
+ "e4726566": {
+  "slug": "usman-nurmagomedov",
+  "espnId": "4726566",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4726566.png",
+  "team": "AKA (American Kickboxing Academy)",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4726566"
+ },
  "e4039837": {
   "slug": "tae-kyun-kim",
   "espnId": "4039837",
@@ -7765,42 +7774,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4039837"
- },
- "e4799669": {
-  "slug": "diana-avsaragova",
-  "espnId": "4799669",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4799669.png",
-  "team": "Akhmat Fight Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4799669"
- },
- "e5146218": {
-  "slug": "joseph-luciano",
-  "espnId": "5146218",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5146218.png",
-  "team": "Absolute Mixed Martial Arts",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5146218"
- },
- "e5274109": {
-  "slug": "fred-dupras",
-  "espnId": "5274109",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5274109.png",
-  "team": "H2O MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5274109"
- },
- "e5140244": {
-  "slug": "giannis-bachar",
-  "espnId": "5140244",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5140244.png",
-  "team": "MMA Masters",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5140244"
  },
  "e5137744": {
   "slug": "masayuki-kikuiri",
@@ -7811,32 +7784,41 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5137744"
  },
- "e3896616": {
-  "slug": "matheus-mattos",
-  "espnId": "3896616",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3896616.png",
-  "team": "Team Nogueira",
+ "e5140244": {
+  "slug": "giannis-bachar",
+  "espnId": "5140244",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5140244.png",
+  "team": "MMA Masters",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/3896616"
+  "page": "https://www.espn.com/mma/fighter/_/id/5140244"
  },
- "e5078211": {
-  "slug": "akhmed-magomedov",
-  "espnId": "5078211",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5078211.png",
-  "team": "KHK MMA Team",
+ "e5274109": {
+  "slug": "fred-dupras",
+  "espnId": "5274109",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5274109.png",
+  "team": "H2O MMA",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5078211"
+  "page": "https://www.espn.com/mma/fighter/_/id/5274109"
  },
- "e5120811": {
-  "slug": "ekaterina-shakalova",
-  "espnId": "5120811",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5120811.png",
-  "team": "Honour MMA Academy",
+ "e5146218": {
+  "slug": "joseph-luciano",
+  "espnId": "5146218",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5146218.png",
+  "team": "Absolute Mixed Martial Arts",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5120811"
+  "page": "https://www.espn.com/mma/fighter/_/id/5146218"
+ },
+ "e4799669": {
+  "slug": "diana-avsaragova",
+  "espnId": "4799669",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4799669.png",
+  "team": "Akhmat Fight Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4799669"
  },
  "e5268875": {
   "slug": "elora-dana",
@@ -7847,32 +7829,23 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5268875"
  },
- "e4876401": {
-  "slug": "mando-gutierrez",
-  "espnId": "4876401",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4876401.png",
-  "team": "Murcielago MMA",
+ "e3896616": {
+  "slug": "matheus-mattos",
+  "espnId": "3896616",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3896616.png",
+  "team": "Team Nogueira",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4876401"
+  "page": "https://www.espn.com/mma/fighter/_/id/3896616"
  },
- "e5120295": {
-  "slug": "marcirley-alves",
-  "espnId": "5120295",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5120295.png",
-  "team": "Chute Boxe",
+ "e5120811": {
+  "slug": "ekaterina-shakalova",
+  "espnId": "5120811",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5120811.png",
+  "team": "Honour MMA Academy",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5120295"
- },
- "e3028866": {
-  "slug": "leandro-higo",
-  "espnId": "3028866",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3028866.png",
-  "team": "Pitbull Brothers",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/3028866"
+  "page": "https://www.espn.com/mma/fighter/_/id/5120811"
  },
  "e4867811": {
   "slug": "justin-wetzell",
@@ -7892,6 +7865,42 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5152982"
  },
+ "e4876401": {
+  "slug": "mando-gutierrez",
+  "espnId": "4876401",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4876401.png",
+  "team": "Murcielago MMA",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4876401"
+ },
+ "e3028866": {
+  "slug": "leandro-higo",
+  "espnId": "3028866",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3028866.png",
+  "team": "Pitbull Brothers",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/3028866"
+ },
+ "e5120295": {
+  "slug": "marcirley-alves",
+  "espnId": "5120295",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5120295.png",
+  "team": "Chute Boxe",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5120295"
+ },
+ "e4255574": {
+  "slug": "aaron-jeffery",
+  "espnId": "4255574",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4255574.png",
+  "team": "Niagara Top Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4255574"
+ },
  "e5088845": {
   "slug": "vinicius-cenci",
   "espnId": "5088845",
@@ -7900,6 +7909,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5088845"
+ },
+ "e4084363": {
+  "slug": "mike-shipman",
+  "espnId": "4084363",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4084363.png",
+  "team": "London Shootfighters",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4084363"
  },
  "e4820893": {
   "slug": "alfie-davis",
@@ -7910,14 +7928,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4820893"
  },
- "e4084363": {
-  "slug": "mike-shipman",
-  "espnId": "4084363",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4084363.png",
-  "team": "London Shootfighters",
+ "e4685785": {
+  "slug": "jay-jay-wilson",
+  "espnId": "4685785",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4685785.png",
+  "team": "American Top Team",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4084363"
+  "page": "https://www.espn.com/mma/fighter/_/id/4685785"
  },
  "e4744150": {
   "slug": "dalton-rosta",
@@ -7937,33 +7955,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4881841"
  },
- "e3950364": {
-  "slug": "karl-moore",
-  "espnId": "3950364",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3950364.png",
-  "team": "SBG Ireland",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/3950364"
- },
- "e4255574": {
-  "slug": "aaron-jeffery",
-  "espnId": "4255574",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4255574.png",
-  "team": "Niagara Top Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4255574"
- },
- "e4685785": {
-  "slug": "jay-jay-wilson",
-  "espnId": "4685785",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4685785.png",
-  "team": "American Top Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4685785"
- },
  "e4078664": {
   "slug": "karl-albrektsson",
   "espnId": "4078664",
@@ -7972,6 +7963,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4078664"
+ },
+ "e3950364": {
+  "slug": "karl-moore",
+  "espnId": "3950364",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3950364.png",
+  "team": "SBG Ireland",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/3950364"
  },
  "e5145009": {
   "slug": "nathan-gilmore",
@@ -7991,14 +7991,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5281718"
  },
- "e4881916": {
-  "slug": "darragh-kelly",
-  "espnId": "4881916",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4881916.png",
-  "team": "SBG Ireland",
+ "e4399100": {
+  "slug": "kendly-st-louis",
+  "espnId": "4399100",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4399100.png",
+  "team": "American Top Team Sunrise",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4881916"
+  "page": "https://www.espn.com/mma/fighter/_/id/4399100"
  },
  "e5121006": {
   "slug": "sarek-shields",
@@ -8018,6 +8018,15 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4687045"
  },
+ "e4881916": {
+  "slug": "darragh-kelly",
+  "espnId": "4881916",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4881916.png",
+  "team": "SBG Ireland",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4881916"
+ },
  "e4808753": {
   "slug": "antonio-caruso",
   "espnId": "4808753",
@@ -8027,24 +8036,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4808753"
  },
- "e5022142": {
-  "slug": "sarvarjon-khamidov",
-  "espnId": "5022142",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5022142.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5022142"
- },
- "e4399100": {
-  "slug": "kendly-st-louis",
-  "espnId": "4399100",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4399100.png",
-  "team": "American Top Team Sunrise",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4399100"
- },
  "e2966188": {
   "slug": "magomed-magomedov",
   "espnId": "2966188",
@@ -8053,6 +8044,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/2966188"
+ },
+ "e5022142": {
+  "slug": "sarvarjon-khamidov",
+  "espnId": "5022142",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5022142.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5022142"
  },
  "e3067201": {
   "slug": "mansour-barnaoui",
@@ -8072,14 +8072,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4878438"
  },
- "e5289735": {
-  "slug": "takeshi-izumi",
-  "espnId": "5289735",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5289735.png",
-  "team": "Fighter's Flow",
+ "e4073993": {
+  "slug": "rafael-xavier",
+  "espnId": "4073993",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4073993.png",
+  "team": "Spitfire Gym",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5289735"
+  "page": "https://www.espn.com/mma/fighter/_/id/4073993"
  },
  "e5282289": {
   "slug": "ronnie-gibbs",
@@ -8090,14 +8090,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5282289"
  },
- "e5127822": {
-  "slug": "jakub-kaszuba",
-  "espnId": "5127822",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5127822.png",
-  "team": "Gracie Barra South Jax",
+ "e5289735": {
+  "slug": "takeshi-izumi",
+  "espnId": "5289735",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5289735.png",
+  "team": "Fighter's Flow",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5127822"
+  "page": "https://www.espn.com/mma/fighter/_/id/5289735"
  },
  "e4330791": {
   "slug": "costello-van-steenis",
@@ -8117,23 +8117,23 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4246527"
  },
- "e4073993": {
-  "slug": "rafael-xavier",
-  "espnId": "4073993",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4073993.png",
-  "team": "Spitfire Gym",
+ "e5127822": {
+  "slug": "jakub-kaszuba",
+  "espnId": "5127822",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5127822.png",
+  "team": "Gracie Barra South Jax",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4073993"
+  "page": "https://www.espn.com/mma/fighter/_/id/5127822"
  },
- "e4894845": {
-  "slug": "asael-adjoudj",
-  "espnId": "4894845",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4894845.png",
-  "team": "SBG Ireland",
+ "e4783230": {
+  "slug": "jordan-newman",
+  "espnId": "4783230",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4783230.png",
+  "team": "Roufusport",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4894845"
+  "page": "https://www.espn.com/mma/fighter/_/id/4783230"
  },
  "e3022308": {
   "slug": "yves-landu",
@@ -8144,14 +8144,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/3022308"
  },
- "e4783230": {
-  "slug": "jordan-newman",
-  "espnId": "4783230",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4783230.png",
-  "team": "Roufusport",
+ "e4894845": {
+  "slug": "asael-adjoudj",
+  "espnId": "4894845",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4894845.png",
+  "team": "SBG Ireland",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4783230"
+  "page": "https://www.espn.com/mma/fighter/_/id/4894845"
  },
  "e5293191": {
   "slug": "isaiah-diggs",
@@ -8171,6 +8171,24 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5139022"
  },
+ "e5293617": {
+  "slug": "sabrinna-de-sousa",
+  "espnId": "5293617",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5293617.png",
+  "team": "KHK MMA Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5293617"
+ },
+ "e5295150": {
+  "slug": "adryan-grundy",
+  "espnId": "5295150",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5295150.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5295150"
+ },
  "e4378418": {
   "slug": "j-p-saint-louis",
   "espnId": "4378418",
@@ -8180,14 +8198,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4378418"
  },
- "e5293617": {
-  "slug": "sabrinna-de-sousa",
-  "espnId": "5293617",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5293617.png",
-  "team": "KHK MMA Team",
+ "e4881028": {
+  "slug": "tyler-ray",
+  "espnId": "4881028",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4881028.png",
+  "team": "Kill Cliff FC",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5293617"
+  "page": "https://www.espn.com/mma/fighter/_/id/4881028"
  },
  "e3110835": {
   "slug": "guilherme-viana",
@@ -8207,15 +8225,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5293774"
  },
- "e4881028": {
-  "slug": "tyler-ray",
-  "espnId": "4881028",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4881028.png",
-  "team": "Kill Cliff FC",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4881028"
- },
  "e4699459": {
   "slug": "ethan-goss",
   "espnId": "4699459",
@@ -8224,15 +8233,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4699459"
- },
- "e5295150": {
-  "slug": "adryan-grundy",
-  "espnId": "5295150",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5295150.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5295150"
  },
  "e2559789": {
   "slug": "gregory-babene",
@@ -8243,15 +8243,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/2559789"
  },
- "e5139025": {
-  "slug": "florim-zendeli",
-  "espnId": "5139025",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5139025.png",
-  "team": "Planet Eater",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5139025"
- },
  "e5172118": {
   "slug": "luann-sardinha",
   "espnId": "5172118",
@@ -8260,6 +8251,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5172118"
+ },
+ "e5139025": {
+  "slug": "florim-zendeli",
+  "espnId": "5139025",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5139025.png",
+  "team": "Planet Eater",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5139025"
  },
  "e5215143": {
   "slug": "omar-el-dafrawy",
@@ -8279,15 +8279,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5101131"
  },
- "e5322341": {
-  "slug": "rayan-balbali",
-  "espnId": "5322341",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5322341.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5322341"
- },
  "e5272739": {
   "slug": "pouya-rahmani",
   "espnId": "5272739",
@@ -8296,24 +8287,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5272739"
- },
- "e5292389": {
-  "slug": "levi-batchelor",
-  "espnId": "5292389",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5292389.png",
-  "team": "Shore Mixed Martial Arts Centre of Excellence",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5292389"
- },
- "e5210203": {
-  "slug": "paulina-wisniewska",
-  "espnId": "5210203",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5210203.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5210203"
  },
  "e4584150": {
   "slug": "jack-cartwright",
@@ -8324,23 +8297,32 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4584150"
  },
- "e5118333": {
-  "slug": "guilherme-soares",
-  "espnId": "5118333",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5118333.png",
-  "team": "Hybrid Training Centre",
+ "e5292389": {
+  "slug": "levi-batchelor",
+  "espnId": "5292389",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5292389.png",
+  "team": "Shore Mixed Martial Arts Centre of Excellence",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5118333"
+  "page": "https://www.espn.com/mma/fighter/_/id/5292389"
  },
- "e5138049": {
-  "slug": "connor-hughes",
-  "espnId": "5138049",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5138049.png",
-  "team": "MMA Academy Liverpool",
+ "e5322341": {
+  "slug": "rayan-balbali",
+  "espnId": "5322341",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5322341.png",
+  "team": "",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5138049"
+  "page": "https://www.espn.com/mma/fighter/_/id/5322341"
+ },
+ "e5210203": {
+  "slug": "paulina-wisniewska",
+  "espnId": "5210203",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5210203.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5210203"
  },
  "e5104264": {
   "slug": "gustavo-oliveira",
@@ -8360,77 +8342,23 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5292383"
  },
- "e4709157": {
-  "slug": "liam-gittins",
-  "espnId": "4709157",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4709157.png",
-  "team": "Next Generation UK",
+ "e5138049": {
+  "slug": "connor-hughes",
+  "espnId": "5138049",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5138049.png",
+  "team": "MMA Academy Liverpool",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4709157"
+  "page": "https://www.espn.com/mma/fighter/_/id/5138049"
  },
- "e4705584": {
-  "slug": "dean-garnett",
-  "espnId": "4705584",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4705584.png",
-  "team": "Performance MMA",
+ "e5118333": {
+  "slug": "guilherme-soares",
+  "espnId": "5118333",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5118333.png",
+  "team": "Hybrid Training Centre",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4705584"
- },
- "e5196656": {
-  "slug": "patrick-habirora",
-  "espnId": "5196656",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5196656.png",
-  "team": "Team Sendo",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5196656"
- },
- "e5295060": {
-  "slug": "baris-adiguzel",
-  "espnId": "5295060",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5295060.png",
-  "team": "Boxing Squad",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5295060"
- },
- "e5127785": {
-  "slug": "sara-collins",
-  "espnId": "5127785",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5127785.png",
-  "team": "Resilience Training Centre",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5127785"
- },
- "e5331213": {
-  "slug": "khabib-nabiev",
-  "espnId": "5331213",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5331213.png",
-  "team": "Abdulmanap Nurmagomedov Martial Arts School",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5331213"
- },
- "e4275484": {
-  "slug": "denise-kielholtz",
-  "espnId": "4275484",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4275484.png",
-  "team": "Team Schrijber",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4275484"
- },
- "e4064998": {
-  "slug": "antonia-silvaneide-da-silva",
-  "espnId": "4064998",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4064998.png",
-  "team": "Pitbull Brothers",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4064998"
+  "page": "https://www.espn.com/mma/fighter/_/id/5118333"
  },
  "e5292380": {
   "slug": "boris-mbarga-atangana",
@@ -8441,14 +8369,50 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5292380"
  },
- "e4875324": {
-  "slug": "luke-trainer",
-  "espnId": "4875324",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4875324.png",
-  "team": "Great Britain Top Team",
+ "e4705584": {
+  "slug": "dean-garnett",
+  "espnId": "4705584",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4705584.png",
+  "team": "Performance MMA",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4875324"
+  "page": "https://www.espn.com/mma/fighter/_/id/4705584"
+ },
+ "e5295060": {
+  "slug": "baris-adiguzel",
+  "espnId": "5295060",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5295060.png",
+  "team": "Boxing Squad",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5295060"
+ },
+ "e4709157": {
+  "slug": "liam-gittins",
+  "espnId": "4709157",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4709157.png",
+  "team": "Next Generation UK",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4709157"
+ },
+ "e5196656": {
+  "slug": "patrick-habirora",
+  "espnId": "5196656",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5196656.png",
+  "team": "Team Sendo",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5196656"
+ },
+ "e5127785": {
+  "slug": "sara-collins",
+  "espnId": "5127785",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5127785.png",
+  "team": "Resilience Training Centre",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5127785"
  },
  "e5074270": {
   "slug": "jhony-gregory",
@@ -8459,14 +8423,41 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5074270"
  },
- "e4218124": {
-  "slug": "kolton-englund",
-  "espnId": "4218124",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4218124.png",
-  "team": "",
+ "e5331213": {
+  "slug": "khabib-nabiev",
+  "espnId": "5331213",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5331213.png",
+  "team": "Abdulmanap Nurmagomedov Martial Arts School",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4218124"
+  "page": "https://www.espn.com/mma/fighter/_/id/5331213"
+ },
+ "e4875324": {
+  "slug": "luke-trainer",
+  "espnId": "4875324",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4875324.png",
+  "team": "Great Britain Top Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4875324"
+ },
+ "e4064998": {
+  "slug": "antonia-silvaneide-da-silva",
+  "espnId": "4064998",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4064998.png",
+  "team": "Pitbull Brothers",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4064998"
+ },
+ "e4275484": {
+  "slug": "denise-kielholtz",
+  "espnId": "4275484",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4275484.png",
+  "team": "Team Schrijber",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4275484"
  },
  "e4415122": {
   "slug": "amin-ayoub",
@@ -8485,6 +8476,33 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4287629"
+ },
+ "e4218124": {
+  "slug": "kolton-englund",
+  "espnId": "4218124",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4218124.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4218124"
+ },
+ "e5264795": {
+  "slug": "amru-magomedov",
+  "espnId": "5264795",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5264795.png",
+  "team": "Abdulmanap Nurmagomedov Martial Arts School",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5264795"
+ },
+ "e5328681": {
+  "slug": "salamat-isbulaev",
+  "espnId": "5328681",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5328681.png",
+  "team": "Erkin Kush",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5328681"
  },
  "e4245706": {
   "slug": "abdoul-abdouraguimov",
@@ -8513,24 +8531,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5196657"
  },
- "e5328681": {
-  "slug": "salamat-isbulaev",
-  "espnId": "5328681",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5328681.png",
-  "team": "Erkin Kush",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5328681"
- },
- "e5264795": {
-  "slug": "amru-magomedov",
-  "espnId": "5264795",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5264795.png",
-  "team": "Abdulmanap Nurmagomedov Martial Arts School",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5264795"
- },
  "e5334832": {
   "slug": "ernesto-schisano",
   "espnId": "5334832",
@@ -8549,15 +8549,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5145776"
  },
- "e4684239": {
-  "slug": "jose-augusto",
-  "espnId": "4684239",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4684239.png",
-  "team": "Pitbull Brothers",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4684239"
- },
  "e5278193": {
   "slug": "gino-van-steenis",
   "espnId": "5278193",
@@ -8566,24 +8557,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5278193"
- },
- "e4763958": {
-  "slug": "kevin-cordero-lopez",
-  "espnId": "4763958",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4763958.png",
-  "team": "Black Lion Jiu-Jitsu",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4763958"
- },
- "e5331633": {
-  "slug": "benita-van-rooij",
-  "espnId": "5331633",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5331633.png",
-  "team": "Van Buel Sports",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5331633"
  },
  "e5295059": {
   "slug": "borja-garcia",
@@ -8594,14 +8567,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5295059"
  },
- "e5334829": {
-  "slug": "franco-tenaglia",
-  "espnId": "5334829",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5334829.png",
-  "team": "Climent Club",
+ "e4763958": {
+  "slug": "kevin-cordero-lopez",
+  "espnId": "4763958",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4763958.png",
+  "team": "Black Lion Jiu-Jitsu",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5334829"
+  "page": "https://www.espn.com/mma/fighter/_/id/4763958"
  },
  "e5149438": {
   "slug": "luciano-pereira",
@@ -8611,6 +8584,42 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5149438"
+ },
+ "e4684239": {
+  "slug": "jose-augusto",
+  "espnId": "4684239",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4684239.png",
+  "team": "Pitbull Brothers",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4684239"
+ },
+ "e5331633": {
+  "slug": "benita-van-rooij",
+  "espnId": "5331633",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5331633.png",
+  "team": "Van Buel Sports",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5331633"
+ },
+ "e4819858": {
+  "slug": "yassin-najid",
+  "espnId": "4819858",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4819858.png",
+  "team": "Free Fight Academy",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4819858"
+ },
+ "e5334829": {
+  "slug": "franco-tenaglia",
+  "espnId": "5334829",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5334829.png",
+  "team": "Climent Club",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5334829"
  },
  "e5336700": {
   "slug": "tatiana-postarnakova",
@@ -8629,15 +8638,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5077053"
- },
- "e4819858": {
-  "slug": "yassin-najid",
-  "espnId": "4819858",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4819858.png",
-  "team": "Free Fight Academy",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4819858"
  },
  "e4903519": {
   "slug": "allan-begosso",
@@ -8666,6 +8666,15 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4227318"
  },
+ "e4880997": {
+  "slug": "andrea-vazquez",
+  "espnId": "4880997",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4880997.png",
+  "team": "Boxing Camp Playa",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4880997"
+ },
  "e5344477": {
   "slug": "eoghan-masoliver",
   "espnId": "5344477",
@@ -8675,14 +8684,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5344477"
  },
- "e4880997": {
-  "slug": "andrea-vazquez",
-  "espnId": "4880997",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4880997.png",
-  "team": "Boxing Camp Playa",
+ "e5344479": {
+  "slug": "shane-mullen",
+  "espnId": "5344479",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5344479.png",
+  "team": "",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4880997"
+  "page": "https://www.espn.com/mma/fighter/_/id/5344479"
  },
  "e5001017": {
   "slug": "sean-gauci",
@@ -8702,6 +8711,15 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4881912"
  },
+ "e5139026": {
+  "slug": "chequina-noso-pedro",
+  "espnId": "5139026",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5139026.png",
+  "team": "BA Army",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5139026"
+ },
  "e5204224": {
   "slug": "omran-chaaban",
   "espnId": "5204224",
@@ -8711,14 +8729,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5204224"
  },
- "e5344479": {
-  "slug": "shane-mullen",
-  "espnId": "5344479",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5344479.png",
-  "team": "",
+ "e3077633": {
+  "slug": "alan-philpott",
+  "espnId": "3077633",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3077633.png",
+  "team": "Next Generation Northern Ireland",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5344479"
+  "page": "https://www.espn.com/mma/fighter/_/id/3077633"
  },
  "e5292616": {
   "slug": "eoin-sheridan",
@@ -8738,24 +8756,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4082740"
  },
- "e4568503": {
-  "slug": "yan-qihui",
-  "espnId": "4568503",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4568503.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4568503"
- },
- "e3077633": {
-  "slug": "alan-philpott",
-  "espnId": "3077633",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/3077633.png",
-  "team": "Next Generation Northern Ireland",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/3077633"
- },
  "e3961957": {
   "slug": "bryce-logan",
   "espnId": "3961957",
@@ -8764,6 +8764,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/3961957"
+ },
+ "e4568503": {
+  "slug": "yan-qihui",
+  "espnId": "4568503",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4568503.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4568503"
  },
  "e4695350": {
   "slug": "ashley-reece",
@@ -8774,24 +8783,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4695350"
  },
- "e5146397": {
-  "slug": "adam-meskini",
-  "espnId": "5146397",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5146397.png",
-  "team": "Old School MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5146397"
- },
- "e5289354": {
-  "slug": "khamzat-abaev",
-  "espnId": "5289354",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5289354.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5289354"
- },
  "e5142179": {
   "slug": "rustam-serbiev",
   "espnId": "5142179",
@@ -8801,41 +8792,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5142179"
  },
- "e5139026": {
-  "slug": "chequina-noso-pedro",
-  "espnId": "5139026",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5139026.png",
-  "team": "BA Army",
+ "e5146397": {
+  "slug": "adam-meskini",
+  "espnId": "5146397",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5146397.png",
+  "team": "Old School MMA",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5139026"
- },
- "e5344105": {
-  "slug": "donegi-abena",
-  "espnId": "5344105",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5344105.png",
-  "team": "",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5344105"
- },
- "e2570365": {
-  "slug": "joe-schilling",
-  "espnId": "2570365",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/2570365.png",
-  "team": "",
-  "style": "Kickboxing",
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/2570365"
- },
- "e5011101": {
-  "slug": "keisuke-sasu",
-  "espnId": "5011101",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5011101.png",
-  "team": "Master Japan",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5011101"
+  "page": "https://www.espn.com/mma/fighter/_/id/5146397"
  },
  "e5212940": {
   "slug": "keweny-lopes",
@@ -8846,6 +8810,42 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5212940"
  },
+ "e5289354": {
+  "slug": "khamzat-abaev",
+  "espnId": "5289354",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5289354.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5289354"
+ },
+ "e2570365": {
+  "slug": "joe-schilling",
+  "espnId": "2570365",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/2570365.png",
+  "team": "",
+  "style": "Kickboxing",
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/2570365"
+ },
+ "e5344105": {
+  "slug": "donegi-abena",
+  "espnId": "5344105",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5344105.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5344105"
+ },
+ "e5011101": {
+  "slug": "keisuke-sasu",
+  "espnId": "5011101",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5011101.png",
+  "team": "Master Japan",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5011101"
+ },
  "e5355507": {
   "slug": "daniel-bzdigian",
   "espnId": "5355507",
@@ -8854,24 +8854,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5355507"
- },
- "e5211222": {
-  "slug": "shannon-clark",
-  "espnId": "5211222",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5211222.png",
-  "team": "Canadian Martial Arts Centre",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5211222"
- },
- "e4205092": {
-  "slug": "alexander-shabliy",
-  "espnId": "4205092",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4205092.png",
-  "team": "American Top Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4205092"
  },
  "e5355508": {
   "slug": "cobey-fehr",
@@ -8882,14 +8864,32 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5355508"
  },
- "e5053878": {
-  "slug": "eduardo-neves",
-  "espnId": "5053878",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5053878.png",
-  "team": "Machado Team",
+ "e5211222": {
+  "slug": "shannon-clark",
+  "espnId": "5211222",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5211222.png",
+  "team": "Canadian Martial Arts Centre",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5053878"
+  "page": "https://www.espn.com/mma/fighter/_/id/5211222"
+ },
+ "e4715264": {
+  "slug": "khasan-magomedsharipov",
+  "espnId": "4715264",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4715264.png",
+  "team": "Dagestan Fighter",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4715264"
+ },
+ "e4205092": {
+  "slug": "alexander-shabliy",
+  "espnId": "4205092",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4205092.png",
+  "team": "American Top Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4205092"
  },
  "e5110297": {
   "slug": "eliezer-kubanza",
@@ -8900,6 +8900,15 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5110297"
  },
+ "e5053878": {
+  "slug": "eduardo-neves",
+  "espnId": "5053878",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5053878.png",
+  "team": "Machado Team",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5053878"
+ },
  "e5147245": {
   "slug": "robbie-ring",
   "espnId": "5147245",
@@ -8908,6 +8917,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5147245"
+ },
+ "e4875507": {
+  "slug": "brandon-lewis",
+  "espnId": "4875507",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4875507.png",
+  "team": "DEFWAR",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4875507"
  },
  "e5287881": {
   "slug": "ilian-bouafia",
@@ -8927,23 +8945,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4848687"
  },
- "e4875507": {
-  "slug": "brandon-lewis",
-  "espnId": "4875507",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4875507.png",
-  "team": "DEFWAR",
+ "e4309525": {
+  "slug": "aiden-lee",
+  "espnId": "4309525",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4309525.png",
+  "team": "Fearless MMA",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4875507"
- },
- "e4715264": {
-  "slug": "khasan-magomedsharipov",
-  "espnId": "4715264",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4715264.png",
-  "team": "Dagestan Fighter",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4715264"
+  "page": "https://www.espn.com/mma/fighter/_/id/4309525"
  },
  "e4764301": {
   "slug": "george-hardwick",
@@ -8954,15 +8963,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4764301"
  },
- "e4309525": {
-  "slug": "aiden-lee",
-  "espnId": "4309525",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4309525.png",
-  "team": "Fearless MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4309525"
- },
  "e4977642": {
   "slug": "theo-haig",
   "espnId": "4977642",
@@ -8971,15 +8971,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4977642"
- },
- "e5100571": {
-  "slug": "robert-rucha-a",
-  "espnId": "5100571",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5100571.png",
-  "team": "Grappling Krakow",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5100571"
  },
  "e5088321": {
   "slug": "steven-hill",
@@ -8990,14 +8981,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5088321"
  },
- "e5193167": {
-  "slug": "chasen-blair",
-  "espnId": "5193167",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5193167.png",
-  "team": "MMA Fight Academy",
+ "e5100571": {
+  "slug": "robert-rucha-a",
+  "espnId": "5100571",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5100571.png",
+  "team": "Grappling Krakow",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5193167"
+  "page": "https://www.espn.com/mma/fighter/_/id/5100571"
  },
  "e4915407": {
   "slug": "damon-wilson",
@@ -9007,6 +8998,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4915407"
+ },
+ "e5193167": {
+  "slug": "chasen-blair",
+  "espnId": "5193167",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5193167.png",
+  "team": "MMA Fight Academy",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5193167"
  },
  "e5369446": {
   "slug": "adam-darby",
@@ -9026,14 +9026,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5109011"
  },
- "e5445622": {
-  "slug": "christian-natividad",
-  "espnId": "5445622",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5445622.png",
-  "team": "Fight Ready",
+ "e5311705": {
+  "slug": "luca-borando",
+  "espnId": "5311705",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5311705.png",
+  "team": "Aurora MMA",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5445622"
+  "page": "https://www.espn.com/mma/fighter/_/id/5311705"
  },
  "e5296254": {
   "slug": "mario-mingaj",
@@ -9043,6 +9043,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5296254"
+ },
+ "e5364353": {
+  "slug": "sean-clancy-jr",
+  "espnId": "5364353",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5364353.png",
+  "team": "Higher Level Martial Arts",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5364353"
  },
  "e5124146": {
   "slug": "samuel-silva",
@@ -9062,6 +9071,15 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5401045"
  },
+ "e5445622": {
+  "slug": "christian-natividad",
+  "espnId": "5445622",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5445622.png",
+  "team": "Fight Ready",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5445622"
+ },
  "e5077056": {
   "slug": "jacobi-jones",
   "espnId": "5077056",
@@ -9071,15 +9089,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5077056"
  },
- "e5364353": {
-  "slug": "sean-clancy-jr",
-  "espnId": "5364353",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5364353.png",
-  "team": "Higher Level Martial Arts",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5364353"
- },
  "e5149436": {
   "slug": "kasey-tanner",
   "espnId": "5149436",
@@ -9088,15 +9097,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5149436"
- },
- "e5291155": {
-  "slug": "reginaldo-junior",
-  "espnId": "5291155",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5291155.png",
-  "team": "Fighting Nerds",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5291155"
  },
  "e5223853": {
   "slug": "leslie-hernandez",
@@ -9116,32 +9116,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5142277"
  },
- "e5110864": {
-  "slug": "aline-pereira",
-  "espnId": "5110864",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5110864.png",
-  "team": "Teixeira MMA & Fitness",
+ "e5291155": {
+  "slug": "reginaldo-junior",
+  "espnId": "5291155",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5291155.png",
+  "team": "Fighting Nerds",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5110864"
- },
- "e5311705": {
-  "slug": "luca-borando",
-  "espnId": "5311705",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5311705.png",
-  "team": "Aurora MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5311705"
- },
- "e5401056": {
-  "slug": "aieza-bertolso",
-  "espnId": "5401056",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5401056.png",
-  "team": "KO Squad MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5401056"
+  "page": "https://www.espn.com/mma/fighter/_/id/5291155"
  },
  "e5143887": {
   "slug": "janaina-silva",
@@ -9152,6 +9134,33 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5143887"
  },
+ "e5110864": {
+  "slug": "aline-pereira",
+  "espnId": "5110864",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5110864.png",
+  "team": "Teixeira MMA & Fitness",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5110864"
+ },
+ "e5220468": {
+  "slug": "guilherme-uriel",
+  "espnId": "5220468",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5220468.png",
+  "team": "Evolution Combat MMA",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5220468"
+ },
+ "e5401056": {
+  "slug": "aieza-bertolso",
+  "espnId": "5401056",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5401056.png",
+  "team": "KO Squad MMA",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5401056"
+ },
  "e5401060": {
   "slug": "luis-francischinelli",
   "espnId": "5401060",
@@ -9160,6 +9169,33 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5401060"
+ },
+ "e5218816": {
+  "slug": "joey-hart",
+  "espnId": "5218816",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5218816.png",
+  "team": "Start BJJ",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5218816"
+ },
+ "e5308528": {
+  "slug": "mateus-soares",
+  "espnId": "5308528",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5308528.png",
+  "team": "",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5308528"
+ },
+ "e5077314": {
+  "slug": "erick-visconde",
+  "espnId": "5077314",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5077314.png",
+  "team": "California Mixed Martial Marts",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5077314"
  },
  "e4896556": {
   "slug": "vanilto-antunes",
@@ -9188,41 +9224,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4701012"
  },
- "e5308528": {
-  "slug": "mateus-soares",
-  "espnId": "5308528",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5308528.png",
-  "team": "",
+ "e5307813": {
+  "slug": "mackson-lee",
+  "espnId": "5307813",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5307813.png",
+  "team": "Markine Fight",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5308528"
- },
- "e5218816": {
-  "slug": "joey-hart",
-  "espnId": "5218816",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5218816.png",
-  "team": "Start BJJ",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5218816"
- },
- "e5077314": {
-  "slug": "erick-visconde",
-  "espnId": "5077314",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5077314.png",
-  "team": "California Mixed Martial Marts",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5077314"
- },
- "e5113920": {
-  "slug": "ednilson-santos",
-  "espnId": "5113920",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5113920.png",
-  "team": "Cruz MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5113920"
+  "page": "https://www.espn.com/mma/fighter/_/id/5307813"
  },
  "e5307815": {
   "slug": "adam-livingston",
@@ -9233,23 +9242,14 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5307815"
  },
- "e4935217": {
-  "slug": "dylan-mantello",
-  "espnId": "4935217",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4935217.png",
-  "team": "Serra-Longo Fight Team ",
+ "e5113920": {
+  "slug": "ednilson-santos",
+  "espnId": "5113920",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5113920.png",
+  "team": "Cruz MMA",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/4935217"
- },
- "e5220468": {
-  "slug": "guilherme-uriel",
-  "espnId": "5220468",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5220468.png",
-  "team": "Evolution Combat MMA",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5220468"
+  "page": "https://www.espn.com/mma/fighter/_/id/5113920"
  },
  "e4848663": {
   "slug": "edivan-santos",
@@ -9259,6 +9259,15 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4848663"
+ },
+ "e4935217": {
+  "slug": "dylan-mantello",
+  "espnId": "4935217",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/4935217.png",
+  "team": "Serra-Longo Fight Team ",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/4935217"
  },
  "e5287948": {
   "slug": "neemias-santana",
@@ -9296,15 +9305,6 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5401059"
  },
- "e5369424": {
-  "slug": "charlie-cleveland",
-  "espnId": "5369424",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5369424.png",
-  "team": "Demolition Fight Team",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5369424"
- },
  "e5228275": {
   "slug": "phil-latu",
   "espnId": "5228275",
@@ -9323,13 +9323,13 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5401598"
  },
- "e5307813": {
-  "slug": "mackson-lee",
-  "espnId": "5307813",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5307813.png",
-  "team": "Markine Fight",
+ "e5369424": {
+  "slug": "charlie-cleveland",
+  "espnId": "5369424",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5369424.png",
+  "team": "Demolition Fight Team",
   "style": null,
   "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5307813"
+  "page": "https://www.espn.com/mma/fighter/_/id/5369424"
  }
 }
