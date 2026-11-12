@@ -7046,6 +7046,24 @@
   "nickname": "Korean Tiger",
   "page": "https://www.espn.com/mma/fighter/_/id/5068724"
  },
+ "4327506eb9ee342f": {
+  "slug": "louis-lee-scott",
+  "espnId": "5212852",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5212852.png",
+  "team": "Manchester Top Team",
+  "style": null,
+  "nickname": "Lightning",
+  "page": "https://www.espn.com/mma/fighter/_/id/5212852"
+ },
+ "b4e8867d60ef0e69": {
+  "slug": "piero-guaylupo",
+  "espnId": "5369736",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5369736.png",
+  "team": "Los Perros Sarnosos",
+  "style": null,
+  "nickname": "El Lobo",
+  "page": "https://www.espn.com/mma/fighter/_/id/5369736"
+ },
  "e4093244": {
   "slug": "natan-schulte",
   "espnId": "4093244",
@@ -9070,15 +9088,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5445622"
- },
- "e5077056": {
-  "slug": "jacobi-jones",
-  "espnId": "5077056",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5077056.png",
-  "team": "FactoryX Muay Thai",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5077056"
  },
  "e5149436": {
   "slug": "kasey-tanner",

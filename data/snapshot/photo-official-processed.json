@@ -4697,6 +4697,18 @@
   "team": "Ssen Gym",
   "style": "Brazilian Jiu-Jitsu"
  },
+ "4327506eb9ee342f": {
+  "slug": "louis-lee-scott",
+  "page": "https://www.espn.com/mma/fighter/_/id/5212852",
+  "team": "Manchester Top Team",
+  "style": null
+ },
+ "b4e8867d60ef0e69": {
+  "slug": "piero-guaylupo",
+  "page": "https://www.espn.com/mma/fighter/_/id/5369736",
+  "team": "Los Perros Sarnosos",
+  "style": null
+ },
  "e4093244": {
   "slug": "natan-schulte",
   "page": "https://www.espn.com/mma/fighter/_/id/4093244",
@@ -6045,12 +6057,6 @@
   "slug": "christian-natividad",
   "page": "https://www.espn.com/mma/fighter/_/id/5445622",
   "team": "Fight Ready",
-  "style": null
- },
- "e5077056": {
-  "slug": "jacobi-jones",
-  "page": "https://www.espn.com/mma/fighter/_/id/5077056",
-  "team": "FactoryX Muay Thai",
   "style": null
  },
  "e5149436": {
