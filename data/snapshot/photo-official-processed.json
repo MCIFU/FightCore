@@ -4709,6 +4709,18 @@
   "team": "Los Perros Sarnosos",
   "style": null
  },
+ "c02862a5f6d3fbd0": {
+  "slug": "sean-clancy-jr",
+  "page": "https://www.espn.com/mma/fighter/_/id/5364353",
+  "team": "Higher Level Martial Arts",
+  "style": null
+ },
+ "34d4cae19105eb68": {
+  "slug": "cameron-nelson",
+  "page": "https://www.espn.com/mma/fighter/_/id/5393007",
+  "team": "Renzo Gracie PEI",
+  "style": null
+ },
  "e4093244": {
   "slug": "natan-schulte",
   "page": "https://www.espn.com/mma/fighter/_/id/4093244",
@@ -5435,6 +5447,12 @@
   "team": "Spitfire Gym",
   "style": null
  },
+ "e5289735": {
+  "slug": "takeshi-izumi",
+  "page": "https://www.espn.com/mma/fighter/_/id/5289735",
+  "team": "Fighter's Flow",
+  "style": null
+ },
  "e5125629": {
   "slug": "haider-khan",
   "page": "https://www.espn.com/mma/fighter/_/id/5125629",
@@ -5577,12 +5595,6 @@
   "slug": "ronnie-gibbs",
   "page": "https://www.espn.com/mma/fighter/_/id/5282289",
   "team": "",
-  "style": null
- },
- "e5289735": {
-  "slug": "takeshi-izumi",
-  "page": "https://www.espn.com/mma/fighter/_/id/5289735",
-  "team": "Fighter's Flow",
   "style": null
  },
  "e4246527": {
@@ -6045,12 +6057,6 @@
   "slug": "luca-borando",
   "page": "https://www.espn.com/mma/fighter/_/id/5311705",
   "team": "Aurora MMA",
-  "style": null
- },
- "e5364353": {
-  "slug": "sean-clancy-jr",
-  "page": "https://www.espn.com/mma/fighter/_/id/5364353",
-  "team": "Higher Level Martial Arts",
   "style": null
  },
  "e5445622": {

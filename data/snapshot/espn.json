@@ -7064,6 +7064,24 @@
   "nickname": "El Lobo",
   "page": "https://www.espn.com/mma/fighter/_/id/5369736"
  },
+ "c02862a5f6d3fbd0": {
+  "slug": "sean-clancy-jr",
+  "espnId": "5364353",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5364353.png",
+  "team": "Higher Level Martial Arts",
+  "style": null,
+  "nickname": "The One",
+  "page": "https://www.espn.com/mma/fighter/_/id/5364353"
+ },
+ "34d4cae19105eb68": {
+  "slug": "cameron-nelson",
+  "espnId": "5393007",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5393007.png",
+  "team": "Renzo Gracie PEI",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5393007"
+ },
  "e4093244": {
   "slug": "natan-schulte",
   "espnId": "4093244",
@@ -8153,6 +8171,15 @@
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/4073993"
  },
+ "e5289735": {
+  "slug": "takeshi-izumi",
+  "espnId": "5289735",
+  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5289735.png",
+  "team": "Fighter's Flow",
+  "style": null,
+  "nickname": null,
+  "page": "https://www.espn.com/mma/fighter/_/id/5289735"
+ },
  "e5125629": {
   "slug": "haider-khan",
   "espnId": "5125629",
@@ -8368,15 +8395,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5282289"
- },
- "e5289735": {
-  "slug": "takeshi-izumi",
-  "espnId": "5289735",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5289735.png",
-  "team": "Fighter's Flow",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5289735"
  },
  "e4246527": {
   "slug": "kyle-driscoll",
@@ -9070,15 +9088,6 @@
   "style": null,
   "nickname": null,
   "page": "https://www.espn.com/mma/fighter/_/id/5311705"
- },
- "e5364353": {
-  "slug": "sean-clancy-jr",
-  "espnId": "5364353",
-  "headshot": "https://a.espncdn.com/i/headshots/mma/players/full/5364353.png",
-  "team": "Higher Level Martial Arts",
-  "style": null,
-  "nickname": null,
-  "page": "https://www.espn.com/mma/fighter/_/id/5364353"
  },
  "e5445622": {
   "slug": "christian-natividad",
