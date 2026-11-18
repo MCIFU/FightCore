@@ -1,0 +1,167 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FIGHTCORE · Concepto C · Cartel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f3ecdf;--cream2:#e7dcc8;--k:#121110;--k2:#2a2724;--mute:#6b645a;--red:#d4361f;--blue:#2348c4;--g:clamp(16px,3vw,44px);
+--sans:"Archivo",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0}body{background:var(--cream);color:var(--k);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.4;overflow-x:clip}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-feature-settings:"tnum","zero"}
+.cond{font-variation-settings:"wdth" 62;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.84}
+.wrap{max-width:1480px;margin:0 auto;padding:0 var(--g)}
+header{background:var(--k);color:var(--cream);position:sticky;top:0;z-index:20}
+.hb{display:flex;align-items:center;gap:28px;height:58px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-variation-settings:"wdth" 125;font-size:18px}.logo svg{width:22px;height:22px}
+nav.main{display:flex;gap:22px;font-variation-settings:"wdth" 75;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.04em}
+nav.main a{opacity:.7;transition:opacity .2s}nav.main a:hover,nav.main a[aria-current]{opacity:1}
+nav.main a[aria-current]{box-shadow:inset 0 -3px var(--red);padding-bottom:4px}
+.search{margin-left:auto;display:flex;align-items:center;gap:10px;height:36px;padding:0 14px;border:1.5px solid rgb(243 236 223/.35);border-radius:99px;font-size:14px;color:rgb(243 236 223/.7);min-width:260px}
+/* poster */
+.poster{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100svh - 58px);color:var(--cream);overflow:hidden;isolation:isolate}
+.corner{position:relative;overflow:hidden;padding-top:58px}
+.corner.r{background:var(--red)}.corner.b{background:var(--blue)}
+.corner img{position:absolute;bottom:0;height:88%;width:auto;max-width:none;filter:grayscale(1) contrast(1.35) brightness(1.08);mix-blend-mode:multiply}
+.corner.r img{right:-4%}.corner.b img{left:-4%;transform:scaleX(-1)}
+.corner::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgb(0 0 0/.22) 1px,transparent 1.4px);background-size:5px 5px;mix-blend-mode:multiply;pointer-events:none}
+.strip{position:absolute;left:0;right:0;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:14px var(--g);background:var(--k)}
+.strip b{font-variation-settings:"wdth" 62;font-weight:900;font-size:22px;letter-spacing:.02em;text-transform:uppercase}
+.corner .nm{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:0 var(--g) 112px}
+.corner .bn{text-align:right}
+.corner h1,.corner h2{font-size:clamp(64px,10vw,184px);white-space:nowrap}
+.corner .first{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.14em;margin-bottom:12px;font-weight:500;text-transform:uppercase}
+.vs{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);width:clamp(96px,9vw,150px);aspect-ratio:1;border-radius:50%;background:var(--cream);color:var(--k);display:grid;place-items:center;font-size:clamp(40px,4vw,68px);box-shadow:0 0 0 6px var(--k)}
+.side{position:absolute;z-index:3;top:50%;white-space:nowrap;writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg);font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.9}
+.side.l{left:16px}.side.rr{right:16px;transform:translateY(-50%)}
+.credits{position:absolute;left:0;right:0;bottom:0;z-index:3;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:var(--cream);color:var(--k);border-top:6px solid var(--k)}
+.credits>div{padding:16px var(--g);display:flex;gap:28px}
+.credits .c{font-variation-settings:"wdth" 62;font-weight:900;font-size:26px;text-transform:uppercase;padding:14px 28px;border-inline:2px solid var(--k);background:var(--k);color:var(--cream);text-align:center;line-height:1}
+.credits .c small{display:block;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.1em;margin-top:4px;opacity:.8}
+.credits .stat b{display:block;font-family:var(--sans);letter-spacing:0;font-variation-settings:"wdth" 62;font-weight:900;font-size:30px;line-height:1;font-feature-settings:"tnum"}
+.credits .r2{justify-content:flex-end;text-align:right}
+/* sections */
+.sec{padding:88px 0 0}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:6px solid var(--k);padding-bottom:14px;margin-bottom:28px}
+.sh h2{font-size:clamp(56px,8vw,128px)}
+.sh h2 span{color:var(--red)}
+.sh a{font-variation-settings:"wdth" 75;font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:.04em;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.sh a::after{content:"→";transition:transform .25s}.sh a:hover::after{transform:translateX(4px)}
+/* mini posters */
+.bill{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.mp{position:relative;aspect-ratio:3/4.3;padding:16px;display:flex;flex-direction:column;overflow:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+.mp:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 18px 0 -6px var(--k)}
+.mp.k{background:var(--k);color:var(--cream)}.mp.r{background:var(--red);color:var(--cream)}.mp.b{background:var(--blue);color:var(--cream)}.mp.c{background:var(--cream2);color:var(--k)}
+.mp .top{display:flex;justify-content:space-between}
+.mp .dd{font-size:clamp(68px,6.8vw,112px);margin-top:10px}
+.mp .mo{font-size:24px;margin-top:2px}
+.mp .who{margin-top:auto;font-size:clamp(24px,2.1vw,34px);line-height:.88}
+.mp .who i{font-style:normal;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.1em;display:block;margin:6px 0;opacity:.7}
+.mp .pl{margin-top:12px;padding-top:10px;border-top:1.5px solid currentColor;opacity:.85}
+.mp .belt{position:absolute;right:14px;top:44px;width:38px;height:22px;border:2.5px solid currentColor;border-radius:4px}
+.mp .belt::after{content:"";position:absolute;inset:5px 12px;background:currentColor;border-radius:1px}
+/* scoreboard */
+.score{border-top:2px solid var(--k)}
+.row{display:grid;grid-template-columns:110px 1fr 1fr 120px;align-items:center;gap:20px;padding:16px 0;border-bottom:2px solid var(--k);transition:background .2s}
+.row:hover{background:var(--cream2)}
+.row .when{color:var(--mute)}
+.row .w{font-size:clamp(34px,3.4vw,54px)}
+.row .w small{display:block;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.1em;margin-bottom:6px;color:var(--mute)}
+.row .l{font-size:clamp(22px,2vw,30px);color:var(--mute);text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--red)}
+.stamp{justify-self:end;width:104px;aspect-ratio:1;border-radius:50%;border:3px solid var(--red);color:var(--red);display:grid;place-items:center;text-align:center;transform:rotate(-12deg);font-variation-settings:"wdth" 62;font-weight:900;font-size:30px;line-height:.9}
+.stamp small{display:block;font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:0;margin-top:3px}
+.row.t .stamp{border-color:var(--blue);color:var(--blue)}
+/* ladder */
+.ladder{display:grid;grid-template-columns:1.25fr 1fr;gap:12px}
+.top3{display:grid;gap:12px}
+.lp{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:20px;padding:20px 24px;overflow:hidden;min-height:200px;background:var(--k);color:var(--cream)}
+.lp:nth-child(2){background:var(--red)}.lp:nth-child(3){background:var(--blue)}
+.lp .n{font-size:180px;line-height:.72;-webkit-text-stroke:2px var(--cream);color:transparent;position:relative;z-index:1}
+.lp img{position:absolute;right:120px;bottom:0;height:112%;width:auto;filter:grayscale(1) contrast(1.25);mix-blend-mode:luminosity;opacity:.85}
+.lp:first-child img{mix-blend-mode:normal;opacity:.9}
+.lp .nm{position:relative;z-index:1;font-size:52px;align-self:end}
+.lp .nm small{display:block;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.1em;margin-bottom:8px;opacity:.85}
+.lp .v{position:relative;z-index:1;text-align:right;font-size:64px}
+.lp .v small{display:block;font-family:var(--mono);font-weight:500;font-size:10px;letter-spacing:.1em;opacity:.75}
+.rest{border-top:6px solid var(--k)}
+.rr{display:grid;grid-template-columns:72px 1fr auto;align-items:center;gap:14px;padding:12px 4px;border-bottom:2px solid var(--k);transition:background .2s,padding .25s}
+.rr:hover{background:var(--k);color:var(--cream);padding-left:14px}
+.rr .n{font-size:58px;-webkit-text-stroke:1.5px var(--k);color:transparent}.rr:hover .n{-webkit-text-stroke-color:var(--cream)}
+.rr .nm{font-size:34px}.rr .nm small{display:block;font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.1em;margin-top:4px;opacity:.7}
+.rr .v{font-size:38px}
+.mv{font-family:var(--mono);font-size:12px;font-weight:700;margin-left:8px;vertical-align:middle;letter-spacing:0}
+/* belts */
+.belts{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(190px,1fr);gap:0;overflow-x:auto;scroll-snap-type:x mandatory;border:2px solid var(--k);scrollbar-width:thin}
+.bt{scroll-snap-align:start;position:relative;border-right:2px solid var(--k);background:var(--cream2);display:flex;flex-direction:column}
+.bt .ph{aspect-ratio:1;overflow:hidden;background:var(--red)}
+.bt:nth-child(even) .ph{background:var(--blue)}
+.bt img{width:100%;height:100%;object-fit:cover;object-position:50% 10%;filter:grayscale(1) contrast(1.3);mix-blend-mode:multiply;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.bt:hover img{transform:scale(1.06)}
+.bt .tx{padding:12px 14px 16px;border-top:2px solid var(--k)}
+.bt .nm{font-size:30px;margin-top:6px}
+.bt .d{color:var(--mute);margin-top:8px}
+footer{margin-top:110px;background:var(--k);color:var(--cream);padding:48px 0 120px}
+footer .big{font-size:clamp(80px,17vw,300px);line-height:.78;color:var(--red);letter-spacing:-.02em}
+footer p{max-width:70ch;opacity:.75;font-size:14px;margin-top:24px}
+.tabbar{display:none}
+@media (max-width:1100px){.bill{grid-template-columns:repeat(3,1fr)}.ladder{grid-template-columns:1fr}}
+@media (max-width:760px){
+ nav.main,.search{display:none}
+ .poster{display:block;min-height:0}
+ .strip{position:relative;padding:12px 16px}.strip b{font-size:18px}.strip .mono{display:none}
+ .corner{height:300px;padding-top:0}.corner img{height:100%}.corner.r img{right:-18%}.corner.b img{left:-18%}
+ .corner .nm{padding:0 16px 16px}.corner .bn{text-align:left}
+ .corner h1,.corner h2{font-size:clamp(54px,17vw,80px)}.corner .first{font-size:10.5px;margin-bottom:6px}
+ .vs{top:calc(46px + 300px);left:auto;right:18px;width:74px;font-size:32px;transform:translateY(-50%) rotate(-8deg);box-shadow:0 0 0 4px var(--k)}
+ .side{display:none}
+ .credits{position:relative;grid-template-columns:1fr 1fr}.credits .c{grid-column:1/-1;grid-row:1;border:0;padding:12px;display:block}.credits>div{padding:12px 16px;gap:16px}
+ .credits .stat:nth-child(2){display:none}.credits .stat b{font-size:24px}
+ .sh h2{font-size:clamp(48px,15vw,72px)}.sh{flex-direction:column;align-items:flex-start}
+ .bill{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:64%;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(var(--g)*-1);padding:0 var(--g) 10px;scrollbar-width:none}.mp{scroll-snap-align:start}
+ .row{grid-template-columns:1fr auto;gap:6px 12px}.stamp{width:78px!important;font-size:24px!important}.row .when{grid-column:1/-1}.row .l{grid-column:1}.row .stamp{grid-row:2/4;grid-column:2;width:72px;font-size:24px}
+ .lp{min-height:150px;padding:16px;gap:10px;grid-template-columns:auto 1fr}.lp .n{font-size:110px}.lp .nm{font-size:32px}.lp .v{position:absolute;right:16px;top:14px;font-size:36px}.lp img{right:96px;height:100%}
+ .rr{grid-template-columns:48px 1fr auto}.rr .n{font-size:40px}.rr .nm{font-size:24px}.rr .v{font-size:28px}
+ .belts{grid-auto-columns:56%;margin:0 calc(var(--g)*-1);border-inline:0}
+ .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--k);color:var(--cream);padding:9px 4px calc(9px + env(safe-area-inset-bottom));font-variation-settings:"wdth" 75;font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.04em;text-align:center}
+ .tabbar a{display:grid;gap:4px;justify-items:center;opacity:.6}.tabbar a[aria-current]{opacity:1}.tabbar a[aria-current] svg{color:var(--red)}
+ .tabbar svg{width:20px;height:20px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<header><div class="wrap hb"><a class="logo" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.858 2H16.142L22 7.858V16.142L16.142 22H7.858L2 16.142V7.858Z" fill="none" stroke="#f3ecdf" stroke-width="3.2"/><rect x="8" y="8" width="8" height="8" fill="#d4361f"/></svg>FIGHTCORE</a><nav class="main"><a href="#" aria-current="page">Inicio</a><a href="#">Luchadores</a><a href="#">Rankings</a><a href="#">Campeones</a><a href="#">Eventos</a><a href="#">Comparar</a></nav><div class="search">⌕ Buscar luchador o evento</div></div></header>
+
+<section class="poster" aria-label="Combate estelar: Jiri Prochazka contra Navajo Stirling">
+ <div class="strip"><b>UFC Fight Night</b><span class="mono">sáb 21 nov · Al Rayyan · Ali Bin Hamad al-Attiyah Arena</span><b>en 3 días</b></div>
+ <div class="corner r"><img src="../../public/photos/official/jiri-prochazka.png" alt=""><div class="nm"><span class="first">Esquina roja · Jiri · CZE</span><h1 class="cond">Prochazka</h1></div></div>
+ <div class="corner b"><img src="../../public/photos/official/navajo-stirling.png" alt=""><div class="nm bn"><span class="first">Esquina azul · Navajo · NZL</span><h2 class="cond">Stirling</h2></div></div>
+ <div class="vs cond">vs</div>
+ <span class="side l">FCR 82,0 · nº 7 del semipesado</span><span class="side rr">FCR 84,0 · nº 6 del semipesado</span>
+ <div class="credits"><div><span class="stat mono">Récord<b>43-7-1</b></span><span class="stat mono">Edad<b>34</b></span><span class="stat mono">FCR<b>82,0</b></span></div><div class="c">Peso semipesado<small>5 asaltos · combate estelar</small></div><div class="r2"><span class="stat mono">FCR<b>84,0</b></span><span class="stat mono">Edad<b>29</b></span><span class="stat mono">Récord<b>11-0-0</b></span></div></div>
+</section>
+
+<main class="wrap">
+ <section class="sec">
+  <div class="sh"><h2 class="cond">Carte<span>lera</span></h2><a href="#">Calendario completo</a></div>
+  <div class="bill"><a class="mp k" href="#"><span class="belt" title="Por el título"></span><div class="top mono"><span>ONE</span><span>mié</span></div><div class="dd cond">18</div><div class="mo cond">nov</div><div class="who cond">Pacio<i>contra</i>Yamakita</div><div class="pl mono">Tokyo · 4 comb.</div></a><a class="mp r" href="#"><div class="top mono"><span>ONE</span><span>vie</span></div><div class="dd cond">20</div><div class="mo cond">nov</div><div class="who cond">Rodrigues<i>contra</i>Padié</div><div class="pl mono">Bangkok · 1 comb.</div></a><a class="mp b" href="#"><div class="top mono"><span>UFC</span><span>sáb</span></div><div class="dd cond">21</div><div class="mo cond">nov</div><div class="who cond">Prochazka<i>contra</i>Stirling</div><div class="pl mono">Al Rayyan · 12 comb.</div></a><a class="mp c" href="#"><span class="belt" title="Por el título"></span><div class="top mono"><span>KSW</span><span>sáb</span></div><div class="dd cond">21</div><div class="mo cond">nov</div><div class="who cond">Bartosinski<i>contra</i>Łopaczyk</div><div class="pl mono">Szczecin · 9 comb.</div></a><a class="mp r" href="#"><span class="belt" title="Por el título"></span><div class="top mono"><span>ONE</span><span>mié</span></div><div class="dd cond">2</div><div class="mo cond">dic</div><div class="who cond">Sawada<i>contra</i>Nikolakakos</div><div class="pl mono">Yokohama · 3 comb.</div></a><a class="mp k" href="#"><div class="top mono"><span>UFC</span><span>sáb</span></div><div class="dd cond">5</div><div class="mo cond">dic</div><div class="who cond">Adesanya<i>contra</i>Magomedov</div><div class="pl mono">Riyadh · 12 comb.</div></a></div>
+ </section>
+
+ <section class="sec">
+  <div class="sh"><h2 class="cond">Resul<span>tados</span></h2><a href="#">Todos los eventos</a></div>
+  <div class="score"><a class="row" href="#"><span class="when mono">14 nov<br>UFC</span><span class="w cond"><small>UFC 334 · título</small>Ciryl Gane</span><span class="l cond">Josh Hokit</span><span class="stamp">DEC<small>R5 · 5:00</small></span></a><a class="row t" href="#"><span class="when mono">14 nov<br>PFL</span><span class="w cond"><small>PFL Dubai · título</small>Sergei Bilostenniy</span><span class="l cond">Vadim Nemkov</span><span class="stamp">DEC<small>R5 · 5:00</small></span></a><a class="row" href="#"><span class="when mono">14 nov<br>UFC</span><span class="w cond"><small>UFC 334 · título</small>Kayla Harrison</span><span class="l cond">Amanda Nunes</span><span class="stamp">SUB<small>R4 · 1:29</small></span></a><a class="row" href="#"><span class="when mono">14 nov<br>PFL</span><span class="w cond"><small>PFL Dubai</small>Patrick Habirora</span><span class="l cond">Omar El Dafrawy</span><span class="stamp">SUB<small>R1 · 3:11</small></span></a><a class="row" href="#"><span class="when mono">8 nov<br>RIZIN</span><span class="w cond"><small>Rizin 55 · título</small>Tony Laramie</span><span class="l cond">Makoto Takahashi</span><span class="stamp">DEC<small>R3 · 5:00</small></span></a><a class="row" href="#"><span class="when mono">8 nov<br>RIZIN</span><span class="w cond"><small>Rizin 55</small>Yrysbek Tilenov</span><span class="l cond">Naoki Inoue</span><span class="stamp">DEC<small>R3 · 5:00</small></span></a></div>
+ </section>
+
+ <section class="sec">
+  <div class="sh"><h2 class="cond">Libra <span>por libra</span></h2><a href="#">Rankings por división</a></div>
+  <div class="ladder">
+   <div class="top3"><a class="lp" href="#"><span class="n cond">1</span><img src="../../public/photos/official/islam-makhachev.png" alt=""><span class="nm cond"><small>wélter · 29-1-0</small>Makhachev</span><span class="v cond"><small>FCR</small>94,8</span></a><a class="lp" href="#"><span class="n cond">2</span><img src="../../public/photos/official/ilia-topuria.png" alt=""><span class="nm cond"><small>ligero · 18-1-0</small>Topuria</span><span class="v cond"><small>FCR</small>92,2</span></a><a class="lp" href="#"><span class="n cond">3</span><img src="../../public/photos/official/arman-tsarukyan.png" alt=""><span class="nm cond"><small>ligero · 24-3-0</small>Tsarukyan</span><span class="v cond"><small>FCR</small>89,4</span></a></div>
+   <div class="rest"><a class="rr" href="#"><span class="n cond">4</span><span class="nm cond">Dricus Du Plessis<small>medio · 26-4-0</small></span><span class="v cond">89,4</span></a><a class="rr" href="#"><span class="n cond">5</span><span class="nm cond">Ciryl Gane<span class="mv" style="color:#1c7a4a">▲4</span><small>pesado · 14-2-0</small></span><span class="v cond">89,3</span></a><a class="rr" href="#"><span class="n cond">6</span><span class="nm cond">Alexander Volkanovski<span class="mv" style="color:#1c7a4a">▲10</span><small>pluma · 29-4-0</small></span><span class="v cond">89,2</span></a><a class="rr" href="#"><span class="n cond">7</span><span class="nm cond">Carlos Ulberg<small>semipesado · 14-1-0</small></span><span class="v cond">89,0</span></a><a class="rr" href="#"><span class="n cond">8</span><span class="nm cond">Merab Dvalishvili<span class="mv" style="color:var(--red)">▼5</span><small>gallo · 21-6-0</small></span><span class="v cond">88,9</span></a><a class="rr" href="#"><span class="n cond">9</span><span class="nm cond">Khamzat Chimaev<span class="mv" style="color:var(--red)">▼4</span><small>medio · 15-1-0</small></span><span class="v cond">88,7</span></a><a class="rr" href="#"><span class="n cond">10</span><span class="nm cond">Petr Yan<span class="mv" style="color:#1c7a4a">▲3</span><small>gallo · 21-5-0</small></span><span class="v cond">88,6</span></a></div>
+  </div>
+ </section>
+
+ <section class="sec">
+  <div class="sh"><h2 class="cond">Cintu<span>rones</span></h2><a href="#">ONE, PFL, KSW, RIZIN</a></div>
+  <div class="belts"><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/joshua-van.png" alt="Joshua Van"></div><div class="tx"><span class="mono">mosca</span><div class="nm cond">Joshua Van</div><div class="d mono">Desde 6 dic 2025 · 2 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/petr-yan.png" alt="Petr Yan"></div><div class="tx"><span class="mono">gallo</span><div class="nm cond">Petr Yan</div><div class="d mono">Desde 6 dic 2025 · 1 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/alexander-volkanovski.png" alt="Alexander Volkanovski"></div><div class="tx"><span class="mono">pluma</span><div class="nm cond">Alexander Volkanovski</div><div class="d mono">Desde 12 abr 2025 · 2 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/justin-gaethje.png" alt="Justin Gaethje"></div><div class="tx"><span class="mono">ligero</span><div class="nm cond">Justin Gaethje</div><div class="d mono">Desde 14 jun 2026 · 0 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/islam-makhachev.png" alt="Islam Makhachev"></div><div class="tx"><span class="mono">wélter</span><div class="nm cond">Islam Makhachev</div><div class="d mono">Desde 15 nov 2025 · 1 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/sean-strickland.png" alt="Sean Strickland"></div><div class="tx"><span class="mono">medio</span><div class="nm cond">Sean Strickland</div><div class="d mono">Desde 9 may 2026 · 0 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/carlos-ulberg.png" alt="Carlos Ulberg"></div><div class="tx"><span class="mono">semipesado</span><div class="nm cond">Carlos Ulberg</div><div class="d mono">Desde 11 abr 2026 · 0 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/ciryl-gane.png" alt="Ciryl Gane"></div><div class="tx"><span class="mono">pesado</span><div class="nm cond">Ciryl Gane</div><div class="d mono">Desde 14 nov 2026 · 0 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/mackenzie-dern.png" alt="Mackenzie Dern"></div><div class="tx"><span class="mono">paja fem.</span><div class="nm cond">Mackenzie Dern</div><div class="d mono">Desde 25 oct 2025 · 1 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/natalia-silva.png" alt="Natalia Silva"></div><div class="tx"><span class="mono">mosca fem.</span><div class="nm cond">Natalia Silva</div><div class="d mono">Desde 3 oct 2026 · 0 def.</div></div></a><a class="bt" href="#"><div class="ph"><img src="../../public/photos/official/kayla-harrison.png" alt="Kayla Harrison"></div><div class="tx"><span class="mono">gallo fem.</span><div class="nm cond">Kayla Harrison</div><div class="d mono">Desde 7 jun 2025 · 1 def.</div></div></a></div>
+ </section>
+</main>
+<footer><div class="wrap"><div class="big cond">Fightcore</div><p>Proyecto independiente: sin relación con UFC, PFL, ONE ni ninguna otra organización. Datos de UFCStats, ESPN y Wikipedia; retratos oficiales © UFC vía ESPN. FIGHTCORE Rating v0.3, metodología pública.</p></div></footer>
+<nav class="tabbar"><a href="#" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Inicio</a><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Luchadores</a><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>Buscar</a><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>Rankings</a><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="15"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Eventos</a></nav>
+</body></html>
