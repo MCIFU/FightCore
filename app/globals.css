@@ -1,55 +1,61 @@
 /* ───────────────────────── FIGHTCORE · tokens ───────────────────────── */
 :root {
-  /* Neutrals — "ink" instrument surfaces, "bone" readings. */
-  --ink-0: #0b0c0e;
-  --ink-1: #121418;
-  --ink-2: #1a1d22;
-  --ink-3: #262a31;
-  --ink-4: #353a43;
-  --bone: #ece6da;
-  --bone-2: #b3ada2;
-  --bone-3: #8e897f;
-  --line: rgb(236 230 218 / 0.12);
-  --line-strong: rgb(236 230 218 / 0.24);
+  /* Neutrals — "ink" instrument surfaces (near-black, faintly cool), "bone" readings. */
+  --ink-0: #07080a;
+  --ink-1: #0d0f12;
+  --ink-2: #14171c;
+  --ink-3: #1d2128;
+  --ink-4: #2b3038;
+  --bone: #ebe8e2;
+  --bone-2: #a7abb2;
+  --bone-3: #858a93;
+  --line: rgb(235 232 226 / 0.09);
+  --line-strong: rgb(235 232 226 / 0.2);
 
-  /* Editorial paper (inverted sections). */
-  --paper: #e9e2d4;
-  --paper-2: #ddd4c3;
-  --paper-ink: #15130f;
-  --paper-ink-2: #4a4439;
-  --paper-line: rgb(21 19 15 / 0.16);
+  /* Raised panels (the old "paper" sections now sit one step up from the page). */
+  --paper: #0d0f12;
+  --paper-2: #14171c;
+  --paper-ink: #ebe8e2;
+  --paper-ink-2: #a7abb2;
+  --paper-line: rgb(235 232 226 / 0.1);
 
-  /* Corner system — validated categorical palette (dark surface). */
-  --corner-a: #ec6528; /* Ember */
-  --corner-b: #6a8ee8; /* Cobalt */
-  --corner-c: #2ea67d; /* Jade */
-  --corner-d: #9e7dd4; /* Iris */
+  /* Corners: red corner = ember, blue corner = steel. c/d complete the chart palette. */
+  --corner-a: #ff5f1f; /* Ember */
+  --corner-b: #8fb3d9; /* Steel */
+  --corner-c: #3ad08a; /* Jade */
+  --corner-d: #b293e8; /* Iris */
 
-  /* Brand signal for text/UI (higher-contrast step of Ember). */
+  /* Brand signal for text/UI. */
   --ember: #ff7a3d;
-  --ember-ink: #a33b0b; /* Ember on paper */
-  --cobalt-text: #8fabf2;
+  --ember-ink: #ff7a3d;
+  --cobalt-text: #a9c6e6;
+  --signal: #ff5f1f; /* solid fills: buttons, needles, active marks */
+  --on-signal: #0b0b0b;
 
   /* Championship gold — only for titles, always with the belt icon. */
-  --gold: #e3c16f;
+  --gold: #d9b25f;
+  --gold-text: #d9b25f; /* gold as text, AA on the page background */
   --gold-deep: #8a6a1f;
 
   /* Status — reserved, always paired with icon/label. */
-  --success: #5ccb8f;
+  --success: #3ad08a;
   --warning: #f2b84b;
   --danger: #ff6b6b;
 
   /* Theme-dependent surfaces. */
-  --glass: rgb(11 12 14 / 0.88);
-  --glass-strong: rgb(11 12 14 / 0.94);
-  --plate-1: #2a2e35; --plate-2: #1a1d22; --plate-3: #121418;
-  --ramp-0: #3b2a22; --ramp-1: #5e3322; --ramp-2: #8c4022; --ramp-3: #c05224; --ramp-4: #ec6528;
-  color-scheme: dark;
+  --glass: rgb(7 8 10 / 0.8);
+  --glass-strong: rgb(7 8 10 / 0.92);
+  --plate-1: #1d2128; --plate-2: #14171c; --plate-3: #0d0f12;
+  --ramp-0: #2a1d17; --ramp-1: #4d2614; --ramp-2: #7d3311; --ramp-3: #c2470f; --ramp-4: #ff5f1f;
+  --grid-line: rgb(235 232 226 / 0.05);
+  --glow-a: rgb(255 95 31 / 0.16);
+  --glow-b: rgb(143 179 217 / 0.13);
 
-  /* Type */
+  /* Type: one family, three voices. Wide for display, regular for reading, mono for data. */
   --font-sans: var(--font-archivo), "Archivo", system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), "Newsreader", Georgia, serif;
+  --font-serif: var(--font-sans);
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+  --wd-display: 125;
 
   --fs-micro: 0.6875rem; /* 11 */
   /* Mono labels: 10/9 px on desktop, one pixel larger on touch screens (see below). */
@@ -59,20 +65,22 @@
   --fs-sm: 0.875rem; /* 14 */
   --fs-base: 1rem; /* 16 */
   --fs-md: 1.125rem;
-  --fs-lg: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
-  --fs-xl: clamp(1.6rem, 1.3rem + 1.2vw, 2.25rem);
-  --fs-2xl: clamp(2.2rem, 1.6rem + 2.6vw, 3.75rem);
-  --fs-3xl: clamp(3rem, 2rem + 5vw, 6.5rem);
-  --fs-display: clamp(4.2rem, 1rem + 13vw, 15rem);
+  --fs-lg: clamp(1.2rem, 1.05rem + 0.5vw, 1.4rem);
+  --fs-xl: clamp(1.4rem, 1.15rem + 1vw, 2rem);
+  --fs-2xl: clamp(1.9rem, 1.3rem + 2.4vw, 3.6rem);
+  --fs-3xl: clamp(2.4rem, 1.4rem + 4vw, 5.4rem);
+  --fs-display: clamp(3rem, 0.8rem + 8vw, 9rem);
 
   /* Space (4pt) */
   --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px;
   --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 144px;
 
-  --gutter: clamp(16px, 3.2vw, 40px);
+  --gutter: clamp(16px, 3.2vw, 48px);
   --max: 1520px;
-  --radius: 2px;
-  --header-h: 60px;
+  --radius: 0px;
+  /* Octagon cut: the cage's 135° corner, used on cards, buttons and portraits. */
+  --cut: 14px;
+  --header-h: 64px;
   /* Space the sticky header takes right now (0 while it's hidden on phones). */
   --header-offset: var(--header-h);
 
@@ -111,7 +119,7 @@ a { color: inherit; text-decoration: none; }
 table { border-collapse: collapse; }
 h1, h2, h3, h4 { font-weight: 700; line-height: 1.05; text-wrap: balance; }
 p { text-wrap: pretty; }
-::selection { background: var(--corner-a); color: var(--ink-0); }
+::selection { background: var(--signal); color: var(--on-signal); }
 
 :focus-visible {
   outline: 2px solid var(--ember);
@@ -139,19 +147,31 @@ p { text-wrap: pretty; }
   font-feature-settings: "tnum" 1, "zero" 1;
 }
 .label { color: var(--bone-3); }
-.serif { font-family: var(--font-serif); font-variation-settings: normal; }
+/* Context voice: Archivo at reading width, a touch lighter and looser than UI text. */
+.serif { font-family: var(--font-sans); font-variation-settings: "wdth" 100; font-weight: 400; letter-spacing: 0.002em; }
 .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
 
 .display {
   font-family: var(--font-sans);
-  font-variation-settings: "wdth" 62;
-  font-weight: 800;
+  font-variation-settings: "wdth" var(--wd-display);
+  font-weight: 900;
   text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: -0.01em;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
 }
-.condensed { font-variation-settings: "wdth" 72; }
+.condensed { font-variation-settings: "wdth" 100; }
 .expanded { font-variation-settings: "wdth" 125; }
+
+/* Octagon cut (135° corners). --cut sets the size; 0 turns it off. */
+.cut { clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); }
+/* Octagon cut with a 1px outline that follows the diagonals too (an inset
+   shadow would be clipped away at the corners). --frame-c outline, --fill inside. */
+/* Zero specificity (:where) so a component's own position/transition always wins. */
+:where(.cut-frame) { --frame-c: var(--line-strong); --fill: var(--ink-1); position: relative; transition: background var(--dur-1); }
+.cut-frame { isolation: isolate; background: var(--frame-c) !important; box-shadow: none !important; clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); }
+.cut-frame::before { --c: calc(var(--cut) - 0.41px); content: ""; position: absolute; inset: 1px; z-index: -1; background: var(--fill); clip-path: polygon(var(--c) 0, calc(100% - var(--c)) 0, 100% var(--c), 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, var(--c) 100%, 0 calc(100% - var(--c)), 0 var(--c)); transition: background var(--dur-1); }
+/* Instrument grid behind hero areas. */
+.grid-bg { background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 64px 64px; }
 
 .visually-hidden {
   position: absolute !important;
@@ -184,50 +204,53 @@ p { text-wrap: pretty; }
    Same roles, inverted: "ink" surfaces become warm paper, "bone" readings
    become ink. Brand and status colours step down for contrast on light. */
 :root[data-theme="light"] {
-  --ink-0: #f6f3ec;
-  --ink-1: #eee9df;
-  --ink-2: #e5dfd3;
-  --ink-3: #d6cfc1;
-  --ink-4: #bcb4a5;
-  --bone: #15130f;
-  --bone-2: #463f35;
-  --bone-3: #645d51;
-  --line: rgb(21 19 15 / 0.13);
-  --line-strong: rgb(21 19 15 / 0.28);
-  --paper: #e6ddca;
-  --paper-2: #d9cfb9;
-  --corner-a: #d4531a;
-  --corner-b: #3b63cc;
-  --corner-c: #1d8a62;
+  --ink-0: #f1f2f3;
+  --ink-1: #e8eaec;
+  --ink-2: #dde0e3;
+  --ink-3: #cdd1d6;
+  --ink-4: #b3b8bf;
+  --bone: #0b0d10;
+  --bone-2: #3f444b;
+  --bone-3: #5a6068;
+  --line: rgb(11 13 16 / 0.11);
+  --line-strong: rgb(11 13 16 / 0.26);
+  --paper: #e8eaec;
+  --paper-2: #dde0e3;
+  --paper-ink: #0b0d10;
+  --paper-ink-2: #3f444b;
+  --paper-line: rgb(11 13 16 / 0.12);
+  --corner-a: #e04a0f;
+  --corner-b: #3d6a9e;
+  --corner-c: #138a57;
   --corner-d: #7a57bd;
-  --ember: #a8400e;
-  --cobalt-text: #2b4fae;
+  --ember: #b23a08;
+  --ember-ink: #b23a08;
+  --cobalt-text: #2e5683;
+  --signal: #e04a0f;
+  --on-signal: #0b0b0b;
+  --gold: #cfa64c;
+  --gold-text: #7a5c14;
   --gold-deep: #7a5c14;
-  --success: #17754a;
+  --success: #12764a;
   --warning: #855a00;
   --danger: #b8262a;
-  --glass: rgb(246 243 236 / 0.9);
-  --glass-strong: rgb(246 243 236 / 0.96);
-  --plate-1: #ebe6dc; --plate-2: #ddd6c8; --plate-3: #cfc7b7;
-  --ramp-0: #f0d6c4; --ramp-1: #e8b493; --ramp-2: #e08e5f; --ramp-3: #d4672f; --ramp-4: #a8400e;
+  --glass: rgb(241 242 243 / 0.84);
+  --glass-strong: rgb(241 242 243 / 0.95);
+  --plate-1: #e8eaec; --plate-2: #dde0e3; --plate-3: #cdd1d6;
+  --ramp-0: #f3dccf; --ramp-1: #eab493; --ramp-2: #e08e5f; --ramp-3: #d4672f; --ramp-4: #b23a08;
+  --grid-line: rgb(11 13 16 / 0.05);
+  --glow-a: rgb(224 74 15 / 0.1);
+  --glow-b: rgb(61 106 158 / 0.1);
   color-scheme: light;
 }
 
 /* Paper sections swap the palette locally. */
 .paper {
-  --bone: var(--paper-ink);
-  --bone-2: var(--paper-ink-2);
-  --bone-3: #5f584b;
   --line: var(--paper-line);
-  --line-strong: rgb(21 19 15 / 0.32);
-  --ember: var(--ember-ink);
-  --warning: #7a5200;
-  --success: #1d6b42;
   background: var(--paper);
   color: var(--paper-ink);
-  color-scheme: light;
+  border-block: 1px solid var(--line);
 }
-.paper ::selection { background: var(--paper-ink); color: var(--paper); }
 
 /* Reveal-on-scroll (progressive: content is visible without JS). */
 @media (prefers-reduced-motion: no-preference) {
@@ -286,6 +309,6 @@ html { -webkit-tap-highlight-color: transparent; }
 }
 .back-to-top[data-show] { opacity: 1; transform: none; pointer-events: auto; }
 @media (max-width: 759px) {
-  .back-to-top { bottom: calc(72px + env(safe-area-inset-bottom)); }
+  .back-to-top { bottom: calc(82px + env(safe-area-inset-bottom)); }
   html[data-scroll="down"] .back-to-top { bottom: calc(16px + env(safe-area-inset-bottom)); }
 }

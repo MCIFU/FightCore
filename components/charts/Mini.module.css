@@ -1,7 +1,7 @@
 .bars { position: relative; display: flex; gap: 10px; align-items: stretch; height: 170px; padding-top: 4px; }
 .baseline { position: absolute; left: -5px; right: -5px; height: 0; border-top: 2px dashed var(--ember); pointer-events: none; }
 .col { flex: 1; display: grid; grid-template-rows: auto 1fr auto auto; gap: 4px; max-width: 72px; min-width: 0; }
-.val { font-variation-settings: "wdth" 75; font-weight: 700; font-size: var(--fs-sm); font-variant-numeric: tabular-nums; text-align: center; }
+.val { font-variation-settings: "wdth" 100; font-weight: 700; font-size: var(--fs-sm); font-variant-numeric: tabular-nums; text-align: center; }
 .track { position: relative; display: flex; align-items: flex-end; background: var(--ink-2); }
 .fill { display: block; width: 100%; border-radius: 3px 3px 0 0; }
 .bone { background: var(--bone); }
@@ -19,5 +19,5 @@
 .divFill { position: absolute; top: 0; bottom: 0; }
 .pos { background: var(--bone); }
 .neg { background: var(--ink-4); }
-.divVal { font-variation-settings: "wdth" 75; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; color: var(--bone-3); }
+.divVal { font-variation-settings: "wdth" 100; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; color: var(--bone-3); }
 .posText { color: var(--bone); }

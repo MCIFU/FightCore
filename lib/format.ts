@@ -28,6 +28,8 @@ export const fmtMonthYear = (iso: string) => {
 };
 /** Compact stamp for dense metadata: 2026.09.30 */
 export const fmtStamp = (iso: string) => iso.replaceAll("-", ".");
+/** "16 nov": day and month, for compact stamps. */
+export const fmtShort = (iso: string) => { const { m, d } = parts(iso); return `${d} ${MONTHS[m - 1]}`; };
 
 export const fmtClock = (sec: number | null) =>
   sec === null ? "—" : `${Math.floor(sec / 60)}:${String(Math.round(sec % 60)).padStart(2, "0")}`;

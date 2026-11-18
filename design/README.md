@@ -1,6 +1,6 @@
 # Rediseño · tres conceptos
 
-Prototipos estáticos de la portada, construidos con datos reales del snapshot (`data.json`).
+Prototipos estáticos de la portada, construidos con datos reales del snapshot (`data.json`). **Elegido: B · Octágono**, ya aplicado a toda la web.
 
 | Concepto | Archivo | Capturas |
 |---|---|---|

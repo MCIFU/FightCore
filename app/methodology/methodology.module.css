@@ -1,6 +1,6 @@
 .page { padding: var(--s-8) 0 var(--s-9); margin-bottom: calc(-1 * var(--s-9)); }
 .head { display: grid; gap: 18px; max-width: 980px; padding-bottom: var(--s-7); border-bottom: 2px solid var(--paper-ink); }
-.title { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: var(--fs-3xl); line-height: 0.92; }
+.title { font-variation-settings: "wdth" 125; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; font-size: var(--fs-3xl); line-height: 0.92; }
 .lede { font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem); line-height: 1.4; color: var(--paper-ink-2); max-width: 44ch; }
 .cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7); padding-top: var(--s-7); }
 @media (min-width: 1000px) { .cols { grid-template-columns: 240px minmax(0, 760px); } }
@@ -22,7 +22,7 @@
 .table td { padding: 14px 12px 14px 0; border-bottom: 1px solid var(--paper-line); vertical-align: top; font-size: var(--fs-sm); color: var(--paper-ink-2); }
 .table tbody tr th { border-bottom: 1px solid var(--paper-line); }
 .r { text-align: right !important; white-space: nowrap; }
-.r strong { font-variation-settings: "wdth" 75; font-size: 1.3rem; color: var(--paper-ink); margin-left: 8px; }
+.r strong { font-variation-settings: "wdth" 100; font-size: 1.3rem; color: var(--paper-ink); margin-left: 8px; }
 .weight { display: inline-block; width: 60px; height: 6px; background: var(--paper-2); vertical-align: middle; }
 .weight span { display: block; height: 100%; background: var(--paper-ink); max-width: 100%; }
 .attrs, .list { padding-left: 18px; display: grid; gap: 8px; margin-bottom: 16px; font-size: var(--fs-sm); line-height: 1.5; max-width: 70ch; }
@@ -30,6 +30,6 @@
 .sources > div { display: grid; grid-template-columns: 140px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--paper-line); align-items: center; font-size: var(--fs-sm); }
 .scale { display: grid; border-top: 2px solid var(--paper-ink); margin-bottom: 18px; }
 .scaleRow { display: grid; grid-template-columns: 6rem 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--paper-line); align-items: baseline; }
-.scaleRow strong { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 1.8rem; line-height: 1; }
+.scaleRow strong { font-variation-settings: "wdth" 100; font-weight: 800; font-size: 1.8rem; line-height: 1; }
 .link { border-bottom: 1px solid var(--ember-ink); }
 @media (max-width: 560px) { .table th[scope="row"] { white-space: normal; } .table th, .table td { padding-right: 8px; } }

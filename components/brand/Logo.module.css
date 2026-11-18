@@ -2,15 +2,15 @@
   display: inline-flex;
   align-items: center;
   /* Gap = half the mark: the octagon needs air to read as a separate shape. */
-  gap: 12px;
+  gap: 10px;
   line-height: 1;
 }
 .word {
   font-family: var(--font-sans);
   font-variation-settings: "wdth" 125;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  font-size: 1.0625rem;
+  font-weight: 900;
+  letter-spacing: -0.005em;
+  font-size: 1.1875rem;
   line-height: 1;
 }
 .stacked {

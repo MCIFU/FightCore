@@ -18,39 +18,38 @@ export const metadata: Metadata = {
 };
 
 const COLORS: { name: string; token: string; hex: string; role: string; on?: string; ratio?: string }[] = [
-  { name: "Ink 0", token: "--ink-0", hex: "#0B0C0E", role: "Fondo" },
-  { name: "Ink 1", token: "--ink-1", hex: "#121418", role: "Superficie" },
-  { name: "Ink 2", token: "--ink-2", hex: "#1A1D22", role: "Superficie elevada" },
-  { name: "Ink 3", token: "--ink-3", hex: "#262A31", role: "Pistas, bordes fuertes" },
-  { name: "Bone", token: "--bone", hex: "#ECE6DA", role: "Texto principal", ratio: "15.8:1" },
-  { name: "Bone 2", token: "--bone-2", hex: "#B3ADA2", role: "Texto secundario", ratio: "8.8:1" },
-  { name: "Bone 3", token: "--bone-3", hex: "#8E897F", role: "Metadatos", ratio: "5.6:1" },
-  { name: "Paper", token: "--paper", hex: "#E9E2D4", role: "Superficie editorial" },
+  { name: "Ink 0", token: "--ink-0", hex: "#07080A", role: "Fondo" },
+  { name: "Ink 1", token: "--ink-1", hex: "#0D0F12", role: "Superficie, paneles" },
+  { name: "Ink 2", token: "--ink-2", hex: "#14171C", role: "Superficie elevada" },
+  { name: "Ink 3", token: "--ink-3", hex: "#1D2128", role: "Pistas de instrumentos" },
+  { name: "Bone", token: "--bone", hex: "#EBE8E2", role: "Texto principal", ratio: "17.1:1" },
+  { name: "Bone 2", token: "--bone-2", hex: "#A7ABB2", role: "Texto secundario", ratio: "8.9:1" },
+  { name: "Bone 3", token: "--bone-3", hex: "#858A93", role: "Metadatos", ratio: "5.9:1" },
 ];
 const CORNERS = [
-  { name: "Ember", token: "--corner-a", hex: "#EC6528", role: "Esquina A · señal de marca" },
-  { name: "Cobalt", token: "--corner-b", hex: "#6A8EE8", role: "Esquina B" },
-  { name: "Jade", token: "--corner-c", hex: "#2EA67D", role: "Esquina C" },
-  { name: "Iris", token: "--corner-d", hex: "#9E7DD4", role: "Esquina D" },
+  { name: "Ember", token: "--corner-a", hex: "#FF5F1F", role: "Esquina roja · señal de marca" },
+  { name: "Steel", token: "--corner-b", hex: "#8FB3D9", role: "Esquina azul" },
+  { name: "Jade", token: "--corner-c", hex: "#3AD08A", role: "Tercera serie" },
+  { name: "Iris", token: "--corner-d", hex: "#B293E8", role: "Cuarta serie" },
 ];
 const STATUS = [
-  { name: "Success", hex: "#5CCB8F", role: "Subidas, estados correctos" },
+  { name: "Success", hex: "#3AD08A", role: "Subidas, estados correctos" },
   { name: "Warning", hex: "#F2B84B", role: "Demo, provisional, pendiente" },
   { name: "Danger", hex: "#FF6B6B", role: "Errores de sistema (nunca «derrota»)" },
 ];
 
 const BRAND = [
-  { name: "Ember", hex: "#EC6528", role: "Núcleo del logo, rellenos, señal principal" },
+  { name: "Señal", hex: "#FF5F1F", role: "Núcleo del logo, agujas, botones, marcas activas" },
   { name: "Ember texto", hex: "#FF7A3D", role: "Ember para texto sobre tinta (contraste AA)" },
-  { name: "Ember papel", hex: "#A33B0B", role: "Ember para texto sobre papel" },
-  { name: "Oro", hex: "#E3C16F", role: "Solo cinturones y títulos" },
+  { name: "Ember claro", hex: "#B23A08", role: "Ember para texto en modo claro" },
+  { name: "Oro", hex: "#D9B25F", role: "Solo cinturones y títulos" },
 ];
 const RATIO = [
-  { name: "Tinta", pct: 70, hex: "#0B0C0E", on: "#ECE6DA" },
-  { name: "Hueso", pct: 18, hex: "#ECE6DA", on: "#0B0C0E" },
-  { name: "Papel", pct: 5, hex: "#E9E2D4", on: "#0B0C0E" },
-  { name: "Ember", pct: 4, hex: "#EC6528", on: "#0B0C0E" },
-  { name: "Datos", pct: 3, hex: "#6A8EE8", on: "#0B0C0E" },
+  { name: "Tinta", pct: 74, hex: "#07080A", on: "#EBE8E2" },
+  { name: "Hueso", pct: 16, hex: "#EBE8E2", on: "#07080A" },
+  { name: "Panel", pct: 5, hex: "#14171C", on: "#EBE8E2" },
+  { name: "Señal", pct: 3, hex: "#FF5F1F", on: "#07080A" },
+  { name: "Acero", pct: 2, hex: "#8FB3D9", on: "#07080A" },
 ];
 const rgb = (hex: string) => `RGB ${[1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(" ")}`;
 
@@ -84,7 +83,7 @@ export default function BrandPage() {
           <figure className={s.tile}><Logo variant="stacked" /><figcaption>Apilada con lema</figcaption></figure>
           <figure className={s.tile}><Logo variant="compact" /><figcaption>Compacta</figcaption></figure>
           <figure className={s.tile}><Logo variant="wordmark" /><figcaption>Solo logotipo</figcaption></figure>
-          <figure className={`${s.tile} ${s.tilePaper} paper`}><span className={s.onPaper}><Logo /></span><figcaption>Sobre papel</figcaption></figure>
+          <figure className={`${s.tile} ${s.tilePaper} paper`}><span className={s.onPaper}><Logo /></span><figcaption>Sobre panel</figcaption></figure>
           <figure className={`${s.tile} ${s.tileEmber}`}><span className={s.onEmber}><NucleoMark size={80} core="#ECE6DA" /></span><figcaption>Inversa sobre Ember</figcaption></figure>
           <figure className={s.tile}><span className={s.monoBone}><NucleoMark size={80} mono /></span><figcaption>Monocroma</figcaption></figure>
           <figure className={`${s.tile} ${s.tileBone}`}><span className={s.monoInk}><NucleoMark size={80} mono /></span><figcaption>Monocroma tinta</figcaption></figure>
@@ -140,19 +139,19 @@ export default function BrandPage() {
 
       {/* TYPE */}
       <section className={`wrap ${s.section}`} aria-labelledby="b-type">
-        <SectionHead id="b-type" round="D" kicker="Tipografía" title="Tres voces" lede="Una sola familia de marca, Archivo, con su eje de anchura: expandida para el logotipo, estrecha para titulares, normal para la interfaz. Más una serif para el contexto y una mono para los datos. El lector sabe qué está leyendo antes de leerlo." />
+        <SectionHead id="b-type" round="D" kicker="Tipografía" title="Tres voces" lede="Una sola familia, Archivo, con su eje de anchura: expandida y en negra para titulares y logotipo, normal para cifras e interfaz. Más una mono para los datos. El lector sabe qué está leyendo antes de leerlo." />
         <div className={s.typeGrid}>
           <div className={`${s.spec} ${s.specWide}`}>
-            <span className="label">Logotipo · Archivo Expanded · ancho 125 · 800 · +4 % · mayúsculas</span>
+            <span className="label">Logotipo · Archivo Expanded · ancho 125 · 900 · mayúsculas</span>
             <p className={s.specLogo}>FIGHTCORE</p>
             <p className={s.specGlyphs}>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789</p>
           </div>
           <div className={s.spec}>
-            <span className="label">Display · Archivo wdth 62 · 800 · MAYÚSCULAS · lh 0.84</span>
+            <span className="label">Display · Archivo wdth 125 · 900 · MAYÚSCULAS · −0.04em · lh 0.88</span>
             <p className={s.specDisplay}>Vasconcelos</p>
           </div>
           <div className={s.spec}>
-            <span className="label">Número estadístico · Archivo wdth 75 · 700 · tabular</span>
+            <span className="label">Número estadístico · Archivo wdth 100 · 800 · tabular · −0.045em</span>
             <p className={s.specNum}><RatingValue value={94.7} band={2.1} size="xl" /></p>
           </div>
           <div className={s.spec}>
@@ -160,7 +159,7 @@ export default function BrandPage() {
             <p className={s.specHeading}>Cómo gana. Cómo pierde.</p>
           </div>
           <div className={s.spec}>
-            <span className="label">Contexto · Newsreader · 17–22 px · lh 1.45</span>
+            <span className="label">Contexto · Archivo wdth 100 · 400 · 16–18 px · lh 1.55</span>
             <p className={s.specSerif}>Encaja 2,3 derribos de media en derrotas frente a 0,4 en victorias. <em>Sus derrotas llegan cuando le derriban.</em></p>
           </div>
           <div className={s.spec}>

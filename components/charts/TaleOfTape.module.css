@@ -9,7 +9,7 @@
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); padding: 0 8px;
 }
 .val {
-  flex: none; min-width: 3.4ch; font-variation-settings: "wdth" 75; font-weight: 500; font-size: 1.05rem;
+  flex: none; min-width: 3.4ch; font-variation-settings: "wdth" 100; font-weight: 500; font-size: 1.05rem;
   font-variant-numeric: tabular-nums; color: var(--bone-2);
 }
 .side:not(.sideB) .val { text-align: left; }

@@ -8,7 +8,7 @@ export const contentType = "image/png";
 export default function OG() {
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", background: "#0B0C0E", color: "#ECE6DA", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72 }}>
+      <div style={{ width: "100%", height: "100%", background: "#07080A", color: "#EBE8E2", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72 }}>
         <svg width="104" height="104" viewBox="0 0 24 24">
           <path d={OCTAGON} fill="none" stroke="#ECE6DA" strokeWidth={MARK_SPEC.large.stroke} />
           <rect x={12 - MARK_SPEC.large.core / 2} y={12 - MARK_SPEC.large.core / 2} width={MARK_SPEC.large.core} height={MARK_SPEC.large.core} fill="#EC6528" />

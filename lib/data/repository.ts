@@ -262,6 +262,23 @@ export function featuredFight(): FightView | null {
   return fightView(best);
 }
 
+/**
+ * Home headline bout: the main event of the nearest card from a major
+ * promotion where both fighters have a portrait (the hero is built around
+ * them). Falls back to the featured fight.
+ */
+export function headlineFight(): FightView | null {
+  const s = store();
+  for (const e of s.events.filter((x) => x.status === "upcoming")) {
+    if (orgById.get(e.orgId)?.group !== "major" && e.orgId !== "ufc") continue;
+    const f = e.fightIds.map((id) => s.fightById.get(id)!).find((x) => x.slot === "main") ?? s.fightById.get(e.fightIds[0]);
+    if (!f) continue;
+    const red = s.fighterById.get(f.redId)!, blue = s.fighterById.get(f.blueId)!;
+    if (red.photo.src && blue.photo.src) return fightView(f);
+  }
+  return featuredFight();
+}
+
 /* ─────────────────────────── Rankings ─────────────────────────── */
 
 export interface RankingRow {
@@ -601,7 +618,8 @@ export const recordsFor = cache((key: string): RecordItem[] => {
   const secs = (f: Fight) => (f.round! - 1) * 300 + f.time!;
 
   const fastestOf = (method: string, id: string, label: string) => {
-    const f = done.filter((x) => x.method === method && x.winnerId).sort((a, b) => secs(a) - secs(b))[0];
+    // Only bouts with a valid round and clock: some imports carry round 0 or no time.
+    const f = done.filter((x) => x.method === method && x.winnerId && (x.round ?? 0) >= 1 && (x.time ?? 0) > 0).sort((a, b) => secs(a) - secs(b))[0];
     if (f) items.push({ id, category: "Tiempo", label, value: fmtTime(secs(f)), unit: `R${f.round}`, holder: summary(f.winnerId!), context: `${f.submission ?? f.method} · ${ev(f).name}`, href: `/fights/${f.id}` });
   };
   fastestOf("KO/TKO", "fastest-ko", "KO/TKO más rápido");

@@ -4,7 +4,7 @@
 @media (min-width: 1000px) { .head { grid-template-columns: 1fr 440px; align-items: end; } }
 .headMain { display: grid; gap: 12px; }
 .org { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: var(--fs-sm); color: var(--bone-2); }
-.title { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: var(--fs-3xl); line-height: 0.92; }
+.title { font-variation-settings: "wdth" 125; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; font-size: var(--fs-3xl); line-height: 0.92; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
 .facts > div { padding: 12px 0; border-bottom: 1px solid var(--line); }
 .facts dt { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
@@ -12,8 +12,8 @@
 .highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); border-bottom: 1px solid var(--line); }
 .highlights > div { display: grid; gap: 4px; padding: 20px 20px 20px 0; }
 .highlights > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
-.highlights strong { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 3rem; line-height: 0.9; }
+.highlights strong { font-variation-settings: "wdth" 100; font-weight: 800; font-size: 3rem; line-height: 0.9; }
 .hlSub { font-size: var(--fs-xs); color: var(--bone-3); }
-.h2 { font-variation-settings: "wdth" 72; font-weight: 750; text-transform: uppercase; font-size: var(--fs-xl); margin: 48px 0 8px; }
+.h2 { font-variation-settings: "wdth" 100; font-weight: 750; text-transform: uppercase; font-size: var(--fs-xl); margin: 48px 0 8px; }
 .card { list-style: none; padding: 0; border-top: 1px solid var(--line-strong); }
 .crumbs a { display: inline-block; padding-block: 8px; margin-block: -8px; }

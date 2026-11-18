@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { ViewTransition } from "react";
-import { Archivo, JetBrains_Mono, Newsreader } from "next/font/google";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { THEME_SCRIPT } from "@/components/layout/theme-script";
@@ -11,15 +11,15 @@ import { ScrollDirection } from "@/components/layout/ScrollDirection";
 import { ServiceWorker } from "@/components/layout/ServiceWorker";
 import { SearchDialog } from "@/components/search/SearchDialog";
 import { IS_DEMO, TODAY } from "@/lib/data/repository";
-import { fmtDate, fmtStamp, SITE_URL } from "@/lib/format";
+import { fmtDate, fmtShort, SITE_URL } from "@/lib/format";
 import "./globals.css";
 
-const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo", display: "swap" });
-// Reading face: "optional" never redraws text once shown (on a slow phone the
-// late swap was pushing the largest paint back ~4 s); cached, it's there next time.
-const newsreader = Newsreader({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-newsreader", display: "optional" });
-// Small labels: not worth competing with the display face for the first bytes.
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-jetbrains", display: "swap", preload: false });
+// "block": text waits (briefly, it is preloaded) for the brand face instead of swapping from a
+// fallback; with the wide display cuts a swap re-wrapped whole paragraphs and shifted the page.
+const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo", display: "block" });
+// Small labels: not worth competing with the display face for the first bytes, and
+// "optional" so a late arrival never re-wraps a line (system mono until cached).
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-jetbrains", display: "optional", preload: false });
 
 const SITE = SITE_URL;
 
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0c0e",
+  themeColor: "#07080a",
   colorScheme: "dark light",
   width: "device-width",
   initialScale: 1,
@@ -47,14 +47,14 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     // data-theme is set before paint by THEME_SCRIPT, so React mustn't complain about it.
-    <html lang="es" className={`${archivo.variable} ${newsreader.variable} ${jetbrains.variable}`} data-theme="dark" suppressHydrationWarning>
+    <html lang="es" className={`${archivo.variable} ${jetbrains.variable}`} data-theme="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
       <body>
         <a href="#main" className="skip-link">Saltar al contenido</a>
         <NavProgress />
-        <Header stamp={fmtStamp(TODAY)} demo={IS_DEMO} />
+        <Header stamp={fmtShort(TODAY)} demo={IS_DEMO} />
         <main id="main" tabIndex={-1}>
           {/* Route changes crossfade instead of cutting (browsers with View Transitions). */}
           <ViewTransition>{children}</ViewTransition>

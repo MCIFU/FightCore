@@ -1,43 +1,83 @@
-.list { list-style: none; padding: 0; border-top: 1px solid var(--line-strong); }
+.wrap { border-top: 1px solid var(--line-strong); }
+.list { list-style: none; padding: 0; }
+
+/* Column template shared by the scale header and the rows. */
+.scale, .row {
+  display: grid; align-items: center; column-gap: 16px;
+  grid-template-columns: 2.6rem auto minmax(0, 1fr) auto;
+  grid-template-areas: "rank av who who" "rank av gauge rating";
+}
+@media (min-width: 900px) {
+  .scale, .row {
+    grid-template-columns: 3.6rem auto minmax(0, 1fr) 7rem minmax(160px, 30%) 6.5rem;
+    grid-template-areas: "rank av who form gauge rating";
+    column-gap: 20px;
+  }
+}
+
+.scale { display: none; padding: 10px 0; border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--bone-3); }
+@media (min-width: 900px) { .scale { display: grid; } }
+.scale > :nth-child(1) { grid-area: rank; }
+.scale > :nth-child(2) { grid-area: who; grid-column: 2 / 4; }
+.ticks { grid-area: gauge; position: relative; height: 1em; }
+.ticks span { position: absolute; transform: translateX(-50%); }
+.ticks span:first-child { transform: none; }
+.ticks span:last-child { transform: translateX(-100%); }
+.fcrHead { grid-area: rating; justify-self: end; }
+
 .row {
-  display: grid;
-  grid-template-columns: 2.2rem 2.4rem auto minmax(0, 1fr) auto;
-  grid-template-areas: "rank mv av who rating";
-  align-items: center; gap: 0 12px;
-  padding: 12px 0; border-bottom: 1px solid var(--line);
-  transition: background var(--dur-1);
+  position: relative; padding: 14px 0; border-bottom: 1px solid var(--line); row-gap: 10px;
+  transition: background var(--dur-2) var(--ease-out);
 }
-.row:hover { background: linear-gradient(90deg, transparent, var(--ink-1) 20%, var(--ink-1) 80%, transparent); }
-@media (min-width: 900px) {
-  .row { grid-template-columns: 2.6rem 2.8rem auto minmax(0, 1fr) 6rem 6.5rem minmax(80px, 140px) 6.5rem; grid-template-areas: "rank mv av who record form band rating"; }
+.row:hover { background: linear-gradient(90deg, var(--glow-a), transparent 55%); }
+.row:focus-within { background: linear-gradient(90deg, var(--glow-a), transparent 55%); }
+
+.rank {
+  grid-area: rank; font-variation-settings: "wdth" 125; font-weight: 900; letter-spacing: -0.05em;
+  font-size: 1.5rem; line-height: 1; font-variant-numeric: tabular-nums; color: var(--bone);
 }
-.rank { grid-area: rank; font-variation-settings: "wdth" 75; font-weight: 700; font-size: 1.25rem; font-variant-numeric: tabular-nums; color: var(--bone-3); }
+@media (min-width: 900px) { .rank { font-size: 2.2rem; } }
 .first .rank { color: var(--ember); }
-.mv { grid-area: mv; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.04em; }
-.mvUp { color: var(--success); }
-.mvDown { color: var(--bone-3); }
-.mvSame { color: var(--bone-3); }
-.mvNew { color: var(--ink-0); background: var(--warning); padding: 1px 4px; font-weight: 700; justify-self: start; }
-.row > [aria-hidden]:nth-child(3) { grid-area: av; }
-.who { grid-area: who; display: grid; gap: 3px; min-width: 0; }
-.name { font-weight: 650; font-size: 1.02rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-flex; align-items: center; gap: 8px; }
+
+.av { grid-area: av; display: block; --cut: 8px; clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut)); }
+.av > span { border-radius: 0 !important; }
+
+.who { grid-area: who; display: grid; gap: 5px; min-width: 0; }
+.nameLine { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.name { font-weight: 750; font-size: 1.05rem; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+@media (min-width: 900px) { .name { font-size: 1.15rem; } }
+.name::after { content: ""; position: absolute; inset: 0; } /* whole row is the link target */
 .name:hover { color: var(--ember); }
-.champ { flex: none; display: inline-grid; place-items: center; width: 16px; height: 16px; background: var(--warning); color: var(--ink-0); font-family: var(--font-mono); font-size: var(--fs-label-sm); font-weight: 700; }
-.meta { display: flex; gap: 10px; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; color: var(--bone-3); text-transform: uppercase; }
-.record, .form, .band { display: none; }
-@media (min-width: 900px) {
-  .record { display: block; grid-area: record; }
-  .form { display: block; grid-area: form; }
-  .band { display: block; grid-area: band; }
-}
-.band { position: relative; height: 12px; }
-.band::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
-.bandRange { position: absolute; top: 3px; bottom: 3px; background: var(--ink-4); }
-.bandPoint { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--bone); transform: translateX(-1px); }
-.first .bandPoint { background: var(--ember); }
-.rating { grid-area: rating; justify-self: end; }
-.compact .row { padding: 8px 0; }
-.compact .name { font-size: 0.95rem; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; color: var(--bone-3); text-transform: uppercase; }
+.rec { font-family: var(--font-sans); letter-spacing: 0; text-transform: none; color: var(--bone-2); }
+.rec > span { font-size: 0.8rem !important; }
+
+.mv { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.02em; flex: none; position: relative; }
+.mvUp { color: var(--success); }
+.mvDown { color: var(--danger); }
+.mvSame { color: var(--bone-3); }
+.mvNew { color: var(--on-signal); background: var(--warning); padding: 1px 4px; font-weight: 700; }
+
+.form { display: none; grid-area: form; }
+@media (min-width: 900px) { .form { display: block; } }
+
+/* The instrument: scale line, ticks, filled travel, margin band and needle. */
+.gauge { grid-area: gauge; position: relative; height: 18px; }
+@media (min-width: 900px) { .gauge { height: 28px; } }
+.gauge::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line-strong); }
+.tick { position: absolute; top: 30%; bottom: 30%; width: 1px; background: var(--line-strong); }
+.fill { position: absolute; left: 0; top: 50%; height: 1px; background: linear-gradient(90deg, transparent, var(--signal)); opacity: 0.8; }
+.bandRange { position: absolute; top: 34%; bottom: 34%; background: color-mix(in srgb, var(--signal) 22%, transparent); }
+.needle { position: absolute; top: 8%; bottom: 8%; width: 3px; margin-left: -1.5px; background: var(--signal); box-shadow: 0 0 12px color-mix(in srgb, var(--signal) 70%, transparent); transition: transform var(--dur-2) var(--ease-out); }
+.row:hover .needle { transform: scaleY(1.25); }
+.first .needle { width: 4px; margin-left: -2px; }
+
+.rating { grid-area: rating; justify-self: end; position: relative; }
+
+.compact .row { padding: 10px 0; }
+.compact .name { font-size: 0.98rem; }
+.compact .rank { font-size: 1.3rem; }
+@media (min-width: 900px) { .compact .rank { font-size: 1.6rem; } .compact .gauge { height: 22px; } }
 
 /* The #1's large rating only where the row has room for it. */
 .wideOnly { display: none; }

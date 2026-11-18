@@ -4,7 +4,7 @@
 .row:hover { background: linear-gradient(90deg, var(--ink-1), transparent); }
 .row:hover .name { color: var(--ember); }
 .date { grid-area: date; display: flex; align-items: flex-end; gap: 8px; }
-.day { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 2.6rem; line-height: 0.8; font-variant-numeric: tabular-nums; }
+.day { font-variation-settings: "wdth" 100; font-weight: 800; font-size: 2.6rem; line-height: 0.8; font-variant-numeric: tabular-nums; }
 .mon { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--bone-3); line-height: 1.3; letter-spacing: 0.06em; }
 .org { grid-area: org; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--bone-2); }
 .name { grid-area: name; font-weight: 700; display: grid; transition: color var(--dur-1); }
@@ -19,13 +19,13 @@
   .status { justify-self: start; margin-top: 4px; }
 }
 .year { margin-top: 32px; }
-.yearTitle { font-variation-settings: "wdth" 62; font-weight: 800; font-size: 3rem; line-height: 1; margin-bottom: 8px; color: var(--bone-3); }
+.yearTitle { font-variation-settings: "wdth" 100; font-weight: 800; font-size: 3rem; line-height: 1; margin-bottom: 8px; color: var(--bone-3); }
 
 /* Archive index: one tile per year. */
 .years { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: var(--s-5); }
 .yearLink { display: grid; gap: 2px; padding: 16px; background: var(--ink-0); min-height: 76px; transition: background var(--dur-1); }
 .yearLink:hover, .yearLink:focus-visible { background: var(--ink-1); }
-.yearNum { font-variation-settings: "wdth" 70; font-weight: 800; font-size: 1.9rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.yearNum { font-variation-settings: "wdth" 100; font-weight: 800; font-size: 1.9rem; line-height: 1; font-variant-numeric: tabular-nums; }
 .yearCount { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-3); }
 .yearNav { display: flex; justify-content: space-between; gap: 12px; margin: var(--s-6) 0 var(--s-4); }
 .yearNav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--line-strong); font-weight: 600; }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SegmentBar } from "@/components/charts/Bars";
 import { CareerTimeline } from "@/components/charts/CareerTimeline";
-import { CountUp } from "@/components/fighter/CountUp";
+import { RatingDial } from "@/components/fighter/RatingDial";
 import { Evolution } from "@/components/fighter/Evolution";
 import { FighterPlate } from "@/components/fighter/FighterPlate";
 import { Opponents } from "@/components/fighter/Opponents";
@@ -82,7 +82,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ───────── HERO ───────── */}
-      <header className={s.hero}>
+      <header className={`${s.hero} grid-bg`}>
         <div className={`wrap ${s.heroGrid}`}>
           <nav aria-label="Ruta" className={s.crumbs}>
             <ol>
@@ -108,7 +108,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
               <span className={s.first}>{f.firstName}</span>
               <span className={s.last} style={{ "--len": Math.max(9, ...f.lastName.split(/[\s-]+/).map((w) => w.length)) } as React.CSSProperties}>{f.lastName}</span>
             </h1>
-            {f.nickname && <p className={`serif ${s.nick}`}>“{f.nickname}”</p>}
+            {f.nickname && <p className={s.nick}>“{f.nickname}”</p>}
             <div className={s.idRow}>
               <CountryTag code={f.country} name={me.countryName} />
               <span>{me.countryName}</span>
@@ -130,16 +130,10 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
           </div>
 
           <div className={s.ratingCol}>
-            <div className={s.ratingBox}>
+            <div className={`cut ${s.ratingBox}`}>
               <span className={s.ratingKicker}>FIGHTCORE Rating</span>
-              <p role="img" className={s.bigRating} aria-label={`FIGHTCORE Rating ${rating.value.toFixed(1)}, margen más o menos ${rating.band}`}>
-                <CountUp value={rating.value} />
-              </p>
-              <div className={s.bandScale} aria-hidden>
-                <span className={s.bandTrack} />
-                <span className={s.bandRange} style={{ left: `${Math.max(0, (rating.value - rating.band - 50) * 2)}%`, width: `${rating.band * 4}%` }} />
-                <span className={s.bandPoint} style={{ left: `${(rating.value - 50) * 2}%` }} />
-                <span className={s.bandTicks}><span>50</span><span>75</span><span>100</span></span>
+              <div role="img" aria-label={`FIGHTCORE Rating ${rating.value.toFixed(1)}, margen más o menos ${rating.band}, en una escala de 50 a 100`}>
+                <RatingDial value={rating.value} band={rating.band} />
               </div>
               <p className={s.ratingMeta}>
                 <span>±{rating.band.toFixed(1)} margen</span>
@@ -182,7 +176,7 @@ export default async function FighterPage({ params }: { params: Promise<{ slug: 
           </section>
 
           {p.upcoming[0] && (
-            <Link href={`/fights/${p.upcoming[0].fight.id}`} className={s.next}>
+            <Link href={`/fights/${p.upcoming[0].fight.id}`} className={`cut ${s.next}`}>
               <span className={s.nextLabel}>Próximo combate</span>
               <span className={s.nextVs}>vs {p.upcoming[0].red.id === f.id ? p.upcoming[0].blue.name : p.upcoming[0].red.name}</span>
               <span className={s.nextMeta}>{p.upcoming[0].event.name} · {fmtDateLong(p.upcoming[0].event.date)} · {p.upcoming[0].event.city}</span>

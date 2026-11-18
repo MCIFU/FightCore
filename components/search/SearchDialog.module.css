@@ -19,7 +19,7 @@
 .bar { display: flex; align-items: center; gap: 12px; padding: 0 12px 0 18px; border-bottom: 1px solid var(--line); color: var(--bone-3); }
 .input {
   flex: 1; height: 64px; background: transparent; border: 0; outline: none;
-  font-size: 1.25rem; font-variation-settings: "wdth" 90; color: var(--bone);
+  font-size: 1.25rem; font-variation-settings: "wdth" 100; color: var(--bone);
 }
 .input::placeholder { color: var(--bone-3); }
 .close { min-width: 44px; min-height: 44px; display: grid; place-items: center; }
@@ -36,7 +36,7 @@
 .face { grid-row: 1 / span 2; width: 36px; height: 36px; background: var(--ink-3); object-fit: cover; }
 .item:has(.face) { grid-template-columns: 36px 1fr auto; }
 .item:has(.face) .itemSub { grid-column: 2; }
-.item:has(.face) .itemMeta { grid-column: 3; color: var(--gold); }
+.item:has(.face) .itemMeta { grid-column: 3; color: var(--gold-text); }
 .itemSub { grid-column: 1; font-size: var(--fs-xs); color: var(--bone-3); }
 .itemMeta { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.06em; color: var(--bone-2); text-transform: uppercase; }
 .note { padding: 18px; color: var(--bone-2); }

@@ -23,7 +23,7 @@
     "enrich:wiki": "tsx scripts/enrich-wikipedia.mts",
     "check:duplicates": "tsx scripts/check-duplicates.mts",
     "import:wiki-orgs": "tsx scripts/import-wiki-orgs.mts",
-    "screenshots": "node scripts/build-screenshots.mjs"
+    "screenshots": "node scripts/build-screenshots.mjs && node scripts/build-preview.mjs"
   },
   "dependencies": {
     "next": "16.3.7",

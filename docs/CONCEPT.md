@@ -1,5 +1,7 @@
 # FIGHTCORE — Concepto de marca y producto
 
+> **Dirección visual vigente: Octágono (noviembre de 2026).** Un instrumento de medida para el MMA: tinta casi negra, una sola señal naranja (esquina roja) y acero (esquina azul), oro solo para cinturones. Archivo expandida y en negra para titulares, normal para cifras e interfaz, JetBrains Mono para datos; ya no hay serif. La geometría de la jaula (cortes a 135°) da forma a tarjetas, botones, retratos y a la barra inferior en móvil; los rankings se leen como agujas sobre la escala del FCR y la ficha muestra el rating en un dial. Lo que sigue describe la exploración original; los principios de datos (procedencia, nada inventado, tres voces) siguen vigentes. Prototipos de las tres alternativas que se valoraron: `design/`.
+
 > THE CORE OF MMA · Documento de decisiones v0.1
 
 Este documento fija las decisiones de marca, sistema visual y producto antes de construir. Todo lo implementado en el repositorio deriva de aquí. Cuando una decisión cambia, se cambia aquí primero.

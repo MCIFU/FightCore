@@ -3,7 +3,7 @@
 /* One column: the FIGHTCORE ranking comes first, the official side after it. */
 @media (max-width: 1179px) { .fc { order: -1; } }
 .blockHead { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 2px solid var(--bone); margin-bottom: 18px; }
-.h2 { font-variation-settings: "wdth" 72; font-weight: 750; text-transform: uppercase; font-size: var(--fs-xl); line-height: 1; }
+.h2 { font-variation-settings: "wdth" 100; font-weight: 750; text-transform: uppercase; font-size: var(--fs-xl); line-height: 1; }
 .h3 { font-size: var(--fs-sm); font-weight: 700; margin: 32px 0 8px; }
 .official { align-self: start; }
 @media (min-width: 1180px) { .official { position: sticky; top: calc(var(--header-h) + 24px); } }

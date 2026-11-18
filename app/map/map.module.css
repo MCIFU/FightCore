@@ -29,7 +29,7 @@
 .step { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); }
 .step i { width: 14px; height: 10px; display: inline-block; }
 .tableBlock { padding-top: 48px; }
-.h2 { font-variation-settings: "wdth" 72; font-weight: 750; text-transform: uppercase; font-size: var(--fs-xl); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line-strong); }
+.h2 { font-variation-settings: "wdth" 100; font-weight: 750; text-transform: uppercase; font-size: var(--fs-xl); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line-strong); }
 .table { width: 100%; font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
 .table th, .table td { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
 .table thead th { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400; color: var(--bone-3); letter-spacing: 0.06em; text-transform: uppercase; }

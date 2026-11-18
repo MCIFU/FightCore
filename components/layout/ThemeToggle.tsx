@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 type Theme = "dark" | "light";
-const COLOR: Record<Theme, string> = { dark: "#0b0c0e", light: "#f6f3ec" };
+const COLOR: Record<Theme, string> = { dark: "#07080a", light: "#f1f2f3" };
 
 /**
  * Light / dark switch. The theme is set before first paint by THEME_SCRIPT

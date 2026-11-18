@@ -49,7 +49,7 @@ export default function EventsPage() {
 
   return (
     <div className="wrap" style={{ paddingTop: "var(--s-7)", paddingBottom: "var(--s-8)" }}>
-      <SectionHead as="h1" kicker="FIGHTCORE Events" title="Eventos" lede={<>{all.length} eventos{orgCount === 1 ? ` de ${all[0]?.orgShort ?? ""}` : ` en ${orgCount} organizaciones`}. <Source kind={SRC} /></>} />
+      <SectionHead as="h1" kicker="FIGHTCORE Events" title="Eventos" lede={<>{all.length} eventos{orgCount === 1 ? ` de ${all[0]?.orgShort ?? ""}` : ` en ${orgCount} organizaciones`}.<br /><Source kind={SRC} /></>} />
       <Tabs
         label="Periodo"
         tabs={[

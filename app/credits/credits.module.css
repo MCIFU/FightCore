@@ -1,5 +1,5 @@
 .block { margin-top: var(--s-7); max-width: 1000px; }
-.h2 { display: flex; align-items: baseline; gap: 12px; font-variation-settings: "wdth" 75; font-weight: 800; text-transform: uppercase; font-size: var(--fs-xl, 1.6rem); margin-bottom: 14px; }
+.h2 { display: flex; align-items: baseline; gap: 12px; font-variation-settings: "wdth" 100; font-weight: 800; text-transform: uppercase; font-size: var(--fs-xl, 1.6rem); margin-bottom: 14px; }
 .count { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--bone-3); letter-spacing: 0.08em; }
 .p { max-width: 68ch; color: var(--bone-2); line-height: 1.6; margin-bottom: 14px; }
 .p a, .table a { color: var(--bone); text-decoration: underline; text-underline-offset: 2px; }

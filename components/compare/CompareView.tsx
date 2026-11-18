@@ -240,7 +240,7 @@ export function CompareView({ entries, roster, demo = false }: { entries: Compar
                 />
               </div>
             ) : (
-              <div className={s.matrixWrap}>
+              <div className={s.matrixWrap} tabIndex={0}>
                 <table className={s.matrix}>
                   <caption className="visually-hidden">Estadísticas de carrera</caption>
                   <thead><tr><th scope="col">Métrica</th>{entries.map((e, i) => <th key={e.summary.slug} scope="col" className={s[`c_${CORNERS[i]}`]}><i aria-hidden />{LETTER[i]} · {e.summary.lastName}</th>)}</tr></thead>
@@ -303,7 +303,7 @@ export function CompareView({ entries, roster, demo = false }: { entries: Compar
           {/* ───── Physical ───── */}
           <section className={s.block} aria-labelledby="cmp-phys">
             <div className={s.blockHead}><h2 id="cmp-phys" className={s.h2}>Físico y perfil</h2></div>
-            <div className={s.matrixWrap}>
+            <div className={s.matrixWrap} tabIndex={0}>
               <table className={s.matrix}>
                 <caption className="visually-hidden">Físico y perfil</caption>
                 <thead><tr><th scope="col">Dato</th>{entries.map((e, i) => <th key={e.summary.slug} scope="col" className={s[`c_${CORNERS[i]}`]}><i aria-hidden />{LETTER[i]} · {e.summary.lastName}</th>)}</tr></thead>
@@ -327,7 +327,7 @@ export function CompareView({ entries, roster, demo = false }: { entries: Compar
               <p className={s.note}>La única comparación directa que ofrecen los resultados. Aun así, cambian el momento y la forma de cada uno.</p>
             </div>
             {common.length ? (
-              <div className={s.matrixWrap}>
+              <div className={s.matrixWrap} tabIndex={0}>
                 <table className={s.matrix}>
                   <caption className="visually-hidden">Resultados contra rivales comunes</caption>
                   <thead><tr><th scope="col">Rival</th>{entries.map((e, i) => <th key={e.summary.slug} scope="col" className={s[`c_${CORNERS[i]}`]}><i aria-hidden />{LETTER[i]} · {e.summary.lastName}</th>)}</tr></thead>

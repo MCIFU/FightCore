@@ -13,32 +13,33 @@
 .src_official { color: var(--success); }
 
 /* Section heads */
-.sectionHead { display: grid; gap: var(--s-4); margin-bottom: var(--s-6); }
+.sectionHead { display: grid; gap: var(--s-4); margin-bottom: var(--s-7); }
 .sectionMeta { display: flex; align-items: center; gap: var(--s-3); min-width: 0; }
 .round {
-  font-family: var(--font-mono); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.06em;
-  color: var(--ink-0); background: var(--bone); padding: 3px 6px 2px; line-height: 1;
+  font-family: var(--font-mono); font-size: var(--fs-micro); font-weight: 700; letter-spacing: 0.1em;
+  color: var(--ember); line-height: 1;
 }
-.sectionHeadPaper .round { background: var(--paper-ink); color: var(--paper); }
+.round::after { content: " ·"; color: var(--bone-3); font-weight: 400; }
+.sectionMeta :global(.label) { color: var(--ember); }
 .sectionRule { flex: 1; height: 1px; background: var(--line); min-width: 12px; }
 .sectionAction {
-  font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--bone-2); white-space: nowrap; padding: 6px 0;
+  font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; letter-spacing: 0.005em;
+  color: var(--bone); white-space: nowrap; padding: 6px 0 4px; box-shadow: inset 0 -1px 0 var(--signal);
   transition: color var(--dur-1);
 }
 .sectionAction:hover { color: var(--ember); }
 .sectionAction span { display: inline-block; transition: transform var(--dur-2) var(--ease-out); }
 .sectionAction:hover span { transform: translateX(3px); }
 .sectionTitle {
-  font-size: var(--fs-2xl); font-variation-settings: "wdth" 72; font-weight: 750; text-transform: uppercase;
-  letter-spacing: -0.005em; line-height: 0.9; max-width: 18ch;
+  font-size: var(--fs-2xl); font-variation-settings: "wdth" var(--wd-display); font-weight: 900; text-transform: uppercase;
+  letter-spacing: -0.035em; line-height: 0.88; max-width: 20ch;
 }
-.sectionLede { font-size: var(--fs-md); color: var(--bone-2); max-width: 56ch; line-height: 1.45; }
+.sectionLede { font-size: var(--fs-base); color: var(--bone-2); max-width: 58ch; line-height: 1.55; }
 
 /* Rating numeral */
 .rating { display: inline-flex; align-items: baseline; font-variant-numeric: tabular-nums; line-height: 0.85; white-space: nowrap; }
-.ratingInt { font-variation-settings: "wdth" 75; font-weight: 700; letter-spacing: -0.02em; }
-.ratingDec { font-variation-settings: "wdth" 75; font-weight: 600; font-size: 0.55em; color: var(--bone-2); letter-spacing: -0.01em; }
+.ratingInt { font-variation-settings: "wdth" 100; font-weight: 800; letter-spacing: -0.045em; }
+.ratingDec { font-variation-settings: "wdth" 100; font-weight: 700; font-size: 0.5em; color: var(--bone-2); letter-spacing: -0.02em; }
 .ratingBand { font-family: var(--font-mono); font-size: max(10px, 0.18em); color: var(--bone-3); margin-left: 0.5em; letter-spacing: 0.02em; align-self: flex-start; padding-top: 0.2em; }
 .provisional { font-family: var(--font-mono); font-size: var(--fs-label-sm); letter-spacing: 0.1em; color: var(--warning); margin-left: 6px; border: 1px solid currentColor; padding: 1px 3px; align-self: center; }
 .rating_xs { font-size: 1rem; }
@@ -49,7 +50,7 @@
 .rating_xs .ratingBand, .rating_sm .ratingBand { display: none; }
 
 /* Record */
-.record { display: inline-flex; align-items: baseline; gap: 0.08em; font-variation-settings: "wdth" 75; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
+.record { display: inline-flex; align-items: baseline; gap: 0.06em; font-variation-settings: "wdth" 100; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
 .recordSep { color: var(--bone-3); font-weight: 400; margin: 0 0.04em; }
 .recordNc { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--bone-3); margin-left: 8px; font-weight: 400; }
 .record_sm { font-size: 1rem; }
@@ -83,7 +84,7 @@
 
 /* Country */
 .country { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--bone-2); }
-.countryTick { width: 8px; height: 2px; background: var(--ember); }
+.countryTick { width: 8px; height: 2px; background: var(--signal); }
 
 /* Tag */
 .tag {
@@ -98,20 +99,25 @@
 
 /* Buttons */
 .btn {
+  --cut: 8px;
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: 44px; padding: 0 18px; font-weight: 600; font-size: var(--fs-sm); letter-spacing: 0.01em;
-  border: 1px solid transparent; transition: background var(--dur-1), color var(--dur-1), border-color var(--dur-1), transform var(--dur-1);
+  min-height: 46px; padding: 0 22px; font-weight: 700; font-size: var(--fs-sm); letter-spacing: 0.015em;
+  clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut));
+  transition: background var(--dur-1), color var(--dur-1), box-shadow var(--dur-1), transform var(--dur-2) var(--ease-out);
 }
+.btn:hover { transform: translateY(-1px); }
 .btn:active { transform: translateY(1px); }
-.btn_primary { background: var(--bone); color: var(--ink-0); }
-.btn_primary:hover { background: var(--ember); color: var(--ink-0); }
-.btn_ghost { border-color: var(--line-strong); color: var(--bone); }
-.btn_ghost:hover { border-color: var(--bone); }
-.btn_quiet { padding: 0; min-height: 32px; color: var(--bone-2); }
+.btn_primary { background: var(--signal); color: var(--on-signal); }
+.btn_primary:hover { background: color-mix(in srgb, var(--signal) 82%, white); }
+.btn_ghost { position: relative; isolation: isolate; background: var(--line-strong); color: var(--bone); }
+.btn_ghost::before { --c: calc(var(--cut) - 0.41px); content: ""; position: absolute; inset: 1px; z-index: -1; background: var(--ink-0); clip-path: polygon(var(--c) 0, calc(100% - var(--c)) 0, 100% var(--c), 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, var(--c) 100%, 0 calc(100% - var(--c)), 0 var(--c)); transition: background var(--dur-1); }
+.btn_ghost:hover { background: var(--bone-3); }
+.btn_ghost:hover::before { background: var(--ink-1); }
+.btn_quiet { padding: 0; min-height: 32px; color: var(--bone-2); clip-path: none; }
 .btn_quiet:hover { color: var(--bone); }
 
 /* Meter */
-.meter { position: relative; display: block; height: 6px; background: var(--ink-3); width: 100%; }
+.meter { position: relative; display: block; height: 4px; background: var(--ink-3); width: 100%; }
 .meterFill { position: absolute; inset: 0 auto 0 0; background: var(--bone); transform-origin: left; }
 .tone_a { background: var(--corner-a); }
 .tone_b { background: var(--corner-b); }
@@ -122,20 +128,20 @@
 
 /* Stat */
 .stat { display: grid; gap: 6px; align-content: start; }
-.statValue { display: flex; align-items: baseline; gap: 6px; font-size: 2rem; font-variation-settings: "wdth" 75; font-weight: 700; line-height: 1; }
+.statValue { display: flex; align-items: baseline; gap: 6px; font-size: 1.85rem; font-variation-settings: "wdth" 100; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
 .statEm .statValue { font-size: clamp(2.5rem, 1.8rem + 2vw, 3.5rem); }
 .statUnit { font-family: var(--font-mono); font-size: 11px; color: var(--bone-3); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 400; }
 .statContext { font-size: var(--fs-xs); color: var(--bone-3); }
 
 /* Corner frame */
-.frame { position: relative; --frame: var(--bone); }
+.frame { position: relative; --frame: var(--bone-3); }
 .frameEmber { --frame: var(--ember); }
 .frameTL, .frameBR { position: absolute; width: 18px; height: 18px; pointer-events: none; }
 .frameTL { top: 0; left: 0; border-top: 2px solid var(--frame); border-left: 2px solid var(--frame); }
 .frameBR { bottom: 0; right: 0; border-bottom: 2px solid var(--frame); border-right: 2px solid var(--frame); }
 
 /* Empty */
-.empty { display: grid; justify-items: start; gap: var(--s-3); padding: var(--s-7) var(--s-5); border: 1px dashed var(--line-strong); }
+.empty { display: grid; justify-items: start; gap: var(--s-3); padding: var(--s-7) var(--s-5); border: 1px dashed var(--line-strong); background: var(--ink-1); }
 .emptyMark { color: var(--bone-3); }
 .emptyTitle { font-weight: 700; font-size: var(--fs-lg); }
 .emptyBody { color: var(--bone-2); max-width: 52ch; }

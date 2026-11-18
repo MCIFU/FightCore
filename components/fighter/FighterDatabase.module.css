@@ -13,7 +13,7 @@
 @media (max-width: 640px) { .select { flex: 1 1 45%; } .select select { width: 100%; min-width: 0; } }
 .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .count { font-size: var(--fs-sm); color: var(--bone-2); display: flex; align-items: center; gap: 14px; }
-.count strong { color: var(--bone); font-size: 1.25rem; font-variation-settings: "wdth" 75; }
+.count strong { color: var(--bone); font-size: 1.25rem; font-variation-settings: "wdth" 100; }
 .clear { font-size: var(--fs-xs); color: var(--ember); border-bottom: 1px solid currentColor; min-height: 32px; }
 .views { display: flex; gap: 2px; }
 .viewBtn { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone-3); }
@@ -26,7 +26,7 @@
 .card:hover strong { color: var(--ember); }
 .cardName { display: grid; line-height: 1; }
 .cardName span { font-size: var(--fs-xs); color: var(--bone-2); }
-.cardName strong { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: 1.6rem; line-height: 0.95; transition: color var(--dur-1); overflow-wrap: anywhere; }
+.cardName strong { font-variation-settings: "wdth" 100; font-weight: 800; text-transform: uppercase; font-size: 1.6rem; line-height: 0.95; transition: color var(--dur-1); overflow-wrap: anywhere; }
 .cardRow { display: flex; justify-content: space-between; align-items: baseline; }
 .cardMeta { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; color: var(--bone-3); }
 

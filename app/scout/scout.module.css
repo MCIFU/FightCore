@@ -3,7 +3,7 @@
 .subject { display: flex; gap: 24px; align-items: flex-end; padding: 24px 0; border-top: 2px solid var(--bone); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
 .face { width: 150px; height: 150px; background: radial-gradient(70% 60% at 50% 45%, var(--ink-3), var(--ink-1) 70%); border-bottom: 3px solid var(--ember); }
 .subjectInfo { display: grid; gap: 10px; flex: 1; min-width: 260px; }
-.name { font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: var(--fs-2xl); line-height: 0.9; }
+.name { font-variation-settings: "wdth" 125; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; font-size: var(--fs-2xl); line-height: 0.9; }
 .name a:hover { color: var(--ember); }
 .subjectMeta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
 .tagStyle { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--bone-2); text-transform: uppercase; }
