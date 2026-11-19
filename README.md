@@ -31,3 +31,9 @@ npm run dev        # http://localhost:3000
 - **App móvil:** PWABuilder, guía en [`docs/APP-MOVIL.md`](docs/APP-MOVIL.md).
 
 Más detalle (fuentes, rating, scripts, actualización semanal): [`docs/DESARROLLO.md`](docs/DESARROLLO.md).
+
+## Usarlo en el PC, sin Vercel
+
+Doble clic en `Iniciar.bat` → se abre en http://localhost:3001. Necesita [Node.js](https://nodejs.org) 22 o superior y Git.
+Cada vez que lo abres se actualiza desde GitHub, instala y compila solo si hay cambios (la primera vez tarda unos minutos) y abre el navegador. No necesita base de datos: lee `data/snapshot`.
+
